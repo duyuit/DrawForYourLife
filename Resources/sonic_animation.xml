@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Animations>
+  <Animation name="run_fast" imagePath="99072.png" width="2048" height="3274">
+    <sprite x="602" y="811" w="118" h="128" oX="602" oY="811" oW="581" oH="1859" />
+    <sprite x="851" y="810" w="118" h="128" oX="851" oY="810" oW="581" oH="1859" />
+    <sprite x="1099" y="810" w="119" h="128" oX="1099" oY="810" oW="581" oH="1859" />
+    <sprite x="1348" y="811" w="113" h="127" oX="1348" oY="811" oW="581" oH="1859" />
+    <sprite x="1596" y="810" w="119" h="128" oX="1596" oY="810" oW="581" oH="1859" />
+    <sprite x="1845" y="810" w="118" h="128" oX="1845" oY="810" oW="581" oH="1859" />
+    <sprite x="105" y="1058" w="119" h="128" oX="105" oY="1058" oW="581" oH="1859" />
+    <sprite x="354" y="1059" w="116" h="127" oX="354" oY="1059" oW="581" oH="1859" />
+  </Animation>
+
+  <Animation name="run_normal" imagePath="99072.png" width="2048" height="3274">
+    <sprite x="111" y="548" w="116" h="142" oX="111" oY="548" oW="572" oH="1869" />
+    <sprite x="341" y="546" w="141" h="144" oX="341" oY="546" oW="572" oH="1869" />
+    <sprite x="585" y="546" w="156" h="143" oX="585" oY="546" oW="572" oH="1869" />
+    <sprite x="833" y="547" w="155" h="138" oX="833" oY="547" oW="572" oH="1869" />
+    <sprite x="1088" y="549" w="136" h="138" oX="1088" oY="549" oW="572" oH="1869" />
+    <sprite x="1353" y="550" w="107" h="140" oX="1353" oY="550" oW="572" oH="1869" />
+    <sprite x="1610" y="552" w="101" h="138" oX="1610" oY="552" oW="572" oH="1869" />
+    <sprite x="1858" y="549" w="104" h="141" oX="1858" oY="549" oW="572" oH="1869" />
+  </Animation>
+  <Animation name="run_slow" imagePath="99072.png" width="2048" height="3274">
+    <sprite x="1359" y="302" w="106" h="140" oX="1359" oY="302" oW="-1182" oH="614" />
+    <sprite x="1610" y="304" w="103" h="138" oX="1610" oY="304" oW="-1182" oH="614" />
+    <sprite x="1858" y="303" w="102" h="139" oX="1858" oY="303" oW="-1182" oH="614" />
+    <sprite x="1353" y="550" w="107" h="140" oX="1353" oY="550" oW="-1182" oH="614" />
+    <sprite x="1610" y="552" w="101" h="138" oX="1610" oY="552" oW="-1182" oH="614" />
+    <sprite x="1858" y="549" w="104" h="141" oX="1858" oY="549" oW="-1182" oH="614" />
+  </Animation>
+
+</Animations>
