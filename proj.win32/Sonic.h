@@ -6,6 +6,7 @@
 #include "SonicState.h"
 #include "SonicRunNormalState.h"
 #include "SonicRunFastState.h"
+#include "SonicJumpState.h"
 #include "GameDefine.h"
 using namespace cocos2d;
 #pragma once
@@ -29,6 +30,7 @@ private:
 	RefPtr<Animate>  *run_slow_Ani;
 	RefPtr<Animate>  *run_normal_Ani;
 	RefPtr<Animate>  *run_fast_Ani;
+	RefPtr<Animate>  *jump_Ani;
 	Action* mCurrentAction;
 	Define::SWIPE_DIRECTION cur_Swipe_direction;
 

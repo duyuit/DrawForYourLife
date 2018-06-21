@@ -34,6 +34,10 @@ public:
 	Vec2 start_touch_position, end_touch_position;
     virtual bool init();
 	Sonic* mSonic;
+	CCTMXTiledMap * _tileMap;
+	CCTMXLayer *_background;
+
+
 	void update(float dt);
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);

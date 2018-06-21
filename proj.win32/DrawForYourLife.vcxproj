@@ -156,6 +156,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sonic.cpp" />
     <ClCompile Include="SonicData.cpp" />
+    <ClCompile Include="SonicJumpState.cpp" />
     <ClCompile Include="SonicRunFastState.cpp" />
     <ClCompile Include="SonicRunNormalState.cpp" />
     <ClCompile Include="SonicRunSlowState.cpp" />
@@ -168,6 +169,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="main.h" />
     <ClInclude Include="Sonic.h" />
     <ClInclude Include="SonicData.h" />
+    <ClInclude Include="SonicJumpState.h" />
     <ClInclude Include="SonicRunFastState.h" />
     <ClInclude Include="SonicRunNormalState.h" />
     <ClInclude Include="SonicRunSlowState.h" />

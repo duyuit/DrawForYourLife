@@ -75,6 +75,38 @@ bool HelloWorld::init()
 	this->addChild(edgeSp);
 
 
+	_tileMap = new TMXTiledMap();
+	_tileMap->initWithTMXFile("untitled.tmx");
+	//_tileMap->setScale(0.3f);
+	this->addChild(_tileMap);
+
+
+	TMXObjectGroup *objectGroup = _tileMap->getObjectGroup("Land");
+
+
+	for (int i = 0; i<objectGroup->getObjects().size(); i++)
+	{
+
+		Value objectemp = objectGroup->getObjects().at(i);
+
+		float wi_box = objectemp.asValueMap().at("width").asFloat();
+		float he_box = objectemp.asValueMap().at("height").asFloat();
+		float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+		float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+
+		auto edgeSp = Sprite::create();
+		auto boundBody = PhysicsBody::createBox(Size(wi_box, he_box));
+		boundBody->getShape(0)->setFriction(10.0f);
+		boundBody->setDynamic(false);
+		boundBody->getShape(0)->setRestitution(100.0f);
+		boundBody->setContactTestBitmask(0x1);
+		edgeSp->setPhysicsBody(boundBody);
+		edgeSp->setPosition(Vec2(x_box, y_box));
+
+		this->addChild(edgeSp); // Add vào Layer
+	}
+
+
 
 	mSonic = new Sonic();
 	this->addChild(mSonic);

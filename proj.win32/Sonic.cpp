@@ -7,26 +7,28 @@ Sonic::Sonic()
 	Vector<SpriteFrame*> run_slow_FL = loadAnim("sonic_animation.xml", "run_slow");
 	Vector<SpriteFrame*> run_normal_FL = loadAnim("sonic_animation.xml", "run_normal");
 	Vector<SpriteFrame*> run_fast_FL = loadAnim("sonic_animation.xml", "run_fast");
-
+	Vector<SpriteFrame*> jump_FL = loadAnim("sonic_animation.xml", "jump");
 	
 
 
 	run_fast_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_fast_FL, 0.01f)));
 	run_slow_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_slow_FL, 0.1f)));
 	run_normal_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_normal_FL, 0.07f)));
+	jump_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(jump_FL, 0.03f)));
 
+	auto verti = PhysicsBody::createBox(Size(117,151));
+	verti->setContactTestBitmask(0x1);
+	verti->setRotationEnable(false);
+	verti->setDynamic(true);
+	
+	verti->getShape(0)->setRestitution(0.0f);//đàn hồi
+	this->setPhysicsBody(verti);
 
-	auto ballBody = PhysicsBody::createBox(Size(117,151)); // Tạo 1 khung body có đặc tính vật lý để phát hiện va chạm, khung này dạng tròn có đường kính = nội dung của _ball chia 2.
-	ballBody->getShape(0)->setRestitution(0);
-	ballBody->setContactTestBitmask(0x1); // Cái này rất quan trọng, nếu ko có thì hàm onContactBegin ko có tác dụng, tìm trên mạng mãi mới sửa được lỗi này
-
-
-	this->setPhysicsBody(ballBody);
 
 	this->initWithSpriteFrame(run_slow_FL.at(0));
 	this->setPosition(200, 100);
 	this->setAnchorPoint(Vec2(0.5f, 0));
-	ballBody->setPositionOffset(Vec2(117/4, 151/4));
+	verti->setPositionOffset(Vec2(117 / 4, 151 / 4));
 	this->setScale(0.5f);
 
 
@@ -57,25 +59,25 @@ void Sonic::handle_swipe(Vec2 start, Vec2 end)
 {
 
 	int delta_x = end.x - start.x;
-	int delta_y = end.y - end.y;
-	bool isLeft_temp=false;
+	int delta_y = end.y - start.y;
+
 	if (delta_x > 200)
 	{
 		cur_Swipe_direction = Define::SWIPE_DIRECTION::RIGHT;
-		isLeft_temp = false;
+		isLeft = false;
 	}
 	if (delta_x < -200)
 	{
 		cur_Swipe_direction = Define::SWIPE_DIRECTION::LEFT;
-		isLeft_temp = true;
+		isLeft = true;
 	}
 
 	if (delta_y > 200) 
-		cur_Swipe_direction = Define::SWIPE_DIRECTION::DOWN;
-	if (delta_y <-200) 
 		cur_Swipe_direction = Define::SWIPE_DIRECTION::UP;
+	if (delta_y <-200) 
+		cur_Swipe_direction = Define::SWIPE_DIRECTION::DOWN;
 	mCurrentState->handle_swipe(cur_Swipe_direction);
-	isLeft = isLeft_temp;
+
 	
 	
 }
@@ -134,6 +136,9 @@ void Sonic::SetStateByTag(SonicState::StateAction action)
 	case SonicState::RUN_FAST:
 		this->SetState(new SonicRunFastState(mData));
 		break;
+	case SonicState::JUMP:
+		this->SetState(new SonicJumpState(mData));
+		break;
 
 	}
 }
@@ -160,6 +165,10 @@ void Sonic::SetState(SonicState * state)
 	case SonicState::RUN_FAST:
 		mCurrentAnimate = run_fast_Ani;
 		mCurrentAction = RepeatForever::create(mCurrentAnimate->get());
+		break;
+	case SonicState::JUMP:
+		mCurrentAnimate = jump_Ani;
+		mCurrentAction = mCurrentAnimate->get()->clone();
 		break;
 	}
 	this->runAction(mCurrentAction);

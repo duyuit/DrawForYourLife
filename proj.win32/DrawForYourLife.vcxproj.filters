@@ -24,9 +24,6 @@
     <ClCompile Include="..\Classes\HelloWorldScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="Sonic.cpp">
-      <Filter>src\Sonic</Filter>
-    </ClCompile>
     <ClCompile Include="SonicData.cpp">
       <Filter>src\Sonic</Filter>
     </ClCompile>
@@ -40,6 +37,12 @@
       <Filter>src\Sonic</Filter>
     </ClCompile>
     <ClCompile Include="SonicRunFastState.cpp">
+      <Filter>src\Sonic</Filter>
+    </ClCompile>
+    <ClCompile Include="Sonic.cpp">
+      <Filter>src\Sonic</Filter>
+    </ClCompile>
+    <ClCompile Include="SonicJumpState.cpp">
       <Filter>src\Sonic</Filter>
     </ClCompile>
   </ItemGroup>
@@ -72,6 +75,9 @@
       <Filter>src\Sonic</Filter>
     </ClInclude>
     <ClInclude Include="SonicRunFastState.h">
+      <Filter>src\Sonic</Filter>
+    </ClInclude>
+    <ClInclude Include="SonicJumpState.h">
       <Filter>src\Sonic</Filter>
     </ClInclude>
   </ItemGroup>

@@ -34,6 +34,7 @@ void SonicRunFastState::handle_swipe(Define::SWIPE_DIRECTION direct)
 			this->mPlayerData->player->SetStateByTag(StateAction::RUN_SLOW);
 		break;
 	case Define::UP:
+		this->mPlayerData->player->SetStateByTag(StateAction::JUMP);
 		break;
 	case Define::DOWN:
 		break;
