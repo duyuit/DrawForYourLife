@@ -1,5 +1,5 @@
 #include "SonicRunSlowState.h"
-#include "proj.win32\Sonic.h"
+#include "Sonic.h"
 
 
 

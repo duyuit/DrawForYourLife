@@ -8,13 +8,14 @@ Sonic::Sonic()
 	Vector<SpriteFrame*> run_normal_FL = loadAnim("sonic_animation.xml", "run_normal");
 	Vector<SpriteFrame*> run_fast_FL = loadAnim("sonic_animation.xml", "run_fast");
 	Vector<SpriteFrame*> jump_FL = loadAnim("sonic_animation.xml", "jump");
-	
+	Vector<SpriteFrame*> roll_FL = loadAnim("sonic_animation.xml", "roll");
 
 
 	run_fast_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_fast_FL, 0.01f)));
 	run_slow_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_slow_FL, 0.1f)));
 	run_normal_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_normal_FL, 0.07f)));
 	jump_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(jump_FL, 0.03f)));
+	roll_Ani=new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_FL, 0.03f)));
 
 	auto verti = PhysicsBody::createBox(Size(117,151));
 	verti->setContactTestBitmask(0x1);
@@ -50,6 +51,7 @@ Sonic::~Sonic()
 
 void Sonic::update()
 {
+	
 	this->setFlippedX(!isLeft);
 	mCurrentState->update();
 	this->setPosition(this->getPosition() + velocity);
@@ -74,12 +76,23 @@ void Sonic::handle_swipe(Vec2 start, Vec2 end)
 
 	if (delta_y > 200) 
 		cur_Swipe_direction = Define::SWIPE_DIRECTION::UP;
-	if (delta_y <-200) 
+	if (delta_y < -200)
+	{
 		cur_Swipe_direction = Define::SWIPE_DIRECTION::DOWN;
+		SetStateByTag(SonicState::ROLL);
+		return;
+	}
 	mCurrentState->handle_swipe(cur_Swipe_direction);
 
 	
 	
+}
+
+bool Sonic::CheckLastFrame()
+{
+	if (mCurrentAnimate->get()->getCurrentFrameIndex() == mCurrentAnimate->get()->getAnimation()->getFrames().size() - 1) 
+		return true;
+	return false;
 }
 
 Vector<SpriteFrame*> Sonic::loadAnim(char * path, std::string key)
@@ -139,6 +152,9 @@ void Sonic::SetStateByTag(SonicState::StateAction action)
 	case SonicState::JUMP:
 		this->SetState(new SonicJumpState(mData));
 		break;
+	case SonicState::ROLL:
+		this->SetState(new SonicRollState(mData));
+		break;
 
 	}
 }
@@ -169,6 +185,10 @@ void Sonic::SetState(SonicState * state)
 	case SonicState::JUMP:
 		mCurrentAnimate = jump_Ani;
 		mCurrentAction = mCurrentAnimate->get()->clone();
+		break;
+	case SonicState::ROLL:
+		mCurrentAnimate = roll_Ani;
+		mCurrentAction = mCurrentAnimate->get();
 		break;
 	}
 	this->runAction(mCurrentAction);
