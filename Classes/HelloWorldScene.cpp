@@ -35,7 +35,7 @@ Scene* HelloWorld::createScene()
 	scene->getPhysicsWorld()->setGravity(Vec2(0, -900));
 
 	// optional: set debug draw
-	 scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+	// scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
 
 	auto layer = HelloWorld::create();
 	scene->addChild(layer);
@@ -64,15 +64,39 @@ bool HelloWorld::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 
-	auto edgeSp = Sprite::create();
+	
 
-	auto boundBody = PhysicsBody::createEdgeBox(visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 3);
-	boundBody->getShape(0)->setRestitution(0);
-	edgeSp->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2));
 
-	edgeSp->setPhysicsBody(boundBody);
+	_tileMap = new TMXTiledMap();
+	_tileMap->initWithTMXFile("untitled.tmx");
+	//_tileMap->setScale(0.3f);
+	this->addChild(_tileMap);
 
-	this->addChild(edgeSp);
+
+	TMXObjectGroup *objectGroup = _tileMap->getObjectGroup("Land");
+
+
+	for (int i = 0; i<objectGroup->getObjects().size(); i++)
+	{
+
+		Value objectemp = objectGroup->getObjects().at(i);
+
+		float wi_box = objectemp.asValueMap().at("width").asFloat();
+		float he_box = objectemp.asValueMap().at("height").asFloat();
+		float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+		float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+
+		auto edgeSp = Sprite::create();
+		auto boundBody = PhysicsBody::createBox(Size(wi_box, he_box));
+		boundBody->getShape(0)->setFriction(10.0f);
+		boundBody->setDynamic(false);
+		boundBody->getShape(0)->setRestitution(100.0f);
+		boundBody->setContactTestBitmask(0x1);
+		edgeSp->setPhysicsBody(boundBody);
+		edgeSp->setPosition(Vec2(x_box, y_box));
+
+		this->addChild(edgeSp); // Add vào Layer
+	}
 
 
 
@@ -95,7 +119,31 @@ bool HelloWorld::init()
 
     
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, this);
+
+
+	
+	Sprite* border = Sprite::create("loadingbar.png");
+	border->setAnchorPoint(Vec2(0.5, 0.5));
+	border->setPosition(Vec2(543, 384));
+	this->addChild(border, 5);
+
+	Sprite* background = Sprite::create("loadingbar_state.png");
+	background->setAnchorPoint(Vec2(0.0, 0.0));
+	background->setPosition(Vec2(0.0, 0.0));
+	//barBody->addChild(background, 0, kBar);
+
+	ProgressTimer* mouseBar = ProgressTimer::create(background);
+	mouseBar->setType(ProgressTimerType::BAR);
+	mouseBar->setAnchorPoint(Vec2(0.0, 0.0));
+	mouseBar->setPosition(Vec2(0.0, 0.0));
+	mouseBar->setBarChangeRate(Vec2(1, 0));
+	mouseBar->setMidpoint(Vec2(0.0, 0.0));
+	mouseBar->setPercentage(34);
+	border->addChild(mouseBar, 10);
+
+	mouseBar->runAction(ProgressFromTo::create(2.0f, 30.0f, 100)); // filling from 30% to 75% in 2 seconds
 	this->scheduleUpdate();
+
     return true;
 }
 
@@ -103,7 +151,9 @@ void HelloWorld::update(float dt)
 {
 	mSonic->update();
 	if (mSonic->getPosition().x < 0) mSonic->setPosition(0, mSonic->getPosition().y);
-	if (mSonic->getPosition().x > Director::getInstance()->getVisibleSize().width) mSonic->setPosition(Director::getInstance()->getVisibleSize().width, mSonic->getPosition().y);
+//	if (mSonic->getPosition().x > Director::getInstance()->getVisibleSize().width) mSonic->setPosition(Director::getInstance()->getVisibleSize().width, mSonic->getPosition().y);
+	//auto camera = this->getScene()->getDefaultCamera();
+	setViewPointCenter(mSonic->getPosition());
 }
 
 
@@ -122,4 +172,20 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
     //_eventDispatcher->dispatchEvent(&customEndEvent);
 
 
+}
+
+void HelloWorld::setViewPointCenter(Point position)
+{
+
+	Size winSize = _director->getWinSize();
+
+	int x = MAX(position.x, winSize.width / 2);
+	int y = MAX(position.y, winSize.height / 2);
+	x = MIN(x, (_tileMap->getMapSize().width * this->_tileMap->getTileSize().width) - winSize.width / 2);
+	y = MIN(y, (_tileMap->getMapSize().height * _tileMap->getTileSize().height) - winSize.height / 2);
+	Vec2 actualPosition = Vec2(x, y);
+
+	Vec2 centerOfView = Vec2(winSize.width / 2, winSize.height / 2);
+	Vec2 viewPoint = centerOfView - actualPosition;
+	this->setPosition(viewPoint);
 }

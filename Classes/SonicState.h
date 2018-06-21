@@ -10,7 +10,8 @@ public:
 		RUN_SLOW,
 		RUN_NORMAL,
 		RUN_FAST,
-		JUMP
+		JUMP,
+		ROLL
 	};
 	SonicState();
 	~SonicState();

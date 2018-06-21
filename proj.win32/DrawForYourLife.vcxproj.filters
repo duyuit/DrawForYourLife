@@ -24,22 +24,28 @@
     <ClCompile Include="..\Classes\HelloWorldScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="Sonic.cpp">
+    <ClCompile Include="..\Classes\Sonic.cpp">
       <Filter>src\Sonic</Filter>
     </ClCompile>
-    <ClCompile Include="SonicData.cpp">
+    <ClCompile Include="..\Classes\SonicData.cpp">
       <Filter>src\Sonic</Filter>
     </ClCompile>
-    <ClCompile Include="SonicRunSlowState.cpp">
+    <ClCompile Include="..\Classes\SonicJumpState.cpp">
       <Filter>src\Sonic</Filter>
     </ClCompile>
-    <ClCompile Include="SonicState.cpp">
+    <ClCompile Include="..\Classes\SonicRunFastState.cpp">
       <Filter>src\Sonic</Filter>
     </ClCompile>
-    <ClCompile Include="SonicRunNormalState.cpp">
+    <ClCompile Include="..\Classes\SonicRunNormalState.cpp">
       <Filter>src\Sonic</Filter>
     </ClCompile>
-    <ClCompile Include="SonicRunFastState.cpp">
+    <ClCompile Include="..\Classes\SonicRunSlowState.cpp">
+      <Filter>src\Sonic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SonicState.cpp">
+      <Filter>src\Sonic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SonicRollState.cpp">
       <Filter>src\Sonic</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,25 +59,31 @@
     <ClInclude Include="..\Classes\HelloWorldScene.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="Sonic.h">
+    <ClInclude Include="..\Classes\Sonic.h">
       <Filter>src\Sonic</Filter>
     </ClInclude>
-    <ClInclude Include="SonicData.h">
+    <ClInclude Include="..\Classes\SonicData.h">
       <Filter>src\Sonic</Filter>
     </ClInclude>
-    <ClInclude Include="SonicRunSlowState.h">
+    <ClInclude Include="..\Classes\SonicJumpState.h">
       <Filter>src\Sonic</Filter>
     </ClInclude>
-    <ClInclude Include="SonicState.h">
+    <ClInclude Include="..\Classes\SonicRunFastState.h">
       <Filter>src\Sonic</Filter>
     </ClInclude>
-    <ClInclude Include="GameDefine.h">
+    <ClInclude Include="..\Classes\SonicRunNormalState.h">
+      <Filter>src\Sonic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SonicRunSlowState.h">
+      <Filter>src\Sonic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SonicState.h">
+      <Filter>src\Sonic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameDefine.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="SonicRunNormalState.h">
-      <Filter>src\Sonic</Filter>
-    </ClInclude>
-    <ClInclude Include="SonicRunFastState.h">
+    <ClInclude Include="..\Classes\SonicRollState.h">
       <Filter>src\Sonic</Filter>
     </ClInclude>
   </ItemGroup>

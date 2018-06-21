@@ -26,7 +26,9 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
-#include "proj.win32\Sonic.h"
+#include "Sonic.h"
+#include "ui/CocosGUI.h"
+using namespace ui;
 class HelloWorld : public cocos2d::Layer
 {
 public:
@@ -34,6 +36,10 @@ public:
 	Vec2 start_touch_position, end_touch_position;
     virtual bool init();
 	Sonic* mSonic;
+	CCTMXTiledMap * _tileMap;
+	CCTMXLayer *_background;
+
+	void setViewPointCenter(Point position);
 	void update(float dt);
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
