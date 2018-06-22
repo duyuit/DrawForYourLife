@@ -64,7 +64,7 @@ bool HelloWorld::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 
-	
+	//test
 
 
 	_tileMap = new TMXTiledMap();
