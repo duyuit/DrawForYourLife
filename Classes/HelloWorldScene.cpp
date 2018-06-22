@@ -71,36 +71,12 @@ bool HelloWorld::init()
 	_tileMap->initWithTMXFile("untitled.tmx");
 	//_tileMap->setScale(0.3f);
 	this->addChild(_tileMap);
+	LoadMap(_tileMap);
 
-
-	TMXObjectGroup *objectGroup = _tileMap->getObjectGroup("Land");
-
-
-	for (int i = 0; i<objectGroup->getObjects().size(); i++)
-	{
-
-		Value objectemp = objectGroup->getObjects().at(i);
-
-		float wi_box = objectemp.asValueMap().at("width").asFloat();
-		float he_box = objectemp.asValueMap().at("height").asFloat();
-		float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
-		float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
-
-		auto edgeSp = Sprite::create();
-		auto boundBody = PhysicsBody::createBox(Size(wi_box, he_box));
-		boundBody->getShape(0)->setFriction(10.0f);
-		boundBody->setDynamic(false);
-		boundBody->getShape(0)->setRestitution(100.0f);
-		boundBody->setContactTestBitmask(0x1);
-		edgeSp->setPhysicsBody(boundBody);
-		edgeSp->setPosition(Vec2(x_box, y_box));
-
-		this->addChild(edgeSp); // Add vào Layer
-	}
-
-
+	
 
 	mSonic = new Sonic();
+	mSonic->setTag(1);
 	this->addChild(mSonic);
 	auto listener1 = EventListenerTouchOneByOne::create();
 
@@ -132,16 +108,10 @@ bool HelloWorld::init()
 	background->setPosition(Vec2(0.0, 0.0));
 	//barBody->addChild(background, 0, kBar);
 
-	ProgressTimer* mouseBar = ProgressTimer::create(background);
-	mouseBar->setType(ProgressTimerType::BAR);
-	mouseBar->setAnchorPoint(Vec2(0.0, 0.0));
-	mouseBar->setPosition(Vec2(0.0, 0.0));
-	mouseBar->setBarChangeRate(Vec2(1, 0));
-	mouseBar->setMidpoint(Vec2(0.0, 0.0));
-	mouseBar->setPercentage(34);
-	border->addChild(mouseBar, 10);
+	auto contactListener = EventListenerPhysicsContact::create();
+	contactListener->onContactBegin = CC_CALLBACK_1(HelloWorld::onContactBegin, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
-	mouseBar->runAction(ProgressFromTo::create(2.0f, 30.0f, 100)); // filling from 30% to 75% in 2 seconds
 	this->scheduleUpdate();
 
     return true;
@@ -152,7 +122,9 @@ void HelloWorld::update(float dt)
 	mSonic->update();
 	if (mSonic->getPosition().x < 0) mSonic->setPosition(0, mSonic->getPosition().y);
 //	if (mSonic->getPosition().x > Director::getInstance()->getVisibleSize().width) mSonic->setPosition(Director::getInstance()->getVisibleSize().width, mSonic->getPosition().y);
-	//auto camera = this->getScene()->getDefaultCamera();
+	/*auto camera = this->getScene()->getDefaultCamera();
+	camera->setPosition(mSonic->getPosition());
+	camera->setPosition3D(Vec3(camera->getPositionX(),camera->getPositionY(),300));*/
 	setViewPointCenter(mSonic->getPosition());
 }
 
@@ -174,6 +146,65 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 }
 
+
+
+void HelloWorld::LoadMap(CCTMXTiledMap * map)
+{
+	TMXObjectGroup *objectGroup_land = _tileMap->getObjectGroup("Land");
+
+
+	for (int i = 0; i<objectGroup_land->getObjects().size(); i++)
+	{
+
+		Value objectemp = objectGroup_land->getObjects().at(i);
+
+		float wi_box = objectemp.asValueMap().at("width").asFloat();
+		float he_box = objectemp.asValueMap().at("height").asFloat();
+		float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+		float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+
+		auto edgeSp = Sprite::create();
+		auto boundBody = PhysicsBody::createBox(Size(wi_box, he_box));
+		boundBody->getShape(0)->setFriction(10.0f);
+		boundBody->setDynamic(false);
+		boundBody->getShape(0)->setRestitution(100.0f);
+		boundBody->setContactTestBitmask(0x1);
+		edgeSp->setPhysicsBody(boundBody);
+		edgeSp->setPosition(Vec2(x_box, y_box));
+
+		this->addChild(edgeSp); // Add vào Layer
+	}
+
+
+
+	TMXObjectGroup *objectGroup_hold_land = _tileMap->getObjectGroup("HoldLand");
+
+
+	for (int i = 0; i<objectGroup_hold_land->getObjects().size(); i++)
+	{
+
+		Value objectemp = objectGroup_hold_land->getObjects().at(i);
+
+		float wi_box = objectemp.asValueMap().at("width").asFloat();
+		float he_box = objectemp.asValueMap().at("height").asFloat();
+		float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+		float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+
+		auto edgeSp = Sprite::create();
+		edgeSp->setTag(2);
+		auto boundBody = PhysicsBody::createBox(Size(wi_box, he_box));
+		boundBody->getShape(0)->setFriction(10.0f);
+		boundBody->setDynamic(false);
+		boundBody->getShape(0)->setRestitution(100.0f);
+		boundBody->setContactTestBitmask(0x1);
+		edgeSp->setPhysicsBody(boundBody);
+		edgeSp->setPosition(Vec2(x_box, y_box));
+
+		this->addChild(edgeSp); // Add vào Layer
+	}
+
+}
+
 void HelloWorld::setViewPointCenter(Point position)
 {
 
@@ -187,5 +218,32 @@ void HelloWorld::setViewPointCenter(Point position)
 
 	Vec2 centerOfView = Vec2(winSize.width / 2, winSize.height / 2);
 	Vec2 viewPoint = centerOfView - actualPosition;
+//	this->setPosition3D(Vec3(viewPoint.x,viewPoint.y,50));
 	this->setPosition(viewPoint);
+}
+
+bool HelloWorld::onContactBegin(cocos2d::PhysicsContact& contact) 
+{
+	auto spriteA = (Sprite*)contact.getShapeA()->getBody()->getNode(); // 1
+	auto spriteB = (Sprite*)contact.getShapeB()->getBody()->getNode(); // 2
+
+	int tagA = spriteA->getTag();                                      // 3
+	int tagB = spriteB->getTag();                                      // 4
+	if ((tagA == 1 && tagB == 2) || (tagA == 2 && tagB == 1))
+	{
+		if (tagA == 1)
+		{
+			Sonic *sonic = (Sonic*)spriteA;
+			sonic->SetStateByTag(SonicState::StateAction::HOLD);
+			sonic->setPosition(spriteB->getPosition());
+		}
+		else
+		{
+			Sonic *sonic = (Sonic*)spriteB;
+			sonic->SetStateByTag(SonicState::StateAction::HOLD);
+			sonic->setPosition(spriteB->getPosition());
+		}
+	}
+																	   // logic                                                           // 5
+	return true;
 }

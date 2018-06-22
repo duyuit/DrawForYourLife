@@ -15,9 +15,9 @@ SonicRunNormalState::~SonicRunNormalState()
 void SonicRunNormalState::update()
 {
 	if (this->mPlayerData->player->isLeft)
-		this->mPlayerData->player->velocity.x = -2;
+		this->mPlayerData->player->SetVelocityX(-200);
 	else
-		this->mPlayerData->player->velocity.x = 2;
+		this->mPlayerData->player->SetVelocityX(200);
 }
 
 void SonicRunNormalState::handle_swipe(Define::SWIPE_DIRECTION direct)

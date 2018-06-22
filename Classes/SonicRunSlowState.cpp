@@ -17,9 +17,9 @@ void SonicRunSlowState::update()
 {
 	
 	if(this->mPlayerData->player->isLeft)
-		this->mPlayerData->player->velocity.x = -1;
+		this->mPlayerData->player->SetVelocityX(-100);
 	else
-		this->mPlayerData->player->velocity.x = 1;
+		this->mPlayerData->player->SetVelocityX(100);
 }
 
 void SonicRunSlowState::handle_swipe(Define::SWIPE_DIRECTION direct)

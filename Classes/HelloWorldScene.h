@@ -38,12 +38,12 @@ public:
 	Sonic* mSonic;
 	CCTMXTiledMap * _tileMap;
 	CCTMXLayer *_background;
-
+	void LoadMap(CCTMXTiledMap* map);
 	void setViewPointCenter(Point position);
+	bool onContactBegin(cocos2d::PhysicsContact & contact);
 	void update(float dt);
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
-    
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
 };

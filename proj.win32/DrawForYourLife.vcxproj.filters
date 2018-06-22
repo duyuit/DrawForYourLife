@@ -48,6 +48,12 @@
     <ClCompile Include="..\Classes\SonicRollState.cpp">
       <Filter>src\Sonic</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\SonicFallState.cpp">
+      <Filter>src\Sonic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SonicHoldState.cpp">
+      <Filter>src\Sonic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -84,6 +90,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\SonicRollState.h">
+      <Filter>src\Sonic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SonicFallState.h">
+      <Filter>src\Sonic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SonicHoldState.h">
       <Filter>src\Sonic</Filter>
     </ClInclude>
   </ItemGroup>
