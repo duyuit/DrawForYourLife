@@ -68,12 +68,12 @@ bool HelloWorld::init()
 
 
 	_tileMap = new TMXTiledMap();
-	_tileMap->initWithTMXFile("untitled.tmx");
+	_tileMap->initWithTMXFile("snow_map.tmx");
 	//_tileMap->setScale(0.3f);
 	this->addChild(_tileMap);
 
 
-	TMXObjectGroup *objectGroup = _tileMap->getObjectGroup("Land");
+	TMXObjectGroup *objectGroup = _tileMap->getObjectGroup("ground");
 
 
 	for (int i = 0; i<objectGroup->getObjects().size(); i++)
@@ -132,16 +132,8 @@ bool HelloWorld::init()
 	background->setPosition(Vec2(0.0, 0.0));
 	//barBody->addChild(background, 0, kBar);
 
-	ProgressTimer* mouseBar = ProgressTimer::create(background);
-	mouseBar->setType(ProgressTimerType::BAR);
-	mouseBar->setAnchorPoint(Vec2(0.0, 0.0));
-	mouseBar->setPosition(Vec2(0.0, 0.0));
-	mouseBar->setBarChangeRate(Vec2(1, 0));
-	mouseBar->setMidpoint(Vec2(0.0, 0.0));
-	mouseBar->setPercentage(34);
-	border->addChild(mouseBar, 10);
+	
 
-	mouseBar->runAction(ProgressFromTo::create(2.0f, 30.0f, 100)); // filling from 30% to 75% in 2 seconds
 	this->scheduleUpdate();
 
     return true;
@@ -152,7 +144,9 @@ void HelloWorld::update(float dt)
 	mSonic->update();
 	if (mSonic->getPosition().x < 0) mSonic->setPosition(0, mSonic->getPosition().y);
 //	if (mSonic->getPosition().x > Director::getInstance()->getVisibleSize().width) mSonic->setPosition(Director::getInstance()->getVisibleSize().width, mSonic->getPosition().y);
-	//auto camera = this->getScene()->getDefaultCamera();
+	/*auto camera = this->getScene()->getDefaultCamera();
+	camera->setPosition(mSonic->getPosition());
+	camera->setPosition3D(Vec3(camera->getPositionX(),camera->getPositionY(),300));*/
 	setViewPointCenter(mSonic->getPosition());
 }
 
@@ -187,5 +181,6 @@ void HelloWorld::setViewPointCenter(Point position)
 
 	Vec2 centerOfView = Vec2(winSize.width / 2, winSize.height / 2);
 	Vec2 viewPoint = centerOfView - actualPosition;
+//	this->setPosition3D(Vec3(viewPoint.x,viewPoint.y,50));
 	this->setPosition(viewPoint);
 }

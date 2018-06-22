@@ -9,6 +9,7 @@ Sonic::Sonic()
 	Vector<SpriteFrame*> run_fast_FL = loadAnim("sonic_animation.xml", "run_fast");
 	Vector<SpriteFrame*> jump_FL = loadAnim("sonic_animation.xml", "jump");
 	Vector<SpriteFrame*> roll_FL = loadAnim("sonic_animation.xml", "roll");
+	Vector<SpriteFrame*> fall_FL = loadAnim("sonic_animation.xml", "fall");
 
 
 	run_fast_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_fast_FL, 0.01f)));
@@ -16,6 +17,8 @@ Sonic::Sonic()
 	run_normal_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_normal_FL, 0.07f)));
 	jump_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(jump_FL, 0.03f)));
 	roll_Ani=new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_FL, 0.03f)));
+	fall_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fall_FL, 0.01f)));
+	roll_sky_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("sonic_animation.xml", "roll_in_sky"), 0.03f)));;
 
 	auto verti = PhysicsBody::createBox(Size(117,151));
 	verti->setContactTestBitmask(0x1);
@@ -38,10 +41,9 @@ Sonic::Sonic()
 	mCurrentState = new SonicRunSlowState(mData);
 	mCurrentAnimate = run_slow_Ani;
 	mCurrentAction = mCurrentAnimate->get();
-	SetStateByTag(SonicState::StateAction::RUN_SLOW);
+	SetStateByTag(SonicState::StateAction::HOLD);
 	this->setFlipX(true);
-
-	
+		
 }
 
 
@@ -53,8 +55,10 @@ void Sonic::update()
 {
 	
 	this->setFlippedX(!isLeft);
-	mCurrentState->update();
-	}
+			mCurrentState->update();
+
+
+}
 
 void Sonic::handle_swipe(Vec2 start, Vec2 end)
 {
@@ -154,6 +158,12 @@ void Sonic::SetStateByTag(SonicState::StateAction action)
 	case SonicState::ROLL:
 		this->SetState(new SonicRollState(mData));
 		break;
+	case SonicState::FALL:
+		this->SetState(new SonicFallState(mData));
+		break;
+	case SonicState::HOLD:
+		this->SetState(new SonicHoldState(mData));
+		break;
 
 	}
 }
@@ -183,11 +193,21 @@ void Sonic::SetState(SonicState * state)
 		break;
 	case SonicState::JUMP:
 		mCurrentAnimate = jump_Ani;
-		mCurrentAction = mCurrentAnimate->get()->clone();
+		mCurrentAction = mCurrentAnimate->get();
 		break;
 	case SonicState::ROLL:
 		mCurrentAnimate = roll_Ani;
 		mCurrentAction = mCurrentAnimate->get();
+		break;
+	case SonicState::FALL:
+		mCurrentAnimate = fall_Ani;
+		mCurrentAction = mCurrentAnimate->get()->clone();
+		break;
+	case SonicState::HOLD:
+		this->stopAllActions();
+		//mCurrentState = nullptr;
+		this->setTextureRect(Rect(1366, 1784, 132, 159));
+		return;
 		break;
 	}
 	this->runAction(mCurrentAction);
@@ -201,4 +221,9 @@ Vec2 Sonic::GetVelocity()
 void Sonic::SetVelocity(int x, int y)
 {
 	this->getPhysicsBody()->setVelocity(Vec2(x, y));
+}
+
+void Sonic::SetVelocityX(int x)
+{
+	this->getPhysicsBody()->setVelocity(Vec2(x, this->getPhysicsBody()->getVelocity().y));
 }
