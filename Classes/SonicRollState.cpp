@@ -23,9 +23,9 @@ void SonicRollState::update()
 		return;
 	}
 	if (this->mPlayerData->player->isLeft)
-		this->mPlayerData->player->velocity.x = -5;
+		this->mPlayerData->player->SetVelocity(-500, this->mPlayerData->player->GetVelocity().y);
 	else
-		this->mPlayerData->player->velocity.x = 5;
+		this->mPlayerData->player->SetVelocity(500, this->mPlayerData->player->GetVelocity().y);
 }
 
 void SonicRollState::handle_swipe(Define::SWIPE_DIRECTION direct)

@@ -54,8 +54,7 @@ void Sonic::update()
 	
 	this->setFlippedX(!isLeft);
 	mCurrentState->update();
-	this->setPosition(this->getPosition() + velocity);
-}
+	}
 
 void Sonic::handle_swipe(Vec2 start, Vec2 end)
 {
@@ -192,4 +191,14 @@ void Sonic::SetState(SonicState * state)
 		break;
 	}
 	this->runAction(mCurrentAction);
+}
+
+Vec2 Sonic::GetVelocity()
+{
+	return this->getPhysicsBody()->getVelocity();
+}
+
+void Sonic::SetVelocity(int x, int y)
+{
+	this->getPhysicsBody()->setVelocity(Vec2(x, y));
 }

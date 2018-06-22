@@ -27,7 +27,8 @@ public:
 	void SetStateByTag(SonicState::StateAction action); //Set state by put type of State
 	void SetState(SonicState *action);
 	bool isLeft = false;
-	Vec2 velocity=Vec2(0, 0);
+	Vec2 GetVelocity();
+	void SetVelocity(int x, int y);
 private:
 	RefPtr<Animate>  *run_slow_Ani;
 	RefPtr<Animate>  *run_normal_Ani;
