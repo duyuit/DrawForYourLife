@@ -7,7 +7,11 @@ SonicJumpState::SonicJumpState(SonicData * playerData)
 {
 	this->mPlayerData = playerData;
 	this->mPlayerData->player->getPhysicsBody()->applyForce(Vec2(0, 15000000));
-	this->mPlayerData->player->getPhysicsBody()->setVelocity(Vec2(0, 1));
+	if (this->mPlayerData->player->isLeft)
+		this->mPlayerData->player->SetVelocityX(-360);
+	else
+		this->mPlayerData->player->SetVelocityX(360);
+
 }
 
 SonicJumpState::SonicJumpState(SonicData * playerData, int count)
@@ -16,14 +20,18 @@ SonicJumpState::SonicJumpState(SonicData * playerData, int count)
 	if (count > 0)
 	{
 		this->mPlayerData->player->getPhysicsBody()->applyForce(Vec2(0, 10000000));
-		this->mPlayerData->player->getPhysicsBody()->setVelocity(Vec2(0, 1));
+		//this->mPlayerData->player->getPhysicsBody()->setVelocity(Vec2(0, 1));
 	}
+
+
 }
 
 void SonicJumpState::update()
 {
-	if (this->mPlayerData->player->getPhysicsBody()->getVelocity().y == 0 )
-		this->mPlayerData->player->SetStateByTag(SonicState::RUN_NORMAL);
+
+	if (this->mPlayerData->player->getPhysicsBody()->getVelocity().y < 0 || this->mPlayerData->player->CheckLastFrame())
+		this->mPlayerData->player->SetStateByTag(SonicState::FALL);
+	
 }
 
 void SonicJumpState::handle_swipe(Define::SWIPE_DIRECTION direct)
