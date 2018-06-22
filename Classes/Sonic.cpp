@@ -41,7 +41,7 @@ Sonic::Sonic()
 	mCurrentState = new SonicRunSlowState(mData);
 	mCurrentAnimate = run_slow_Ani;
 	mCurrentAction = mCurrentAnimate->get();
-	SetStateByTag(SonicState::StateAction::HOLD);
+	SetStateByTag(SonicState::StateAction::RUN_FAST);
 	this->setFlipX(true);
 		
 }
