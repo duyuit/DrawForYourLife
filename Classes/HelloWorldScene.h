@@ -28,6 +28,9 @@
 #include "cocos2d.h"
 #include "Sonic.h"
 #include "ui/CocosGUI.h"
+#include "small_Ring.h"
+#include "GameParticle.h"
+#include "LandMonster.h"
 using namespace ui;
 class HelloWorld : public cocos2d::Layer
 {

@@ -19,7 +19,7 @@ SonicJumpState::SonicJumpState(SonicData * playerData, int count)
 	this->mPlayerData = playerData;
 	if (count > 0)
 	{
-		this->mPlayerData->player->getPhysicsBody()->applyForce(Vec2(0, 10000000));
+		this->mPlayerData->player->getPhysicsBody()->applyForce(Vec2(0, 3000000));
 		//this->mPlayerData->player->getPhysicsBody()->setVelocity(Vec2(0, 1));
 	}
 

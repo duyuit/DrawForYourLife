@@ -32,10 +32,10 @@ Scene* HelloWorld::createScene()
 	auto scene = Scene::createWithPhysics();
 
 	// set gravity
-	scene->getPhysicsWorld()->setGravity(Vec2(0, -900));
+	scene->getPhysicsWorld()->setGravity(Vec2(0, -1200));
 
 	// optional: set debug draw
-	// scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+	 scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
 
 	auto layer = HelloWorld::create();
 	scene->addChild(layer);
@@ -76,8 +76,15 @@ bool HelloWorld::init()
 	
 
 	mSonic = new Sonic();
-	mSonic->setTag(1);
 	this->addChild(mSonic);
+	mSonic->AddLightning();
+	
+	
+	
+	LandMonster *abc = new LandMonster();
+	abc->setPosition(100, 300);
+	this->addChild(abc);
+	
 	auto listener1 = EventListenerTouchOneByOne::create();
 
 	listener1->onTouchBegan = [this](Touch* touch, Event* event) {
@@ -98,21 +105,14 @@ bool HelloWorld::init()
 
 
 	
-	Sprite* border = Sprite::create("loadingbar.png");
-	border->setAnchorPoint(Vec2(0.5, 0.5));
-	border->setPosition(Vec2(543, 384));
-	this->addChild(border, 5);
 
-	Sprite* background = Sprite::create("loadingbar_state.png");
-	background->setAnchorPoint(Vec2(0.0, 0.0));
-	background->setPosition(Vec2(0.0, 0.0));
-	//barBody->addChild(background, 0, kBar);
 
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(HelloWorld::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
 	this->scheduleUpdate();
+
 
     return true;
 }
@@ -121,10 +121,6 @@ void HelloWorld::update(float dt)
 {
 	mSonic->update();
 	if (mSonic->getPosition().x < 0) mSonic->setPosition(0, mSonic->getPosition().y);
-//	if (mSonic->getPosition().x > Director::getInstance()->getVisibleSize().width) mSonic->setPosition(Director::getInstance()->getVisibleSize().width, mSonic->getPosition().y);
-	/*auto camera = this->getScene()->getDefaultCamera();
-	camera->setPosition(mSonic->getPosition());
-	camera->setPosition3D(Vec3(camera->getPositionX(),camera->getPositionY(),300));*/
 	setViewPointCenter(mSonic->getPosition());
 }
 
@@ -168,7 +164,11 @@ void HelloWorld::LoadMap(CCTMXTiledMap * map)
 		boundBody->getShape(0)->setFriction(10.0f);
 		boundBody->setDynamic(false);
 		boundBody->getShape(0)->setRestitution(100.0f);
-		boundBody->setContactTestBitmask(0x1);
+
+		boundBody->setCategoryBitmask(2);
+		boundBody->setCollisionBitmask(1);
+		boundBody->setContactTestBitmask(1);
+
 		edgeSp->setPhysicsBody(boundBody);
 		edgeSp->setPosition(Vec2(x_box, y_box));
 
@@ -191,17 +191,45 @@ void HelloWorld::LoadMap(CCTMXTiledMap * map)
 		float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
 
 		auto edgeSp = Sprite::create();
-		edgeSp->setTag(2);
+		edgeSp->setTag(Define::HoldPlace);
 		auto boundBody = PhysicsBody::createBox(Size(wi_box, he_box));
 		boundBody->getShape(0)->setFriction(10.0f);
 		boundBody->setDynamic(false);
 		boundBody->getShape(0)->setRestitution(100.0f);
-		boundBody->setContactTestBitmask(0x1);
+
+		
+		boundBody->setCategoryBitmask(4);
+		boundBody->setCollisionBitmask(1);
+		boundBody->setContactTestBitmask(1);
+
+
+
 		edgeSp->setPhysicsBody(boundBody);
 		edgeSp->setPosition(Vec2(x_box, y_box));
 
 		this->addChild(edgeSp); // Add vào Layer
 	}
+
+
+	TMXObjectGroup *objectGroup_ring = _tileMap->getObjectGroup("Ring");
+
+
+	for (int i = 0; i<objectGroup_ring->getObjects().size(); i++)
+	{
+
+		Value objectemp = objectGroup_ring->getObjects().at(i);
+
+		float wi_box = objectemp.asValueMap().at("width").asFloat();
+		float he_box = objectemp.asValueMap().at("height").asFloat();
+		float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+		float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+
+		auto ring = new small_Ring();
+		ring->setPosition(x_box, y_box);
+		this->addChild(ring);
+	}
+
+
 
 }
 
@@ -229,9 +257,9 @@ bool HelloWorld::onContactBegin(cocos2d::PhysicsContact& contact)
 
 	int tagA = spriteA->getTag();                                      // 3
 	int tagB = spriteB->getTag();                                      // 4
-	if ((tagA == 1 && tagB == 2) || (tagA == 2 && tagB == 1))
+	if ((tagA == Define::Player && tagB == Define::HoldPlace) || (tagA == Define::HoldPlace && tagB ==Define::Player))
 	{
-		if (tagA == 1)
+		if (tagA == Define::Player)
 		{
 			Sonic *sonic = (Sonic*)spriteA;
 			sonic->SetStateByTag(SonicState::StateAction::HOLD);
@@ -244,6 +272,19 @@ bool HelloWorld::onContactBegin(cocos2d::PhysicsContact& contact)
 			sonic->setPosition(spriteB->getPosition());
 		}
 	}
-																	   // logic                                                           // 5
+	if (tagA == Define::Player && tagB == Define::Ring || tagA == Define::Ring && tagB == Define::Player)
+	{
+	
+		if (tagA == Define::Player)
+		{
+			spriteB->runAction(RemoveSelf::create());
+			MyParticle::CreateEatItem(spriteB->getPosition(), this);
+		}
+		else
+		{
+			spriteA->runAction(RemoveSelf::create());
+			MyParticle::CreateEatItem(spriteA->getPosition(), this);
+		}
+	}
 	return true;
 }

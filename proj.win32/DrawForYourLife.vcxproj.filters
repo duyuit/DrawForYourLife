@@ -13,6 +13,12 @@
     <Filter Include="src\Sonic">
       <UniqueIdentifier>{f0e82d3d-2dd6-41ed-b391-dccac5348c8d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\MapObject">
+      <UniqueIdentifier>{e46629aa-c39d-4bd4-b0ab-533b011ad065}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Enemy">
+      <UniqueIdentifier>{4d4f5360-2f36-4074-b74b-5096bdf6180d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -53,6 +59,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\SonicHoldState.cpp">
       <Filter>src\Sonic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\small_Ring.cpp">
+      <Filter>src\MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LandMonster.cpp">
+      <Filter>src\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +109,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\SonicHoldState.h">
       <Filter>src\Sonic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\small_Ring.h">
+      <Filter>src\MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameParticle.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LandMonster.h">
+      <Filter>src\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
