@@ -10,12 +10,22 @@ namespace Define {
 	};
 	enum TAG
 	{
-		Player=1,
-		Ring=2,
-		HoldPlace=3,
-		land_monster=4
+		Player,
+		Ring,
+		HoldPlace,
+		land_monster,
+		land
 	};
+	static float randomValueBetween(float min, float max)
+	{
+		assert(max > min);
+		float random = ((float)rand()) / (float)RAND_MAX;
 
+		// generate (in your case) a float between 0 and (4.5-.78)
+		// then add .78, giving you a float between .78 and 4.5
+		float range = max - min;
+		return (random*range) + min;
+	}
 	static Vector<SpriteFrame*> loadAnim(char* path, std::string key)
 	{
 		Vector<SpriteFrame*> list;

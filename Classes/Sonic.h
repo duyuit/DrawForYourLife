@@ -10,6 +10,7 @@
 #include "SonicFallState.h"
 #include "SonicHoldState.h"
 #include "GameDefine.h"
+#include "GameParticle.h"
 using namespace cocos2d;
 using namespace Define;
 #pragma once
@@ -30,6 +31,7 @@ public:
 	void AddLightning();
 	bool isLeft = false;
 	Vec2 GetVelocity();
+	void handle_collision(Sprite *sprite);
 	void SetVelocity(int x, int y);
 	void SetVelocityX(int x);
 private:

@@ -18,6 +18,11 @@ void SonicState::handle_swipe(Define::SWIPE_DIRECTION direct)
 {
 }
 
+void SonicState::handle_collision(Sprite * sprite)
+{
+	return;
+}
+
 
 SonicState::SonicState(SonicData *playerData)
 {

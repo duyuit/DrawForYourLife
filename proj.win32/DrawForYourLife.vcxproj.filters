@@ -19,6 +19,9 @@
     <Filter Include="src\Enemy">
       <UniqueIdentifier>{4d4f5360-2f36-4074-b74b-5096bdf6180d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GameComponent">
+      <UniqueIdentifier>{52710d91-60f7-4d63-8e2f-097888a89ab5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -66,6 +69,12 @@
     <ClCompile Include="..\Classes\LandMonster.cpp">
       <Filter>src\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\InfiniteParallaxNode.cpp">
+      <Filter>src\GameComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TapButton.cpp">
+      <Filter>src\GameComponent</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -98,9 +107,6 @@
     <ClInclude Include="..\Classes\SonicState.h">
       <Filter>src\Sonic</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\GameDefine.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\SonicRollState.h">
       <Filter>src\Sonic</Filter>
     </ClInclude>
@@ -113,11 +119,20 @@
     <ClInclude Include="..\Classes\small_Ring.h">
       <Filter>src\MapObject</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\GameParticle.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\LandMonster.h">
       <Filter>src\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameDefine.h">
+      <Filter>src\GameComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameParticle.h">
+      <Filter>src\GameComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\InfiniteParallaxNode.h">
+      <Filter>src\GameComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TapButton.h">
+      <Filter>src\GameComponent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

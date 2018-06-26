@@ -6,7 +6,7 @@
 SonicJumpState::SonicJumpState(SonicData * playerData)
 {
 	this->mPlayerData = playerData;
-	this->mPlayerData->player->getPhysicsBody()->applyForce(Vec2(0, 15000000));
+	this->mPlayerData->player->getPhysicsBody()->applyForce(Vec2(0, 13000000));
 	if (this->mPlayerData->player->isLeft)
 		this->mPlayerData->player->SetVelocityX(-360);
 	else
@@ -14,22 +14,12 @@ SonicJumpState::SonicJumpState(SonicData * playerData)
 
 }
 
-SonicJumpState::SonicJumpState(SonicData * playerData, int count)
-{
-	this->mPlayerData = playerData;
-	if (count > 0)
-	{
-		this->mPlayerData->player->getPhysicsBody()->applyForce(Vec2(0, 3000000));
-		//this->mPlayerData->player->getPhysicsBody()->setVelocity(Vec2(0, 1));
-	}
 
-
-}
 
 void SonicJumpState::update()
 {
 
-	if (this->mPlayerData->player->getPhysicsBody()->getVelocity().y < 0 || this->mPlayerData->player->CheckLastFrame())
+	if (this->mPlayerData->player->getPhysicsBody()->getVelocity().y < -5 || this->mPlayerData->player->CheckLastFrame())
 		this->mPlayerData->player->SetStateByTag(SonicState::FALL);
 	
 }
@@ -43,13 +33,22 @@ void SonicJumpState::handle_swipe(Define::SWIPE_DIRECTION direct)
 	case Define::RIGHT:
 		break;
 	case Define::UP:
-		this->mPlayerData->player->SetState(new SonicJumpState(this->mPlayerData,2));
+		//this->mPlayerData->player->SetState(new SonicJumpState(this->mPlayerData,2));
 		break;
 	case Define::DOWN:
 		break;
 
 	default:
 		break;
+	}
+}
+
+void SonicJumpState::handle_collision(Sprite * sprite)
+{
+	if (sprite->getTag() == Define::HoldPlace)
+	{
+		this->mPlayerData->player->setPosition(sprite->getPosition());
+		this->mPlayerData->player->SetStateByTag(SonicState::StateAction::HOLD);
 	}
 }
 

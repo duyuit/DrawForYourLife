@@ -20,15 +20,16 @@ Sonic::Sonic()
 	fall_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fall_FL, 0.01f)));
 	roll_sky_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("sonic_animation.xml", "roll_in_sky"), 0.03f)));;
 
-	auto verti = PhysicsBody::createBox(Size(117,151));
+	auto verti = PhysicsBody::createBox(Size(117,151), PhysicsMaterial(0.1f, 0.0f, 0.0f));
+
 	verti->setCategoryBitmask(1);    // 0010
 	verti->setCollisionBitmask(6);   // 0001
-	verti->setContactTestBitmask(12);
+	verti->setContactTestBitmask(14);
 
 	verti->setRotationEnable(false);
 	verti->setDynamic(true);
 	
-	verti->getShape(0)->setRestitution(0.0f);//đàn hồi
+	//verti->getShape(0)->setRestitution(0.0f);//đàn hồi
 	this->setPhysicsBody(verti);
 
 
@@ -211,6 +212,16 @@ Vec2 Sonic::GetVelocity()
 	return this->getPhysicsBody()->getVelocity();
 }
 
+void Sonic::handle_collision(Sprite * sprite)
+{
+	if (sprite->getTag() == Define::Ring)
+	{
+		MyParticle::CreateEatItem(sprite->getPosition(), (Layer*) this->getParent());
+		sprite->runAction(RemoveSelf::create());
+	}
+	mCurrentState->handle_collision(sprite);
+}
+
 void Sonic::SetVelocity(int x, int y)
 {
 	this->getPhysicsBody()->setVelocity(Vec2(x, y));
@@ -218,5 +229,5 @@ void Sonic::SetVelocity(int x, int y)
 
 void Sonic::SetVelocityX(int x)
 {
-	this->getPhysicsBody()->setVelocity(Vec2(x, this->getPhysicsBody()->getVelocity().y));
+	this->getPhysicsBody()->setVelocity(Point(x, this->getPhysicsBody()->getVelocity().y));
 }
