@@ -21,6 +21,7 @@ public:
 	virtual StateAction GetState() = 0;
 	virtual void update();
 	virtual void handle_swipe(Define::SWIPE_DIRECTION direct);
+	virtual void handle_collision(Sprite* sprite);
 protected:
 	
 	SonicState(SonicData *playerData);

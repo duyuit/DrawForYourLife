@@ -28,6 +28,11 @@
 #include "cocos2d.h"
 #include "Sonic.h"
 #include "ui/CocosGUI.h"
+#include "small_Ring.h"
+#include "GameParticle.h"
+#include "LandMonster.h"
+#include "InfiniteParallaxNode.h"
+#include "TapButton.h"
 using namespace ui;
 class HelloWorld : public cocos2d::Layer
 {
@@ -36,6 +41,7 @@ public:
 	Vec2 start_touch_position, end_touch_position;
     virtual bool init();
 	Sonic* mSonic;
+	InfiniteParallaxNode* _backgroundNode;
 	CCTMXTiledMap * _tileMap;
 	CCTMXLayer *_background;
 	void LoadMap(CCTMXTiledMap* map);
@@ -44,6 +50,7 @@ public:
 	void update(float dt);
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
+	void updateStart(float dt);
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
 };

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Animations>
+  <Animation name="roll" imagePath="ring.png" width="333" height="100">
+    <sprite x="10" y="0" w="46" h="44" oX="10" oY="0" oW="66" oH="346" />
+    <sprite x="79" y="0" w="40" h="44" oX="79" oY="0" oW="66" oH="346" />
+    <sprite x="148" y="0" w="35" h="44" oX="148" oY="0" oW="66" oH="346" />
+    <sprite x="220" y="0" w="24" h="44" oX="220" oY="0" oW="66" oH="346" />
+    <sprite x="293" y="0" w="12" h="44" oX="293" oY="0" oW="66" oH="346" />
+    <sprite x="17" y="48" w="24" h="45" oX="17" oY="48" oW="66" oH="346" />
+    <sprite x="82" y="47" w="35" h="45" oX="82" oY="47" oW="66" oH="346" />
+    <sprite x="146" y="48" w="41" h="44" oX="146" oY="48" oW="66" oH="346" />
+  </Animation>
+</Animations>

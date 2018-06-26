@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Animations>
+  <Animation name="move" imagePath="flying_monster.png" width="590" height="716">
+    <sprite x="78" y="92" w="44" h="34" oX="78" oY="92" oW="53" oH="432" />
+    <sprite x="130" y="92" w="48" h="34" oX="130" oY="92" oW="53" oH="432" />
+    <sprite x="187" y="92" w="47" h="34" oX="187" oY="92" oW="53" oH="432" />
+    <sprite x="245" y="92" w="42" h="40" oX="245" oY="92" oW="53" oH="432" />
+    <sprite x="300" y="91" w="43" h="46" oX="300" oY="91" oW="53" oH="432" />
+    <sprite x="356" y="92" w="43" h="41" oX="356" oY="92" oW="53" oH="432" />
+    <sprite x="410" y="92" w="47" h="34" oX="410" oY="92" oW="53" oH="432" />
+    <sprite x="466" y="91" w="45" h="35" oX="466" oY="91" oW="53" oH="432" />
+  </Animation>
+</Animations>

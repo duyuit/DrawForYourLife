@@ -1,6 +1,5 @@
 #include "cocos2d.h"
 #include <string>
-#include "tinyxml2\tinyxml2.h"
 #include "SonicRunSlowState.h"
 #include "SonicData.h"
 #include "SonicState.h"
@@ -11,7 +10,9 @@
 #include "SonicFallState.h"
 #include "SonicHoldState.h"
 #include "GameDefine.h"
+#include "GameParticle.h"
 using namespace cocos2d;
+using namespace Define;
 #pragma once
 
 class Sonic: public Sprite
@@ -25,11 +26,12 @@ public:
 	SonicState *mCurrentState;
 	SonicData *mData;
 	bool CheckLastFrame();
-	static Vector<SpriteFrame*> loadAnim(char* path, std::string key);
 	void SetStateByTag(SonicState::StateAction action); //Set state by put type of State
 	void SetState(SonicState *action);
+	void AddLightning();
 	bool isLeft = false;
 	Vec2 GetVelocity();
+	void handle_collision(Sprite *sprite);
 	void SetVelocity(int x, int y);
 	void SetVelocityX(int x);
 private:
@@ -41,6 +43,8 @@ private:
 	RefPtr<Animate>  *fall_Ani;
 	RefPtr<Animate>  *roll_sky_Ani;
 
+	Sprite* lightning=nullptr;
+	Sprite* lightning2 = nullptr;
 
 
 	Action* mCurrentAction;

@@ -20,12 +20,16 @@ Sonic::Sonic()
 	fall_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fall_FL, 0.01f)));
 	roll_sky_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("sonic_animation.xml", "roll_in_sky"), 0.03f)));;
 
-	auto verti = PhysicsBody::createBox(Size(117,151));
-	verti->setContactTestBitmask(0x1);
+	auto verti = PhysicsBody::createBox(Size(117,151), PhysicsMaterial(0.1f, 0.0f, 0.0f));
+
+	verti->setCategoryBitmask(1);    // 0010
+	verti->setCollisionBitmask(6);   // 0001
+	verti->setContactTestBitmask(14);
+
 	verti->setRotationEnable(false);
 	verti->setDynamic(true);
 	
-	verti->getShape(0)->setRestitution(0.0f);//đàn hồi
+	//verti->getShape(0)->setRestitution(0.0f);//đàn hồi
 	this->setPhysicsBody(verti);
 
 
@@ -43,7 +47,9 @@ Sonic::Sonic()
 	mCurrentAction = mCurrentAnimate->get();
 	SetStateByTag(SonicState::StateAction::RUN_FAST);
 	this->setFlipX(true);
-		
+	this->setTag(Define::Player);
+
+
 }
 
 
@@ -55,8 +61,15 @@ void Sonic::update()
 {
 	
 	this->setFlippedX(!isLeft);
-			mCurrentState->update();
-
+	
+	mCurrentState->update();
+	if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL)
+		this->SetStateByTag(SonicState::StateAction::FALL);
+	/*if (lightning != nullptr && lightning2 != nullptr)
+	{
+		lightning->setPosition(this->getPosition() + Vec2(-15, 10));
+		lightning2->setPosition(this->getPosition() + Vec2(-15,5));
+	}*/
 
 }
 
@@ -98,46 +111,6 @@ bool Sonic::CheckLastFrame()
 	return false;
 }
 
-Vector<SpriteFrame*> Sonic::loadAnim(char * path, std::string key)
-{
-	Vector<SpriteFrame*> list;
-
-	tinyxml2::XMLDocument xml_doc;
-	tinyxml2::XMLError eResult = xml_doc.LoadFile(path);
-
-	tinyxml2::XMLElement* root = xml_doc.RootElement();
-	tinyxml2::XMLElement* child = root->FirstChildElement();
-	while (child)
-	{
-		if (child->Attribute("name") == key)
-		{
-			tinyxml2::XMLElement* ele = child->FirstChildElement();
-			while (ele)
-			{
-				float x;
-				ele->QueryFloatAttribute("x", &x);
-				float y;
-				ele->QueryFloatAttribute("y", &y);
-				float w;
-				ele->QueryFloatAttribute("w", &w);
-				float h;
-				ele->QueryFloatAttribute("h", &h);
-
-
-				list.pushBack(SpriteFrame::create(child->Attribute("imagePath"), Rect(x, y, w, h)));
-
-				ele = ele->NextSiblingElement();
-			}
-			break;
-		}
-		child = child->NextSiblingElement();
-	}
-
-	
-
-
-	return list;
-}
 
 void Sonic::SetStateByTag(SonicState::StateAction action)
 {
@@ -213,9 +186,40 @@ void Sonic::SetState(SonicState * state)
 	this->runAction(mCurrentAction);
 }
 
+void Sonic::AddLightning()
+{
+	//lightning = Sprite::create();
+	//auto ani = Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("particle.xml", "lightning"), 0.08f));
+	//lightning->runAction(RepeatForever::create(ani));
+	//lightning->setPosition(this->getPosition() + Vec2(-15, 10));
+	////lightning->setScale(0.5f);
+	//lightning->setAnchorPoint(Vec2(1.0f, 0));
+	//this->getParent()->addChild(lightning);
+
+
+	//lightning2= Sprite::create();
+	//auto ani1 = Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("particle.xml", "lightning"), 0.1f));
+	//lightning2->runAction(RepeatForever::create(ani1));
+	//lightning2->setPosition(this->getPosition() + Vec2(-15, 5));
+	////lightning->setScale(0.5f);
+	//lightning2->setAnchorPoint(Vec2(1.0f, 0));
+	//this->getParent()->addChild(lightning2);
+
+}
+
 Vec2 Sonic::GetVelocity()
 {
 	return this->getPhysicsBody()->getVelocity();
+}
+
+void Sonic::handle_collision(Sprite * sprite)
+{
+	if (sprite->getTag() == Define::Ring)
+	{
+		MyParticle::CreateEatItem(sprite->getPosition(), (Layer*) this->getParent());
+		sprite->runAction(RemoveSelf::create());
+	}
+	mCurrentState->handle_collision(sprite);
 }
 
 void Sonic::SetVelocity(int x, int y)
@@ -225,5 +229,5 @@ void Sonic::SetVelocity(int x, int y)
 
 void Sonic::SetVelocityX(int x)
 {
-	this->getPhysicsBody()->setVelocity(Vec2(x, this->getPhysicsBody()->getVelocity().y));
+	this->getPhysicsBody()->setVelocity(Point(x, this->getPhysicsBody()->getVelocity().y));
 }

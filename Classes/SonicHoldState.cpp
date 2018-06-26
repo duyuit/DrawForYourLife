@@ -19,7 +19,7 @@ SonicHoldState::~SonicHoldState()
 void SonicHoldState::update()
 {
 	count++;
-	if (count == 50)
+	if (count ==6)
 	{
 		mPlayerData->player->getPhysicsBody()->setGravityEnable(true);
 		mPlayerData->player->SetStateByTag(StateAction::JUMP);

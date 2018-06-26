@@ -32,10 +32,13 @@ Scene* HelloWorld::createScene()
 	auto scene = Scene::createWithPhysics();
 
 	// set gravity
-	scene->getPhysicsWorld()->setGravity(Vec2(0, -900));
+	scene->getPhysicsWorld()->setGravity(Vec2(0, -980));
 
 	// optional: set debug draw
-	// scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+	scene->getPhysicsWorld()->step(1 / 60.0f);
+
+	
 
 	auto layer = HelloWorld::create();
 	scene->addChild(layer);
@@ -62,22 +65,28 @@ bool HelloWorld::init()
 	
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
+	Size winSize = Director::getInstance()->getWinSize();
 
 	
 
 
 	_tileMap = new TMXTiledMap();
-	_tileMap->initWithTMXFile("untitled.tmx");
-	//_tileMap->setScale(0.3f);
+	_tileMap->initWithTMXFile("snow_map.tmx");
 	this->addChild(_tileMap);
 	LoadMap(_tileMap);
 
 	
 
 	mSonic = new Sonic();
-	mSonic->setTag(1);
 	this->addChild(mSonic);
+	//mSonic->AddLightning();
+	
+	
+	
+	LandMonster *abc = new LandMonster();
+	abc->setPosition(100, 300);
+	this->addChild(abc);
+	
 	auto listener1 = EventListenerTouchOneByOne::create();
 
 	listener1->onTouchBegan = [this](Touch* touch, Event* event) {
@@ -86,6 +95,15 @@ bool HelloWorld::init()
 	};
 	
 	
+	//Parallax Scrolling
+	_backgroundNode = InfiniteParallaxNode::create();
+	auto _galaxy = Sprite::create("stone_bg1.png"); _galaxy->setAnchorPoint(Point(0, 0.5));
+	_backgroundNode->addChild(_galaxy, -1, Point(5, 0), Point(0, winSize.height * 0.7));
+	this->addChild(_backgroundNode, -1);
+
+
+	TapButton *daidi = new TapButton(1, Vec2(1500, 200),mSonic,this);
+
 
 	// trigger when you let up
 	listener1->onTouchEnded = [this](Touch* touch, Event* event) {
@@ -98,19 +116,13 @@ bool HelloWorld::init()
 
 
 	
-	Sprite* border = Sprite::create("loadingbar.png");
-	border->setAnchorPoint(Vec2(0.5, 0.5));
-	border->setPosition(Vec2(543, 384));
-	this->addChild(border, 5);
-
-	Sprite* background = Sprite::create("loadingbar_state.png");
-	background->setAnchorPoint(Vec2(0.0, 0.0));
-	background->setPosition(Vec2(0.0, 0.0));
-	//barBody->addChild(background, 0, kBar);
 
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(HelloWorld::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
+	scheduleOnce(CC_SCHEDULE_SELECTOR(HelloWorld::updateStart),0);
+	
+
 
 	this->scheduleUpdate();
 
@@ -118,14 +130,19 @@ bool HelloWorld::init()
 }
 
 void HelloWorld::update(float dt)
-{
+{    
+	for (int i = 0; i < 3; ++i)
+	{
+		this->getScene()->getPhysicsWorld()->step(1 / 60.0f);
+	}
+	//_backgroundNode->setPosition(_backgroundNode->getPosition() - Vec2(2, 0));
+	//_backgroundNode->updatePosition();
 	mSonic->update();
+
 	if (mSonic->getPosition().x < 0) mSonic->setPosition(0, mSonic->getPosition().y);
-//	if (mSonic->getPosition().x > Director::getInstance()->getVisibleSize().width) mSonic->setPosition(Director::getInstance()->getVisibleSize().width, mSonic->getPosition().y);
-	/*auto camera = this->getScene()->getDefaultCamera();
-	camera->setPosition(mSonic->getPosition());
-	camera->setPosition3D(Vec3(camera->getPositionX(),camera->getPositionY(),300));*/
 	setViewPointCenter(mSonic->getPosition());
+
+	
 }
 
 
@@ -143,65 +160,229 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
     //EventCustom customEndEvent("game_scene_close_event");
     //_eventDispatcher->dispatchEvent(&customEndEvent);
 
+}
 
+void HelloWorld::updateStart(float dt)
+{
+	//this->getScene()->getPhysicsWorld()->setFixedUpdateRate(60);
+	auto x_button = Button::create("Button/button_x.png");
+	x_button->setScale(0.5);
+	x_button->setOpacity(200);
+	x_button->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+		auto but = (Button*)sender;
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+				but->setOpacity(255);
+				break;
+		case ui::Widget::TouchEventType::ENDED:
+				but->setOpacity(200);
+				break;
+		default:
+			break;
+		}
+	});
+	x_button->setPosition(Vec2(100,50));
+	this->getScene()->addChild(x_button, 1);
+
+	auto button_rect = Button::create("Button/button_rect.png");
+	button_rect->setScale(0.5);
+	button_rect->setOpacity(200);
+	button_rect->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+		auto but = (Button*)sender;
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			but->setOpacity(255);
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			but->setOpacity(200);
+			break;
+		default:
+			break;
+		}
+	});
+	button_rect->setPosition(Vec2(50, 100));
+	this->getScene()->addChild(button_rect, 1);
+
+
+	auto button_trian = Button::create("Button/button_trian.png");
+	button_trian->setScale(0.5);
+	button_trian->setOpacity(200);
+	button_trian->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+		auto but = (Button*)sender;
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			but->setOpacity(255);
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			but->setOpacity(200);
+			break;
+		default:
+			break;
+		}
+	});
+	button_trian->setPosition(Vec2(100, 150));
+	this->getScene()->addChild(button_trian, 1);
+
+
+	auto button_cir = Button::create("Button/button_cir.png");
+	button_cir->setScale(0.5);
+	button_cir->setOpacity(200);
+	button_cir->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+		auto but = (Button*)sender;
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			but->setOpacity(255);
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+			but->setOpacity(200);
+			break;
+		default:
+			break;
+		}
+	});
+	button_cir->setPosition(Vec2(150, 100));
+	this->getScene()->addChild(button_cir, 1);
 }
 
 
 
 void HelloWorld::LoadMap(CCTMXTiledMap * map)
 {
-	TMXObjectGroup *objectGroup_land = _tileMap->getObjectGroup("Land");
-
-
-	for (int i = 0; i<objectGroup_land->getObjects().size(); i++)
+	try
 	{
+		TMXObjectGroup *objectGroup_land = _tileMap->getObjectGroup("Land");
 
-		Value objectemp = objectGroup_land->getObjects().at(i);
 
-		float wi_box = objectemp.asValueMap().at("width").asFloat();
-		float he_box = objectemp.asValueMap().at("height").asFloat();
-		float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
-		float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+		for (int i = 0; i < objectGroup_land->getObjects().size(); i++)
+		{
 
-		auto edgeSp = Sprite::create();
-		auto boundBody = PhysicsBody::createBox(Size(wi_box, he_box));
-		boundBody->getShape(0)->setFriction(10.0f);
-		boundBody->setDynamic(false);
-		boundBody->getShape(0)->setRestitution(100.0f);
-		boundBody->setContactTestBitmask(0x1);
-		edgeSp->setPhysicsBody(boundBody);
-		edgeSp->setPosition(Vec2(x_box, y_box));
+			Value objectemp = objectGroup_land->getObjects().at(i);
 
-		this->addChild(edgeSp); // Add vào Layer
+			float wi_box = objectemp.asValueMap().at("width").asFloat();
+			float he_box = objectemp.asValueMap().at("height").asFloat();
+			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+
+			auto edgeSp = Sprite::create();
+			edgeSp->setTag(Define::land);
+
+
+			auto boundBody = PhysicsBody::createBox(Size(wi_box, he_box), PhysicsMaterial(0.1f, 0.0f, 0.0f));
+			boundBody->setDynamic(false);
+
+
+			boundBody->setCategoryBitmask(2);
+			boundBody->setCollisionBitmask(1);
+			boundBody->setContactTestBitmask(1);
+
+			edgeSp->setPhysicsBody(boundBody);
+			edgeSp->setPosition(Vec2(x_box, y_box));
+
+			this->addChild(edgeSp); // Add vào Layer
+		}
+
+
+
+		//TMXObjectGroup *objectGroup_hold_land = _tileMap->getObjectGroup("HoldLand");
+
+
+		//for (int i = 0; i < objectGroup_hold_land->getObjects().size(); i++)
+		//{
+
+		//	Value objectemp = objectGroup_hold_land->getObjects().at(i);
+
+		//	float wi_box = objectemp.asValueMap().at("width").asFloat();
+		//	float he_box = objectemp.asValueMap().at("height").asFloat();
+		//	float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+		//	float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+
+		//	auto edgeSp = Sprite::create();
+		//	edgeSp->setTag(Define::HoldPlace);
+		//	auto boundBody = PhysicsBody::createBox(Size(wi_box, he_box));
+		//	boundBody->getShape(0)->setFriction(10.0f);
+		//	boundBody->setDynamic(false);
+		//	boundBody->getShape(0)->setRestitution(100.0f);
+
+
+		//	boundBody->setCategoryBitmask(4);
+		//	boundBody->setCollisionBitmask(1);
+		//	boundBody->setContactTestBitmask(1);
+
+
+
+		//	edgeSp->setPhysicsBody(boundBody);
+		//	edgeSp->setPosition(Vec2(x_box, y_box));
+
+		//	this->addChild(edgeSp); // Add vào Layer
+		//}
+
+
+		//TMXObjectGroup *objectGroup_ring = _tileMap->getObjectGroup("Ring");
+
+
+		//for (int i = 0; i < objectGroup_ring->getObjects().size(); i++)
+		//{
+
+		//	Value objectemp = objectGroup_ring->getObjects().at(i);
+
+		//	float wi_box = objectemp.asValueMap().at("width").asFloat();
+		//	float he_box = objectemp.asValueMap().at("height").asFloat();
+		//	float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+		//	float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+
+		//	auto ring = new small_Ring();
+		//	ring->setPosition(x_box, y_box);
+		//	this->addChild(ring);
+		//}
+
+
+
+		//// Process object layer 
+		//auto objectGroup = map->getObjectGroup("Land2");
+		//auto objects = objectGroup->getObjects();
+		//for (auto object : objects)
+		//{
+		//	auto dic = object.asValueMap();
+		//	float objectX = dic.at("x").asFloat();
+		//	float objectY = dic.at("y").asFloat();
+
+
+		//	auto drawNode = DrawNode::create();
+		//	auto pointsVector = dic.at("polylinePoints").asValueVector();
+		//	auto size = pointsVector.size();
+		//	// Get Point 
+		//	if (size > 0)
+		//	{
+		//		Vec2* points = new Vec2[size];
+		//		int i = 0;
+		//		for (auto pointValue : pointsVector)
+		//		{
+		//			auto dicp = pointValue.asValueMap();
+		//			auto x = dicp.at("x").asFloat();
+		//			auto y = -dicp.at("y").asFloat(); // y takes a negative value 
+		//			points[i] = Vec2(x, y);
+		//			i++;
+		//		}
+		//		// Draw the polyline 
+		//		//  drawNode->drawPoly(points, size, false, Color4F::RED);
+		//		auto sprite = Sprite::create();
+		//		auto box = PhysicsBody::createEdgePolygon(points, 5);
+		//		sprite->setPhysicsBody(box);
+		//		sprite->setPosition(objectX, objectY);
+		//		this->addChild(sprite);
+		//		delete[] points;
+		//		//drawNode->setPosition(objectX, objectY);
+		//		//this->addChild(drawNode, 10);
+		//	}
+		//}
+
 	}
-
-
-
-	TMXObjectGroup *objectGroup_hold_land = _tileMap->getObjectGroup("HoldLand");
-
-
-	for (int i = 0; i<objectGroup_hold_land->getObjects().size(); i++)
-	{
-
-		Value objectemp = objectGroup_hold_land->getObjects().at(i);
-
-		float wi_box = objectemp.asValueMap().at("width").asFloat();
-		float he_box = objectemp.asValueMap().at("height").asFloat();
-		float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
-		float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
-
-		auto edgeSp = Sprite::create();
-		edgeSp->setTag(2);
-		auto boundBody = PhysicsBody::createBox(Size(wi_box, he_box));
-		boundBody->getShape(0)->setFriction(10.0f);
-		boundBody->setDynamic(false);
-		boundBody->getShape(0)->setRestitution(100.0f);
-		boundBody->setContactTestBitmask(0x1);
-		edgeSp->setPhysicsBody(boundBody);
-		edgeSp->setPosition(Vec2(x_box, y_box));
-
-		this->addChild(edgeSp); // Add vào Layer
-	}
+	catch (...) {};
+	
 
 }
 
@@ -220,6 +401,7 @@ void HelloWorld::setViewPointCenter(Point position)
 	Vec2 viewPoint = centerOfView - actualPosition;
 //	this->setPosition3D(Vec3(viewPoint.x,viewPoint.y,50));
 	this->setPosition(viewPoint);
+	//this->getScene()->getDefaultCamera()->setPosition(-viewPoint);
 }
 
 bool HelloWorld::onContactBegin(cocos2d::PhysicsContact& contact) 
@@ -228,22 +410,21 @@ bool HelloWorld::onContactBegin(cocos2d::PhysicsContact& contact)
 	auto spriteB = (Sprite*)contact.getShapeB()->getBody()->getNode(); // 2
 
 	int tagA = spriteA->getTag();                                      // 3
-	int tagB = spriteB->getTag();                                      // 4
-	if ((tagA == 1 && tagB == 2) || (tagA == 2 && tagB == 1))
+	int tagB = spriteB->getTag();        
+
+	if (tagA == Define::Player || tagB == Define::Player )
 	{
-		if (tagA == 1)
+		if (tagA == Define::Player)
 		{
 			Sonic *sonic = (Sonic*)spriteA;
-			sonic->SetStateByTag(SonicState::StateAction::HOLD);
-			sonic->setPosition(spriteB->getPosition());
+			sonic->handle_collision(spriteB);
 		}
 		else
 		{
 			Sonic *sonic = (Sonic*)spriteB;
-			sonic->SetStateByTag(SonicState::StateAction::HOLD);
-			sonic->setPosition(spriteB->getPosition());
+			sonic->handle_collision(spriteA);
 		}
 	}
-																	   // logic                                                           // 5
+
 	return true;
 }
