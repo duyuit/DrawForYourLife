@@ -32,10 +32,10 @@ Scene* HelloWorld::createScene()
 	auto scene = Scene::createWithPhysics();
 
 	// set gravity
-	scene->getPhysicsWorld()->setGravity(Vec2(0, -980));
+	scene->getPhysicsWorld()->setGravity(Vec2(0, -1000));
 
 	// optional: set debug draw
-	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+	//scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
 	scene->getPhysicsWorld()->step(1 / 60.0f);
 
 	
@@ -62,7 +62,7 @@ bool HelloWorld::init()
     {
         return false;
     }
-	
+	srand(time(NULL));
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	Size winSize = Director::getInstance()->getWinSize();
@@ -71,17 +71,17 @@ bool HelloWorld::init()
 
 
 	_tileMap = new TMXTiledMap();
-	_tileMap->initWithTMXFile("snow_map.tmx");
+	_tileMap->initWithTMXFile("untitled.tmx");
 	this->addChild(_tileMap);
-	LoadMap(_tileMap);
 
 	
 
 	mSonic = new Sonic();
 	this->addChild(mSonic);
-	//mSonic->AddLightning();
+
 	
-	
+	LoadMap(_tileMap);
+
 	
 	LandMonster *abc = new LandMonster();
 	abc->setPosition(100, 300);
@@ -101,8 +101,6 @@ bool HelloWorld::init()
 	_backgroundNode->addChild(_galaxy, -1, Point(5, 0), Point(0, winSize.height * 0.7));
 	this->addChild(_backgroundNode, -1);
 
-
-	TapButton *daidi = new TapButton(1, Vec2(1500, 200),mSonic,this);
 
 
 	// trigger when you let up
@@ -177,6 +175,7 @@ void HelloWorld::updateStart(float dt)
 				break;
 		case ui::Widget::TouchEventType::ENDED:
 				but->setOpacity(200);
+				mSonic->mJustTap = BUTTON_TAG::X;
 				break;
 		default:
 			break;
@@ -197,6 +196,7 @@ void HelloWorld::updateStart(float dt)
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 			but->setOpacity(200);
+			mSonic->mJustTap = BUTTON_TAG::Rectangcle;
 			break;
 		default:
 			break;
@@ -218,6 +218,7 @@ void HelloWorld::updateStart(float dt)
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 			but->setOpacity(200);
+			mSonic->mJustTap = BUTTON_TAG::Tri;
 			break;
 		default:
 			break;
@@ -238,6 +239,7 @@ void HelloWorld::updateStart(float dt)
 			but->setOpacity(255);
 			break;
 		case ui::Widget::TouchEventType::ENDED:
+			mSonic->mJustTap = BUTTON_TAG::Cir;
 			but->setOpacity(200);
 			break;
 		default:
@@ -287,7 +289,7 @@ void HelloWorld::LoadMap(CCTMXTiledMap * map)
 
 
 
-		//TMXObjectGroup *objectGroup_hold_land = _tileMap->getObjectGroup("HoldLand");
+		{//TMXObjectGroup *objectGroup_hold_land = _tileMap->getObjectGroup("HoldLand");
 
 
 		//for (int i = 0; i < objectGroup_hold_land->getObjects().size(); i++)
@@ -321,23 +323,23 @@ void HelloWorld::LoadMap(CCTMXTiledMap * map)
 		//}
 
 
-		//TMXObjectGroup *objectGroup_ring = _tileMap->getObjectGroup("Ring");
+		TMXObjectGroup *objectGroup_ring = _tileMap->getObjectGroup("Ring");
 
 
-		//for (int i = 0; i < objectGroup_ring->getObjects().size(); i++)
-		//{
+		for (int i = 0; i < objectGroup_ring->getObjects().size(); i++)
+		{
 
-		//	Value objectemp = objectGroup_ring->getObjects().at(i);
+			Value objectemp = objectGroup_ring->getObjects().at(i);
 
-		//	float wi_box = objectemp.asValueMap().at("width").asFloat();
-		//	float he_box = objectemp.asValueMap().at("height").asFloat();
-		//	float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
-		//	float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+			float wi_box = objectemp.asValueMap().at("width").asFloat();
+			float he_box = objectemp.asValueMap().at("height").asFloat();
+			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
 
-		//	auto ring = new small_Ring();
-		//	ring->setPosition(x_box, y_box);
-		//	this->addChild(ring);
-		//}
+			auto ring = new small_Ring();
+			ring->setPosition(x_box, y_box);
+			this->addChild(ring);
+		}
 
 
 
@@ -379,7 +381,36 @@ void HelloWorld::LoadMap(CCTMXTiledMap * map)
 		//		//this->addChild(drawNode, 10);
 		//	}
 		//}
+		}
+		TMXObjectGroup *objectGroup_button = _tileMap->getObjectGroup("Button");
 
+
+		for (int i = 0; i < objectGroup_button->getObjects().size(); i++)
+		{
+
+			Value objectemp = objectGroup_button->getObjects().at(i);
+
+			float wi_box = objectemp.asValueMap().at("width").asFloat();
+			float he_box = objectemp.asValueMap().at("height").asFloat();
+			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+
+			int a = RandomHelper::random_int(1, 4);
+			auto button=new TapButton(a, Vec2(x_box, y_box), mSonic, this);
+	
+		}
+
+
+
+		Vector<Sprite*> test;
+		test.pushBack(Sprite::create());
+		test.at(0)->runAction(RemoveSelf::create());
+		auto abc = test.at(0);
+		if (test.at(0)==nullptr)
+			int x = 1;
+		else 
+			int x = 1;
+		
 	}
 	catch (...) {};
 	

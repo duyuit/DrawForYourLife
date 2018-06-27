@@ -18,7 +18,7 @@ SonicFallState::~SonicFallState()
 
 void SonicFallState::update()
 {
-//	count++;
+	//count++;
 	//if (abs(mPlayerData->player->GetVelocity().y)<5 && count>30)
 	//	mPlayerData->player->SetStateByTag(StateAction::RUN_FAST);
 
