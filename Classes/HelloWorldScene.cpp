@@ -36,7 +36,7 @@ Scene* HelloWorld::createScene()
 
 	// optional: set debug draw
 	//scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
-	scene->getPhysicsWorld()->step(1 / 60.0f);
+	//scene->getPhysicsWorld()->step(1 / 60.0f);
 
 	
 
@@ -95,11 +95,22 @@ bool HelloWorld::init()
 	};
 	
 	
-	//Parallax Scrolling
+	//2 Parallax Scrolling
 	_backgroundNode = InfiniteParallaxNode::create();
-	auto _galaxy = Sprite::create("stone_bg1.png"); _galaxy->setAnchorPoint(Point(0, 0.5));
-	_backgroundNode->addChild(_galaxy, -1, Point(5, 0), Point(0, winSize.height * 0.7));
+
+	auto _galaxy = Sprite::create("stone_bg3.png"); 
+	_galaxy->setAnchorPoint(Point(0, 0));
+	_galaxy->setScale(visibleSize.width / _galaxy->getContentSize().width); //auto scale background fitting screen
+	_backgroundNode->addChild(_galaxy, -1, Point(0.05, 1), Point(0, 0));
 	this->addChild(_backgroundNode, -1);
+
+	_backgroundNode2 = InfiniteParallaxNode::create();
+
+	auto _galaxy2 = Sprite::create("stone_bg3.png");
+	_galaxy2->setAnchorPoint(Point(0, 0));
+	_galaxy2->setScale(visibleSize.width / _galaxy->getContentSize().width); //auto scale background fitting screen
+	_backgroundNode2->addChild(_galaxy2, -1, Point(0.05, 1), Point(_galaxy2->getContentSize().width * _galaxy->getScale(), 0));
+	this->addChild(_backgroundNode2, -1);
 
 
 
@@ -129,14 +140,19 @@ bool HelloWorld::init()
 
 void HelloWorld::update(float dt)
 {    
-	for (int i = 0; i < 3; ++i)
-	{
-		this->getScene()->getPhysicsWorld()->step(1 / 60.0f);
-	}
-	//_backgroundNode->setPosition(_backgroundNode->getPosition() - Vec2(2, 0));
-	//_backgroundNode->updatePosition();
-	mSonic->update();
+	//for (int i = 0; i < 3; ++i)
+	//{
+	//	this->getScene()->getPhysicsWorld()->step(1 / 60.0f);
+	//}
+	
+	//updatePosition for InfiniteParallaxNode
+	_backgroundNode->setPosition(_backgroundNode->getPosition() - Vec2(5, 0));
+	_backgroundNode->updatePosition();
+	_backgroundNode2->setPosition(_backgroundNode2->getPosition() - Vec2(5, 0));
+	_backgroundNode2->updatePosition();
 
+
+	mSonic->update();
 	if (mSonic->getPosition().x < 0) mSonic->setPosition(0, mSonic->getPosition().y);
 	setViewPointCenter(mSonic->getPosition());
 
@@ -284,7 +300,7 @@ void HelloWorld::LoadMap(CCTMXTiledMap * map)
 			edgeSp->setPhysicsBody(boundBody);
 			edgeSp->setPosition(Vec2(x_box, y_box));
 
-			this->addChild(edgeSp); // Add vào Layer
+			this->addChild(edgeSp); // Add vï¿½o Layer
 		}
 
 
@@ -319,7 +335,7 @@ void HelloWorld::LoadMap(CCTMXTiledMap * map)
 		//	edgeSp->setPhysicsBody(boundBody);
 		//	edgeSp->setPosition(Vec2(x_box, y_box));
 
-		//	this->addChild(edgeSp); // Add vào Layer
+		//	this->addChild(edgeSp); // Add vï¿½o Layer
 		//}
 
 

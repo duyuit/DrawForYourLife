@@ -42,6 +42,7 @@ public:
     virtual bool init();
 	Sonic* mSonic;
 	InfiniteParallaxNode* _backgroundNode;
+	InfiniteParallaxNode* _backgroundNode2;
 	CCTMXTiledMap * _tileMap;
 	CCTMXLayer *_background;
 	void LoadMap(CCTMXTiledMap* map);
