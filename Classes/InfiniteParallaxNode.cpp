@@ -38,7 +38,7 @@ void InfiniteParallaxNode::updatePosition()
 
 					if (node->getContentSize().width<visibleSize.width)
 					{
-						po->setOffset(po->getOffset() + Point(visibleSize.width + node->getContentSize().width, 0));
+						po->setOffset(po->getOffset() + Point(visibleSize.width + node->getContentSize().width * node->getScale(), 0));
 
 					}
 					else {
