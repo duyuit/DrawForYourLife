@@ -29,6 +29,37 @@ TurtorialScene::~TurtorialScene()
 {
 }
 
+void TurtorialScene::Tutorial1()
+{
+	Pause();
+}
+
+void TurtorialScene::Tutorial2()
+{
+	Pause();
+	listButton.at(0)->circle->runAction(Sequence::create(ScaleTo::create(1.5, 0.29), CallFuncN::create(CC_CALLBACK_0(TurtorialScene::Tutorial2_part1, this)),NULL));
+		//scheduleUpdate();
+}
+
+void TurtorialScene::Tutorial2_part1()
+{
+	auto fadeOut = FadeOut::create(0.1f);
+	auto reverse = fadeOut->reverse();
+	ActionInterval *fade = Sequence::create(fadeOut, reverse, nullptr);
+	auto fading = RepeatForever::create(fade);
+	listButton.at(0)->runAction(fading);
+	switch (listButton.at(0)->mTag)
+	{
+	case Define::Cir: 
+		myui->button_cir->setEnabled(false);
+		break;
+	case Define::X: break;
+	case Define::Rectangcle: break;
+	case Define::Tri: break;
+	}
+
+}
+
 void TurtorialScene::Pause()
 {
 	isPause = true;
@@ -41,6 +72,7 @@ void TurtorialScene::Pause()
 
 void TurtorialScene::Continue()
 {
+	count_tuto++;
 	isPause = false;
 	mSonic->SetVelocityX(340);
 	for (auto label : listLabel)
@@ -195,6 +227,9 @@ void TurtorialScene::LoadMap(CCTMXTiledMap * map)
 
 			int a = RandomHelper::random_int(1, 4);
 			auto button = new TapButton(a, Vec2(x_box, y_box), mSonic, this);
+			button->setZOrder(8);
+			button->circle->setZOrder(7);
+			button->unscheduleUpdate();
 			listButton.pushBack(button);
 		}
 
@@ -271,7 +306,14 @@ int count_to_move_scene = 0;
 int delta_x = -30;
 void TurtorialScene::update(float dt)
 {
-	
+	if (mSonic->getPositionX() >= 1900 && count_tuto<2)
+	{
+		Tutorial1();
+	}
+	if (count_tuto == 2 && !isPause)
+	{
+		Tutorial2();
+	}
 	_backgroundNode->setPosition(_backgroundNode->getPosition() - Vec2(5, 0));
 	_backgroundNode->updatePosition();
 	_backgroundNode2->setPosition(_backgroundNode2->getPosition() - Vec2(5, 0));
@@ -306,7 +348,9 @@ void TurtorialScene::update(float dt)
 
 void TurtorialScene::updateStart(float dt)
 {
-	this->getScene()->addChild(new MyUI(mSonic), 5);
+	myui = new MyUI(mSonic);
+
+	this->getScene()->addChild(myui);
 
 	
 }

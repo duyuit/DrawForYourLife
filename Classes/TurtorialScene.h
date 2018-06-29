@@ -17,10 +17,16 @@ public:
 	Vector<Label*> listLabel;
 
 
+
+	int count_tuto = 0;
+
 	Sprite* blackImage;
 
 	TurtorialScene();
 	~TurtorialScene();
+	void Tutorial1();
+	void Tutorial2();
+	void Tutorial2_part1();
 	void Pause();
 	void Continue();
 	void LoadMap(CCTMXTiledMap* map);
