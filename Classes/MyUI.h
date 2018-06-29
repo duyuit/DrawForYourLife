@@ -10,10 +10,11 @@ class MyUI:public Layer
 public:
 	MyUI() {};
 	Sonic* mySonic;
+	Button *x_button, *button_rect,*button_trian, *button_cir;
 	MyUI (Sonic* mSonic)
 	{
 		mySonic = mSonic;
-		auto x_button = Button::create("Button/button_x.png");
+		x_button = Button::create("Button/button_x.png");
 		x_button->setScale(0.5);
 		x_button->setOpacity(200);
 		x_button->addTouchEventListener([this](Ref* sender, Widget::TouchEventType type) {
@@ -34,7 +35,7 @@ public:
 		x_button->setPosition(Vec2(100, 50));
 		this->addChild(x_button, 1);
 
-		auto button_rect = Button::create("Button/button_rect.png");
+		 button_rect = Button::create("Button/button_rect.png");
 		button_rect->setScale(0.5);
 		button_rect->setOpacity(200);
 		button_rect->addTouchEventListener([this](Ref* sender, Widget::TouchEventType type) {
@@ -56,7 +57,7 @@ public:
 		this->addChild(button_rect, 1);
 
 
-		auto button_trian = Button::create("Button/button_trian.png");
+		 button_trian = Button::create("Button/button_trian.png");
 		button_trian->setScale(0.5);
 		button_trian->setOpacity(200);
 		button_trian->addTouchEventListener([this](Ref* sender, Widget::TouchEventType type) {
@@ -78,7 +79,7 @@ public:
 		this->addChild(button_trian, 1);
 
 
-		auto button_cir = Button::create("Button/button_cir.png");
+		 button_cir = Button::create("Button/button_cir.png");
 		button_cir->setScale(0.5);
 		button_cir->setOpacity(200);
 		button_cir->addTouchEventListener([this](Ref* sender, Widget::TouchEventType type) {

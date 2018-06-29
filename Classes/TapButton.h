@@ -2,6 +2,7 @@
 #include "cocos2d.h"
 #include "Sonic.h"
 using namespace cocos2d;
+
 class TapButton:public Sprite
 {
 public:

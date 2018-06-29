@@ -15,7 +15,7 @@ public:
 	CCTMXTiledMap * _tileMap;
 	bool isPause = false;
 	Vector<Label*> listLabel;
-
+	MyUI* myui;
 
 
 	int count_tuto = 0;
