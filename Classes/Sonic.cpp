@@ -20,7 +20,7 @@ Sonic::Sonic()
 	fall_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fall_FL, 0.01f)));
 	roll_sky_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("sonic_animation.xml", "roll_in_sky"), 0.03f)));;
 
-	auto verti = PhysicsBody::createBox(Size(117,151), PhysicsMaterial(0.1f, 0.0f, 0.0f));
+	auto verti = PhysicsBody::createCircle(75, PhysicsMaterial(0.1f, 0.0f, 0.0f));
 
 	verti->setCategoryBitmask(1);    // 0010
 	verti->setCollisionBitmask(6);   // 0001
@@ -50,18 +50,37 @@ Sonic::Sonic()
 	this->setTag(Define::Player);
 
 
+	
+	scheduleOnce(CC_SCHEDULE_SELECTOR(Sonic::updateStart), 0);
+	this->scheduleUpdate();
+	
 }
 
 
 Sonic::~Sonic()
 {
 }
-
-void Sonic::update()
+int count_to_reset_just_tap = 0;
+void Sonic::update(float dt)
 {
-	
+	count_to_reset_just_tap++;
 	this->setFlippedX(!isLeft);
+	if (dust!=nullptr)
+	{
+		dust->setFlippedX(isLeft);
+		if (isLeft)
+		{
+			dust->setAnchorPoint(Vec2(0, 0));
+			dust->setPosition(this->getPosition() + Vec2(5, 0));
+		}
+		else
+		{
+			dust->setAnchorPoint(Vec2(1, 0));
+			dust->setPosition(this->getPosition() + Vec2(-5, 0));
+		}
+	}
 	
+
 	mCurrentState->update();
 	if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL)
 		this->SetStateByTag(SonicState::StateAction::FALL);
@@ -70,7 +89,11 @@ void Sonic::update()
 		lightning->setPosition(this->getPosition() + Vec2(-15, 10));
 		lightning2->setPosition(this->getPosition() + Vec2(-15,5));
 	}*/
-
+	if (count_to_reset_just_tap ==2)
+	{
+		count_to_reset_just_tap = 0;
+		mJustTap = NONE;
+	}
 }
 
 void Sonic::handle_swipe(Vec2 start, Vec2 end)
@@ -166,7 +189,7 @@ void Sonic::SetState(SonicState * state)
 		break;
 	case SonicState::JUMP:
 		mCurrentAnimate = jump_Ani;
-		mCurrentAction = mCurrentAnimate->get();
+		mCurrentAction = mCurrentAnimate->get()->clone();
 		break;
 	case SonicState::ROLL:
 		mCurrentAnimate = roll_Ani;
@@ -186,26 +209,26 @@ void Sonic::SetState(SonicState * state)
 	this->runAction(mCurrentAction);
 }
 
-void Sonic::AddLightning()
-{
-	//lightning = Sprite::create();
-	//auto ani = Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("particle.xml", "lightning"), 0.08f));
-	//lightning->runAction(RepeatForever::create(ani));
-	//lightning->setPosition(this->getPosition() + Vec2(-15, 10));
-	////lightning->setScale(0.5f);
-	//lightning->setAnchorPoint(Vec2(1.0f, 0));
-	//this->getParent()->addChild(lightning);
-
-
-	//lightning2= Sprite::create();
-	//auto ani1 = Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("particle.xml", "lightning"), 0.1f));
-	//lightning2->runAction(RepeatForever::create(ani1));
-	//lightning2->setPosition(this->getPosition() + Vec2(-15, 5));
-	////lightning->setScale(0.5f);
-	//lightning2->setAnchorPoint(Vec2(1.0f, 0));
-	//this->getParent()->addChild(lightning2);
-
-}
+//void Sonic::AddLightning()
+//{
+//	//lightning = Sprite::create();
+//	//auto ani = Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("particle.xml", "lightning"), 0.08f));
+//	//lightning->runAction(RepeatForever::create(ani));
+//	//lightning->setPosition(this->getPosition() + Vec2(-15, 10));
+//	////lightning->setScale(0.5f);
+//	//lightning->setAnchorPoint(Vec2(1.0f, 0));
+//	//this->getParent()->addChild(lightning);
+//
+//
+//	//lightning2= Sprite::create();
+//	//auto ani1 = Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("particle.xml", "lightning"), 0.1f));
+//	//lightning2->runAction(RepeatForever::create(ani1));
+//	//lightning2->setPosition(this->getPosition() + Vec2(-15, 5));
+//	////lightning->setScale(0.5f);
+//	//lightning2->setAnchorPoint(Vec2(1.0f, 0));
+//	//this->getParent()->addChild(lightning2);
+//
+//}
 
 Vec2 Sonic::GetVelocity()
 {
@@ -231,3 +254,14 @@ void Sonic::SetVelocityX(int x)
 {
 	this->getPhysicsBody()->setVelocity(Point(x, this->getPhysicsBody()->getVelocity().y));
 }
+
+void Sonic::updateStart(float dt)
+{
+	dust = Sprite::create();
+	auto dust_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Particle/particle.xml", "dust"), 0.05f)));;
+	dust->runAction(RepeatForever::create(dust_anim->get()));
+	dust->setScale(1.3);
+	dust->setPosition(this->getPosition());
+	this->getParent()->addChild(dust);
+}
+

@@ -7,6 +7,10 @@
 SonicRollState::SonicRollState(SonicData * playerData)
 {
 	this->mPlayerData = playerData;
+	if (this->mPlayerData->player->isLeft)
+		this->mPlayerData->player->SetVelocity(-500, this->mPlayerData->player->GetVelocity().y);
+	else
+		this->mPlayerData->player->SetVelocity(500, this->mPlayerData->player->GetVelocity().y);
 
 }
 
@@ -22,10 +26,7 @@ void SonicRollState::update()
 		this->mPlayerData->player->SetStateByTag(StateAction::RUN_FAST);
 		return;
 	}
-	if (this->mPlayerData->player->isLeft)
-		this->mPlayerData->player->SetVelocity(-500, this->mPlayerData->player->GetVelocity().y);
-	else
-		this->mPlayerData->player->SetVelocity(500, this->mPlayerData->player->GetVelocity().y);
+	
 }
 
 void SonicRollState::handle_swipe(Define::SWIPE_DIRECTION direct)

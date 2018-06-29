@@ -1,6 +1,7 @@
 #pragma once
 #include "cocos2d.h"
-#include "tinyxml2\tinyxml2.h"
+#include "../external/tinyxml2/tinyxml2.h"
+using namespace tinyxml2;
 using namespace cocos2d;
 namespace Define {
 	enum SWIPE_DIRECTION
@@ -16,6 +17,14 @@ namespace Define {
 		land_monster,
 		land
 	};
+	enum BUTTON_TAG
+	{
+		NONE,
+		X,
+		Cir,
+		Rectangcle,
+		Tri
+	};
 	static float randomValueBetween(float min, float max)
 	{
 		assert(max > min);
@@ -26,14 +35,16 @@ namespace Define {
 		float range = max - min;
 		return (random*range) + min;
 	}
-	static Vector<SpriteFrame*> loadAnim(char* path, std::string key)
+
+	static Vector<SpriteFrame*> loadAnim(std::string path, std::string key)
 	{
 		Vector<SpriteFrame*> list;
+		std::string path2 = FileUtils::getInstance()->getStringFromFile(path);
 
-		tinyxml2::XMLDocument xml_doc;
-		tinyxml2::XMLError eResult = xml_doc.LoadFile(path);
+		tinyxml2::XMLDocument *doc = new tinyxml2::XMLDocument();
+		tinyxml2::XMLError eResult = doc->Parse(path2.c_str(), path2.size());
 
-		tinyxml2::XMLElement* root = xml_doc.RootElement();
+		tinyxml2::XMLElement* root = doc->RootElement();
 		tinyxml2::XMLElement* child = root->FirstChildElement();
 		while (child)
 		{
@@ -65,3 +76,4 @@ namespace Define {
 	}
 
 }
+

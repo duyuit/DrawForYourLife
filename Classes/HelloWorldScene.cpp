@@ -32,11 +32,11 @@ Scene* HelloWorld::createScene()
 	auto scene = Scene::createWithPhysics();
 
 	// set gravity
-	scene->getPhysicsWorld()->setGravity(Vec2(0, -980));
+	scene->getPhysicsWorld()->setGravity(Vec2(0, -1000));
 
 	// optional: set debug draw
 	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
-	scene->getPhysicsWorld()->step(1 / 60.0f);
+	//scene->getPhysicsWorld()->step(1 / 60.0f);
 
 	
 
@@ -62,7 +62,7 @@ bool HelloWorld::init()
     {
         return false;
     }
-	
+	srand(time(NULL));
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	Size winSize = Director::getInstance()->getWinSize();
@@ -71,22 +71,39 @@ bool HelloWorld::init()
 
 
 	_tileMap = new TMXTiledMap();
-	_tileMap->initWithTMXFile("snow_map.tmx");
+	_tileMap->initWithTMXFile("untitled.tmx");
+	//_tileMap->setScale((float)_director->getOpenGLView()->getFrameSize().width/ _director->getOpenGLView()->getFrameSize().height);
 	this->addChild(_tileMap);
-	LoadMap(_tileMap);
 
 	
 
 	mSonic = new Sonic();
 	this->addChild(mSonic);
-	//mSonic->AddLightning();
+
 	
-	
+	LoadMap(_tileMap);
+
 	
 	LandMonster *abc = new LandMonster();
 	abc->setPosition(100, 300);
 	this->addChild(abc);
 	
+
+
+
+
+
+	//for (int i = 0; i < 10; i++)
+	//{
+	//	int a = RandomHelper::random_int(1, 4);
+	//	auto button = new TapButton(a, Vec2(i*300, 100), mSonic, this);
+	//	listButton.pushBack(button);
+	//}
+
+
+
+
+
 	auto listener1 = EventListenerTouchOneByOne::create();
 
 	listener1->onTouchBegan = [this](Touch* touch, Event* event) {
@@ -95,14 +112,23 @@ bool HelloWorld::init()
 	};
 	
 	
-	//Parallax Scrolling
+	//2 Parallax Scrolling
 	_backgroundNode = InfiniteParallaxNode::create();
-	auto _galaxy = Sprite::create("stone_bg1.png"); _galaxy->setAnchorPoint(Point(0, 0.5));
-	_backgroundNode->addChild(_galaxy, -1, Point(5, 0), Point(0, winSize.height * 0.7));
+
+	auto _galaxy = Sprite::create("Map_stone/stone_bg3.png");
+	_galaxy->setAnchorPoint(Point(0, 0));
+	_galaxy->setScale(visibleSize.width / _galaxy->getContentSize().width); //auto scale background fitting screen
+	_backgroundNode->addChild(_galaxy, -1, Point(0.05, 1), Point(0, 0));
 	this->addChild(_backgroundNode, -1);
 
+	_backgroundNode2 = InfiniteParallaxNode::create();
 
-	TapButton *daidi = new TapButton(1, Vec2(1500, 200),mSonic,this);
+	auto _galaxy2 = Sprite::create("Map_stone/stone_bg3.png");
+	_galaxy2->setAnchorPoint(Point(0, 0));
+	_galaxy2->setScale(visibleSize.width / _galaxy->getContentSize().width); //auto scale background fitting screen
+	_backgroundNode2->addChild(_galaxy2, -1, Point(0.05, 1), Point(_galaxy2->getContentSize().width * _galaxy->getScale(), 0));
+	this->addChild(_backgroundNode2, -1);
+
 
 
 	// trigger when you let up
@@ -130,15 +156,26 @@ bool HelloWorld::init()
 }
 
 void HelloWorld::update(float dt)
-{    
-	for (int i = 0; i < 3; ++i)
+{
+	if (listButton.size() > 0)
 	{
-		this->getScene()->getPhysicsWorld()->step(1 / 60.0f);
+		listButton.at(0)->isFirst = true;
+		if (listButton.at(0)->isDelete) listButton.erase(listButton.begin());
 	}
-	//_backgroundNode->setPosition(_backgroundNode->getPosition() - Vec2(2, 0));
-	//_backgroundNode->updatePosition();
-	mSonic->update();
+	
+	//for (int i = 0; i < 3; ++i)
+	//{
+	//	this->getScene()->getPhysicsWorld()->step(1 / 60.0f);
+	//}
+	
+	//updatePosition for InfiniteParallaxNode
+	_backgroundNode->setPosition(_backgroundNode->getPosition() - Vec2(5, 0));
+	_backgroundNode->updatePosition();
+	_backgroundNode2->setPosition(_backgroundNode2->getPosition() - Vec2(5, 0));
+	_backgroundNode2->updatePosition();
 
+
+	mSonic->update(dt);
 	if (mSonic->getPosition().x < 0) mSonic->setPosition(0, mSonic->getPosition().y);
 	setViewPointCenter(mSonic->getPosition());
 
@@ -164,88 +201,17 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 void HelloWorld::updateStart(float dt)
 {
+	/*this->setScaleX((float)_director->getOpenGLView()->getFrameSize().width / 1280);
+	this->setScaleY((float)_director->getOpenGLView()->getFrameSize().height / 1024);
+	
+	int x2 = _director->getOpenGLView()->getFrameSize().width;
+	int x3= _director->getOpenGLView()->getFrameSize().height;*/
+
+
+	/*int x=*///this->getScene()->getDefaultCamera()->setPositionZ(100);
+	//this->getScene()->getDefaultCamera()->setScale(0.8);
 	//this->getScene()->getPhysicsWorld()->setFixedUpdateRate(60);
-	auto x_button = Button::create("Button/button_x.png");
-	x_button->setScale(0.5);
-	x_button->setOpacity(200);
-	x_button->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
-		auto but = (Button*)sender;
-		switch (type)
-		{
-		case ui::Widget::TouchEventType::BEGAN:
-				but->setOpacity(255);
-				break;
-		case ui::Widget::TouchEventType::ENDED:
-				but->setOpacity(200);
-				break;
-		default:
-			break;
-		}
-	});
-	x_button->setPosition(Vec2(100,50));
-	this->getScene()->addChild(x_button, 1);
-
-	auto button_rect = Button::create("Button/button_rect.png");
-	button_rect->setScale(0.5);
-	button_rect->setOpacity(200);
-	button_rect->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
-		auto but = (Button*)sender;
-		switch (type)
-		{
-		case ui::Widget::TouchEventType::BEGAN:
-			but->setOpacity(255);
-			break;
-		case ui::Widget::TouchEventType::ENDED:
-			but->setOpacity(200);
-			break;
-		default:
-			break;
-		}
-	});
-	button_rect->setPosition(Vec2(50, 100));
-	this->getScene()->addChild(button_rect, 1);
-
-
-	auto button_trian = Button::create("Button/button_trian.png");
-	button_trian->setScale(0.5);
-	button_trian->setOpacity(200);
-	button_trian->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
-		auto but = (Button*)sender;
-		switch (type)
-		{
-		case ui::Widget::TouchEventType::BEGAN:
-			but->setOpacity(255);
-			break;
-		case ui::Widget::TouchEventType::ENDED:
-			but->setOpacity(200);
-			break;
-		default:
-			break;
-		}
-	});
-	button_trian->setPosition(Vec2(100, 150));
-	this->getScene()->addChild(button_trian, 1);
-
-
-	auto button_cir = Button::create("Button/button_cir.png");
-	button_cir->setScale(0.5);
-	button_cir->setOpacity(200);
-	button_cir->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
-		auto but = (Button*)sender;
-		switch (type)
-		{
-		case ui::Widget::TouchEventType::BEGAN:
-			but->setOpacity(255);
-			break;
-		case ui::Widget::TouchEventType::ENDED:
-			but->setOpacity(200);
-			break;
-		default:
-			break;
-		}
-	});
-	button_cir->setPosition(Vec2(150, 100));
-	this->getScene()->addChild(button_cir, 1);
+	this->getScene()->addChild(new MyUI(mSonic),5);
 }
 
 
@@ -282,12 +248,12 @@ void HelloWorld::LoadMap(CCTMXTiledMap * map)
 			edgeSp->setPhysicsBody(boundBody);
 			edgeSp->setPosition(Vec2(x_box, y_box));
 
-			this->addChild(edgeSp); // Add vào Layer
+			this->addChild(edgeSp); // Add vï¿½o Layer
 		}
 
 
 
-		//TMXObjectGroup *objectGroup_hold_land = _tileMap->getObjectGroup("HoldLand");
+		{//TMXObjectGroup *objectGroup_hold_land = _tileMap->getObjectGroup("HoldLand");
 
 
 		//for (int i = 0; i < objectGroup_hold_land->getObjects().size(); i++)
@@ -317,27 +283,27 @@ void HelloWorld::LoadMap(CCTMXTiledMap * map)
 		//	edgeSp->setPhysicsBody(boundBody);
 		//	edgeSp->setPosition(Vec2(x_box, y_box));
 
-		//	this->addChild(edgeSp); // Add vào Layer
+		//	this->addChild(edgeSp); // Add vï¿½o Layer
 		//}
 
 
-		//TMXObjectGroup *objectGroup_ring = _tileMap->getObjectGroup("Ring");
+		TMXObjectGroup *objectGroup_ring = _tileMap->getObjectGroup("Ring");
 
 
-		//for (int i = 0; i < objectGroup_ring->getObjects().size(); i++)
-		//{
+		for (int i = 0; i < objectGroup_ring->getObjects().size(); i++)
+		{
 
-		//	Value objectemp = objectGroup_ring->getObjects().at(i);
+			Value objectemp = objectGroup_ring->getObjects().at(i);
 
-		//	float wi_box = objectemp.asValueMap().at("width").asFloat();
-		//	float he_box = objectemp.asValueMap().at("height").asFloat();
-		//	float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
-		//	float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+			float wi_box = objectemp.asValueMap().at("width").asFloat();
+			float he_box = objectemp.asValueMap().at("height").asFloat();
+			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
 
-		//	auto ring = new small_Ring();
-		//	ring->setPosition(x_box, y_box);
-		//	this->addChild(ring);
-		//}
+			auto ring = new small_Ring();
+			ring->setPosition(x_box, y_box);
+			this->addChild(ring);
+		}
 
 
 
@@ -379,7 +345,29 @@ void HelloWorld::LoadMap(CCTMXTiledMap * map)
 		//		//this->addChild(drawNode, 10);
 		//	}
 		//}
+		}
+		TMXObjectGroup *objectGroup_button = _tileMap->getObjectGroup("Button");
 
+
+		for (int i = 0; i < objectGroup_button->getObjects().size(); i++)
+		{
+
+			Value objectemp = objectGroup_button->getObjects().at(i);
+
+			float wi_box = objectemp.asValueMap().at("width").asFloat();
+			float he_box = objectemp.asValueMap().at("height").asFloat();
+			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+
+			int a = RandomHelper::random_int(1, 4);
+			auto button=new TapButton(a, Vec2(x_box, y_box), mSonic, this);
+			listButton.pushBack(button);
+		}
+
+
+
+	
+		
 	}
 	catch (...) {};
 	
@@ -398,9 +386,11 @@ void HelloWorld::setViewPointCenter(Point position)
 	Vec2 actualPosition = Vec2(x, y);
 
 	Vec2 centerOfView = Vec2(winSize.width / 2, winSize.height / 2);
-	Vec2 viewPoint = centerOfView - actualPosition;
-//	this->setPosition3D(Vec3(viewPoint.x,viewPoint.y,50));
-	this->setPosition(viewPoint);
+	Vec2 viewPoint = centerOfView - actualPosition + Vec2(-400,0);
+
+	auto currentCameraPosition = this->getPosition();
+	this->setPosition((viewPoint - currentCameraPosition)*_director->getDeltaTime() + currentCameraPosition);
+
 	//this->getScene()->getDefaultCamera()->setPosition(-viewPoint);
 }
 

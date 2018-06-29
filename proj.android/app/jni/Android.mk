@@ -11,10 +11,10 @@ LOCAL_MODULE := MyGame_shared
 
 LOCAL_MODULE_FILENAME := libMyGame
 
-LOCAL_SRC_FILES := $(LOCAL_PATH)/hellocpp/main.cpp \
-                   $(LOCAL_PATH)/../../../Classes/AppDelegate.cpp \
-                   $(LOCAL_PATH)/../../../Classes/HelloWorldScene.cpp \
-$(LOCAL_PATH)/../../../Classes/
+FILE_LIST := $(wildcard $(LOCAL_PATH)/../../../Classes/*.cpp)
+
+LOCAL_SRC_FILES := hellocpp/main.cpp \
+LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../Classes
 

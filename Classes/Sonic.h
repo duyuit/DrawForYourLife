@@ -20,20 +20,22 @@ class Sonic: public Sprite
 public:
 	Sonic();
 	~Sonic();
-	void update();
+	void update(float dt);
 	void handle_swipe(Vec2 start, Vec2 end);
 	RefPtr<Animate>  *mCurrentAnimate;
 	SonicState *mCurrentState;
 	SonicData *mData;
-	bool CheckLastFrame();
+	bool CheckLastFrame(); // Check current animate is last Frame?
 	void SetStateByTag(SonicState::StateAction action); //Set state by put type of State
-	void SetState(SonicState *action);
-	void AddLightning();
-	bool isLeft = false;
-	Vec2 GetVelocity();
-	void handle_collision(Sprite *sprite);
-	void SetVelocity(int x, int y);
-	void SetVelocityX(int x);
+	void SetState(SonicState *action); //Set state by new State()
+	//void AddLightning();
+	bool isLeft = false;   // Check Direction Sonic
+	Vec2 GetVelocity(); 
+	void handle_collision(Sprite *sprite); //Use to handle collision with object
+	void SetVelocity(int x, int y); 
+	void SetVelocityX(int x); //Set velocity X, old Y
+
+	BUTTON_TAG mJustTap = NONE;
 private:
 	RefPtr<Animate>  *run_slow_Ani;
 	RefPtr<Animate>  *run_normal_Ani;
@@ -45,10 +47,13 @@ private:
 
 	Sprite* lightning=nullptr;
 	Sprite* lightning2 = nullptr;
+	Sprite* dust = nullptr;
 
-
+	void updateStart(float dt);
 	Action* mCurrentAction;
 	Define::SWIPE_DIRECTION cur_Swipe_direction;
+
+
 
 	
 };

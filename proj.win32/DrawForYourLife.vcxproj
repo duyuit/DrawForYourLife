@@ -167,6 +167,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\SonicRunSlowState.cpp" />
     <ClCompile Include="..\Classes\SonicState.cpp" />
     <ClCompile Include="..\Classes\TapButton.cpp" />
+    <ClCompile Include="..\Classes\TurtorialScene.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +177,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\InfiniteParallaxNode.h" />
     <ClInclude Include="..\Classes\LandMonster.h" />
+    <ClInclude Include="..\Classes\MyUI.h" />
     <ClInclude Include="..\Classes\small_Ring.h" />
     <ClInclude Include="..\Classes\Sonic.h" />
     <ClInclude Include="..\Classes\SonicData.h" />
@@ -188,6 +190,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\SonicRunSlowState.h" />
     <ClInclude Include="..\Classes\SonicState.h" />
     <ClInclude Include="..\Classes\TapButton.h" />
+    <ClInclude Include="..\Classes\TurtorialScene.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

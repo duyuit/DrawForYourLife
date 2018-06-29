@@ -18,7 +18,7 @@ InfiniteParallaxNode* InfiniteParallaxNode::create()
 
 void InfiniteParallaxNode::updatePosition()
 {
-	int safeOffset = -10;
+	int safeOffset = 0;
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	// 1. Duyệt các con của chuỗi parallax
@@ -27,7 +27,8 @@ void InfiniteParallaxNode::updatePosition()
 	{
 		auto node = _children.at(i); // Node i
 									 // 2. Kiểm tra node đó có ra ngoài màn hình ko, convertToWorldSpace bạn tham khảo tại đây http://www.cocos2d-x.org/wiki/Coordinate_System.
-		if (convertToWorldSpace(node->getPosition()).x + node->getContentSize().width < safeOffset)
+		if (convertToWorldSpace(node->getPosition()).x + node->getContentSize().width * (visibleSize.width / node->getContentSize().width) < safeOffset) // Dùng cho node có AnchorPoint(0,0)
+		//if (convertToWorldSpace(node->getPosition()).x + node->getContentSize().width/2 * (visibleSize.width / node->getContentSize().width) < safeOffset) // Dùng cho node có AnchorPoint(0.5,y)
 			// 3. Tìm PointObject tương ứng với node hiện tại
 			for (int j = 0; j < _parallaxArray->num; j++)
 			{
@@ -37,12 +38,12 @@ void InfiniteParallaxNode::updatePosition()
 
 					if (node->getContentSize().width<visibleSize.width)
 					{
-						po->setOffset(po->getOffset() + Point(visibleSize.width + node->getContentSize().width, 0));
+						po->setOffset(po->getOffset() + Point(visibleSize.width + node->getContentSize().width * node->getScale(), 0));
 
 					}
 					else {
 						// Mục đích chỗ này áp dụng cho với những đối tượng có chiều rộng > màn hình sẽ di chuyển đúng 
-						po->setOffset(po->getOffset() + Point(node->getContentSize().width*2,0));
+						po->setOffset(po->getOffset() + Point(node->getContentSize().width*2*node->getScale(),0));
 					}
 			}
 	}
