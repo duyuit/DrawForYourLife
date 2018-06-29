@@ -25,9 +25,7 @@
 #ifndef __HELLOWORLD_SCENE_H__
 #define __HELLOWORLD_SCENE_H__
 
-#include "cocos2d.h"
-#include "Sonic.h"
-#include "ui/CocosGUI.h"
+#include "MyUI.h"
 #include "small_Ring.h"
 #include "GameParticle.h"
 #include "LandMonster.h"
@@ -37,14 +35,15 @@ using namespace ui;
 class HelloWorld : public cocos2d::Layer
 {
 public:
-    static cocos2d::Scene* createScene();
+
 	Vec2 start_touch_position, end_touch_position;
-    virtual bool init();
 	Sonic* mSonic;
+	Vector<TapButton*> listButton;
 	InfiniteParallaxNode* _backgroundNode;
 	InfiniteParallaxNode* _backgroundNode2;
+
+
 	CCTMXTiledMap * _tileMap;
-	CCTMXLayer *_background;
 	void LoadMap(CCTMXTiledMap* map);
 	void setViewPointCenter(Point position);
 	bool onContactBegin(cocos2d::PhysicsContact & contact);
@@ -53,6 +52,8 @@ public:
     void menuCloseCallback(cocos2d::Ref* pSender);
 	void updateStart(float dt);
     // implement the "static create()" method manually
+	virtual bool init();
+	static cocos2d::Scene* createScene();
     CREATE_FUNC(HelloWorld);
 };
 

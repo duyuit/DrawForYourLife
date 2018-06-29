@@ -11,8 +11,8 @@ public:
 
 
 	BUTTON_TAG mTag;
-
-
+	bool isDelete=false;
+	bool isFirst = false;
 	bool can_Active = false;
 	bool isActive = false;
 	~TapButton();

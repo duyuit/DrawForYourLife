@@ -20,7 +20,7 @@ class Sonic: public Sprite
 public:
 	Sonic();
 	~Sonic();
-	void update();
+	void update(float dt);
 	void handle_swipe(Vec2 start, Vec2 end);
 	RefPtr<Animate>  *mCurrentAnimate;
 	SonicState *mCurrentState;
@@ -47,8 +47,9 @@ private:
 
 	Sprite* lightning=nullptr;
 	Sprite* lightning2 = nullptr;
+	Sprite* dust = nullptr;
 
-
+	void updateStart(float dt);
 	Action* mCurrentAction;
 	Define::SWIPE_DIRECTION cur_Swipe_direction;
 

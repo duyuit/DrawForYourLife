@@ -22,15 +22,15 @@
     <Filter Include="src\GameComponent">
       <UniqueIdentifier>{52710d91-60f7-4d63-8e2f-097888a89ab5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Scene">
+      <UniqueIdentifier>{02a0b001-ee3a-4ba0-9896-d8c3ef2dde20}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Sonic.cpp">
@@ -75,15 +75,18 @@
     <ClCompile Include="..\Classes\TapButton.cpp">
       <Filter>src\GameComponent</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TurtorialScene.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
       <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\HelloWorldScene.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Sonic.h">
@@ -132,6 +135,15 @@
       <Filter>src\GameComponent</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\TapButton.h">
+      <Filter>src\GameComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HelloWorldScene.h">
+      <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TurtorialScene.h">
+      <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MyUI.h">
       <Filter>src\GameComponent</Filter>
     </ClInclude>
   </ItemGroup>

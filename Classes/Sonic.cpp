@@ -50,6 +50,10 @@ Sonic::Sonic()
 	this->setTag(Define::Player);
 
 
+	
+	scheduleOnce(CC_SCHEDULE_SELECTOR(Sonic::updateStart), 0);
+	this->scheduleUpdate();
+	
 }
 
 
@@ -57,11 +61,26 @@ Sonic::~Sonic()
 {
 }
 int count_to_reset_just_tap = 0;
-void Sonic::update()
+void Sonic::update(float dt)
 {
 	count_to_reset_just_tap++;
 	this->setFlippedX(!isLeft);
+	if (dust!=nullptr)
+	{
+		dust->setFlippedX(isLeft);
+		if (isLeft)
+		{
+			dust->setAnchorPoint(Vec2(0, 0));
+			dust->setPosition(this->getPosition() + Vec2(5, 0));
+		}
+		else
+		{
+			dust->setAnchorPoint(Vec2(1, 0));
+			dust->setPosition(this->getPosition() + Vec2(-5, 0));
+		}
+	}
 	
+
 	mCurrentState->update();
 	if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL)
 		this->SetStateByTag(SonicState::StateAction::FALL);
@@ -70,7 +89,7 @@ void Sonic::update()
 		lightning->setPosition(this->getPosition() + Vec2(-15, 10));
 		lightning2->setPosition(this->getPosition() + Vec2(-15,5));
 	}*/
-	if (count_to_reset_just_tap ==15)
+	if (count_to_reset_just_tap ==2)
 	{
 		count_to_reset_just_tap = 0;
 		mJustTap = NONE;
@@ -234,5 +253,15 @@ void Sonic::SetVelocity(int x, int y)
 void Sonic::SetVelocityX(int x)
 {
 	this->getPhysicsBody()->setVelocity(Point(x, this->getPhysicsBody()->getVelocity().y));
+}
+
+void Sonic::updateStart(float dt)
+{
+	dust = Sprite::create();
+	auto dust_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Particle/particle.xml", "dust"), 0.05f)));;
+	dust->runAction(RepeatForever::create(dust_anim->get()));
+	dust->setScale(1.3);
+	dust->setPosition(this->getPosition());
+	this->getParent()->addChild(dust);
 }
 

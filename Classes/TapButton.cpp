@@ -31,14 +31,12 @@ TapButton::TapButton(int ID,Vec2 pos, Sonic* sprite, Layer* layer)
 
 
 	this->setScale(0.3);
-	circle->setScale(0.8);
-
-	//circle->setScale(2);
+	circle->setScale(1.3);
 
 	mTarget = sprite;
 	this->scheduleUpdate();
 	layer->addChild(this);
-	layer->addChild(circle,-1);
+	layer->addChild(circle,1);
 }
 
 
@@ -73,30 +71,29 @@ void TapButton::Dissapear()
 
 void TapButton::update(float dt)
 {
+	if (isDelete) return;
 	if (this->getPosition().x - mTarget->getPosition().x <= 600 && !isActive)
 		this->Active();
-	if (isActive)
+	if (isActive && isFirst)
 	{
 		BUTTON_TAG tag = mTarget->mJustTap;
 		if (tag != NONE && tag != mTag)
 		{
-			this->circle->runAction(RemoveSelf::create());
+		//	this->circle->runAction(RemoveSelf::create());
+			isDelete = true;
+			mTarget->mJustTap = NONE;
 			this->runAction(RemoveSelf::create());
 			return;
 		}
 		if (this->getPosition().x - mTarget->getPosition().x <= 600 && can_Active)
 		{
-		/*	if (tag != NONE && tag != mTag)
-			{
-				this->runAction(RemoveSelf::create());
+			if (tag == NONE)
 				return;
-			}*/
-			if (tag == NONE) return;
 			if (tag == mTag)
 			{
-				
+				isDelete = true;
+				mTarget->mJustTap = NONE;
 				mTarget->SetStateByTag(SonicState::StateAction::JUMP);
-			//	mTarget->SetStateByTag(SonicState::StateAction::JUMP);
 				this->runAction(RemoveSelf::create());
 				return;
 			}
