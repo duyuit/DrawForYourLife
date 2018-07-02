@@ -11,6 +11,12 @@ public:
 	MyUI() {};
 	Sonic* mySonic;
 	Button *x_button, *button_rect,*button_trian, *button_cir;
+
+	void update(float dt)
+	{
+
+	};
+
 	MyUI (Sonic* mSonic)
 	{
 		mySonic = mSonic;
@@ -99,5 +105,7 @@ public:
 		});
 		button_cir->setPosition(Vec2(150, 100));
 		this->addChild(button_cir, 1);
+
+		this->scheduleUpdate();
 	};
 };

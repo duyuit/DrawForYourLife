@@ -81,7 +81,7 @@ bool HelloWorld::init()
 	this->addChild(mSonic);
 
 	
-	LoadMap(_tileMap);
+	LoadMap();
 
 	
 	LandMonster *abc = new LandMonster();
@@ -207,7 +207,7 @@ void HelloWorld::updateStart(float dt)
 
 
 
-void HelloWorld::LoadMap(CCTMXTiledMap * map)
+void HelloWorld::LoadMap()
 {
 	try
 	{

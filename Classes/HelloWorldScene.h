@@ -44,7 +44,7 @@ public:
 
 
 	CCTMXTiledMap * _tileMap;
-	void LoadMap(CCTMXTiledMap* map);
+	void LoadMap();
 	void setViewPointCenter(Point position);
 	bool onContactBegin(cocos2d::PhysicsContact & contact);
 	void update(float dt);
