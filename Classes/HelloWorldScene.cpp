@@ -36,7 +36,7 @@ Scene* HelloWorld::createScene()
 
 	// optional: set debug draw
 	//scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
-	//scene->getPhysicsWorld()->step(1 / 60.0f);
+	scene->getPhysicsWorld()->step(1 / 60.0f);
 
 	
 
@@ -163,10 +163,10 @@ void HelloWorld::update(float dt)
 		if (listButton.at(0)->isDelete) listButton.erase(listButton.begin());
 	}
 	
-	//for (int i = 0; i < 3; ++i)
-	//{
-	//	this->getScene()->getPhysicsWorld()->step(1 / 60.0f);
-	//}
+	for (int i = 0; i < 3; ++i)
+	{
+		this->getScene()->getPhysicsWorld()->step(1 / 60.0f);
+	}
 	
 	//updatePosition for InfiniteParallaxNode
 	_backgroundNode->setPosition(_backgroundNode->getPosition() - Vec2(5, 0));
@@ -201,16 +201,7 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 void HelloWorld::updateStart(float dt)
 {
-	/*this->setScaleX((float)_director->getOpenGLView()->getFrameSize().width / 1280);
-	this->setScaleY((float)_director->getOpenGLView()->getFrameSize().height / 1024);
-	
-	int x2 = _director->getOpenGLView()->getFrameSize().width;
-	int x3= _director->getOpenGLView()->getFrameSize().height;*/
 
-
-	/*int x=*///this->getScene()->getDefaultCamera()->setPositionZ(100);
-	//this->getScene()->getDefaultCamera()->setScale(0.8);
-	//this->getScene()->getPhysicsWorld()->setFixedUpdateRate(60);
 	this->getScene()->addChild(new MyUI(mSonic),5);
 }
 

@@ -6,7 +6,7 @@
 SonicJumpState::SonicJumpState(SonicData * playerData)
 {
 	this->mPlayerData = playerData;
-	this->mPlayerData->player->getPhysicsBody()->applyForce(Vec2(0, 13000000));
+	this->mPlayerData->player->getPhysicsBody()->applyForce(Vec2(0, 13500000));
 	if (this->mPlayerData->player->isLeft)
 		this->mPlayerData->player->SetVelocityX(-360);
 	else

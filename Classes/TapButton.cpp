@@ -61,10 +61,6 @@ void TapButton::Dissapear()
 	auto reverse = fadeOut->reverse();
 	ActionInterval *fade = Sequence::create(fadeOut, reverse, nullptr);
 	auto fading = Repeat::create(fade, time_dissapear/0.1);
-
-	/*auto wait = Sequence::create(DelayTime::create(2.5f), RemoveSelf::create(), NULL);
-	auto mySpawn = Spawn::createWithTwoActions(fading, wait);*/
-
 	auto actionMoveDone = CallFuncN::create(CC_CALLBACK_0(TapButton::DeleteCircle, this));
 	this->runAction(Sequence::create(fading, RemoveSelf::create(), actionMoveDone, NULL));
 }
@@ -94,12 +90,12 @@ void TapButton::update(float dt)
 		this->Active();
 	if (isActive && isFirst)
 	{
-		if (can_Active)
+		/*if (can_Active)
 		{
 			mTarget->SetStateByTag(SonicState::StateAction::JUMP);
 			DeleteNow();
 			return;
-		}
+		}*/
 
 		BUTTON_TAG tag = mTarget->mJustTap;
 		if (!can_Active && tag != NONE)

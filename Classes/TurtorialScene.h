@@ -18,7 +18,8 @@ public:
 	Vector<Label*> listLabel;
 	MyUI* myui;
 
-
+	int count_to_move_scene = 0; // 
+	int delta_x = -30; //2 Variable to Shake Camera when sonic is pausing
 	int count_tuto = 0;
 
 	Sprite* blackImage;
@@ -32,8 +33,11 @@ public:
 
 	void Tutorial3();
 	void Tutorial3_part1();
+
+	void Tutorial4();
+	void Tutorial4_part1();
 	
-	
+	void RollBackground();
 	void Pause();
 	void Continue();
 	void LoadMap(CCTMXTiledMap* map);

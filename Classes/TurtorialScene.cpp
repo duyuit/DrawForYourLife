@@ -9,7 +9,7 @@ cocos2d::Scene * TurtorialScene::createScene()
 
 	// optional: set debug draw
 	//scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
-	//scene->getPhysicsWorld()->step(1 / 60.0f);
+	scene->getPhysicsWorld()->step(1 / 60.0f);
 
 
 
@@ -85,14 +85,37 @@ void TurtorialScene::Tutorial3()
 {
 	Pause();
 	listButton.at(1)->unscheduleUpdate();
-	listButton.at(1)->circle->runAction(Sequence::create(ScaleTo::create(1.0, 0.29), CallFuncN::create(CC_CALLBACK_0(TurtorialScene::Tutorial3_part1, this)), NULL));
+	listButton.at(1)->circle->runAction(Sequence::create(ScaleTo::create(1.5, 0.29), CallFuncN::create(CC_CALLBACK_0(TurtorialScene::Tutorial3_part1, this)), NULL));
 }
 
 void TurtorialScene::Tutorial3_part1()
 {
-	listButton.at(1)->scheduleUpdate();
-	listButton.at(1)->can_Active = true;
 	listButton.at(1)->time_dissapear = 1000;
+	listButton.at(1)->scheduleUpdate();
+	listButton.at(1)->Dissapear();
+	listButton.at(1)->can_Active = true;
+}
+
+void TurtorialScene::Tutorial4()
+{
+	
+	listButton.at(2)->time_dissapear = 1000;
+	Pause();
+}
+
+void TurtorialScene::Tutorial4_part1()
+{
+	
+	//if(listButton.at(2)->can_Active)
+}
+
+void TurtorialScene::RollBackground()
+{
+	_backgroundNode->setPosition(_backgroundNode->getPosition() - Vec2(5, 0));
+	_backgroundNode->updatePosition();
+	_backgroundNode2->setPosition(_backgroundNode2->getPosition() - Vec2(5, 0));
+	_backgroundNode2->updatePosition();
+
 }
 
 void TurtorialScene::Pause()
@@ -341,8 +364,7 @@ bool TurtorialScene::onContactBegin(cocos2d::PhysicsContact & contact)
 
 	return true;
 }
-int count_to_move_scene = 0;
-int delta_x = -30;
+
 void TurtorialScene::update(float dt)
 {
 	if (listButton.at(0)->getPositionX()- mSonic->getPositionX() <= 150 && count_tuto<2)
@@ -363,7 +385,7 @@ void TurtorialScene::update(float dt)
 			this->myui->x_button->setEnabled(true);
 			this->myui->button_rect->setEnabled(true);
 			this->myui->button_trian->setEnabled(true);
-
+			listLabel.at(1)->setString("");
 		}
 	}
 	if (listButton.at(1)->getPositionX() - mSonic->getPositionX() <= 150 && count_tuto == 4)
@@ -373,17 +395,29 @@ void TurtorialScene::update(float dt)
 	}
 	if (count_tuto == 5)
 	{
-		if (listButton.at(1)->isDelete) Continue();
+		if (listButton.at(1)->isDelete)
+		{
+			Continue();
+			listLabel.at(2)->setString("");
+		}
 	}
+	if (count_tuto == 6 && listButton.at(2)->getPositionX()-mSonic->getPositionX()<=650)
+	{
+	
+		if(!isPause)
+		Tutorial4();
+	}
+	if (count_tuto == 7)
+	{
+		
+		if (listButton.at(2)->can_Active)
+			Pause();
+		if (listButton.at(2)->isDelete)
+			Continue();
+	}
+	
 
-
-	_backgroundNode->setPosition(_backgroundNode->getPosition() - Vec2(5, 0));
-	_backgroundNode->updatePosition();
-	_backgroundNode2->setPosition(_backgroundNode2->getPosition() - Vec2(5, 0));
-	_backgroundNode2->updatePosition();
-
-
-	//mSonic->update(dt);
+	RollBackground();
 	if (isPause)
 	{
 		count_to_move_scene++;
@@ -439,7 +473,7 @@ bool TurtorialScene::init()
 
 
 	mSonic = new Sonic();
-	mSonic->setPosition(1000, 200);
+	mSonic->setPosition(1300, 200);
 	this->addChild(mSonic);
 
 
@@ -487,7 +521,7 @@ bool TurtorialScene::init()
 	listener1->onTouchEnded = [this](Touch* touch, Event* event) {
 		end_touch_position = touch->getLocation();
 		mSonic->handle_swipe(start_touch_position, end_touch_position);
-		if (isPause && count_tuto!=2 && count_tuto!=3) Continue();
+		if (isPause && count_tuto!=2 && count_tuto!=3 && count_tuto != 5 && count_tuto !=7) Continue();
 	};
 
 
