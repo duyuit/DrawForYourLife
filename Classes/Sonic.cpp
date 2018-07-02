@@ -67,6 +67,9 @@ void Sonic::update(float dt)
 	this->setFlippedX(!isLeft);
 	if (dust!=nullptr)
 	{
+		if (mCurrentState->GetState() == SonicState::RUN_FAST || mCurrentState->GetState() == SonicState::ROLL)
+			dust->setVisible(true);
+		else dust->setVisible(false);
 		dust->setFlippedX(isLeft);
 		if (isLeft)
 		{
@@ -89,7 +92,7 @@ void Sonic::update(float dt)
 		lightning->setPosition(this->getPosition() + Vec2(-15, 10));
 		lightning2->setPosition(this->getPosition() + Vec2(-15,5));
 	}*/
-	if (count_to_reset_just_tap ==2)
+	if (count_to_reset_just_tap ==5)
 	{
 		count_to_reset_just_tap = 0;
 		mJustTap = NONE;

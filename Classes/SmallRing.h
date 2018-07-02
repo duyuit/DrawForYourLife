@@ -3,11 +3,11 @@
 #include "GameDefine.h"
 using namespace cocos2d;
 
-class small_Ring:public Sprite
+class SmallRing:public Sprite
 {
 public:
-	small_Ring();
-	~small_Ring();
+	SmallRing();
+	~SmallRing();
 	RefPtr<Animate>  *roll;
 };
 

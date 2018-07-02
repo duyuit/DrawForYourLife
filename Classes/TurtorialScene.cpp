@@ -32,13 +32,17 @@ TurtorialScene::~TurtorialScene()
 void TurtorialScene::Tutorial1()
 {
 	Pause();
+	
 }
 
 void TurtorialScene::Tutorial2()
 {
+	
+
 	Pause();
 	listButton.at(0)->circle->runAction(Sequence::create(ScaleTo::create(1.5, 0.29), CallFuncN::create(CC_CALLBACK_0(TurtorialScene::Tutorial2_part1, this)),NULL));
-		//scheduleUpdate();
+
+	
 }
 
 void TurtorialScene::Tutorial2_part1()
@@ -51,13 +55,44 @@ void TurtorialScene::Tutorial2_part1()
 	switch (listButton.at(0)->mTag)
 	{
 	case Define::Cir: 
-		myui->button_cir->setEnabled(false);
+		myui->button_rect->setEnabled(false);
+		myui->button_trian->setEnabled(false);
+		myui->x_button->setEnabled(false);
 		break;
-	case Define::X: break;
-	case Define::Rectangcle: break;
-	case Define::Tri: break;
+	case Define::X: myui->button_rect->setEnabled(false); 
+		myui->button_trian->setEnabled(false); 
+		myui->button_cir->setEnabled(false); break;
+	case Define::Rectangcle: 
+		myui->button_trian->setEnabled(false); 
+		myui->x_button->setEnabled(false); 
+		myui->button_cir->setEnabled(false); 
+		break;
+	case Define::Tri:myui->button_cir->setEnabled(false);
+		myui->button_rect->setEnabled(false); 
+		myui->x_button->setEnabled(false); 
+		break;
 	}
+	listButton.at(0)->scheduleUpdate();
+	listButton.at(0)->can_Active = true;
+	listButton.at(0)->time_dissapear = 1000;
+	listButton.at(0)->isFirst = true;
 
+
+
+}
+
+void TurtorialScene::Tutorial3()
+{
+	Pause();
+	listButton.at(1)->unscheduleUpdate();
+	listButton.at(1)->circle->runAction(Sequence::create(ScaleTo::create(1.0, 0.29), CallFuncN::create(CC_CALLBACK_0(TurtorialScene::Tutorial3_part1, this)), NULL));
+}
+
+void TurtorialScene::Tutorial3_part1()
+{
+	listButton.at(1)->scheduleUpdate();
+	listButton.at(1)->can_Active = true;
+	listButton.at(1)->time_dissapear = 1000;
 }
 
 void TurtorialScene::Pause()
@@ -67,6 +102,7 @@ void TurtorialScene::Pause()
 	{
 		label->setVisible(true);
 	}
+	blackImage->setPosition(mSonic->getPosition());
 	blackImage->setVisible(true);
 }
 
@@ -153,7 +189,7 @@ void TurtorialScene::LoadMap(CCTMXTiledMap * map)
 		 //}
 
 
-			/*TMXObjectGroup *objectGroup_ring = _tileMap->getObjectGroup("Ring");
+			TMXObjectGroup *objectGroup_ring = _tileMap->getObjectGroup("Ring");
 
 
 			for (int i = 0; i < objectGroup_ring->getObjects().size(); i++)
@@ -166,11 +202,11 @@ void TurtorialScene::LoadMap(CCTMXTiledMap * map)
 				float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
 				float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
 
-				auto ring = new small_Ring();
+				auto ring = new SmallRing();
 				ring->setPosition(x_box, y_box);
 				this->addChild(ring);
 			}
-*/
+
 
 
 			//// Process object layer 
@@ -229,9 +265,12 @@ void TurtorialScene::LoadMap(CCTMXTiledMap * map)
 			auto button = new TapButton(a, Vec2(x_box, y_box), mSonic, this);
 			button->setZOrder(8);
 			button->circle->setZOrder(7);
-			button->unscheduleUpdate();
+			button->isFirst = true;
 			listButton.pushBack(button);
 		}
+		listButton.at(0)->unscheduleUpdate();
+		listButton.at(1)->unscheduleUpdate();
+
 
 		TMXObjectGroup *objectGroup_text = _tileMap->getObjectGroup("Text");
 
@@ -306,14 +345,38 @@ int count_to_move_scene = 0;
 int delta_x = -30;
 void TurtorialScene::update(float dt)
 {
-	if (mSonic->getPositionX() >= 1900 && count_tuto<2)
+	if (listButton.at(0)->getPositionX()- mSonic->getPositionX() <= 150 && count_tuto<2)
 	{
 		Tutorial1();
 	}
 	if (count_tuto == 2 && !isPause)
 	{
 		Tutorial2();
+		count_tuto++;
 	}
+	if (count_tuto == 3)
+	{
+		if (listButton.at(0)->isDelete)
+		{
+			Continue();
+			this->myui->button_cir->setEnabled(true);
+			this->myui->x_button->setEnabled(true);
+			this->myui->button_rect->setEnabled(true);
+			this->myui->button_trian->setEnabled(true);
+
+		}
+	}
+	if (listButton.at(1)->getPositionX() - mSonic->getPositionX() <= 150 && count_tuto == 4)
+	{
+		Tutorial3();
+		count_tuto++;
+	}
+	if (count_tuto == 5)
+	{
+		if (listButton.at(1)->isDelete) Continue();
+	}
+
+
 	_backgroundNode->setPosition(_backgroundNode->getPosition() - Vec2(5, 0));
 	_backgroundNode->updatePosition();
 	_backgroundNode2->setPosition(_backgroundNode2->getPosition() - Vec2(5, 0));
@@ -376,7 +439,7 @@ bool TurtorialScene::init()
 
 
 	mSonic = new Sonic();
-	mSonic->setPosition(200, 200);
+	mSonic->setPosition(1000, 200);
 	this->addChild(mSonic);
 
 
@@ -424,7 +487,7 @@ bool TurtorialScene::init()
 	listener1->onTouchEnded = [this](Touch* touch, Event* event) {
 		end_touch_position = touch->getLocation();
 		mSonic->handle_swipe(start_touch_position, end_touch_position);
-		if (isPause) Continue();
+		if (isPause && count_tuto!=2 && count_tuto!=3) Continue();
 	};
 
 

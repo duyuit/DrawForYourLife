@@ -35,7 +35,7 @@ Scene* HelloWorld::createScene()
 	scene->getPhysicsWorld()->setGravity(Vec2(0, -1000));
 
 	// optional: set debug draw
-	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+	//scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
 	//scene->getPhysicsWorld()->step(1 / 60.0f);
 
 	
@@ -300,7 +300,7 @@ void HelloWorld::LoadMap(CCTMXTiledMap * map)
 			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
 			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
 
-			auto ring = new small_Ring();
+			auto ring = new SmallRing();
 			ring->setPosition(x_box, y_box);
 			this->addChild(ring);
 		}

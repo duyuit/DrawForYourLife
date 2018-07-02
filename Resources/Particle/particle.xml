@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Animations>
-  <Animation name="eat_item" imagePath="flare.png" width="367" height="66">
+  <Animation name="eat_item" imagePath="Particle/particle.png" width="367" height="66">
     <sprite x="5" y="46" w="5" h="5" oX="5" oY="46" oW="-196" oH="302" />
     <sprite x="21" y="32" w="18" h="19" oX="21" oY="32" oW="-196" oH="302" />
     <sprite x="53" y="25" w="25" h="26" oX="53" oY="25" oW="-196" oH="302" />
@@ -11,22 +11,12 @@
     <sprite x="299" y="34" w="7" h="5" oX="299" oY="34" oW="-196" oH="302" />
     <sprite x="294" y="15" w="38" h="35" oX="294" oY="15" oW="-196" oH="302" />
   </Animation>
-  <Animation name="lightning" imagePath="light.png" width="250" height="511">
-    <sprite x="13" y="25" w="223" h="35" oX="13" oY="25" oW="565" oH="235" />
-    <sprite x="18" y="82" w="216" h="35" oX="18" oY="82" oW="565" oH="235" />
-    <sprite x="14" y="148" w="225" h="44" oX="14" oY="148" oW="565" oH="235" />
-    <sprite x="18" y="209" w="220" h="44" oX="18" oY="209" oW="565" oH="235" />
-    <sprite x="17" y="277" w="225" h="42" oX="17" oY="277" oW="565" oH="235" />
-    <sprite x="16" y="340" w="219" h="40" oX="16" oY="340" oW="565" oH="235" />
-    <sprite x="14" y="396" w="223" h="41" oX="14" oY="396" oW="565" oH="235" />
-    <sprite x="19" y="452" w="214" h="41" oX="19" oY="452" oW="565" oH="235" />
+  <Animation name="dust" imagePath="Particle/particle.png" width="367" height="300">
+    <sprite x="4" y="85" w="45" h="29" oX="4" oY="85" oW="118" oH="161" />
+    <sprite x="64" y="78" w="42" h="36" oX="64" oY="78" oW="118" oH="161" />
+    <sprite x="117" y="75" w="38" h="41" oX="117" oY="75" oW="118" oH="161" />
   </Animation>
 
-  <Animation name="dust" imagePath="dust.png" width="186" height="62">
-    <sprite x="9" y="30" w="45" h="29" oX="9" oY="30" oW="58" oH="161" />
-    <sprite x="69" y="23" w="42" h="36" oX="69" oY="23" oW="58" oH="161" />
-    <sprite x="122" y="20" w="38" h="41" oX="122" oY="20" oW="58" oH="161" />
-  </Animation>
 
 
 </Animations>

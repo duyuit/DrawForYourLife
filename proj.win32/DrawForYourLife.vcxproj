@@ -155,7 +155,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\InfiniteParallaxNode.cpp" />
     <ClCompile Include="..\Classes\LandMonster.cpp" />
-    <ClCompile Include="..\Classes\small_Ring.cpp" />
+    <ClCompile Include="..\Classes\SmallRing.cpp" />
     <ClCompile Include="..\Classes\Sonic.cpp" />
     <ClCompile Include="..\Classes\SonicData.cpp" />
     <ClCompile Include="..\Classes\SonicFallState.cpp" />
@@ -178,7 +178,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\InfiniteParallaxNode.h" />
     <ClInclude Include="..\Classes\LandMonster.h" />
     <ClInclude Include="..\Classes\MyUI.h" />
-    <ClInclude Include="..\Classes\small_Ring.h" />
+    <ClInclude Include="..\Classes\SmallRing.h" />
     <ClInclude Include="..\Classes\Sonic.h" />
     <ClInclude Include="..\Classes\SonicData.h" />
     <ClInclude Include="..\Classes\SonicFallState.h" />

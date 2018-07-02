@@ -1,8 +1,8 @@
-#include "small_Ring.h"
+#include "SmallRing.h"
 
 
 
-small_Ring::small_Ring()
+SmallRing::SmallRing()
 {
 	this->init();
 	this->setPosition(100, 100);
@@ -25,6 +25,6 @@ small_Ring::small_Ring()
 }
 
 
-small_Ring::~small_Ring()
+SmallRing::~SmallRing()
 {
 }

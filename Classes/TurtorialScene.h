@@ -3,6 +3,7 @@
 #include "InfiniteParallaxNode.h"
 #include "TapButton.h"
 #include "MyUI.h"
+#include "SmallRing.h"
 using namespace cocos2d;
 class TurtorialScene : public cocos2d::Layer
 {
@@ -25,8 +26,14 @@ public:
 	TurtorialScene();
 	~TurtorialScene();
 	void Tutorial1();
+
 	void Tutorial2();
 	void Tutorial2_part1();
+
+	void Tutorial3();
+	void Tutorial3_part1();
+	
+	
 	void Pause();
 	void Continue();
 	void LoadMap(CCTMXTiledMap* map);
@@ -40,3 +47,36 @@ public:
 	CREATE_FUNC(TurtorialScene);
 };
 
+class TarGetCircle:public Sprite
+{
+public:
+	TarGetCircle(float scale_first,Vec2 pos)
+	{
+		this->initWithFile("Button/circle.png");
+		this->setScale(scale_first);
+		this->setColor(Color3B(255, 255, 132));
+		this->setPosition(pos);
+		this->setZOrder(8);
+
+	
+
+
+		
+
+	
+	};
+	void RunAction()
+	{
+		auto fadeOut = FadeOut::create(0.1f);
+		auto reverse = fadeOut->reverse();
+		ActionInterval *fade = Sequence::create(fadeOut, reverse, nullptr);
+		auto fading = RepeatForever::create(fade);
+		this->runAction(fading);
+
+	
+
+
+	}
+
+	~TarGetCircle() {};
+};

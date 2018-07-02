@@ -9,7 +9,7 @@ public:
 	TapButton(int ID,Vec2 pos,Sonic *sprite,Layer* layer);
 	Sprite* circle;
 	Sonic* mTarget;
-
+	float time_dissapear = 0.3;
 
 	BUTTON_TAG mTag;
 	bool isDelete=false;
@@ -19,6 +19,8 @@ public:
 	~TapButton();
 	void Active();
 	void Dissapear();
+	void DeleteNow();
+	void DeleteCircle();
 	void update(float dt);
 };
 

@@ -70,10 +70,10 @@
  </objectgroup>
  <objectgroup name="Button">
   <object id="59" x="654" y="2900"/>
-  <object id="60" x="1778" y="2932"/>
-  <object id="61" x="2118" y="2860"/>
-  <object id="62" x="2406" y="2847"/>
-  <object id="63" x="2754" y="2874"/>
+  <object id="60" x="1822" y="2913"/>
+  <object id="61" x="2134" y="2840"/>
+  <object id="62" x="2434" y="2833"/>
+  <object id="63" x="2813" y="2843"/>
  </objectgroup>
  <objectgroup name="Ring">
   <object id="15" x="192" y="2972"/>

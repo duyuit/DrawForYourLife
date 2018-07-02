@@ -26,7 +26,7 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "MyUI.h"
-#include "small_Ring.h"
+#include "SmallRing.h"
 #include "GameParticle.h"
 #include "LandMonster.h"
 #include "InfiniteParallaxNode.h"
