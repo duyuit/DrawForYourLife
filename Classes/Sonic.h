@@ -35,6 +35,8 @@ public:
 	void SetVelocity(int x, int y); 
 	void SetVelocityX(int x); //Set velocity X, old Y
 
+	int ringCollected = 0; //Count rings Sonic collected
+
 	BUTTON_TAG mJustTap = NONE;
 private:
 	RefPtr<Animate>  *run_slow_Ani;

@@ -11,11 +11,13 @@ public:
 	MyUI() {};
 	Sonic* mySonic;
 	Button *x_button, *button_rect,*button_trian, *button_cir;
+	Sprite* ringIcon;
+	Label* countRing;
 
 	void update(float dt)
 	{
-
-	};
+		countRing->setString("X  " + std::to_string(mySonic->ringCollected));
+	}
 
 	MyUI (Sonic* mSonic)
 	{
@@ -106,6 +108,16 @@ public:
 		button_cir->setPosition(Vec2(150, 100));
 		this->addChild(button_cir, 1);
 
+		//Add Sprite ring
+		 ringIcon = Sprite::create("ring.png",Rect(200,48,64,50));
+		ringIcon->setPosition(50, 975);
+		this->addChild(ringIcon, 1);
+
+		//Add label count rings
+		 countRing = Label::createWithTTF("X  " + std::to_string(mSonic->ringCollected), "fonts/Marker Felt.ttf", 36);
+		countRing->setPosition(125, 975);
+		this->addChild(countRing, 1);
+		this->scheduleUpdate();
 		this->scheduleUpdate();
 	};
 };

@@ -244,6 +244,7 @@ void Sonic::handle_collision(Sprite * sprite)
 	{
 		MyParticle::CreateEatItem(sprite->getPosition(), (Layer*) this->getParent());
 		sprite->runAction(RemoveSelf::create());
+		ringCollected++;
 	}
 	mCurrentState->handle_collision(sprite);
 }
