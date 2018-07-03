@@ -28,7 +28,7 @@ void SonicFallState::handle_swipe(Define::SWIPE_DIRECTION direct)
 {
 }
 
-void SonicFallState::handle_collision(Sprite * sprite)
+void SonicFallState::HandleCollision(Sprite * sprite)
 {
 	if (sprite->getTag() == Define::land)
 		this->mPlayerData->player->SetStateByTag(StateAction::RUN_FAST);

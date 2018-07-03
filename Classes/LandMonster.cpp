@@ -29,7 +29,7 @@ LandMonster::LandMonster()
 	verti->setPositionOffset(Vec2(30 / 4, 30 / 4));
 	this->setFlipX(true);
 	this->runAction(RepeatForever::create(move_ani->get()));
-	this->setTag(Define::land_monster);
+	//this->setTag(Define::land_monster);
 	this->scheduleUpdate();
 }
 

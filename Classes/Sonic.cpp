@@ -24,7 +24,7 @@ Sonic::Sonic()
 
 	verti->setCategoryBitmask(1);    // 0010
 	verti->setCollisionBitmask(6);   // 0001
-	verti->setContactTestBitmask(14);
+	verti->setContactTestBitmask(30);
 
 	verti->setRotationEnable(false);
 	verti->setDynamic(true);
@@ -238,14 +238,14 @@ Vec2 Sonic::GetVelocity()
 	return this->getPhysicsBody()->getVelocity();
 }
 
-void Sonic::handle_collision(Sprite * sprite)
+void Sonic::HandleCollision(Sprite * sprite)
 {
 	if (sprite->getTag() == Define::Ring)
 	{
 		MyParticle::CreateEatItem(sprite->getPosition(), (Layer*) this->getParent());
 		sprite->runAction(RemoveSelf::create());
 	}
-	mCurrentState->handle_collision(sprite);
+	mCurrentState->HandleCollision(sprite);
 }
 
 void Sonic::SetVelocity(int x, int y)

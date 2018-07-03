@@ -9,10 +9,10 @@ SmallRing::SmallRing()
 	roll = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("ring.xml", "roll"), 0.1f)));
 	this->runAction(RepeatForever::create(roll->get()));
 	this->setAnchorPoint(Vec2(0.5f, 0.5f));
-	auto body = PhysicsBody::createBox(Size(50,45));
-	body->setPositionOffset(Vec2(10, 20));
-	body->setDynamic(false);
+	auto body = PhysicsBody::createBox(this->getContentSize());
 
+	body->setDynamic(false);
+	body->setGravityEnable(false);
 
 	body->setCategoryBitmask(8);    // 0010
 	body->setCollisionBitmask(0);   // 0001

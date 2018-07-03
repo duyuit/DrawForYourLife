@@ -4,19 +4,20 @@
 #include "TapButton.h"
 #include "MyUI.h"
 #include "SmallRing.h"
+#include "Monster.h"
 using namespace cocos2d;
 class TurtorialScene : public cocos2d::Layer
 {
 public:
 	Vec2 start_touch_position, end_touch_position;
-	Sonic* mSonic;
-	Vector<TapButton*> listButton;
+	Sonic* _mSonic;
+	Vector<TapButton*> _listButton;
 	InfiniteParallaxNode* _backgroundNode;
 	InfiniteParallaxNode* _backgroundNode2;
 	CCTMXTiledMap * _tileMap;
-	bool isPause = false;
-	Vector<Label*> listLabel;
-	MyUI* myui;
+	bool _isPause = false;
+	Vector<Label*> _listLabel;
+	MyUI* _myui;
 
 	int count_to_move_scene = 0; // 
 	int delta_x = -30; //2 Variable to Shake Camera when sonic is pausing
@@ -41,7 +42,7 @@ public:
 	void Pause();
 	void Continue();
 	void LoadMap(CCTMXTiledMap* map);
-	void setViewPointCenter(Point position);
+	void SetViewPointCenter(Point position);
 	bool onContactBegin(cocos2d::PhysicsContact & contact);
 	void update(float dt);
 	void updateStart(float dt);

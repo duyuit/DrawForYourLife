@@ -398,12 +398,12 @@ bool HelloWorld::onContactBegin(cocos2d::PhysicsContact& contact)
 		if (tagA == Define::Player)
 		{
 			Sonic *sonic = (Sonic*)spriteA;
-			sonic->handle_collision(spriteB);
+			sonic->HandleCollision(spriteB);
 		}
 		else
 		{
 			Sonic *sonic = (Sonic*)spriteB;
-			sonic->handle_collision(spriteA);
+			sonic->HandleCollision(spriteA);
 		}
 	}
 

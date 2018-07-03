@@ -84,7 +84,9 @@
     <ClCompile Include="..\Classes\FrogMonster.cpp">
       <Filter>src\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="..\Classes\Monster.cpp">
+      <Filter>src\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -153,7 +155,9 @@
     <ClInclude Include="..\Classes\FrogMonster.h">
       <Filter>src\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Monster.h" />
+    <ClInclude Include="..\Classes\Monster.h">
+      <Filter>src\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

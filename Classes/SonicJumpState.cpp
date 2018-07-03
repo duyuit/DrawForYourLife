@@ -43,7 +43,7 @@ void SonicJumpState::handle_swipe(Define::SWIPE_DIRECTION direct)
 	}
 }
 
-void SonicJumpState::handle_collision(Sprite * sprite)
+void SonicJumpState::HandleCollision(Sprite * sprite)
 {
 	if (sprite->getTag() == Define::HoldPlace)
 	{

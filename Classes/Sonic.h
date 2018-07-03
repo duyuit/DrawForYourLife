@@ -31,7 +31,7 @@ public:
 	//void AddLightning();
 	bool isLeft = false;   // Check Direction Sonic
 	Vec2 GetVelocity(); 
-	void handle_collision(Sprite *sprite); //Use to handle collision with object
+	void HandleCollision(Sprite *sprite); //Use to handle collision with object
 	void SetVelocity(int x, int y); 
 	void SetVelocityX(int x); //Set velocity X, old Y
 

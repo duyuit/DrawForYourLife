@@ -7,7 +7,7 @@ public:
 	void update();
 	int count = 0;
 	void handle_swipe(Define::SWIPE_DIRECTION direct);
-	void handle_collision(Sprite* sprite);
+	void HandleCollision(Sprite* sprite);
 	virtual SonicState::StateAction GetState();
 	~SonicJumpState();
 };
