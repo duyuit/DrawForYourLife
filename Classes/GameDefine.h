@@ -15,7 +15,8 @@ namespace Define {
 		Ring,
 		HoldPlace,
 		LANDMONSTER,
-		land
+		land,
+		DIELAND
 	};
 	enum BUTTON_TAG
 	{

@@ -16,12 +16,13 @@ public:
 	InfiniteParallaxNode* _backgroundNode2;
 	CCTMXTiledMap * _tileMap;
 	bool _isPause = false;
+
 	Vector<Label*> _listLabel;
 	MyUI* _myui;
 
 	int count_to_move_scene = 0; // 
 	int delta_x = -30; //2 Variable to Shake Camera when sonic is pausing
-	int count_tuto = 0;
+	int count_tuto =0;
 
 	Sprite* blackImage;
 
@@ -36,13 +37,14 @@ public:
 	void Tutorial3_part1();
 
 	void Tutorial4();
-	void Tutorial4_part1();
-	
+	void ResetTutorial4();
+
+
 	void RollBackground();
 	void Pause();
 	void Continue();
 	void LoadMap(CCTMXTiledMap* map);
-	void SetViewPointCenter(Point position);
+	void SetViewPointCenter(Point position,bool isFast);
 	bool onContactBegin(cocos2d::PhysicsContact & contact);
 	void update(float dt);
 	void updateStart(float dt);

@@ -1,6 +1,7 @@
 #include "Monster.h"
 #include "GameDefine.h"
 #include "Sonic.h"
+#include "SmallRing.h"
 using namespace Define;
 
 Monster::Monster()

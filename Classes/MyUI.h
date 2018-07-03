@@ -118,6 +118,5 @@ public:
 		countRing->setPosition(125, 975);
 		this->addChild(countRing, 1);
 		this->scheduleUpdate();
-		this->scheduleUpdate();
 	};
 };
