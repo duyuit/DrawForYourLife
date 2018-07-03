@@ -63,9 +63,6 @@
     <ClCompile Include="..\Classes\SonicHoldState.cpp">
       <Filter>src\Sonic</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\small_Ring.cpp">
-      <Filter>src\MapObject</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\LandMonster.cpp">
       <Filter>src\Enemy</Filter>
     </ClCompile>
@@ -80,6 +77,15 @@
     </ClCompile>
     <ClCompile Include="..\Classes\TurtorialScene.cpp">
       <Filter>src\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SmallRing.cpp">
+      <Filter>src\MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\FrogMonster.cpp">
+      <Filter>src\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Monster.cpp">
+      <Filter>src\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -119,9 +125,6 @@
     <ClInclude Include="..\Classes\SonicHoldState.h">
       <Filter>src\Sonic</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\small_Ring.h">
-      <Filter>src\MapObject</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\LandMonster.h">
       <Filter>src\Enemy</Filter>
     </ClInclude>
@@ -145,6 +148,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MyUI.h">
       <Filter>src\GameComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SmallRing.h">
+      <Filter>src\MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\FrogMonster.h">
+      <Filter>src\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Monster.h">
+      <Filter>src\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

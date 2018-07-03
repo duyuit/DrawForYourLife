@@ -49,7 +49,7 @@ void TapButton::Active()
 
 	auto actionMoveDone = CallFuncN::create(CC_CALLBACK_0(TapButton::Dissapear, this));
 
-	circle->runAction(Sequence::create(ScaleTo::create(1.0, 0.29), actionMoveDone, RemoveSelf::create(),NULL));
+	circle->runAction(Sequence::create(ScaleTo::create(1.0, 0.29), actionMoveDone,NULL));
 
 	isActive = true;
 }
@@ -60,13 +60,27 @@ void TapButton::Dissapear()
 	auto fadeOut = FadeOut::create(0.1f);
 	auto reverse = fadeOut->reverse();
 	ActionInterval *fade = Sequence::create(fadeOut, reverse, nullptr);
-	auto fading = Repeat::create(fade,3);
+	auto fading = Repeat::create(fade, time_dissapear/0.1);
+	auto actionMoveDone = CallFuncN::create(CC_CALLBACK_0(TapButton::DeleteCircle, this));
+	this->runAction(Sequence::create(fading, RemoveSelf::create(), actionMoveDone, NULL));
+}
 
-	/*auto wait = Sequence::create(DelayTime::create(2.5f), RemoveSelf::create(), NULL);
-	auto mySpawn = Spawn::createWithTwoActions(fading, wait);*/
+void TapButton::DeleteNow()
+{
+	DeleteCircle();
+	isDelete = true;
+	mTarget->mJustTap = NONE;
+	this->runAction(RemoveSelf::create());
+}
 
+void TapButton::DeleteCircle()
+{
+	if (circle != nullptr)
+	{
+		this->circle->runAction(RemoveSelf::create());
+		this->circle = nullptr;
+	}
 
-	this->runAction(Sequence::create(fading, RemoveSelf::create(), NULL));
 }
 
 void TapButton::update(float dt)
@@ -76,13 +90,22 @@ void TapButton::update(float dt)
 		this->Active();
 	if (isActive && isFirst)
 	{
+		if (can_Active)
+		{
+			mTarget->SetStateByTag(SonicState::StateAction::JUMP);
+			DeleteNow();
+			return;
+		}
+
 		BUTTON_TAG tag = mTarget->mJustTap;
+		if (!can_Active && tag != NONE)
+		{
+			DeleteNow();
+			return;
+		}
 		if (tag != NONE && tag != mTag)
 		{
-		//	this->circle->runAction(RemoveSelf::create());
-			isDelete = true;
-			mTarget->mJustTap = NONE;
-			this->runAction(RemoveSelf::create());
+			DeleteNow();
 			return;
 		}
 		if (this->getPosition().x - mTarget->getPosition().x <= 600 && can_Active)
@@ -91,10 +114,8 @@ void TapButton::update(float dt)
 				return;
 			if (tag == mTag)
 			{
-				isDelete = true;
-				mTarget->mJustTap = NONE;
 				mTarget->SetStateByTag(SonicState::StateAction::JUMP);
-				this->runAction(RemoveSelf::create());
+				DeleteNow();
 				return;
 			}
 		}

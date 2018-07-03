@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Animations>
+<Animation name="idle" imagePath="Monster/Frog.png" width="1194" height="256">
+    <sprite x="22" y="33" w="101" h="82" oX="22" oY="33" oW="220" oH="233" />
+    <sprite x="28" y="151" w="101" h="82" oX="28" oY="151" oW="220" oH="233" />
+    <sprite x="154" y="150" w="101" h="82" oX="154" oY="150" oW="220" oH="233" />
+  </Animation>
+
+
+  <Animation name="run" imagePath="Monster/Frog.png" width="1194" height="256">
+    <sprite x="22" y="33" w="101" h="82" oX="22" oY="33" oW="239" oH="503" />
+   <sprite x="22" y="33" w="101" h="82" oX="22" oY="33" oW="239" oH="503" />
+    <sprite x="157" y="35" w="141" h="84" oX="157" oY="35" oW="239" oH="503" />
+    <sprite x="281" y="164" w="127" h="70" oX="281" oY="164" oW="239" oH="503" />
+    <sprite x="420" y="156" w="92" h="74" oX="420" oY="156" oW="239" oH="503" />
+    <sprite x="420" y="156" w="92" h="74" oX="420" oY="156" oW="239" oH="503" />
+  </Animation>
+  <Animation name="die" imagePath="Monster/Frog.png" width="1194" height="256">
+    <sprite x="586" y="17" w="134" h="105" oX="586" oY="17" oW="-899" oH="603" />
+    <sprite x="743" y="6" w="111" h="119" oX="743" oY="6" oW="-899" oH="603" />
+    <sprite x="884" y="20" w="142" h="101" oX="884" oY="20" oW="-899" oH="603" />
+    <sprite x="1051" y="58" w="127" h="61" oX="1051" oY="58" oW="-899" oH="603" />
+  </Animation>
+
+</Animations>

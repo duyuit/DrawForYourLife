@@ -26,7 +26,7 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "MyUI.h"
-#include "small_Ring.h"
+#include "SmallRing.h"
 #include "GameParticle.h"
 #include "LandMonster.h"
 #include "InfiniteParallaxNode.h"
@@ -44,7 +44,7 @@ public:
 
 
 	CCTMXTiledMap * _tileMap;
-	void LoadMap(CCTMXTiledMap* map);
+	void LoadMap();
 	void setViewPointCenter(Point position);
 	bool onContactBegin(cocos2d::PhysicsContact & contact);
 	void update(float dt);

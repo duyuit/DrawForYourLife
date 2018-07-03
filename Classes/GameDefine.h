@@ -14,7 +14,7 @@ namespace Define {
 		Player,
 		Ring,
 		HoldPlace,
-		land_monster,
+		LANDMONSTER,
 		land
 	};
 	enum BUTTON_TAG

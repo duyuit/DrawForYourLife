@@ -35,8 +35,8 @@ Scene* HelloWorld::createScene()
 	scene->getPhysicsWorld()->setGravity(Vec2(0, -1000));
 
 	// optional: set debug draw
-	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
-	//scene->getPhysicsWorld()->step(1 / 60.0f);
+	//scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+	scene->getPhysicsWorld()->step(1 / 60.0f);
 
 	
 
@@ -81,7 +81,7 @@ bool HelloWorld::init()
 	this->addChild(mSonic);
 
 	
-	LoadMap(_tileMap);
+	LoadMap();
 
 	
 	LandMonster *abc = new LandMonster();
@@ -163,10 +163,10 @@ void HelloWorld::update(float dt)
 		if (listButton.at(0)->isDelete) listButton.erase(listButton.begin());
 	}
 	
-	//for (int i = 0; i < 3; ++i)
-	//{
-	//	this->getScene()->getPhysicsWorld()->step(1 / 60.0f);
-	//}
+	for (int i = 0; i < 3; ++i)
+	{
+		this->getScene()->getPhysicsWorld()->step(1 / 60.0f);
+	}
 	
 	//updatePosition for InfiniteParallaxNode
 	_backgroundNode->setPosition(_backgroundNode->getPosition() - Vec2(5, 0));
@@ -201,22 +201,13 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 void HelloWorld::updateStart(float dt)
 {
-	/*this->setScaleX((float)_director->getOpenGLView()->getFrameSize().width / 1280);
-	this->setScaleY((float)_director->getOpenGLView()->getFrameSize().height / 1024);
-	
-	int x2 = _director->getOpenGLView()->getFrameSize().width;
-	int x3= _director->getOpenGLView()->getFrameSize().height;*/
 
-
-	/*int x=*///this->getScene()->getDefaultCamera()->setPositionZ(100);
-	//this->getScene()->getDefaultCamera()->setScale(0.8);
-	//this->getScene()->getPhysicsWorld()->setFixedUpdateRate(60);
 	this->getScene()->addChild(new MyUI(mSonic),5);
 }
 
 
 
-void HelloWorld::LoadMap(CCTMXTiledMap * map)
+void HelloWorld::LoadMap()
 {
 	try
 	{
@@ -300,7 +291,7 @@ void HelloWorld::LoadMap(CCTMXTiledMap * map)
 			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
 			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
 
-			auto ring = new small_Ring();
+			auto ring = new SmallRing();
 			ring->setPosition(x_box, y_box);
 			this->addChild(ring);
 		}
@@ -407,12 +398,12 @@ bool HelloWorld::onContactBegin(cocos2d::PhysicsContact& contact)
 		if (tagA == Define::Player)
 		{
 			Sonic *sonic = (Sonic*)spriteA;
-			sonic->handle_collision(spriteB);
+			sonic->HandleCollision(spriteB);
 		}
 		else
 		{
 			Sonic *sonic = (Sonic*)spriteB;
-			sonic->handle_collision(spriteA);
+			sonic->HandleCollision(spriteA);
 		}
 	}
 

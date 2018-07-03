@@ -24,7 +24,7 @@ Sonic::Sonic()
 
 	verti->setCategoryBitmask(1);    // 0010
 	verti->setCollisionBitmask(6);   // 0001
-	verti->setContactTestBitmask(14);
+	verti->setContactTestBitmask(30);
 
 	verti->setRotationEnable(false);
 	verti->setDynamic(true);
@@ -67,6 +67,9 @@ void Sonic::update(float dt)
 	this->setFlippedX(!isLeft);
 	if (dust!=nullptr)
 	{
+		if (mCurrentState->GetState() == SonicState::RUN_FAST || mCurrentState->GetState() == SonicState::ROLL)
+			dust->setVisible(true);
+		else dust->setVisible(false);
 		dust->setFlippedX(isLeft);
 		if (isLeft)
 		{
@@ -89,7 +92,7 @@ void Sonic::update(float dt)
 		lightning->setPosition(this->getPosition() + Vec2(-15, 10));
 		lightning2->setPosition(this->getPosition() + Vec2(-15,5));
 	}*/
-	if (count_to_reset_just_tap ==2)
+	if (count_to_reset_just_tap ==5)
 	{
 		count_to_reset_just_tap = 0;
 		mJustTap = NONE;
@@ -235,14 +238,15 @@ Vec2 Sonic::GetVelocity()
 	return this->getPhysicsBody()->getVelocity();
 }
 
-void Sonic::handle_collision(Sprite * sprite)
+void Sonic::HandleCollision(Sprite * sprite)
 {
 	if (sprite->getTag() == Define::Ring)
 	{
 		MyParticle::CreateEatItem(sprite->getPosition(), (Layer*) this->getParent());
 		sprite->runAction(RemoveSelf::create());
+		ringCollected++;
 	}
-	mCurrentState->handle_collision(sprite);
+	mCurrentState->HandleCollision(sprite);
 }
 
 void Sonic::SetVelocity(int x, int y)
