@@ -110,12 +110,12 @@ public:
 
 		//Add Sprite ring
 		 ringIcon = Sprite::create("ring.png",Rect(200,48,64,50));
-		ringIcon->setPosition(50, 975);
+		ringIcon->setPosition(Vec2(50, _director->getWinSize().height - ringIcon->getContentSize().height));
 		this->addChild(ringIcon, 1);
 
 		//Add label count rings
 		 countRing = Label::createWithTTF("X  " + std::to_string(mSonic->ringCollected), "fonts/Marker Felt.ttf", 36);
-		countRing->setPosition(125, 975);
+		countRing->setPosition(Vec2(125, _director->getWinSize().height - ringIcon->getContentSize().height));
 		this->addChild(countRing, 1);
 		this->scheduleUpdate();
 	};
