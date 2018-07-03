@@ -60,10 +60,10 @@ Sonic::Sonic()
 Sonic::~Sonic()
 {
 }
-//int count_to_reset_just_tap = 0;
+int count_to_reset_just_tap = 0;
 void Sonic::update(float dt)
 {
-	//count_to_reset_just_tap++;
+	count_to_reset_just_tap++;
 	this->setFlippedX(!isLeft);
 	if (dust!=nullptr)
 	{
@@ -92,11 +92,11 @@ void Sonic::update(float dt)
 		lightning->setPosition(this->getPosition() + Vec2(-15, 10));
 		lightning2->setPosition(this->getPosition() + Vec2(-15,5));
 	}*/
-	/*if (count_to_reset_just_tap == 5)
+	if (count_to_reset_just_tap == 20)
 	{
 		count_to_reset_just_tap = 0;
 		mJustTap = NONE;
-	}*/
+	}
 }
 
 void Sonic::handle_swipe(Vec2 start, Vec2 end)

@@ -40,7 +40,7 @@ void TurtorialScene::Tutorial1()
 
 void TurtorialScene::Tutorial2()
 {
-	_listLabel.at(1)->setString("The white circle will shrink to the symbol\nWhen it fits, press the symbol on left screen");
+	_listLabel.at(1)->setString("The white circle will shrink to the symbol\nWhen it fits, press the suitable button on left screen");
 	Pause();
 	_listButton.at(0)->circle->runAction(Sequence::create(ScaleTo::create(1.5, 0.29), CallFuncN::create(CC_CALLBACK_0(TurtorialScene::Tutorial2_part1, this)),NULL));
 
@@ -86,12 +86,14 @@ void TurtorialScene::Tutorial2_part1()
 void TurtorialScene::Tutorial3()
 {
 	Pause();
+	_listLabel.at(2)->setString("Wait...");
 	_listButton.at(1)->unscheduleUpdate();
 	_listButton.at(1)->circle->runAction(Sequence::create(ScaleTo::create(1.5, 0.29), CallFuncN::create(CC_CALLBACK_0(TurtorialScene::Tutorial3_part1, this)), NULL));
 }
 
 void TurtorialScene::Tutorial3_part1()
 {
+	_listLabel.at(2)->setString("Press now!!!!");
 	_listButton.at(1)->time_dissapear = 1000;
 	_listButton.at(1)->scheduleUpdate();
 	_listButton.at(1)->Dissapear();
@@ -100,7 +102,7 @@ void TurtorialScene::Tutorial3_part1()
 
 void TurtorialScene::Tutorial4()
 {
-	
+	_listLabel.at(3)->setString("Good! Let's try another one!");
 	_listButton.at(2)->time_dissapear = 1000;
 	Pause();
 }
@@ -421,34 +423,40 @@ void TurtorialScene::update(float dt)
 			this->_myui->button_trian->setEnabled(true);
 		}
 	}
-	/*if (count_tuto == 4 && _listButton.at(1)->getPositionX() - _mSonic->getPositionX() <= 400)
+	if (count_tuto == 4 && _listButton.at(1)->getPositionX() - _mSonic->getPositionX() <= 700)
 	{
 		Pause();
-
-	}*/
-	if (_listButton.at(1)->getPositionX() - _mSonic->getPositionX() <= 150 && count_tuto == 4)
+		_listLabel.at(1)->setString("");
+		_listLabel.at(4)->setString("Good job! Lets Continue!");
+	}
+	if (_listButton.at(1)->getPositionX() - _mSonic->getPositionX() <= 150 && count_tuto ==5)
 	{
 		Tutorial3();
 		count_tuto++;
 	}
-	if (count_tuto == 5)
+	if (count_tuto == 6)
 	{
+
 		if (_listButton.at(1)->isDelete)
 		{
 			Continue();
 		}
 	}
-	if (count_tuto == 6 && _listButton.at(2)->getPositionX()-_mSonic->getPositionX()<=650)
+	if (count_tuto == 7 && _listButton.at(2)->getPositionX()-_mSonic->getPositionX()<=650)
 	{
 	
 		if(!_isPause)
 		Tutorial4();
 	}
-	if (count_tuto == 7)
+	if (count_tuto == 8)
 	{
 		
+		
 		if (_listButton.at(2)->can_Active)
+		{
+			_listLabel.at(3)->setString("Press!!");
 			Pause();
+		}
 		if (_listButton.at(2)->isDelete)
 			Continue();
 	}
@@ -462,8 +470,7 @@ void TurtorialScene::update(float dt)
 		auto pos_scene = this->getPosition();
 		auto sonic_pos = _mSonic->getPosition();
 		this->setPosition((Vec2(delta_x,0)*_director->getDeltaTime() + pos_scene));
-		//this->_mSonic->setPosition(sonic_pos + Vec2(delta_x/2, 0));
-
+		
 
 		if (count_to_move_scene == 120)
 		{
@@ -565,7 +572,7 @@ bool TurtorialScene::init()
 		listener1->onTouchEnded = [this](Touch* touch, Event* event) {
 			end_touch_position = touch->getLocation();
 			_mSonic->handle_swipe(start_touch_position, end_touch_position);
-			if (_isPause && count_tuto != 2 && count_tuto != 3 && count_tuto != 5 && count_tuto != 7) Continue();
+			if (_isPause && count_tuto != 2 && count_tuto != 3 && count_tuto != 6 && count_tuto != 8) Continue();
 		};
 
 
