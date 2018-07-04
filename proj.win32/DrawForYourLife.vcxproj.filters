@@ -90,6 +90,7 @@
     <ClCompile Include="..\Classes\MyDialogBox.cpp">
       <Filter>src\GameComponent</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\MyUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">

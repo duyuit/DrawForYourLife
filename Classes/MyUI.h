@@ -18,7 +18,8 @@ public:
 	{
 		countRing->setString("X  " + std::to_string(mySonic->ringCollected));
 	}
-
+	void DisableExcept(BUTTON_TAG tag);
+	void EnableAll();
 	MyUI (Sonic* mSonic)
 	{
 		mySonic = mSonic;

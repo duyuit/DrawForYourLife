@@ -4,8 +4,13 @@
 
 MyDialogBox::MyDialogBox()
 {
-	_box = Sprite::create("GameComponents/dialog_box.png");
+	_box = Sprite::create("GameComponents/dialog_box.png",Rect(0,0,1049,201));
 	_box->setAnchorPoint(Vec2(0, 0));
+	Vector<SpriteFrame*> dog_FL;
+	dog_FL.pushBack(SpriteFrame::create("GameComponents/dialog_box.png", Rect(0, 0, 1049, 201)));
+	dog_FL.pushBack(SpriteFrame::create("GameComponents/dialog_box.png", Rect(0, 201, 1049, 201)));
+	dog =  new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(dog_FL, 0.1f)));
+	_box->runAction(RepeatForever::create(dog->get()));
 
 	_text= Label::createWithTTF("", "fonts/PixelGameFont.ttf", 35);
 	
@@ -54,24 +59,35 @@ void MyDialogBox::SetTapToContinue(bool is)
 {
 	if (is)
 	{
+		_tap->setOpacity(255);
+		_tap->setString("(Tap to continue!)");
 		auto fadeOut = FadeOut::create(0.1f);
 		auto reverse = fadeOut->reverse();
 		ActionInterval *fade = Sequence::create(fadeOut, reverse, nullptr);
 		auto fading = RepeatForever::create(fade);
 		_tap->runAction(fading);
+
 	}
-	else _tap->stopAllActions();
+	else {
+		_tap->stopAllActions();
+		_tap->setString("");
+	}
 }
 
 void MyDialogBox::UpdateString(std::string text)
 {
+	if (_myText.compare(text)==0) return;
 	if (text.size() > 30)
-		_text->setBMFontSize(30);
+	{
+		_text->setBMFontSize(20);
+		_delaytime = 1;
+	}
 	_myText = text;
 	_current_position_text = 0;
 	_delay_text = 0;
 	_text->setString("");
-
+	_box->runAction(RepeatForever::create(dog->get()));
+	
 }
 
 void MyDialogBox::update(float dt)
@@ -79,12 +95,16 @@ void MyDialogBox::update(float dt)
 	if (_current_position_text < _myText.size())
 	{
 		_delay_text++;
-		if (_delay_text == 2)
+		if (_delay_text == _delaytime)
 		{
 			_delay_text = 0;
 			_text->setString(_text->getString() + _myText.at(_current_position_text));
 			_current_position_text++;
 		}
+	}
+	else {
+		_box->stopAllActions();
+		_box->setTextureRect(Rect(0, 0, 1049, 201));
 	}
 	
 }

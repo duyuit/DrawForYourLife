@@ -8,7 +8,7 @@ cocos2d::Scene * TurtorialScene::createScene()
 	scene->getPhysicsWorld()->setGravity(Vec2(0, -1000));
 
 	// optional: set debug draw
-	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+	//scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
 	scene->getPhysicsWorld()->step(1 / 60.0f);
 
 
@@ -42,6 +42,7 @@ void TurtorialScene::Tutorial1()
 void TurtorialScene::Tutorial2()
 {
 	_diabox->UpdateString("The white circle will shrink to the symbol\nWhen it fits, press the suitable button on left screen\n or else the button will break, Sonic does nothing");
+	_diabox->SetTapToContinue(false);
 	Pause();
 	_listButton.at(0)->circle->runAction(Sequence::create(ScaleTo::create(1.5, 0.29), CallFuncN::create(CC_CALLBACK_0(TurtorialScene::Tutorial2_part1, this)),NULL));
 
@@ -56,26 +57,8 @@ void TurtorialScene::Tutorial2_part1()
 	ActionInterval *fade = Sequence::create(fadeOut, reverse, nullptr);
 	auto fading = RepeatForever::create(fade);
 	_listButton.at(0)->runAction(fading);
-	switch (_listButton.at(0)->mTag)
-	{
-	case Define::Cir: 
-		_myui->button_rect->setEnabled(false);
-		_myui->button_trian->setEnabled(false);
-		_myui->x_button->setEnabled(false);
-		break;
-	case Define::X: _myui->button_rect->setEnabled(false); 
-		_myui->button_trian->setEnabled(false); 
-		_myui->button_cir->setEnabled(false); break;
-	case Define::Rectangcle: 
-		_myui->button_trian->setEnabled(false); 
-		_myui->x_button->setEnabled(false); 
-		_myui->button_cir->setEnabled(false); 
-		break;
-	case Define::Tri:_myui->button_cir->setEnabled(false);
-		_myui->button_rect->setEnabled(false); 
-		_myui->x_button->setEnabled(false); 
-		break;
-	}
+	_myui->DisableExcept(_listButton.at(0)->mTag);
+
 	_listButton.at(0)->scheduleUpdate();
 	_listButton.at(0)->can_Active = true;
 	_listButton.at(0)->time_dissapear = 1000;
@@ -90,6 +73,8 @@ void TurtorialScene::Tutorial3()
 	Pause();
 	_diabox->UpdateString("Wait...");
 	_diabox->SetTapToContinue(false);
+
+	_myui->DisableExcept(_listButton.at(1)->mTag);
 	_listButton.at(1)->unscheduleUpdate();
 	_listButton.at(1)->circle->runAction(Sequence::create(ScaleTo::create(1.5, 0.29), CallFuncN::create(CC_CALLBACK_0(TurtorialScene::Tutorial3_part1, this)), NULL));
 }
@@ -98,6 +83,7 @@ void TurtorialScene::Tutorial3_part1()
 {
 	_diabox->UpdateString("Press now!!!!");
 	_diabox->SetTapToContinue(false);
+	
 	_listButton.at(1)->time_dissapear = 1000;
 	_listButton.at(1)->scheduleUpdate();
 	_listButton.at(1)->Dissapear();
@@ -143,6 +129,8 @@ void TurtorialScene::Pause()
 
 void TurtorialScene::Continue()
 {
+	_myui->EnableAll();
+	if (count_tuto != 10) //Bug fix: When try again, it skip ring instruction
 	count_tuto++;
 	_isPause = false;
 	_mSonic->SetVelocityX(340);
@@ -422,29 +410,26 @@ void TurtorialScene::update(float dt)
 	{
 		Tutorial1();
 	}
-	if (count_tuto == 2 && !_isPause)
+	if (count_tuto == 2 )
 	{
 		Tutorial2();
 		count_tuto++;
 	}
-	if (count_tuto == 3 && _isPause)
+	if (count_tuto == 3 )
 	{
 		if (_listButton.at(0)->isDelete)
 		{
 			Continue();
-			this->_myui->button_cir->setEnabled(true);
-			this->_myui->x_button->setEnabled(true);
-			this->_myui->button_rect->setEnabled(true);
-			this->_myui->button_trian->setEnabled(true);
+			_myui->EnableAll();
 		}
 	}
-	if (count_tuto == 4 && _listButton.at(1)->getPositionX() - _mSonic->getPositionX() <= 900 && _isPause)
+	if (count_tuto == 4 && _listButton.at(1)->getPositionX() - _mSonic->getPositionX() <= 900 && !_isPause)
 	{
 		Pause();
-
 		_diabox->UpdateString("Good job! Let's continue!");
+		_diabox->SetTapToContinue(true);
 	}
-	if (_listButton.at(1)->getPositionX() - _mSonic->getPositionX() <= 150 && count_tuto ==5 && _isPause)
+	if (_listButton.at(1)->getPositionX() - _mSonic->getPositionX() <= 150 && count_tuto ==5 && !_isPause)
 	{
 		Tutorial3();
 		count_tuto++;
@@ -457,7 +442,7 @@ void TurtorialScene::update(float dt)
 			Continue();
 		}
 	}
-	if (count_tuto == 7 && _listButton.at(2)->getPositionX()-_mSonic->getPositionX()<=650 && _isPause)
+	if (count_tuto == 7 && _listButton.at(2)->getPositionX()-_mSonic->getPositionX()<=650 && !_isPause)
 	{
 	
 		if(!_isPause)
@@ -469,6 +454,7 @@ void TurtorialScene::update(float dt)
 		
 		if (_listButton.at(2)->can_Active)
 		{
+			_myui->DisableExcept(_listButton.at(2)->mTag);
 			_diabox->UpdateString("Press!!");
 			_diabox->SetTapToContinue(false);
 			Pause();
@@ -476,18 +462,19 @@ void TurtorialScene::update(float dt)
 		if (_listButton.at(2)->isDelete)
 			Continue();
 	}
-	if (count_tuto == 9 && _listButton.at(3)->getPositionX()-_mSonic->getPositionX()<=1200 && _isPause)
+	if (count_tuto == 9 && _listButton.at(3)->getPositionX()-_mSonic->getPositionX()<=1200 && !_isPause)
 	{
 		_diabox->UpdateString("OK! Now you know how to press the button!");
 		_diabox->SetTapToContinue(true);
 		Pause();
 	}
-	if (count_tuto == 10 && _listRing.at(0)->getPositionX() - _mSonic->getPositionX()<=800 && _isPause)
+	if (count_tuto == 10 && _listRing.at(0)->getPositionX() - _mSonic->getPositionX()<=800 && !_isPause)
 	{
 		Pause();
 		_diabox->UpdateString("Collect ring to upgrade your abilities");
+		count_tuto++;
 	}
-	if (count_tuto == 11 && _listMonster.at(0)->getPositionX() - _mSonic->getPositionX() <= 800 && _isPause)
+	if (count_tuto == 12 && _listMonster.at(0)->getPositionX() - _mSonic->getPositionX() <= 800 && !_isPause)
 	{
 		Pause();
 		_diabox->UpdateString("Be careful! If you let button break, \nyou'll hit the enemy and drop your rings");

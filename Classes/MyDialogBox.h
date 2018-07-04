@@ -12,8 +12,10 @@ public:
 	Label* _tap;
 	int _delay_text = 0;
 	int _current_position_text = 0;
+	int _delaytime = 2;
 	std::string _myText="";
 
+	RefPtr<Animate>  *dog;
 
 	void UpdatePosition();
 	void SetScale(float dt);
