@@ -175,7 +175,7 @@ void TurtorialScene::LoadMap(CCTMXTiledMap * map)
 
 
 			boundBody->setCategoryBitmask(2);
-			boundBody->setCollisionBitmask(17);
+			boundBody->setCollisionBitmask(25);
 			boundBody->setContactTestBitmask(1);
 
 			edgeSp->setPhysicsBody(boundBody);

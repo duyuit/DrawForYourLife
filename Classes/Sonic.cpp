@@ -246,6 +246,31 @@ void Sonic::HandleCollision(Sprite * sprite)
 		sprite->runAction(RemoveSelf::create());
 		ringCollected++;
 	}
+	
+	//When Sonic hits enemy, drop rings
+	if (sprite->getTag() == Define::LANDMONSTER && this->mCurrentState->GetState() == SonicState::RUN_FAST)
+	{
+		this->SetVelocity(0, 0);
+		this->getPhysicsBody()->applyImpulse(Vec2(-400000, 400000));
+		
+		if (ringCollected > 0 && baseLife > 0) 
+		{
+			int t = ringCollected; //Temp variable
+			for (int i = 0; i < (int)(t / baseLife); i++)
+			{
+				this->runAction(CallFuncN::create(CC_CALLBACK_0(Sonic::DropRing, this)));
+				ringCollected--;				
+			}
+			baseLife--;
+		}
+		else if (ringCollected <= 0 || baseLife <= 0)
+		{
+			//You die	
+			ringCollected = 100;
+			baseLife = 2;
+		}
+	}
+
 	mCurrentState->HandleCollision(sprite);
 }
 
@@ -269,3 +294,25 @@ void Sonic::updateStart(float dt)
 	this->getParent()->addChild(dust);
 }
 
+void Sonic::DropRing()
+{
+	auto ring = new SmallRing();
+	ring->setPosition(this->getPosition() + this->getContentSize()/2);
+
+	ring->getPhysicsBody()->setDynamic(true);
+	ring->getPhysicsBody()->setGravityEnable(true);
+	ring->getPhysicsBody()->setRotationEnable(false);
+
+	ring->getPhysicsBody()->setCategoryBitmask(8);
+	ring->getPhysicsBody()->setCollisionBitmask(2);
+	ring->getPhysicsBody()->setContactTestBitmask(0);
+	
+	float x = RandomHelper::random_real(-2.0, 2.0);
+	float y = RandomHelper::random_real(0.0, 10.0);
+
+	ring->getPhysicsBody()->setVelocity(Vec2(0, 0));
+	ring->getPhysicsBody()->applyForce(Vec2(-10000000*x, 1000000*y));
+	ring->getPhysicsBody()->setContactTestBitmask(1);
+
+	this->getParent()->addChild(ring, 1);
+}

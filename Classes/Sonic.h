@@ -11,6 +11,7 @@
 #include "SonicHoldState.h"
 #include "GameDefine.h"
 #include "GameParticle.h"
+#include "SmallRing.h"
 using namespace cocos2d;
 using namespace Define;
 #pragma once
@@ -35,7 +36,9 @@ public:
 	void SetVelocity(int x, int y); 
 	void SetVelocityX(int x); //Set velocity X, old Y
 
-	int ringCollected = 0; //Count rings Sonic collected
+	void DropRing(); //When Sonic hits enemy, drop rings
+	int ringCollected = 100; //Count rings Sonic collected
+	int baseLife = 2; //Count the number of your dropping rings (drop ring 3 times you die)
 
 	BUTTON_TAG mJustTap = NONE;
 private:
