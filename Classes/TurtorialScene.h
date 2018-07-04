@@ -4,7 +4,7 @@
 #include "TapButton.h"
 #include "MyUI.h"
 #include "SmallRing.h"
-#include "Monster.h"
+#include "FrogMonster.h"
 using namespace cocos2d;
 class TurtorialScene : public cocos2d::Layer
 {
@@ -12,12 +12,15 @@ public:
 	Vec2 start_touch_position, end_touch_position;
 	Sonic* _mSonic;
 	Vector<TapButton*> _listButton;
+	Vector<Label*> _listLabel;
+	Vector<SmallRing*> _listRing;
+	Vector<Monster*> _listMonster;
+
 	InfiniteParallaxNode* _backgroundNode;
 	InfiniteParallaxNode* _backgroundNode2;
 	CCTMXTiledMap * _tileMap;
 	bool _isPause = false;
 
-	Vector<Label*> _listLabel;
 	MyUI* _myui;
 
 	int count_to_move_scene = 0; // 

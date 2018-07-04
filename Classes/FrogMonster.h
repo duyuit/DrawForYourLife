@@ -1,6 +1,6 @@
 #pragma once
-
-class FrogMonster
+#include "Monster.h"
+class FrogMonster:public Monster
 {
 public:
 	FrogMonster();

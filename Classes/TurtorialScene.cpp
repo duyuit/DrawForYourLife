@@ -32,7 +32,7 @@ TurtorialScene::~TurtorialScene()
 void TurtorialScene::Tutorial1()
 {
 	Pause();
-
+	_myui->setVisible(true);
 	_listLabel.at(1)->setString("Look! There is a symbol like one of four symbols on your left screen\n(tap screen to continue)");
 
 
@@ -40,7 +40,7 @@ void TurtorialScene::Tutorial1()
 
 void TurtorialScene::Tutorial2()
 {
-	_listLabel.at(1)->setString("The white circle will shrink to the symbol\nWhen it fits, press the suitable button on left screen");
+	_listLabel.at(1)->setString("The white circle will shrink to the symbol\nWhen it fits, press the suitable button on left screen\n or else the button will break, Sonic does nothing");
 	Pause();
 	_listButton.at(0)->circle->runAction(Sequence::create(ScaleTo::create(1.5, 0.29), CallFuncN::create(CC_CALLBACK_0(TurtorialScene::Tutorial2_part1, this)),NULL));
 
@@ -102,7 +102,7 @@ void TurtorialScene::Tutorial3_part1()
 
 void TurtorialScene::Tutorial4()
 {
-	_listLabel.at(3)->setString("Good! Let's try another one!");
+	_listLabel.at(3)->setString("Good! Let's try another one!\n(Tap to continue)");
 	_listButton.at(2)->time_dissapear = 1000;
 	Pause();
 }
@@ -115,6 +115,7 @@ void TurtorialScene::ResetTutorial4()
 	_listButton.insert(3, tap);
 	Pause();
 	SetViewPointCenter(_mSonic->getPosition(),true);
+	_listLabel.at(5)->setString("Oops. Let's try again!\n(Tap to continue)");
 }
 
 void TurtorialScene::RollBackground()
@@ -153,9 +154,8 @@ void TurtorialScene::LoadMap(CCTMXTiledMap * map)
 {
 	try
 	{
+		//Load Land
 		TMXObjectGroup *objectGroup_land = _tileMap->getObjectGroup("Land");
-
-
 		for (int i = 0; i < objectGroup_land->getObjects().size(); i++)
 		{
 
@@ -186,57 +186,113 @@ void TurtorialScene::LoadMap(CCTMXTiledMap * map)
 
 
 
-		{
+		//Load DieLand (die when collision with)
 		TMXObjectGroup *objectGroup_hold_land = _tileMap->getObjectGroup("DieLand");
-		 for (int i = 0; i < objectGroup_hold_land->getObjects().size(); i++)
-		 {
+		for (int i = 0; i < objectGroup_hold_land->getObjects().size(); i++)
+		{
 
-		 	Value objectemp = objectGroup_hold_land->getObjects().at(i);
+			Value objectemp = objectGroup_hold_land->getObjects().at(i);
 
-		 	float wi_box = objectemp.asValueMap().at("width").asFloat();
-		 	float he_box = objectemp.asValueMap().at("height").asFloat();
-		 	float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
-		 	float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+			float wi_box = objectemp.asValueMap().at("width").asFloat();
+			float he_box = objectemp.asValueMap().at("height").asFloat();
+			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
 
-		 	auto edgeSp = Sprite::create();
-		 	edgeSp->setTag(Define::DIELAND);
-		 	auto boundBody = PhysicsBody::createBox(Size(wi_box, he_box));
-		 	boundBody->getShape(0)->setFriction(10.0f);
-		 	boundBody->setDynamic(false);
-		 	boundBody->getShape(0)->setRestitution(100.0f);
-
-
-		 	boundBody->setCategoryBitmask(4);
-		 	boundBody->setCollisionBitmask(1);
-		 	boundBody->setContactTestBitmask(1);
+			auto edgeSp = Sprite::create();
+			edgeSp->setTag(Define::DIELAND);
+			auto boundBody = PhysicsBody::createBox(Size(wi_box, he_box));
+			boundBody->getShape(0)->setFriction(10.0f);
+			boundBody->setDynamic(false);
+			boundBody->getShape(0)->setRestitution(100.0f);
 
 
-
-		 	edgeSp->setPhysicsBody(boundBody);
-		 	edgeSp->setPosition(Vec2(x_box, y_box));
-
-		 	this->addChild(edgeSp); // Add vao Layer
-		 }
+			boundBody->setCategoryBitmask(4);
+			boundBody->setCollisionBitmask(1);
+			boundBody->setContactTestBitmask(1);
 
 
-			TMXObjectGroup *objectGroup_ring = _tileMap->getObjectGroup("Ring");
 
+			edgeSp->setPhysicsBody(boundBody);
+			edgeSp->setPosition(Vec2(x_box, y_box));
 
-			for (int i = 0; i < objectGroup_ring->getObjects().size(); i++)
-			{
+			this->addChild(edgeSp); // Add vao Layer
+		}
 
-				Value objectemp = objectGroup_ring->getObjects().at(i);
+		//Load Ring Position
+		TMXObjectGroup *objectGroup_ring = _tileMap->getObjectGroup("Ring");
+		for (int i = 0; i < objectGroup_ring->getObjects().size(); i++)
+		{
 
-				float wi_box = objectemp.asValueMap().at("width").asFloat();
-				float he_box = objectemp.asValueMap().at("height").asFloat();
-				float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
-				float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+			Value objectemp = objectGroup_ring->getObjects().at(i);
 
-				auto ring = new SmallRing();
-				ring->setPosition(x_box, y_box);
-				this->addChild(ring);
-			}
-		
+			float wi_box = objectemp.asValueMap().at("width").asFloat();
+			float he_box = objectemp.asValueMap().at("height").asFloat();
+			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+
+			auto ring = new SmallRing();
+			ring->setPosition(x_box, y_box);
+			_listRing.pushBack(ring);
+			this->addChild(ring);
+		}
+
+		//Load Button Position
+		TMXObjectGroup *objectGroup_button = _tileMap->getObjectGroup("Button");
+		for (int i = 0; i < objectGroup_button->getObjects().size(); i++)
+		{
+
+			Value objectemp = objectGroup_button->getObjects().at(i);
+
+			float wi_box = objectemp.asValueMap().at("width").asFloat();
+			float he_box = objectemp.asValueMap().at("height").asFloat();
+			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+
+			int a = RandomHelper::random_int(1, 4);
+			auto button = new TapButton(a, Vec2(x_box, y_box), _mSonic, this);
+			button->setZOrder(8);
+			button->circle->setZOrder(7);
+			button->isFirst = true;
+			_listButton.pushBack(button);
+		}
+		_listButton.at(0)->unscheduleUpdate();
+		_listButton.at(1)->unscheduleUpdate();
+
+		//Load Text Position
+		TMXObjectGroup *objectGroup_text = _tileMap->getObjectGroup("Text");
+		for (int i = 0; i < objectGroup_text->getObjects().size(); i++)
+		{
+
+			Value objectemp = objectGroup_text->getObjects().at(i);
+
+			float wi_box = objectemp.asValueMap().at("width").asFloat();
+			float he_box = objectemp.asValueMap().at("height").asFloat();
+			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+
+			Label* myLabel = Label::createWithTTF("", "fonts/times.ttf", 24);
+			myLabel->setPosition(x_box, y_box);
+			this->addChild(myLabel, 7);
+			_listLabel.pushBack(myLabel);
+		}
+
+		////Load Monster Position
+		TMXObjectGroup *objectGroup_monster = _tileMap->getObjectGroup("Monster");
+		for (int i = 0; i < objectGroup_monster->getObjects().size(); i++)
+		{
+
+			Value objectemp = objectGroup_monster->getObjects().at(i);
+
+			float wi_box = objectemp.asValueMap().at("width").asFloat();
+			float he_box = objectemp.asValueMap().at("height").asFloat();
+			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+
+			Monster *mon = new Monster();
+			mon->setPosition(x_box, y_box);
+			this->addChild(mon, 7);
+			_listMonster.pushBack(mon);
+		}
 
 			//// Process object layer 
 			//auto objectGroup = map->getObjectGroup("Land2");
@@ -276,49 +332,8 @@ void TurtorialScene::LoadMap(CCTMXTiledMap * map)
 			//		//this->addChild(drawNode, 10);
 			//	}
 			//}
-		}
-		TMXObjectGroup *objectGroup_button = _tileMap->getObjectGroup("Button");
 
-
-		for (int i = 0; i < objectGroup_button->getObjects().size(); i++)
-		{
-
-			Value objectemp = objectGroup_button->getObjects().at(i);
-
-			float wi_box = objectemp.asValueMap().at("width").asFloat();
-			float he_box = objectemp.asValueMap().at("height").asFloat();
-			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
-			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
-
-			int a = RandomHelper::random_int(1, 4);
-			auto button = new TapButton(a, Vec2(x_box, y_box), _mSonic, this);
-			button->setZOrder(8);
-			button->circle->setZOrder(7);
-			button->isFirst = true;
-			_listButton.pushBack(button);
-		}
-		_listButton.at(0)->unscheduleUpdate();
-		_listButton.at(1)->unscheduleUpdate();
-
-
-		TMXObjectGroup *objectGroup_text = _tileMap->getObjectGroup("Text");
-
-
-		for (int i = 0; i < objectGroup_text->getObjects().size(); i++)
-		{
-
-			Value objectemp = objectGroup_text->getObjects().at(i);
-
-			float wi_box = objectemp.asValueMap().at("width").asFloat();
-			float he_box = objectemp.asValueMap().at("height").asFloat();
-			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
-			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
-
-			Label* myLabel = Label::createWithTTF("", "fonts/times.ttf", 24);
-			myLabel->setPosition(x_box, y_box);
-			this->addChild(myLabel,7);
-			_listLabel.pushBack(myLabel);
-		}
+	
 
 
 
@@ -423,11 +438,11 @@ void TurtorialScene::update(float dt)
 			this->_myui->button_trian->setEnabled(true);
 		}
 	}
-	if (count_tuto == 4 && _listButton.at(1)->getPositionX() - _mSonic->getPositionX() <= 700)
+	if (count_tuto == 4 && _listButton.at(1)->getPositionX() - _mSonic->getPositionX() <= 900)
 	{
 		Pause();
 		_listLabel.at(1)->setString("");
-		_listLabel.at(4)->setString("Good job! Lets Continue!");
+		_listLabel.at(4)->setString("Good job! Let's continue!\n(Tap to continue)");
 	}
 	if (_listButton.at(1)->getPositionX() - _mSonic->getPositionX() <= 150 && count_tuto ==5)
 	{
@@ -460,8 +475,21 @@ void TurtorialScene::update(float dt)
 		if (_listButton.at(2)->isDelete)
 			Continue();
 	}
-	
-
+	if (count_tuto == 9 && _listButton.at(3)->getPositionX()-_mSonic->getPositionX()<=1200)
+	{
+		_listLabel.at(5)->setString("OK! Now you know how to press the button!");
+		Pause();
+	}
+	if (count_tuto == 10 && _listRing.at(0)->getPositionX() - _mSonic->getPositionX()<=800)
+	{
+		Pause();
+		_listLabel.at(6)->setString("Collect ring to upgrade your abilities\n(Tap to continue)");
+	}
+	if (count_tuto == 11 && _listMonster.at(0)->getPositionX() - _mSonic->getPositionX() <= 800)
+	{
+		Pause();
+		_listLabel.at(7)->setString("Be careful! If you let button break, you'll hit the enemy and drop your rings");
+	}
 	RollBackground();
 	if (_isPause)
 	{
@@ -492,6 +520,7 @@ void TurtorialScene::updateStart(float dt)
 	_myui = new MyUI(_mSonic);
 
 	this->getScene()->addChild(_myui);
+	_myui->setVisible(false);
 
 	
 }
@@ -522,12 +551,12 @@ bool TurtorialScene::init()
 	SetViewPointCenter(_mSonic->getPosition(),true);
 	this->addChild(_mSonic);
 	LoadMap(_tileMap);
-	_listLabel.at(0)->setString("Welcome to Sonic's World. Let's start the game");
+	_listLabel.at(0)->setString("Welcome to Sonic's World. Let's start the game\n(Tap to continue)");
 
 
-	Monster* a = new Monster();
-	a->setPosition(2000, 200);
-	this->addChild(a);
+	//Monster* a = new Monster();
+	//a->setPosition(2000, 200);
+	//this->addChild(a);
 
 
 	//2 Parallax Scrolling

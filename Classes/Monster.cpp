@@ -16,8 +16,8 @@ Monster::Monster()
 	_idleAni= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(idleFL, 0.1f)));
 	_fightAni= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fightFL, 0.05f)));
 
-	this->initWithSpriteFrame(idleFL.at(0));
-	
+	this->init();
+	//this->initWithSpriteFrame(idleFL.at(0));
 	auto verti = PhysicsBody::createBox(this->getContentSize(), PhysicsMaterial(0.1f, 0.0f, 0.0f));
 
 	verti->setCategoryBitmask(16);    // 0010
