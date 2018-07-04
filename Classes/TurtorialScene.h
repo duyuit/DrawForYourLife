@@ -5,6 +5,7 @@
 #include "MyUI.h"
 #include "SmallRing.h"
 #include "FrogMonster.h"
+#include "MyDialogBox.h"
 using namespace cocos2d;
 class TurtorialScene : public cocos2d::Layer
 {
@@ -15,6 +16,7 @@ public:
 	Vector<Label*> _listLabel;
 	Vector<SmallRing*> _listRing;
 	Vector<Monster*> _listMonster;
+	MyDialogBox* _diabox;
 
 	InfiniteParallaxNode* _backgroundNode;
 	InfiniteParallaxNode* _backgroundNode2;

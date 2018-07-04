@@ -33,14 +33,15 @@ void TurtorialScene::Tutorial1()
 {
 	Pause();
 	_myui->setVisible(true);
-	_listLabel.at(1)->setString("Look! There is a symbol like one of four symbols on your left screen\n(tap screen to continue)");
+	_diabox->UpdateString("Look! There is a symbol like \none of four symbols on your left\nscreen");
+	//_listLabel.at(1)->setString("Look! There is a symbol like one of four symbols on your left screen\n(tap screen to continue)");
 
 
 }
 
 void TurtorialScene::Tutorial2()
 {
-	_listLabel.at(1)->setString("The white circle will shrink to the symbol\nWhen it fits, press the suitable button on left screen\n or else the button will break, Sonic does nothing");
+	_diabox->UpdateString("The white circle will shrink to the symbol\nWhen it fits, press the suitable button on left screen\n or else the button will break, Sonic does nothing");
 	Pause();
 	_listButton.at(0)->circle->runAction(Sequence::create(ScaleTo::create(1.5, 0.29), CallFuncN::create(CC_CALLBACK_0(TurtorialScene::Tutorial2_part1, this)),NULL));
 
@@ -49,6 +50,7 @@ void TurtorialScene::Tutorial2()
 
 void TurtorialScene::Tutorial2_part1()
 {
+
 	auto fadeOut = FadeOut::create(0.1f);
 	auto reverse = fadeOut->reverse();
 	ActionInterval *fade = Sequence::create(fadeOut, reverse, nullptr);
@@ -86,14 +88,16 @@ void TurtorialScene::Tutorial2_part1()
 void TurtorialScene::Tutorial3()
 {
 	Pause();
-	_listLabel.at(2)->setString("Wait...");
+	_diabox->UpdateString("Wait...");
+	_diabox->SetTapToContinue(false);
 	_listButton.at(1)->unscheduleUpdate();
 	_listButton.at(1)->circle->runAction(Sequence::create(ScaleTo::create(1.5, 0.29), CallFuncN::create(CC_CALLBACK_0(TurtorialScene::Tutorial3_part1, this)), NULL));
 }
 
 void TurtorialScene::Tutorial3_part1()
 {
-	_listLabel.at(2)->setString("Press now!!!!");
+	_diabox->UpdateString("Press now!!!!");
+	_diabox->SetTapToContinue(false);
 	_listButton.at(1)->time_dissapear = 1000;
 	_listButton.at(1)->scheduleUpdate();
 	_listButton.at(1)->Dissapear();
@@ -102,7 +106,8 @@ void TurtorialScene::Tutorial3_part1()
 
 void TurtorialScene::Tutorial4()
 {
-	_listLabel.at(3)->setString("Good! Let's try another one!\n(Tap to continue)");
+	_diabox->UpdateString("Good! Let's try another one!");
+	_diabox->SetTapToContinue(true);
 	_listButton.at(2)->time_dissapear = 1000;
 	Pause();
 }
@@ -115,7 +120,7 @@ void TurtorialScene::ResetTutorial4()
 	_listButton.insert(3, tap);
 	Pause();
 	SetViewPointCenter(_mSonic->getPosition(),true);
-	_listLabel.at(5)->setString("Oops. Let's try again!\n(Tap to continue)");
+	_diabox->UpdateString("Oops. Let's try again!");
 }
 
 void TurtorialScene::RollBackground()
@@ -130,10 +135,8 @@ void TurtorialScene::RollBackground()
 void TurtorialScene::Pause()
 {
 	_isPause = true;
-	for (auto label : _listLabel)
-	{
-		label->setVisible(true);
-	}
+	_diabox->setVisible(true);
+	_diabox->setPosition(_mSonic->getPositionX(), 500);
 	blackImage->setPosition(_mSonic->getPosition());
 	blackImage->setVisible(true);
 }
@@ -143,10 +146,7 @@ void TurtorialScene::Continue()
 	count_tuto++;
 	_isPause = false;
 	_mSonic->SetVelocityX(340);
-	for (auto label : _listLabel)
-	{
-		label->setVisible(false);
-	}
+	_diabox->setVisible(false);
 	blackImage->setVisible(false);
 }
 
@@ -418,7 +418,7 @@ void TurtorialScene::update(float dt)
 	
 
 
-	if (_listButton.at(0)->getPositionX()- _mSonic->getPositionX() <= 150 && count_tuto<2)
+	if (_listButton.at(0)->getPositionX()- _mSonic->getPositionX() <= 150 && count_tuto < 2 && !_isPause)
 	{
 		Tutorial1();
 	}
@@ -427,7 +427,7 @@ void TurtorialScene::update(float dt)
 		Tutorial2();
 		count_tuto++;
 	}
-	if (count_tuto == 3)
+	if (count_tuto == 3 && _isPause)
 	{
 		if (_listButton.at(0)->isDelete)
 		{
@@ -438,13 +438,13 @@ void TurtorialScene::update(float dt)
 			this->_myui->button_trian->setEnabled(true);
 		}
 	}
-	if (count_tuto == 4 && _listButton.at(1)->getPositionX() - _mSonic->getPositionX() <= 900)
+	if (count_tuto == 4 && _listButton.at(1)->getPositionX() - _mSonic->getPositionX() <= 900 && _isPause)
 	{
 		Pause();
-		_listLabel.at(1)->setString("");
-		_listLabel.at(4)->setString("Good job! Let's continue!\n(Tap to continue)");
+
+		_diabox->UpdateString("Good job! Let's continue!");
 	}
-	if (_listButton.at(1)->getPositionX() - _mSonic->getPositionX() <= 150 && count_tuto ==5)
+	if (_listButton.at(1)->getPositionX() - _mSonic->getPositionX() <= 150 && count_tuto ==5 && _isPause)
 	{
 		Tutorial3();
 		count_tuto++;
@@ -457,7 +457,7 @@ void TurtorialScene::update(float dt)
 			Continue();
 		}
 	}
-	if (count_tuto == 7 && _listButton.at(2)->getPositionX()-_mSonic->getPositionX()<=650)
+	if (count_tuto == 7 && _listButton.at(2)->getPositionX()-_mSonic->getPositionX()<=650 && _isPause)
 	{
 	
 		if(!_isPause)
@@ -469,26 +469,28 @@ void TurtorialScene::update(float dt)
 		
 		if (_listButton.at(2)->can_Active)
 		{
-			_listLabel.at(3)->setString("Press!!");
+			_diabox->UpdateString("Press!!");
+			_diabox->SetTapToContinue(false);
 			Pause();
 		}
 		if (_listButton.at(2)->isDelete)
 			Continue();
 	}
-	if (count_tuto == 9 && _listButton.at(3)->getPositionX()-_mSonic->getPositionX()<=1200)
+	if (count_tuto == 9 && _listButton.at(3)->getPositionX()-_mSonic->getPositionX()<=1200 && _isPause)
 	{
-		_listLabel.at(5)->setString("OK! Now you know how to press the button!");
+		_diabox->UpdateString("OK! Now you know how to press the button!");
+		_diabox->SetTapToContinue(true);
 		Pause();
 	}
-	if (count_tuto == 10 && _listRing.at(0)->getPositionX() - _mSonic->getPositionX()<=800)
+	if (count_tuto == 10 && _listRing.at(0)->getPositionX() - _mSonic->getPositionX()<=800 && _isPause)
 	{
 		Pause();
-		_listLabel.at(6)->setString("Collect ring to upgrade your abilities\n(Tap to continue)");
+		_diabox->UpdateString("Collect ring to upgrade your abilities");
 	}
-	if (count_tuto == 11 && _listMonster.at(0)->getPositionX() - _mSonic->getPositionX() <= 800)
+	if (count_tuto == 11 && _listMonster.at(0)->getPositionX() - _mSonic->getPositionX() <= 800 && _isPause)
 	{
 		Pause();
-		_listLabel.at(7)->setString("Be careful! If you let button break, you'll hit the enemy and drop your rings");
+		_diabox->UpdateString("Be careful! If you let button break, \nyou'll hit the enemy and drop your rings");
 	}
 	RollBackground();
 	if (_isPause)
@@ -551,7 +553,14 @@ bool TurtorialScene::init()
 	SetViewPointCenter(_mSonic->getPosition(),true);
 	this->addChild(_mSonic);
 	LoadMap(_tileMap);
-	_listLabel.at(0)->setString("Welcome to Sonic's World. Let's start the game\n(Tap to continue)");
+	
+
+	_diabox = new MyDialogBox();
+	_diabox->setPosition(1000, 400);
+	_diabox->SetScale(0.7);
+	_diabox->SetTapToContinue(true);
+
+	this->addChild(_diabox, 7);
 
 
 	//Monster* a = new Monster();

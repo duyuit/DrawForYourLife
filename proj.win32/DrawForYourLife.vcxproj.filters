@@ -87,6 +87,9 @@
     <ClCompile Include="..\Classes\Monster.cpp">
       <Filter>src\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\MyDialogBox.cpp">
+      <Filter>src\GameComponent</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -157,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Monster.h">
       <Filter>src\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MyDialogBox.h">
+      <Filter>src\GameComponent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
