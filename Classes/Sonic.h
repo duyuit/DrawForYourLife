@@ -37,7 +37,7 @@ public:
 	void SetVelocityX(int x); //Set velocity X, old Y
 
 	void DropRing(); //When Sonic hits enemy, drop rings
-	int ringCollected = 100; //Count rings Sonic collected
+	int ringCollected = 0; //Count rings Sonic collected
 	int baseLife = 2; //Count the number of your dropping rings (drop ring 3 times you die)
 
 	BUTTON_TAG mJustTap = NONE;

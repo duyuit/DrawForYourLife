@@ -247,11 +247,14 @@ void Sonic::HandleCollision(Sprite * sprite)
 		ringCollected++;
 	}
 	
-	//When Sonic hits enemy, drop rings
-	if (sprite->getTag() == Define::LANDMONSTER && this->mCurrentState->GetState() == SonicState::RUN_FAST)
+	//When Sonic hits enemy, push back and drop rings
+	if (sprite->getTag() == Define::LANDMONSTER 
+			&& (this->mCurrentState->GetState() == SonicState::RUN_FAST 
+				|| this->mCurrentState->GetState() == SonicState::JUMP 
+					|| this->mCurrentState->GetState() == SonicState::FALL))
 	{
 		this->SetVelocity(0, 0);
-		this->getPhysicsBody()->applyImpulse(Vec2(-400000, 400000));
+		this->getPhysicsBody()->applyImpulse(Vec2(-500000, 100000));
 		
 		if (ringCollected > 0 && baseLife > 0) 
 		{
@@ -265,10 +268,20 @@ void Sonic::HandleCollision(Sprite * sprite)
 		}
 		else if (ringCollected <= 0 || baseLife <= 0)
 		{
-			//You die	
-			ringCollected = 100;
+			////You die	
+			ringCollected = 0;
 			baseLife = 2;
 		}
+
+		//Set monster no longer interact with Sonic
+		sprite->getPhysicsBody()->setContactTestBitmask(0);
+		this->runAction(Blink::create(2, 10));
+		
+	}
+
+	if (this->getPhysicsBody()->getContactTestBitmask() == 14)
+	{
+		this->getPhysicsBody()->setContactTestBitmask(30);
 	}
 
 	mCurrentState->HandleCollision(sprite);
@@ -301,18 +314,16 @@ void Sonic::DropRing()
 
 	ring->getPhysicsBody()->setDynamic(true);
 	ring->getPhysicsBody()->setGravityEnable(true);
-	ring->getPhysicsBody()->setRotationEnable(false);
-
-	ring->getPhysicsBody()->setCategoryBitmask(8);
-	ring->getPhysicsBody()->setCollisionBitmask(2);
-	ring->getPhysicsBody()->setContactTestBitmask(0);
 	
-	float x = RandomHelper::random_real(-2.0, 2.0);
+	ring->getPhysicsBody()->setCollisionBitmask(2);
+	
+	float x = RandomHelper::random_real(-1.0, 1.0);
 	float y = RandomHelper::random_real(0.0, 10.0);
 
 	ring->getPhysicsBody()->setVelocity(Vec2(0, 0));
-	ring->getPhysicsBody()->applyForce(Vec2(-10000000*x, 1000000*y));
+	ring->getPhysicsBody()->applyForce(Vec2(-3000000*x, 800000*y));
 	ring->getPhysicsBody()->setContactTestBitmask(1);
+	ring->SetAutoRemove();
 
 	this->getParent()->addChild(ring, 1);
 }

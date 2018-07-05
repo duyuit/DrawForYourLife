@@ -97,13 +97,13 @@ void TapButton::update(float dt)
 		this->Active();
 	if (isActive && isFirst)
 	{
-	/*	if (can_Active)
+		if (can_Active)
 		{
 			mTarget->SetStateByTag(SonicState::StateAction::JUMP);
 			DeleteNow(false);
 			return;
 		}
-*/
+
 		BUTTON_TAG tag = mTarget->mJustTap;
 		if (!can_Active && tag != NONE)
 		{
