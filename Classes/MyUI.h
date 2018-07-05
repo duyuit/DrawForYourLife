@@ -24,7 +24,7 @@ public:
 	{
 		mySonic = mSonic;
 		x_button = Button::create("Button/button_x.png");
-		x_button->setScale(0.5);
+		x_button->setScale(0.8);
 		x_button->setOpacity(200);
 		x_button->addTouchEventListener([this](Ref* sender, Widget::TouchEventType type) {
 			auto but = (Button*)sender;
@@ -41,33 +41,13 @@ public:
 				break;
 			}
 		});
-		x_button->setPosition(Vec2(100, 50));
+		x_button->setPosition(Vec2(130, 60));
 		this->addChild(x_button, 1);
 
-		 button_rect = Button::create("Button/button_rect.png");
-		button_rect->setScale(0.5);
-		button_rect->setOpacity(200);
-		button_rect->addTouchEventListener([this](Ref* sender, Widget::TouchEventType type) {
-			auto but = (Button*)sender;
-			switch (type)
-			{
-			case ui::Widget::TouchEventType::BEGAN:
-				but->setOpacity(255);
-				break;
-			case ui::Widget::TouchEventType::ENDED:
-				but->setOpacity(200);
-				mySonic->mJustTap = BUTTON_TAG::Rectangcle;
-				break;
-			default:
-				break;
-			}
-		});
-		button_rect->setPosition(Vec2(50, 100));
-		this->addChild(button_rect, 1);
 
 
-		 button_trian = Button::create("Button/button_trian.png");
-		button_trian->setScale(0.5);
+		button_trian = Button::create("Button/button_trian.png");
+		button_trian->setScale(0.8);
 		button_trian->setOpacity(200);
 		button_trian->addTouchEventListener([this](Ref* sender, Widget::TouchEventType type) {
 			auto but = (Button*)sender;
@@ -84,12 +64,35 @@ public:
 				break;
 			}
 		});
-		button_trian->setPosition(Vec2(100, 150));
+		button_trian->setPosition(Vec2(130, 200));
 		this->addChild(button_trian, 1);
 
 
+		 button_rect = Button::create("Button/button_rect.png");
+		button_rect->setScale(0.8);
+		button_rect->setOpacity(200);
+		button_rect->addTouchEventListener([this](Ref* sender, Widget::TouchEventType type) {
+			auto but = (Button*)sender;
+			switch (type)
+			{
+			case ui::Widget::TouchEventType::BEGAN:
+				but->setOpacity(255);
+				break;
+			case ui::Widget::TouchEventType::ENDED:
+				but->setOpacity(200);
+				mySonic->mJustTap = BUTTON_TAG::Rectangcle;
+				break;
+			default:
+				break;
+			}
+		});
+		button_rect->setPosition(Vec2(50, 130));
+		this->addChild(button_rect, 1);
+
+
+
 		 button_cir = Button::create("Button/button_cir.png");
-		button_cir->setScale(0.5);
+		button_cir->setScale(0.8);
 		button_cir->setOpacity(200);
 		button_cir->addTouchEventListener([this](Ref* sender, Widget::TouchEventType type) {
 			auto but = (Button*)sender;
@@ -106,7 +109,7 @@ public:
 				break;
 			}
 		});
-		button_cir->setPosition(Vec2(150, 100));
+		button_cir->setPosition(Vec2(210, 130));
 		this->addChild(button_cir, 1);
 
 		//Add Sprite ring

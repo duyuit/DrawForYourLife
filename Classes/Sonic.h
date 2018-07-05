@@ -38,6 +38,10 @@ public:
 	int ringCollected = 0; //Count rings Sonic collected
 
 	BUTTON_TAG mJustTap = NONE;
+
+
+	Sprite* _roll_circle = nullptr;
+	Sprite* _roll_effect = nullptr;
 private:
 	RefPtr<Animate>  *run_slow_Ani;
 	RefPtr<Animate>  *run_normal_Ani;
@@ -47,8 +51,10 @@ private:
 	RefPtr<Animate>  *fall_Ani;
 	RefPtr<Animate>  *roll_sky_Ani;
 
-	Sprite* lightning=nullptr;
-	Sprite* lightning2 = nullptr;
+
+
+
+
 	Sprite* dust = nullptr;
 
 	void updateStart(float dt);

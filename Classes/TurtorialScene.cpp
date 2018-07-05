@@ -122,7 +122,7 @@ void TurtorialScene::Pause()
 {
 	_isPause = true;
 	_diabox->setVisible(true);
-	_diabox->setPosition(_mSonic->getPositionX(), 500);
+	_diabox->setPosition(_mSonic->getPositionX(), _director->getWinSize().height*3/4);
 	blackImage->setPosition(_mSonic->getPosition());
 	blackImage->setVisible(true);
 }
@@ -276,7 +276,7 @@ void TurtorialScene::LoadMap(CCTMXTiledMap * map)
 			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
 			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
 
-			Monster *mon = new Monster();
+			Monster *mon = new FrogMonster(_mSonic);
 			mon->setPosition(x_box, y_box);
 			this->addChild(mon, 7);
 			_listMonster.pushBack(mon);
@@ -509,7 +509,7 @@ void TurtorialScene::updateStart(float dt)
 	_myui = new MyUI(_mSonic);
 
 	this->getScene()->addChild(_myui);
-	_myui->setVisible(false);
+	_myui->setVisible(true);
 
 	
 }
@@ -541,6 +541,24 @@ bool TurtorialScene::init()
 	this->addChild(_mSonic);
 	LoadMap(_tileMap);
 	
+
+	Sprite* test = Sprite::create();
+	test->setScale(4,2);
+	test->setOpacity(200);
+	test->setAnchorPoint(Vec2(1, 0.5));
+	auto kk = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("1.xml","dash"), 0.01f)));
+	test->runAction(RepeatForever::create(kk->get()));
+	test->setPosition(1000, 300);
+	this->addChild(test, 9);
+
+	Sprite* test1 = Sprite::create();
+	test1->setScale(0.3f);
+	test1->setAnchorPoint(Vec2(0.5, 0.5));
+	auto kk1 = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("dash_circle.xml", "ai"), 0.01f)));
+	test1->runAction(RepeatForever::create(kk1->get()));
+	test1->setPosition(950, 300);
+	this->addChild(test1, 8);
+
 
 	_diabox = new MyDialogBox();
 	_diabox->setPosition(1000, 400);

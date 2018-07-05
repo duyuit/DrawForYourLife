@@ -14,7 +14,7 @@ MyDialogBox::MyDialogBox()
 
 	_text= Label::createWithTTF("", "fonts/PixelGameFont.ttf", 35);
 	
-	_text->setAnchorPoint(Vec2(0, 0));
+	_text->setAnchorPoint(Vec2(0,0));
 	_text->setTextColor(Color4B(0, 0, 0, 255));
 
 

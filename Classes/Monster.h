@@ -2,6 +2,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "GameDefine.h"
+#include "TapButton.h"
 using namespace cocos2d;
 enum MONSTERSTATE
 {
@@ -13,16 +14,20 @@ enum MONSTERSTATE
 class Monster:public Sprite
 {
 public:
-	Monster();
 
+	Monster();
+	void Init(Sonic* sonic);
 	bool _isLeft = false;
 	int _time_action = 0;
 	RefPtr<Animate>  *_currentAnimate;
 	MONSTERSTATE _currentState;
 	Action* _currentAction;
-	void HandleCollision(Sprite *sprite); //Use to handle collision with object
-	void update(float dt);
-	void SetStateByTag(MONSTERSTATE state);
+	TapButton *_tapButton;
+	Sonic* _sonic;
+
+	virtual void HandleCollision(Sprite *sprite); //Use to handle collision with object
+	virtual void update(float dt);
+	virtual void SetStateByTag(MONSTERSTATE state);
 	~Monster();
 protected:
 	RefPtr<Animate>  *_runAni;

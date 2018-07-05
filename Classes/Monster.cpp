@@ -16,8 +16,14 @@ Monster::Monster()
 	_idleAni= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(idleFL, 0.1f)));
 	_fightAni= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fightFL, 0.05f)));
 
-	this->init();
-	//this->initWithSpriteFrame(idleFL.at(0));
+	//this->Init(sonic);
+
+	
+}
+
+void Monster::Init(Sonic * sonic)
+{
+	this->initWithSpriteFrame(_idleAni->get()->getAnimation()->getFrames().at(0)->getSpriteFrame());
 	auto verti = PhysicsBody::createBox(this->getContentSize(), PhysicsMaterial(0.1f, 0.0f, 0.0f));
 
 	verti->setCategoryBitmask(16);    // 0010
@@ -28,6 +34,11 @@ Monster::Monster()
 	verti->setDynamic(true);
 	this->setPhysicsBody(verti);
 	this->setTag(LANDMONSTER);
+
+	_sonic = sonic;
+	_tapButton = new TapButton(RandomHelper::random_int(1, 4), Vec2(0, 0), _sonic, (Layer*)_sonic->getParent());
+	_tapButton->isFirst = true;
+	_tapButton->_action = SonicState::ROLL;
 
 	this->setAnchorPoint(Vec2(0.5f, 0));
 	SetStateByTag(IDLE);
@@ -47,6 +58,8 @@ void Monster::HandleCollision(Sprite * sprite)
 
 void Monster::update(float dt)
 {
+	_tapButton->setPosition(this->getPosition()+Vec2(0,150));
+
 	_time_action++;
 	this->setFlipX(_isLeft);
 	switch (_currentState)

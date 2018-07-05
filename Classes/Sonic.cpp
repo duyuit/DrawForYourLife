@@ -16,7 +16,7 @@ Sonic::Sonic()
 	run_slow_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_slow_FL, 0.1f)));
 	run_normal_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_normal_FL, 0.07f)));
 	jump_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(jump_FL, 0.03f)));
-	roll_Ani=new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_FL, 0.03f)));
+	roll_Ani=new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_FL, 0.01f)));
 	fall_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fall_FL, 0.01f)));
 	roll_sky_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("sonic_animation.xml", "roll_in_sky"), 0.03f)));;
 
@@ -82,7 +82,11 @@ void Sonic::update(float dt)
 			dust->setPosition(this->getPosition() + Vec2(-5, 0));
 		}
 	}
-	
+	//if (_roll_circle && _roll_effect)
+	//{
+	//	_roll_circle->setPosition(this->getPosition());
+	//	_roll_effect->setPosition(this->getPosition() + Vec2(10, 0));
+	//}
 
 	mCurrentState->update();
 	if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL)
@@ -267,5 +271,23 @@ void Sonic::updateStart(float dt)
 	dust->setScale(1.3);
 	dust->setPosition(this->getPosition());
 	this->getParent()->addChild(dust);
+
+	/*_roll_circle = Sprite::create();
+	_roll_circle->setAnchorPoint(Vec2(0.5, 0.5));
+	_roll_circle->setScale(0.4);
+	RefPtr<Animate>  *roll_circle_effect_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("dash_circle.xml", "ai"), 0.005f)));
+	_roll_circle->runAction(RepeatForever::create(roll_circle_effect_Ani->get()));*/
+
+	_roll_effect = Sprite::create();
+	_roll_effect->setScale(4,3);
+	_roll_effect->setOpacity(150);
+	_roll_effect->setAnchorPoint(Vec2(1, 0.5));
+	RefPtr<Animate>  *roll_effect_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("1.xml", "dash"), 0.01f)));;;;
+	_roll_effect->runAction(RepeatForever::create(roll_effect_Ani->get()));
+
+	//_roll_circle->setPosition(60,80);
+	_roll_effect->setPosition(150,80);
+	//this->addChild(_roll_circle);
+	this->addChild(_roll_effect);
 }
 
