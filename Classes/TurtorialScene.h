@@ -13,7 +13,6 @@ public:
 	Vec2 start_touch_position, end_touch_position;
 	Sonic* _mSonic;
 	Vector<TapButton*> _listButton;
-	Vector<Label*> _listLabel;
 	Vector<SmallRing*> _listRing;
 	Vector<Monster*> _listMonster;
 	MyDialogBox* _diabox;

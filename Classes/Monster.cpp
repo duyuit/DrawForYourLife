@@ -24,7 +24,7 @@ Monster::Monster()
 void Monster::Init(Sonic * sonic)
 {
 	this->initWithSpriteFrame(_idleAni->get()->getAnimation()->getFrames().at(0)->getSpriteFrame());
-	auto verti = PhysicsBody::createBox(this->getContentSize(), PhysicsMaterial(0.1f, 0.0f, 0.0f));
+	auto verti = PhysicsBody::createBox(this->getContentSize(), PhysicsMaterial(0.1f,0.6,0.0f));
 
 	verti->setCategoryBitmask(16);    // 0010
 	verti->setCollisionBitmask(2);   // 0001
@@ -51,8 +51,11 @@ void Monster::HandleCollision(Sprite * sprite)
 	if (sprite->getTag() == Player)
 	{
 		Sonic* sonic = (Sonic*)sprite;
-		if (sonic->mCurrentState->GetState() == SonicState::ROLL && _currentState!=DIE)
+		if (sonic->mCurrentState->GetState() == SonicState::ROLL && _currentState != DIE)
+		{
+			this->getPhysicsBody()->applyImpulse(Vec2(200000, 200000));
 			this->SetStateByTag(DIE);
+		}
 	}
 }
 
@@ -78,7 +81,7 @@ void Monster::update(float dt)
 		}
 		break;
 	case DIE:
-		if (_time_action ==60)
+		if (_time_action ==100)
 		{
 			MyParticle::CreateLandSmoke(this->getPosition(),(Layer*) this->getParent());
 			this->runAction(RemoveSelf::create());

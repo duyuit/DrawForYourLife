@@ -1,6 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Animations>
-  <Animation name="dash" imagePath="dash.png" width="905" height="1386">
+  <Animation name="dash" imagePath="Sonic/dash.png" width="905" height="1386">
     <sprite x="50" y="35" w="100" h="78" oX="50" oY="35" oW="1176" oH="879" />
     <sprite x="584" y="37" w="105" h="73" oX="584" oY="37" oW="1176" oH="879" />
     <sprite x="396" y="40" w="116" h="68" oX="396" oY="40" oW="1176" oH="879" />

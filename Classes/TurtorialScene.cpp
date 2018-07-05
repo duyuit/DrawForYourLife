@@ -158,7 +158,7 @@ void TurtorialScene::LoadMap(CCTMXTiledMap * map)
 			edgeSp->setTag(Define::land);
 
 
-			auto boundBody = PhysicsBody::createBox(Size(wi_box, he_box), PhysicsMaterial(0.1f, 0.0f, 0.0f));
+			auto boundBody = PhysicsBody::createBox(Size(wi_box, he_box), PhysicsMaterial(0.1f, 1.0f, 0.0f));
 			boundBody->setDynamic(false);
 
 
@@ -245,24 +245,6 @@ void TurtorialScene::LoadMap(CCTMXTiledMap * map)
 		}
 		_listButton.at(0)->unscheduleUpdate();
 		_listButton.at(1)->unscheduleUpdate();
-
-		//Load Text Position
-		TMXObjectGroup *objectGroup_text = _tileMap->getObjectGroup("Text");
-		for (int i = 0; i < objectGroup_text->getObjects().size(); i++)
-		{
-
-			Value objectemp = objectGroup_text->getObjects().at(i);
-
-			float wi_box = objectemp.asValueMap().at("width").asFloat();
-			float he_box = objectemp.asValueMap().at("height").asFloat();
-			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
-			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
-
-			Label* myLabel = Label::createWithTTF("", "fonts/times.ttf", 24);
-			myLabel->setPosition(x_box, y_box);
-			this->addChild(myLabel, 7);
-			_listLabel.pushBack(myLabel);
-		}
 
 		////Load Monster Position
 		TMXObjectGroup *objectGroup_monster = _tileMap->getObjectGroup("Monster");
@@ -542,24 +524,7 @@ bool TurtorialScene::init()
 	LoadMap(_tileMap);
 	
 
-	Sprite* test = Sprite::create();
-	test->setScale(4,2);
-	test->setOpacity(200);
-	test->setAnchorPoint(Vec2(1, 0.5));
-	auto kk = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("1.xml","dash"), 0.01f)));
-	test->runAction(RepeatForever::create(kk->get()));
-	test->setPosition(1000, 300);
-	this->addChild(test, 9);
-
-	Sprite* test1 = Sprite::create();
-	test1->setScale(0.3f);
-	test1->setAnchorPoint(Vec2(0.5, 0.5));
-	auto kk1 = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("dash_circle.xml", "ai"), 0.01f)));
-	test1->runAction(RepeatForever::create(kk1->get()));
-	test1->setPosition(950, 300);
-	this->addChild(test1, 8);
-
-
+	
 	_diabox = new MyDialogBox();
 	_diabox->setPosition(1000, 400);
 	_diabox->SetScale(0.7);
