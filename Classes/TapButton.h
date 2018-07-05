@@ -10,6 +10,7 @@ public:
 	Sprite* circle;
 	Sonic* mTarget;
 	float time_dissapear = 0.5;
+	float _time_circle_shrink = 1;
 	SonicState::StateAction _action = SonicState::JUMP;
 
 	RefPtr<Animate>  *_break_Ani;

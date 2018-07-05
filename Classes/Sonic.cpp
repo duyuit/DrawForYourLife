@@ -10,7 +10,7 @@ Sonic::Sonic()
 	Vector<SpriteFrame*> jump_FL = loadAnim("Sonic/sonic_animation.xml", "jump");
 	Vector<SpriteFrame*> roll_FL = loadAnim("Sonic/sonic_animation.xml", "roll");
 	Vector<SpriteFrame*> fall_FL = loadAnim("Sonic/sonic_animation.xml", "fall");
-
+	Vector<SpriteFrame*> hurt_FL = loadAnim("Sonic/sonic_animation.xml", "hurt");
 
 	run_fast_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_fast_FL, 0.01f)));
 	run_slow_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_slow_FL, 0.1f)));
@@ -19,6 +19,8 @@ Sonic::Sonic()
 	roll_Ani=new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_FL, 0.03f)));
 	fall_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fall_FL, 0.01f)));
 	roll_sky_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("sonic_animation.xml", "roll_in_sky"), 0.03f)));;
+	hurt_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(hurt_FL, 0.05f)));
+
 
 	auto verti = PhysicsBody::createCircle(75, PhysicsMaterial(0.1f, 0.0f, 0.0f));
 
@@ -167,6 +169,9 @@ void Sonic::SetStateByTag(SonicState::StateAction action)
 	case SonicState::HOLD:
 		this->SetState(new SonicHoldState(mData));
 		break;
+	case SonicState::HURT:
+		this->SetState(new SonicHurtState(mData));
+		break;
 
 	}
 }
@@ -212,6 +217,11 @@ void Sonic::SetState(SonicState * state)
 		this->setTextureRect(Rect(1366, 1784, 132, 159));
 		return;
 		break;
+	case SonicState::HURT:
+		this->stopAllActions();
+		mCurrentAnimate = hurt_Ani;
+		mCurrentAction = mCurrentAnimate->get()->clone();
+		break;
 	}
 	this->runAction(mCurrentAction);
 }
@@ -252,42 +262,17 @@ void Sonic::HandleCollision(Sprite * sprite)
 	}
 	
 	//When Sonic hits enemy, push back and drop rings
-	if (sprite->getTag() == Define::LANDMONSTER 
-			&& (this->mCurrentState->GetState() == SonicState::RUN_FAST 
-				|| this->mCurrentState->GetState() == SonicState::JUMP 
-					|| this->mCurrentState->GetState() == SonicState::FALL))
+	if (sprite->getTag() == Define::LANDMONSTER && mCurrentState->GetState() != SonicState::ROLL)
 	{
-		this->SetVelocity(0, 0);
-		this->getPhysicsBody()->applyImpulse(Vec2(-500000, 100000));
 		
-		if (ringCollected > 0 && baseLife > 0) 
-		{
-			int t = ringCollected; //Temp variable
-			for (int i = 0; i < (int)(t / baseLife); i++)
-			{
-				this->runAction(CallFuncN::create(CC_CALLBACK_0(Sonic::DropRing, this)));
-				ringCollected--;				
-			}
-			baseLife--;
-		}
-		else if (ringCollected <= 0 || baseLife <= 0)
-		{
-			////You die	
-			ringCollected = 0;
-			baseLife = 2;
-		}
 
-		//Set monster no longer interact with Sonic
-		sprite->getPhysicsBody()->setContactTestBitmask(0);
+		this->SetStateByTag(SonicState::HURT);
 		this->runAction(Blink::create(2, 10));
+		//Monster cant collision with Sonic 
+		sprite->getPhysicsBody()->setContactTestBitmask(0);
+	
 		
 	}
-
-	if (this->getPhysicsBody()->getContactTestBitmask() == 14)
-	{
-		this->getPhysicsBody()->setContactTestBitmask(30);
-	}
-
 	mCurrentState->HandleCollision(sprite);
 }
 
@@ -328,25 +313,4 @@ void Sonic::updateStart(float dt)
 	//this->addChild(_roll_circle);
 	this->addChild(_roll_effect);
 	_roll_effect->setVisible(false);
-}
-
-void Sonic::DropRing()
-{
-	auto ring = new SmallRing();
-	ring->setPosition(this->getPosition() + this->getContentSize()/2);
-
-	ring->getPhysicsBody()->setDynamic(true);
-	ring->getPhysicsBody()->setGravityEnable(true);
-	
-	ring->getPhysicsBody()->setCollisionBitmask(2);
-	
-	float x = RandomHelper::random_real(-1.0, 1.0);
-	float y = RandomHelper::random_real(0.0, 10.0);
-
-	ring->getPhysicsBody()->setVelocity(Vec2(0, 0));
-	ring->getPhysicsBody()->applyForce(Vec2(-3000000*x, 800000*y));
-	ring->getPhysicsBody()->setContactTestBitmask(1);
-	ring->SetAutoRemove();
-
-	this->getParent()->addChild(ring, 1);
 }

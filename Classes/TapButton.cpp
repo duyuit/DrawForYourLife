@@ -53,7 +53,7 @@ void TapButton::Active()
 
 	auto actionMoveDone = CallFuncN::create(CC_CALLBACK_0(TapButton::Dissapear, this));
 
-	circle->runAction(Sequence::create(ScaleTo::create(1.0, 0.29), actionMoveDone,NULL));
+	circle->runAction(Sequence::create(ScaleTo::create(_time_circle_shrink, 0.29), actionMoveDone,NULL));
 
 	isActive = true;
 }
@@ -101,12 +101,12 @@ void TapButton::update(float dt)
 		this->Active();
 	if (isActive && isFirst)
 	{
-		if (can_Active)
+		/*if (can_Active)
 		{
-			mTarget->SetStateByTag(SonicState::StateAction::JUMP);
-			DeleteNow(false);
+			mTarget->SetStateByTag(_action);
+			DeleteNow(true);
 			return;
-		}
+		}*/
 
 		BUTTON_TAG tag = mTarget->mJustTap;
 		if (!can_Active && tag != NONE)

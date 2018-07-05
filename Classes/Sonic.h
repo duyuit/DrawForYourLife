@@ -9,6 +9,7 @@
 #include "SonicRollState.h"
 #include "SonicFallState.h"
 #include "SonicHoldState.h"
+#include "SonicHurtState.h"
 #include "GameDefine.h"
 #include "GameParticle.h"
 #include "SmallRing.h"
@@ -36,8 +37,8 @@ public:
 	void SetVelocity(int x, int y); 
 	void SetVelocityX(int x); //Set velocity X, old Y
 
-	void DropRing(); //When Sonic hits enemy, drop rings
-	int ringCollected = 0; //Count rings Sonic collected
+	
+	int ringCollected =100; //Count rings Sonic collected
 	int baseLife = 2; //Count the number of your dropping rings (drop ring 3 times you die)
 
 	BUTTON_TAG mJustTap = NONE;
@@ -53,7 +54,7 @@ private:
 	RefPtr<Animate>  *roll_Ani;
 	RefPtr<Animate>  *fall_Ani;
 	RefPtr<Animate>  *roll_sky_Ani;
-
+	RefPtr<Animate>  *hurt_Ani;
 
 
 

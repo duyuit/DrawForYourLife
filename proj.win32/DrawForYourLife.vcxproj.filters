@@ -91,6 +91,9 @@
       <Filter>src\GameComponent</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\MyUI.cpp" />
+    <ClCompile Include="..\Classes\SonicHurtState.cpp">
+      <Filter>src\Sonic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -164,6 +167,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MyDialogBox.h">
       <Filter>src\GameComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SonicHurtState.h">
+      <Filter>src\Sonic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

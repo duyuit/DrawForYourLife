@@ -8,7 +8,7 @@ cocos2d::Scene * TurtorialScene::createScene()
 	scene->getPhysicsWorld()->setGravity(Vec2(0, -1000));
 
 	// optional: set debug draw
-	//scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
 	scene->getPhysicsWorld()->step(1 / 60.0f);
 
 
@@ -158,7 +158,7 @@ void TurtorialScene::LoadMap(CCTMXTiledMap * map)
 			edgeSp->setTag(Define::land);
 
 
-			auto boundBody = PhysicsBody::createBox(Size(wi_box, he_box), PhysicsMaterial(0.1f, 1.0f, 0.0f));
+			auto boundBody = PhysicsBody::createBox(Size(wi_box, he_box), PhysicsMaterial(0.1f, 1.0f,0.0f));
 			boundBody->setDynamic(false);
 
 
@@ -362,12 +362,6 @@ bool TurtorialScene::onContactBegin(cocos2d::PhysicsContact & contact)
 	}
 	if (tagA == Define::LANDMONSTER || tagB == Define::LANDMONSTER)
 	{
-		
-	/*	auto ring = new SmallRing();
-		ring->setPosition(_mSonic->getPosition());
-		this->addChild(ring);*/
-
-
 		if (tagA == Define::LANDMONSTER)
 		{
 			Monster *monster = (Monster*)spriteA;
@@ -523,6 +517,25 @@ bool TurtorialScene::init()
 	this->addChild(_mSonic);
 	LoadMap(_tileMap);
 	
+
+	auto ring = new SmallRing();
+	//ring->setPosition(mPlayerData->player->getPosition() + mPlayerData->player->getContentSize() / 2);
+	ring->setPosition(1072,188);
+	ring->getPhysicsBody()->setDynamic(true);
+	ring->getPhysicsBody()->setGravityEnable(true);
+
+	ring->getPhysicsBody()->setCollisionBitmask(2);
+
+	float x = RandomHelper::random_real(-1.0, 1.0);
+	float y = RandomHelper::random_real(0.0, 10.0);
+
+	ring->getPhysicsBody()->setVelocity(Vec2(0, 0));
+	ring->getPhysicsBody()->applyForce(Vec2(-3000000 * x, 800000 * y));
+	ring->getPhysicsBody()->setContactTestBitmask(1);
+	//ring->SetAutoRemove();
+	this->addChild(ring, 10);
+
+
 
 	
 	_diabox = new MyDialogBox();

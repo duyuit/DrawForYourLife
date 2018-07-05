@@ -35,9 +35,15 @@ void SonicRollState::update()
 
 void SonicRollState::handle_swipe(Define::SWIPE_DIRECTION direct)
 {
+
 }
 
 SonicState::StateAction SonicRollState::GetState()
 {
 	return SonicState::ROLL;
+}
+
+void SonicRollState::HandleCollision(Sprite * sprite)
+{
+
 }

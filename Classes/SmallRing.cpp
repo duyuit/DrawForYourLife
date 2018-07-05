@@ -4,16 +4,16 @@
 
 SmallRing::SmallRing()
 {
-	this->initWithFile("ring2.png",Rect(0,0,50,50));
+	this->initWithFile("Item/ring.png",Rect(0,0,50,50));
 	this->setPosition(100, 100);
-	roll = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("ring2.xml", "roll"), 0.1f)));
+	roll = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("ring.xml", "roll"), 0.1f)));
 	this->runAction(RepeatForever::create(roll->get()));
 	this->setAnchorPoint(Vec2(0, 1));
 	
-	auto body = PhysicsBody::createCircle(25);
+	auto body = PhysicsBody::createBox(Size(50,50));
 
-	body->getShape(0)->setFriction(1.0f);                                    
-	body->getShape(0)->setDensity(0.07f);
+	//body->getShape(0)->setFriction(1.0f);                                    
+	body->getShape(0)->setDensity(0.05f);
 	body->setDynamic(false);
 	body->setGravityEnable(false);
 	body->setRotationEnable(false);

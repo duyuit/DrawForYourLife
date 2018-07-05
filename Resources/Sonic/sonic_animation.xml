@@ -120,4 +120,15 @@
   </Animation>
 
 
+  <Animation name="hurt" imagePath="Sonic/99072.png" width="2048" height="4000">
+
+<sprite x="128" y="3256" w="149" h="118" oX="128" oY="3256" oW="3264" oH="1410" />
+    <sprite x="385" y="3255" w="145" h="121" oX="385" oY="3255" oW="3264" oH="1410" />
+    <sprite x="641" y="3255" w="141" h="122" oX="641" oY="3255" oW="3264" oH="1410" />
+    <sprite x="877" y="3257" w="147" h="117" oX="877" oY="3257" oW="3264" oH="1410" />
+    <sprite x="1131" y="3256" w="150" h="116" oX="1131" oY="3256" oW="3264" oH="1410" />
+    <sprite x="1387" y="3257" w="145" h="115" oX="1387" oY="3257" oW="3264" oH="1410" />
+
+  </Animation>
+
 </Animations>
