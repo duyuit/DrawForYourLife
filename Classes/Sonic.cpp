@@ -4,13 +4,13 @@
 
 Sonic::Sonic()
 {
-	Vector<SpriteFrame*> run_slow_FL = loadAnim("sonic_animation.xml", "run_slow");
-	Vector<SpriteFrame*> run_normal_FL = loadAnim("sonic_animation.xml", "run_normal");
-	Vector<SpriteFrame*> run_fast_FL = loadAnim("sonic_animation.xml", "run_fast");
-	Vector<SpriteFrame*> jump_FL = loadAnim("sonic_animation.xml", "jump");
-	Vector<SpriteFrame*> roll_FL = loadAnim("sonic_animation.xml", "roll");
-	Vector<SpriteFrame*> fall_FL = loadAnim("sonic_animation.xml", "fall");
-
+	Vector<SpriteFrame*> run_slow_FL = loadAnim("Sonic/sonic_animation.xml", "run_slow");
+	Vector<SpriteFrame*> run_normal_FL = loadAnim("Sonic/sonic_animation.xml", "run_normal");
+	Vector<SpriteFrame*> run_fast_FL = loadAnim("Sonic/sonic_animation.xml", "run_fast");
+	Vector<SpriteFrame*> jump_FL = loadAnim("Sonic/sonic_animation.xml", "jump");
+	Vector<SpriteFrame*> roll_FL = loadAnim("Sonic/sonic_animation.xml", "roll");
+	Vector<SpriteFrame*> fall_FL = loadAnim("Sonic/sonic_animation.xml", "fall");
+	Vector<SpriteFrame*> hurt_FL = loadAnim("Sonic/sonic_animation.xml", "hurt");
 
 	run_fast_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_fast_FL, 0.01f)));
 	run_slow_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_slow_FL, 0.1f)));
@@ -19,6 +19,8 @@ Sonic::Sonic()
 	roll_Ani=new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_FL, 0.03f)));
 	fall_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fall_FL, 0.01f)));
 	roll_sky_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("sonic_animation.xml", "roll_in_sky"), 0.03f)));;
+	hurt_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(hurt_FL, 0.05f)));
+
 
 	auto verti = PhysicsBody::createCircle(75, PhysicsMaterial(0.1f, 0.0f, 0.0f));
 
@@ -82,7 +84,11 @@ void Sonic::update(float dt)
 			dust->setPosition(this->getPosition() + Vec2(-5, 0));
 		}
 	}
-	
+	//if (_roll_circle && _roll_effect)
+	//{
+	//	_roll_circle->setPosition(this->getPosition());
+	//	_roll_effect->setPosition(this->getPosition() + Vec2(10, 0));
+	//}
 
 	mCurrentState->update();
 	if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL)
@@ -92,7 +98,7 @@ void Sonic::update(float dt)
 		lightning->setPosition(this->getPosition() + Vec2(-15, 10));
 		lightning2->setPosition(this->getPosition() + Vec2(-15,5));
 	}*/
-	if (count_to_reset_just_tap ==5)
+	if (count_to_reset_just_tap == 20)
 	{
 		count_to_reset_just_tap = 0;
 		mJustTap = NONE;
@@ -163,6 +169,9 @@ void Sonic::SetStateByTag(SonicState::StateAction action)
 	case SonicState::HOLD:
 		this->SetState(new SonicHoldState(mData));
 		break;
+	case SonicState::HURT:
+		this->SetState(new SonicHurtState(mData));
+		break;
 
 	}
 }
@@ -208,6 +217,11 @@ void Sonic::SetState(SonicState * state)
 		this->setTextureRect(Rect(1366, 1784, 132, 159));
 		return;
 		break;
+	case SonicState::HURT:
+		this->stopAllActions();
+		mCurrentAnimate = hurt_Ani;
+		mCurrentAction = mCurrentAnimate->get()->clone();
+		break;
 	}
 	this->runAction(mCurrentAction);
 }
@@ -246,6 +260,19 @@ void Sonic::HandleCollision(Sprite * sprite)
 		sprite->runAction(RemoveSelf::create());
 		ringCollected++;
 	}
+	
+	//When Sonic hits enemy, push back and drop rings
+	if (sprite->getTag() == Define::LANDMONSTER && mCurrentState->GetState() != SonicState::ROLL)
+	{
+		
+
+		this->SetStateByTag(SonicState::HURT);
+		this->runAction(Blink::create(2, 10));
+		//Monster cant collision with Sonic 
+		sprite->getPhysicsBody()->setContactTestBitmask(0);
+	
+		
+	}
 	mCurrentState->HandleCollision(sprite);
 }
 
@@ -267,5 +294,23 @@ void Sonic::updateStart(float dt)
 	dust->setScale(1.3);
 	dust->setPosition(this->getPosition());
 	this->getParent()->addChild(dust);
-}
 
+	/*_roll_circle = Sprite::create();
+	_roll_circle->setAnchorPoint(Vec2(0.5, 0.5));
+	_roll_circle->setScale(0.4);
+	RefPtr<Animate>  *roll_circle_effect_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("dash_circle.xml", "ai"), 0.005f)));
+	_roll_circle->runAction(RepeatForever::create(roll_circle_effect_Ani->get()));*/
+
+	_roll_effect = Sprite::create();
+	_roll_effect->setScale(4,3);
+	_roll_effect->setOpacity(150);
+	_roll_effect->setAnchorPoint(Vec2(1, 0.5));
+	RefPtr<Animate>  *roll_effect_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Sonic/dash.xml", "dash"), 0.01f)));;;;
+	_roll_effect->runAction(RepeatForever::create(roll_effect_Ani->get()));
+
+	//_roll_circle->setPosition(60,80);
+	_roll_effect->setPosition(150,80);
+	//this->addChild(_roll_circle);
+	this->addChild(_roll_effect);
+	_roll_effect->setVisible(false);
+}

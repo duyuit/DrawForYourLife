@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Animations>
+  <Animation name="circle" imagePath="Button/button_break.png" width="1600" height="1050">
+    <sprite x="30" y="33" w="127" h="127" oX="30" oY="33" oW="-1120" oH="1422" />
+    <sprite x="282" y="32" w="138" h="140" oX="282" oY="32" oW="-1120" oH="1422" />
+    <sprite x="544" y="35" w="142" h="143" oX="544" oY="35" oW="-1120" oH="1422" />
+    <sprite x="818" y="36" w="154" h="152" oX="818" oY="36" oW="-1120" oH="1422" />
+    <sprite x="1098" y="35" w="160" h="160" oX="1098" oY="35" oW="-1120" oH="1422" />
+    <sprite x="1349" y="31" w="175" h="172" oX="1349" oY="31" oW="-1120" oH="1422" />
+  </Animation>
+  <Animation name="rect" imagePath="Button/button_break.png" width="1600" height="1050">
+    <sprite x="42" y="264" w="128" h="127" oX="42" oY="264" oW="350" oH="1247" />
+    <sprite x="265" y="260" w="140" h="138" oX="265" oY="260" oW="350" oH="1247" />
+    <sprite x="478" y="269" w="144" h="142" oX="478" oY="269" oW="350" oH="1247" />
+    <sprite x="697" y="265" w="148" h="146" oX="697" oY="265" oW="350" oH="1247" />
+    <sprite x="926" y="272" w="152" h="150" oX="926" oY="272" oW="350" oH="1247" />
+    <sprite x="1175" y="266" w="156" h="154" oX="1175" oY="266" oW="350" oH="1247" />
+  </Animation>
+  <Animation name="tria" imagePath="Button/button_break.png" width="1600" height="1050">
+    <sprite x="47" y="493" w="128" h="127" oX="47" oY="493" oW="574" oH="1236" />
+    <sprite x="267" y="488" w="138" h="137" oX="267" oY="488" oW="574" oH="1236" />
+    <sprite x="490" y="494" w="140" h="139" oX="490" oY="494" oW="574" oH="1236" />
+    <sprite x="706" y="492" w="144" h="143" oX="706" oY="492" oW="574" oH="1236" />
+    <sprite x="926" y="490" w="148" h="147" oX="926" oY="490" oW="574" oH="1236" />
+    <sprite x="1167" y="487" w="152" h="151" oX="1167" oY="487" oW="574" oH="1236" />
+  </Animation>
+  <Animation name="x" imagePath="Button/button_break.png" width="1600" height="1050">
+    <sprite x="46" y="728" w="128" h="127" oX="46" oY="728" oW="810" oH="1294" />
+    <sprite x="271" y="727" w="135" h="133" oX="271" oY="727" oW="810" oH="1294" />
+    <sprite x="507" y="725" w="139" h="137" oX="507" oY="725" oW="810" oH="1294" />
+    <sprite x="748" y="726" w="143" h="141" oX="748" oY="726" oW="810" oH="1294" />
+    <sprite x="971" y="724" w="147" h="145" oX="971" oY="724" oW="810" oH="1294" />
+    <sprite x="1223" y="729" w="151" h="149" oX="1223" oY="729" oW="810" oH="1294" />
+  </Animation>
+</Animations>

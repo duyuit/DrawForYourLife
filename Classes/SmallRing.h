@@ -9,5 +9,6 @@ public:
 	SmallRing();
 	~SmallRing();
 	RefPtr<Animate>  *roll;
+	void SetAutoRemove();
 };
 

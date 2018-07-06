@@ -9,8 +9,10 @@
 #include "SonicRollState.h"
 #include "SonicFallState.h"
 #include "SonicHoldState.h"
+#include "SonicHurtState.h"
 #include "GameDefine.h"
 #include "GameParticle.h"
+#include "SmallRing.h"
 using namespace cocos2d;
 using namespace Define;
 #pragma once
@@ -35,9 +37,15 @@ public:
 	void SetVelocity(int x, int y); 
 	void SetVelocityX(int x); //Set velocity X, old Y
 
-	int ringCollected = 0; //Count rings Sonic collected
+	
+	int ringCollected =100; //Count rings Sonic collected
+	int baseLife = 2; //Count the number of your dropping rings (drop ring 3 times you die)
 
 	BUTTON_TAG mJustTap = NONE;
+
+
+	Sprite* _roll_circle = nullptr;
+	Sprite* _roll_effect = nullptr;
 private:
 	RefPtr<Animate>  *run_slow_Ani;
 	RefPtr<Animate>  *run_normal_Ani;
@@ -46,9 +54,11 @@ private:
 	RefPtr<Animate>  *roll_Ani;
 	RefPtr<Animate>  *fall_Ani;
 	RefPtr<Animate>  *roll_sky_Ani;
+	RefPtr<Animate>  *hurt_Ani;
 
-	Sprite* lightning=nullptr;
-	Sprite* lightning2 = nullptr;
+
+
+
 	Sprite* dust = nullptr;
 
 	void updateStart(float dt);

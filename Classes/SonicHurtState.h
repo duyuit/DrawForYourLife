@@ -1,12 +1,16 @@
 #pragma once
 #include "SonicState.h"
-class SonicRollState :public SonicState
+class SonicHurtState :public SonicState
 {
 public:
-	SonicRollState(SonicData *playerData);
-	~SonicRollState();
+	SonicHurtState(SonicData *playerData);
+	~SonicHurtState();
 	void update();
+
 	void handle_swipe(Define::SWIPE_DIRECTION direct);
 	virtual SonicState::StateAction GetState();
-	void HandleCollision(Sprite* sprite);
+	void DropRing(); //When Sonic hits enemy, drop rings
+
 };
+
+

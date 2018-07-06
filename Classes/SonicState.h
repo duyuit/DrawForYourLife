@@ -14,7 +14,8 @@ public:
 		FALL,
 		ROLL,
 		ROLL_IN_SKY,
-		HOLD
+		HOLD,
+		HURT
 	};
 	SonicState();
 	~SonicState();
