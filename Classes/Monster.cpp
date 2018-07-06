@@ -117,6 +117,7 @@ void Monster::SetStateByTag(MONSTERSTATE state)
 	case DIE:
 		_currentAnimate = _dieAni;
 		_currentAction = _currentAnimate->get()->clone();
+		this->getPhysicsBody()->setContactTestBitmask(0);
 		break;
 	case FIGHT:
 		_currentAnimate = _fightAni;
