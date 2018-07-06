@@ -108,7 +108,7 @@ void Sonic::update(float dt)
 void Sonic::handle_swipe(Vec2 start, Vec2 end)
 {
 
-	int delta_x = end.x - start.x;
+	/*int delta_x = end.x - start.x;
 	int delta_y = end.y - start.y;
 
 	if (delta_x > 200)
@@ -130,7 +130,7 @@ void Sonic::handle_swipe(Vec2 start, Vec2 end)
 		SetStateByTag(SonicState::ROLL);
 		return;
 	}
-	mCurrentState->handle_swipe(cur_Swipe_direction);
+	mCurrentState->handle_swipe(cur_Swipe_direction);*/
 
 	
 	

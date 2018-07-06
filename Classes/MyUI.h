@@ -113,7 +113,7 @@ public:
 		this->addChild(button_cir, 1);
 
 		//Add Sprite ring
-		 ringIcon = Sprite::create("ring.png",Rect(200,48,64,50));
+		 ringIcon = Sprite::create("Item/ring.png",Rect(200,48,64,50));
 		ringIcon->setPosition(Vec2(50, _director->getWinSize().height - ringIcon->getContentSize().height));
 		this->addChild(ringIcon, 1);
 

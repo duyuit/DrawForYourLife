@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Animations>
+  <Animation name="1" imagePath="Item/chest.png" width="450" height="470">
+    <sprite x="11" y="81" w="126" h="105" oX="11" oY="81" oW="349" oH="426" />
+    <sprite x="161" y="75" w="126" h="111" oX="161" oY="75" oW="349" oH="426" />
+    <sprite x="311" y="66" w="126" h="120" oX="311" oY="66" oW="349" oH="426" />
+    <sprite x="11" y="255" w="126" h="127" oX="11" oY="255" oW="349" oH="426" />
+    <sprite x="161" y="251" w="126" h="131" oX="161" oY="251" oW="349" oH="426" />
+    <sprite x="311" y="248" w="126" h="134" oX="311" oY="248" oW="349" oH="426" />
+  </Animation>
+</Animations>
