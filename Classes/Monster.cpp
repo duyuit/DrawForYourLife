@@ -32,6 +32,8 @@ void Monster::Init(Sonic * sonic)
 
 	verti->setRotationEnable(false);
 	verti->setDynamic(true);
+	
+
 	this->setPhysicsBody(verti);
 	this->setTag(LANDMONSTER);
 
@@ -98,6 +100,8 @@ void Monster::update(float dt)
 
 void Monster::SetStateByTag(MONSTERSTATE state)
 {
+	
+
 	this->stopAllActions();
 	_currentState = state;
 	_time_action = 0;
@@ -111,12 +115,18 @@ void Monster::SetStateByTag(MONSTERSTATE state)
 	case RUN:
 		_currentAnimate = _runAni;
 		_currentAction = RepeatForever::create(_currentAnimate->get()->clone());
-		if (_isLeft) this->getPhysicsBody()->setVelocity(Vec2(-100, 0));
-		else  this->getPhysicsBody()->setVelocity(Vec2(100, 0));
+		if (this->getPosition().x - _sonic->getPosition().x < 1500) //Fix when move scene, Monster move wrong position
+		{
+			if (_isLeft) this->getPhysicsBody()->setVelocity(Vec2(-100, 0));
+			else  this->getPhysicsBody()->setVelocity(Vec2(100, 0));
+		}
+		else	this->getPhysicsBody()->setVelocity(Vec2(0, 0));
+
 		break;
 	case DIE:
 		_currentAnimate = _dieAni;
 		_currentAction = _currentAnimate->get()->clone();
+		this->getPhysicsBody()->setContactTestBitmask(0);
 		break;
 	case FIGHT:
 		_currentAnimate = _fightAni;

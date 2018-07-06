@@ -18,7 +18,7 @@ Sonic::Sonic()
 	jump_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(jump_FL, 0.03f)));
 	roll_Ani=new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_FL, 0.03f)));
 	fall_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fall_FL, 0.01f)));
-	roll_sky_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("sonic_animation.xml", "roll_in_sky"), 0.03f)));;
+	roll_sky_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Sonic/sonic_animation.xml", "roll_in_sky"), 0.03f)));;
 	hurt_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(hurt_FL, 0.05f)));
 
 
@@ -268,6 +268,22 @@ void Sonic::HandleCollision(Sprite * sprite)
 
 		this->SetStateByTag(SonicState::HURT);
 		this->runAction(Blink::create(2, 10));
+		if (ringCollected > 0 && baseLife > 0)
+		{
+			int t = ringCollected; //Temp variable
+			for (int i = 0; i < (int)(t / baseLife); i++)
+			{
+				runAction(CallFuncN::create(CC_CALLBACK_0(Sonic::DropRing, this)));
+				//DropRing();
+				 ringCollected--;
+			}
+			baseLife--;
+		}
+		else if ( ringCollected <= 0 || baseLife <= 0)
+		{
+			 ringCollected = 0;
+			baseLife = 2;
+		}
 		//Monster cant collision with Sonic 
 		sprite->getPhysicsBody()->setContactTestBitmask(0);
 	
@@ -284,6 +300,27 @@ void Sonic::SetVelocity(int x, int y)
 void Sonic::SetVelocityX(int x)
 {
 	this->getPhysicsBody()->setVelocity(Point(x, this->getPhysicsBody()->getVelocity().y));
+}
+
+void Sonic::DropRing()
+{
+	auto ring = new SmallRing();
+	ring->setAnchorPoint(Vec2(0, 1));
+	ring->setPosition(this->getPosition());
+	ring->getPhysicsBody()->setDynamic(true);
+	ring->getPhysicsBody()->setGravityEnable(true);
+
+	ring->getPhysicsBody()->setCollisionBitmask(2);
+
+	float x = RandomHelper::random_real(-1.0, 1.0);
+	float y = RandomHelper::random_real(0.0, 10.0);
+
+	ring->getPhysicsBody()->setVelocity(Vec2(0, 0));
+	ring->getPhysicsBody()->applyForce(Vec2(-3000000 * x, 800000 * y));
+	ring->getPhysicsBody()->setContactTestBitmask(1);
+	ring->SetAutoRemove();
+
+	this->getParent()->addChild(ring, 10);
 }
 
 void Sonic::updateStart(float dt)

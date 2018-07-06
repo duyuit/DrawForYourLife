@@ -50,7 +50,7 @@
     <sprite x="1104" y="1063" w="117" h="106" oX="1104" oY="1063" oW="1513" oH="1854" />
 
       </Animation>
-<Animation name="roll_in_sky" imagePath="99072.png" width="2048" height="3274">
+<Animation name="roll_in_sky" imagePath="Sonic/99072.png" width="2048" height="3274">
     <sprite x="1113" y="2029" w="103" h="149" oX="1113" oY="2029" oW="1513" oH="1854" />
     <sprite x="627" y="2030" w="99" h="148" oX="627" oY="2030" oW="1513" oH="1854" />
     <sprite x="872" y="2030" w="97" h="148" oX="872" oY="2030" oW="1513" oH="1854" />

@@ -6,9 +6,9 @@ SmallRing::SmallRing()
 {
 	this->initWithFile("Item/ring.png",Rect(0,0,50,50));
 	this->setPosition(100, 100);
-	roll = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("ring.xml", "roll"), 0.1f)));
+	roll = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Item/ring.xml", "roll"), 0.1f)));
 	this->runAction(RepeatForever::create(roll->get()));
-	this->setAnchorPoint(Vec2(0, 1));
+	this->setAnchorPoint(Vec2(0.5, 0.5));
 	
 	auto body = PhysicsBody::createBox(Size(50,50));
 

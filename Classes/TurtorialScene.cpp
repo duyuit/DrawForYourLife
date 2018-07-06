@@ -8,7 +8,7 @@ cocos2d::Scene * TurtorialScene::createScene()
 	scene->getPhysicsWorld()->setGravity(Vec2(0, -1000));
 
 	// optional: set debug draw
-	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+	//scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
 	scene->getPhysicsWorld()->step(1 / 60.0f);
 
 
@@ -34,14 +34,13 @@ void TurtorialScene::Tutorial1()
 	Pause();
 	_myui->setVisible(true);
 	_diabox->UpdateString("Look! There is a symbol like \none of four symbols on your left\nscreen");
-	//_listLabel.at(1)->setString("Look! There is a symbol like one of four symbols on your left screen\n(tap screen to continue)");
 
 
 }
 
 void TurtorialScene::Tutorial2()
 {
-	_diabox->UpdateString("The white circle will shrink to the symbol\nWhen it fits, press the suitable button on left screen\n or else the button will break, Sonic does nothing");
+	_diabox->UpdateString("The white circle will shrink to the symbol.When\nit fits, press the suitable button on left screen \nor the button will break, Sonic does nothing");
 	_diabox->SetTapToContinue(false);
 	Pause();
 	_listButton.at(0)->circle->runAction(Sequence::create(ScaleTo::create(1.5, 0.29), CallFuncN::create(CC_CALLBACK_0(TurtorialScene::Tutorial2_part1, this)),NULL));
@@ -94,18 +93,41 @@ void TurtorialScene::Tutorial4()
 {
 	_diabox->UpdateString("Good! Let's try another one!");
 	_diabox->SetTapToContinue(true);
+	_myui->DisableExcept(_listButton.at(2)->mTag);
 	_listButton.at(2)->time_dissapear = 1000;
 	Pause();
 }
 void TurtorialScene::ResetTutorial4()
 {
-	_mSonic->setPosition(5000, 300);
+
+	_mSonic->setPosition(5000,600);
+	//_listMonster.at(0)->setPosition(9208, 600);
 	TapButton *tap= new TapButton(1, _listButton.at(3)->getPosition(), _mSonic, this);
 	tap->isFirst = true;
 	_listButton.erase(_listButton.begin() + 3);
 	_listButton.insert(3, tap);
 	Pause();
-	SetViewPointCenter(_mSonic->getPosition(),true);
+	SetViewPointCenter(_mSonic->getPosition(), true);
+	_diabox->UpdateString("Oops. Let's try again!");
+}
+
+void TurtorialScene::ResetTutorial5()
+{
+	_mSonic->setPosition(9400, 600);
+	
+	TapButton *tap = new TapButton(1, _listButton.at(6)->getPosition(), _mSonic, this);
+	tap->isFirst = true;
+	_listButton.erase(_listButton.begin() + 6);
+	_listButton.insert(6, tap);
+
+	TapButton *tap2 = new TapButton(2, _listButton.at(7)->getPosition(), _mSonic, this);
+	tap2->isFirst = true;
+	_listButton.erase(_listButton.begin() + 7);
+	_listButton.insert(7, tap2);
+
+
+	Pause();
+	SetViewPointCenter(_mSonic->getPosition(), true);
 	_diabox->UpdateString("Oops. Let's try again!");
 }
 
@@ -120,6 +142,7 @@ void TurtorialScene::RollBackground()
 
 void TurtorialScene::Pause()
 {
+	//_mSonic->SetVelocity(0,0);
 	_isPause = true;
 	_diabox->setVisible(true);
 	_diabox->setPosition(_mSonic->getPositionX(), _director->getWinSize().height*3/4);
@@ -129,6 +152,7 @@ void TurtorialScene::Pause()
 
 void TurtorialScene::Continue()
 {
+	if(count_tuto!=7) //Bug fix: in Third button, player can break button before 
 	_myui->EnableAll();
 	if (count_tuto != 10) //Bug fix: When try again, it skip ring instruction
 	count_tuto++;
@@ -325,9 +349,16 @@ void TurtorialScene::SetViewPointCenter(Point position,bool isFast)
 	Vec2 actualPosition = Vec2(x, y);
 
 	Vec2 centerOfView = Vec2(winSize.width / 2, winSize.height / 2);
-	Vec2 viewPoint = centerOfView - actualPosition + Vec2(-400, 0);
+	Vec2 viewPoint;
+
+	if(_mSonic->getPositionX()<13500)
+		viewPoint = centerOfView - actualPosition + Vec2(-300, 0);
+	else 
+		viewPoint = centerOfView - actualPosition;
+
 
 	auto currentCameraPosition = this->getPosition();
+//	this->getScene()->getDefaultCamera()->setPosition(viewPoint);
 	if(isFast)
 	this->setPosition(viewPoint);
 	else
@@ -348,14 +379,22 @@ bool TurtorialScene::onContactBegin(cocos2d::PhysicsContact & contact)
 		if (tagA == Define::Player)
 		{
 			if (spriteB->getTag() == Define::DIELAND)
-				ResetTutorial4();
+			{
+				if(spriteB->getPositionX()>=8000)
+				ResetTutorial5();
+				else 	ResetTutorial4();
+			}
 			Sonic *sonic = (Sonic*)spriteA;
 			sonic->HandleCollision(spriteB);
 		}
 		else
 		{
 			if (spriteA->getTag() == Define::DIELAND)
-				ResetTutorial4();
+			{
+				if (spriteA->getPositionX() >= 8000)
+					ResetTutorial5();
+				else 	ResetTutorial4();
+			}
 			Sonic *sonic = (Sonic*)spriteB;
 			sonic->HandleCollision(spriteA);
 		}
@@ -408,11 +447,12 @@ void TurtorialScene::update(float dt)
 	if (_listButton.at(1)->getPositionX() - _mSonic->getPositionX() <= 150 && count_tuto ==5 && !_isPause)
 	{
 		Tutorial3();
+	
 		count_tuto++;
 	}
 	if (count_tuto == 6)
 	{
-
+	
 		if (_listButton.at(1)->isDelete)
 		{
 			Continue();
@@ -474,7 +514,7 @@ void TurtorialScene::update(float dt)
 	else
 	{
 		if (_mSonic->getPosition().x < 0) _mSonic->setPosition(0, _mSonic->getPosition().y);
-		SetViewPointCenter(_mSonic->getPosition(),true);
+		SetViewPointCenter(_mSonic->getPosition(), true);
 
 	}
 
@@ -487,6 +527,7 @@ void TurtorialScene::updateStart(float dt)
 	this->getScene()->addChild(_myui);
 	_myui->setVisible(true);
 
+	
 	
 }
 
@@ -517,23 +558,6 @@ bool TurtorialScene::init()
 	this->addChild(_mSonic);
 	LoadMap(_tileMap);
 	
-
-	auto ring = new SmallRing();
-	//ring->setPosition(mPlayerData->player->getPosition() + mPlayerData->player->getContentSize() / 2);
-	ring->setPosition(1072,188);
-	ring->getPhysicsBody()->setDynamic(true);
-	ring->getPhysicsBody()->setGravityEnable(true);
-
-	ring->getPhysicsBody()->setCollisionBitmask(2);
-
-	float x = RandomHelper::random_real(-1.0, 1.0);
-	float y = RandomHelper::random_real(0.0, 10.0);
-
-	ring->getPhysicsBody()->setVelocity(Vec2(0, 0));
-	ring->getPhysicsBody()->applyForce(Vec2(-3000000 * x, 800000 * y));
-	ring->getPhysicsBody()->setContactTestBitmask(1);
-	//ring->SetAutoRemove();
-	this->addChild(ring, 10);
 
 
 

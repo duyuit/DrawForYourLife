@@ -42,7 +42,7 @@ public:
 
 	void Tutorial4();
 	void ResetTutorial4();
-
+	void ResetTutorial5();
 
 	void RollBackground();
 	void Pause();

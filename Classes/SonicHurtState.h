@@ -9,7 +9,7 @@ public:
 
 	void handle_swipe(Define::SWIPE_DIRECTION direct);
 	virtual SonicState::StateAction GetState();
-	void DropRing(); //When Sonic hits enemy, drop rings
+
 
 };
 
