@@ -122,7 +122,7 @@ void Sonic::handle_swipe(Vec2 start, Vec2 end)
 		isLeft = true;
 	}
 
-	if (delta_y > 200) 
+	if (delta_y > 200) `
 		cur_Swipe_direction = Define::SWIPE_DIRECTION::UP;
 	if (delta_y < -200)
 	{

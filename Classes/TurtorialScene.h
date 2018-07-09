@@ -6,6 +6,7 @@
 #include "SmallRing.h"
 #include "FrogMonster.h"
 #include "MyDialogBox.h"
+#include "MultipleButton.h"
 using namespace cocos2d;
 class TurtorialScene : public cocos2d::Layer
 {

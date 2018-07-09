@@ -90,9 +90,14 @@
     <ClCompile Include="..\Classes\MyDialogBox.cpp">
       <Filter>src\GameComponent</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\MyUI.cpp" />
     <ClCompile Include="..\Classes\SonicHurtState.cpp">
       <Filter>src\Sonic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MyUI.cpp">
+      <Filter>src\GameComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MultipleButton.cpp">
+      <Filter>src\GameComponent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +175,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\SonicHurtState.h">
       <Filter>src\Sonic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MultipleButton.h">
+      <Filter>src\GameComponent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

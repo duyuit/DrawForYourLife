@@ -1,0 +1,137 @@
+#include "MultipleButton.h"
+
+
+
+MultipleButton::MultipleButton()
+{
+}
+
+MultipleButton::MultipleButton(Sonic* sonic,int button_count, float time)
+{
+	_mSonic = sonic;
+
+	_progressbar =  Sprite::create("GameComponents/progress.png");
+	_progressbar->setFlipX(true);
+	_progressbar->setAnchorPoint(Vec2(0, 0.5f));
+	_progressbar->setScale(0.3, 0.3);
+	//this->addChild(_progressbar);
+
+	_border=  Sprite::create("GameComponents/border.png");
+	_border->setPosition(0, 50);
+	_border->setAnchorPoint(Vec2(0, 0.5f));
+	_border->setScale(0.3, 0.3);
+	this->addChild(_border);
+
+
+	_break_left_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "left_break"), 0.1f)));
+	_break_right_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "right_break"), 0.1f)));
+	
+	_button_count = button_count;
+	_time = time;
+
+	int pos_x=0;
+	int delta_x = _border->getContentSize().width*0.3/(_button_count-1);
+
+	for (int i = 0; i < _button_count; i++)
+	{
+		int a = 0;
+		a=RandomHelper::random_int(1,2);
+		Sprite* button;
+	
+		switch (a)
+		{
+		case 1:button = Sprite::create(Define::button_left_grey_path); break;
+			case 2:button = Sprite::create(Define::button_right_grey_path); break;
+		}
+		_list_button_sprite.pushBack(button);
+		_list_button_tag.push_back(a);
+
+
+		button->setScale(0.3);
+		button->setPosition(pos_x, 0);
+		pos_x +=delta_x;
+		this->addChild(button);
+
+	}
+	mouseBar = ProgressTimer::create(_progressbar);
+	mouseBar->setScale(0.3);
+	mouseBar->setType(ProgressTimerType::BAR);
+	mouseBar->setAnchorPoint(Vec2(0.0, 0.5));
+	mouseBar->setBarChangeRate(Vec2(1, 0));
+	mouseBar->setMidpoint(Vec2(0.0, 0.0));
+	mouseBar->setReverseDirection(true);
+	mouseBar->setPercentage(0);
+	this->addChild(mouseBar, 10);
+	mouseBar->setPosition(0, 50);
+	this->scheduleUpdate();
+}
+
+void MultipleButton::update(float dt)
+{
+	if (isDelete) return;
+	if (!isActive && this->getPositionX() - _mSonic->getPositionX() < 600)
+	{
+		isActive = true;
+		Active();
+	}
+	if (isActive && _mSonic->_list_just_tap.size()>0)
+	{
+		for (int i = 0; i <  _mSonic->_list_just_tap.size(); i++)
+		{
+			if (_mSonic->_list_just_tap.at(i) != _list_button_tag.at(i))
+			{
+				DeleteNow(false);
+			}
+			else
+			{
+				if (_list_button_tag.at(i) == 1)
+					_list_button_sprite.at(i)->initWithFile(Define::button_left_green_path);
+				else
+					_list_button_sprite.at(i)->initWithFile(Define::button_right_green_path);
+			}
+		}
+		
+	}
+}
+
+
+void MultipleButton::Active()
+{
+	_mSonic->_list_just_tap.clear();
+	mouseBar->runAction(Sequence::create(ProgressTo::create(1.3f, 70.0f), CallFuncN::create(CC_CALLBACK_0(MultipleButton::BlinkProgressBar, this)), nullptr));
+}
+
+void MultipleButton::DeleteNow(bool check)
+{
+	isDelete = true;
+	if(check)
+		this->runAction(RemoveSelf::create());
+	else
+	{
+		for (int i=0;i<_list_button_sprite.size();i++)
+		{
+			_list_button_sprite.at(i)->setScale(0.15);
+			if (_list_button_tag.at(i) == 1)
+			{
+				_list_button_sprite.at(i)->runAction(_break_left_Ani->get()->clone());
+			}
+			else
+			{
+				_list_button_sprite.at(i)->runAction(_break_right_Ani->get()->clone());
+			}
+		}
+		this->runAction(Sequence::create(DelayTime::create(1), RemoveSelf::create(),nullptr));
+	}
+
+}
+
+void MultipleButton::BlinkProgressBar()
+{
+	mouseBar->runAction(ProgressTo::create(0.7, 100.0f));
+	mouseBar->runAction(Blink::create(0.7, 8));
+
+}
+
+MultipleButton::~MultipleButton()
+{
+}

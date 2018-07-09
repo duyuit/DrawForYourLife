@@ -157,6 +157,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\InfiniteParallaxNode.cpp" />
     <ClCompile Include="..\Classes\LandMonster.cpp" />
     <ClCompile Include="..\Classes\Monster.cpp" />
+    <ClCompile Include="..\Classes\MultipleButton.cpp" />
     <ClCompile Include="..\Classes\MyDialogBox.cpp" />
     <ClCompile Include="..\Classes\MyUI.cpp" />
     <ClCompile Include="..\Classes\SmallRing.cpp" />
@@ -184,6 +185,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\InfiniteParallaxNode.h" />
     <ClInclude Include="..\Classes\LandMonster.h" />
     <ClInclude Include="..\Classes\Monster.h" />
+    <ClInclude Include="..\Classes\MultipleButton.h" />
     <ClInclude Include="..\Classes\MyDialogBox.h" />
     <ClInclude Include="..\Classes\MyUI.h" />
     <ClInclude Include="..\Classes\SmallRing.h" />

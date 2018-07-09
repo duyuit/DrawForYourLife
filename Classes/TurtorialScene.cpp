@@ -60,7 +60,7 @@ void TurtorialScene::Tutorial2_part1()
 
 	_listButton.at(0)->scheduleUpdate();
 	_listButton.at(0)->can_Active = true;
-	_listButton.at(0)->time_dissapear = 1000;
+	_listButton.at(0)->_time_dissapear = 1000;
 	_listButton.at(0)->isFirst = true;
 
 
@@ -83,7 +83,7 @@ void TurtorialScene::Tutorial3_part1()
 	_diabox->UpdateString("Press now!!!!");
 	_diabox->SetTapToContinue(false);
 	
-	_listButton.at(1)->time_dissapear = 1000;
+	_listButton.at(1)->_time_dissapear = 1000;
 	_listButton.at(1)->scheduleUpdate();
 	_listButton.at(1)->Dissapear();
 	_listButton.at(1)->can_Active = true;
@@ -94,15 +94,14 @@ void TurtorialScene::Tutorial4()
 	_diabox->UpdateString("Good! Let's try another one!");
 	_diabox->SetTapToContinue(true);
 	_myui->DisableExcept(_listButton.at(2)->mTag);
-	_listButton.at(2)->time_dissapear = 1000;
+	_listButton.at(2)->_time_dissapear = 1000;
 	Pause();
 }
 void TurtorialScene::ResetTutorial4()
 {
 
 	_mSonic->setPosition(5000,600);
-	//_listMonster.at(0)->setPosition(9208, 600);
-	TapButton *tap= new TapButton(1, _listButton.at(3)->getPosition(), _mSonic, this);
+	TapButton *tap= new TapButton(_listButton.at(3)->getPosition(), _mSonic, this);
 	tap->isFirst = true;
 	_listButton.erase(_listButton.begin() + 3);
 	_listButton.insert(3, tap);
@@ -115,12 +114,12 @@ void TurtorialScene::ResetTutorial5()
 {
 	_mSonic->setPosition(9400, 600);
 	
-	TapButton *tap = new TapButton(1, _listButton.at(6)->getPosition(), _mSonic, this);
+	TapButton *tap = new TapButton(_listButton.at(6)->getPosition(), _mSonic, this);
 	tap->isFirst = true;
 	_listButton.erase(_listButton.begin() + 6);
 	_listButton.insert(6, tap);
 
-	TapButton *tap2 = new TapButton(2, _listButton.at(7)->getPosition(), _mSonic, this);
+	TapButton *tap2 = new TapButton(_listButton.at(7)->getPosition(), _mSonic, this);
 	tap2->isFirst = true;
 	_listButton.erase(_listButton.begin() + 7);
 	_listButton.insert(7, tap2);
@@ -260,8 +259,8 @@ void TurtorialScene::LoadMap(CCTMXTiledMap * map)
 			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
 			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
 
-			int a = RandomHelper::random_int(1, 4);
-			auto button = new TapButton(a, Vec2(x_box, y_box), _mSonic, this);
+	
+			auto button = new TapButton(Vec2(x_box, y_box), _mSonic, this);
 			button->setZOrder(8);
 			button->circle->setZOrder(7);
 			button->isFirst = true;
@@ -602,6 +601,9 @@ bool TurtorialScene::init()
 
 	_mSonic->setZOrder(7);
 
+	auto temp = new MultipleButton(_mSonic,3,1);
+	temp->setPosition(500, 300);
+	this->addChild(temp);
 
 	
 	//Listener

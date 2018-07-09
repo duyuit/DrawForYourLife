@@ -350,8 +350,8 @@ void HelloWorld::LoadMap()
 			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
 			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
 
-			int a = RandomHelper::random_int(1, 4);
-			auto button=new TapButton(a, Vec2(x_box, y_box), mSonic, this);
+			
+			auto button=new TapButton(Vec2(x_box, y_box), mSonic, this);
 			listButton.pushBack(button);
 		}
 

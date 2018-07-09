@@ -38,7 +38,7 @@ void Monster::Init(Sonic * sonic)
 	this->setTag(LANDMONSTER);
 
 	_sonic = sonic;
-	_tapButton = new TapButton(RandomHelper::random_int(1, 4), Vec2(0, 0), _sonic, (Layer*)_sonic->getParent());
+	_tapButton = new TapButton(Vec2(0, 0), _sonic, (Layer*)_sonic->getParent());
 	_tapButton->isFirst = true;
 	_tapButton->_time_circle_shrink = 0.7;
 	_tapButton->_action = SonicState::ROLL;

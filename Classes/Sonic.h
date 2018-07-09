@@ -40,7 +40,7 @@ public:
 	void DropRing();
 	int ringCollected = 0; //Count rings Sonic collected
 	int baseLife = 2; //Count the number of your dropping rings (drop ring 3 times you die)
-
+	std::vector<int> _list_just_tap;
 	BUTTON_TAG mJustTap = NONE;
 
 
