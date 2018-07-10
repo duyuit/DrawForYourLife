@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "GameDefine.h"
 #include "TapButton.h"
+#include "MultipleButton.h"
 using namespace cocos2d;
 enum MONSTERSTATE
 {
@@ -24,6 +25,8 @@ public:
 	Action* _currentAction;
 	TapButton *_tapButton;
 	Sonic* _sonic;
+	MultipleButton* _multiButton;
+
 
 	virtual void HandleCollision(Sprite *sprite); //Use to handle collision with object
 	virtual void update(float dt);

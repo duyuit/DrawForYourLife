@@ -6,12 +6,14 @@ using namespace cocos2d;
 class TapButton:public Sprite
 {
 public:
-	TapButton(int ID,Vec2 pos,Sonic *sprite,Layer* layer);
+	TapButton(Vec2 pos,Sonic *sprite,Layer* layer);
 	Sprite* circle;
 	Sonic* mTarget;
-	float time_dissapear = 0.5;
+	float _time_dissapear = 0.5;
 	float _time_circle_shrink = 1;
 	SonicState::StateAction _action = SonicState::JUMP;
+	int isLeft;
+
 
 	RefPtr<Animate>  *_break_Ani;
 	

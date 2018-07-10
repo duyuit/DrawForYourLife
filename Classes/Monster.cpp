@@ -24,7 +24,7 @@ Monster::Monster()
 void Monster::Init(Sonic * sonic)
 {
 	this->initWithSpriteFrame(_idleAni->get()->getAnimation()->getFrames().at(0)->getSpriteFrame());
-	auto verti = PhysicsBody::createBox(this->getContentSize(), PhysicsMaterial(0.1f,0.6,0.0f));
+	auto verti = PhysicsBody::createBox(this->getContentSize(), PhysicsMaterial(0.1f, 0.6, 0.0f));
 
 	verti->setCategoryBitmask(16);    // 0010
 	verti->setCollisionBitmask(2);   // 0001
@@ -32,14 +32,20 @@ void Monster::Init(Sonic * sonic)
 
 	verti->setRotationEnable(false);
 	verti->setDynamic(true);
+
+
 	this->setPhysicsBody(verti);
 	this->setTag(LANDMONSTER);
 
 	_sonic = sonic;
-	_tapButton = new TapButton(RandomHelper::random_int(1, 4), Vec2(0, 0), _sonic, (Layer*)_sonic->getParent());
+	/*_tapButton = new TapButton(Vec2(0, 0), _sonic, (Layer*)_sonic->getParent());
 	_tapButton->isFirst = true;
 	_tapButton->_time_circle_shrink = 0.7;
-	_tapButton->_action = SonicState::ROLL;
+	_tapButton->_action = SonicState::ROLL;*/
+
+	_multiButton = new MultipleButton(Vec2(0, 0),_sonic,(Layer*)_sonic->getParent(),3,2);
+
+	//this->addChild(_multiButton,10);
 
 	this->setAnchorPoint(Vec2(0.5f, 0));
 	SetStateByTag(IDLE);
@@ -62,8 +68,8 @@ void Monster::HandleCollision(Sprite * sprite)
 
 void Monster::update(float dt)
 {
-	_tapButton->setPosition(this->getPosition()+Vec2(0,150));
-
+	//_tapButton->setPosition(this->getPosition()+Vec2(0,150));
+	_multiButton->setPosition(this->getPosition() + Vec2(0, 150));
 	_time_action++;
 	this->setFlipX(_isLeft);
 	switch (_currentState)
@@ -98,6 +104,8 @@ void Monster::update(float dt)
 
 void Monster::SetStateByTag(MONSTERSTATE state)
 {
+	
+
 	this->stopAllActions();
 	_currentState = state;
 	_time_action = 0;
@@ -111,12 +119,18 @@ void Monster::SetStateByTag(MONSTERSTATE state)
 	case RUN:
 		_currentAnimate = _runAni;
 		_currentAction = RepeatForever::create(_currentAnimate->get()->clone());
-		if (_isLeft) this->getPhysicsBody()->setVelocity(Vec2(-100, 0));
-		else  this->getPhysicsBody()->setVelocity(Vec2(100, 0));
+		if (this->getPosition().x - _sonic->getPosition().x < 1500) //Fix when move scene, Monster move wrong position
+		{
+			if (_isLeft) this->getPhysicsBody()->setVelocity(Vec2(-100, 0));
+			else  this->getPhysicsBody()->setVelocity(Vec2(100, 0));
+		}
+		else	this->getPhysicsBody()->setVelocity(Vec2(0, 0));
+
 		break;
 	case DIE:
 		_currentAnimate = _dieAni;
 		_currentAction = _currentAnimate->get()->clone();
+		this->getPhysicsBody()->setContactTestBitmask(0);
 		break;
 	case FIGHT:
 		_currentAnimate = _fightAni;

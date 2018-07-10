@@ -157,6 +157,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\InfiniteParallaxNode.cpp" />
     <ClCompile Include="..\Classes\LandMonster.cpp" />
     <ClCompile Include="..\Classes\Monster.cpp" />
+    <ClCompile Include="..\Classes\MultipleButton.cpp" />
     <ClCompile Include="..\Classes\MyDialogBox.cpp" />
     <ClCompile Include="..\Classes\MyUI.cpp" />
     <ClCompile Include="..\Classes\SmallRing.cpp" />
@@ -172,6 +173,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\SonicRunSlowState.cpp" />
     <ClCompile Include="..\Classes\SonicState.cpp" />
     <ClCompile Include="..\Classes\TapButton.cpp" />
+    <ClCompile Include="..\Classes\TestScene.cpp" />
     <ClCompile Include="..\Classes\TurtorialScene.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -184,6 +186,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\InfiniteParallaxNode.h" />
     <ClInclude Include="..\Classes\LandMonster.h" />
     <ClInclude Include="..\Classes\Monster.h" />
+    <ClInclude Include="..\Classes\MultipleButton.h" />
     <ClInclude Include="..\Classes\MyDialogBox.h" />
     <ClInclude Include="..\Classes\MyUI.h" />
     <ClInclude Include="..\Classes\SmallRing.h" />
@@ -199,6 +202,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\SonicRunSlowState.h" />
     <ClInclude Include="..\Classes\SonicState.h" />
     <ClInclude Include="..\Classes\TapButton.h" />
+    <ClInclude Include="..\Classes\TestScene.h" />
     <ClInclude Include="..\Classes\TurtorialScene.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>

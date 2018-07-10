@@ -8,7 +8,7 @@ cocos2d::Scene * TurtorialScene::createScene()
 	scene->getPhysicsWorld()->setGravity(Vec2(0, -1000));
 
 	// optional: set debug draw
-	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+	//scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
 	scene->getPhysicsWorld()->step(1 / 60.0f);
 
 
@@ -33,15 +33,14 @@ void TurtorialScene::Tutorial1()
 {
 	Pause();
 	_myui->setVisible(true);
-	_diabox->UpdateString("Look! There is a symbol like \none of four symbols on your left\nscreen");
-	//_listLabel.at(1)->setString("Look! There is a symbol like one of four symbols on your left screen\n(tap screen to continue)");
+	_diabox->UpdateString("Look! There's an arrow button on your screen");
 
 
 }
 
 void TurtorialScene::Tutorial2()
 {
-	_diabox->UpdateString("The white circle will shrink to the symbol\nWhen it fits, press the suitable button on left screen\n or else the button will break, Sonic does nothing");
+	_diabox->UpdateString("The white circle will shrink to the button.When\nit fits, tap left or right on the screen \nor the button will break, Sonic does nothing");
 	_diabox->SetTapToContinue(false);
 	Pause();
 	_listButton.at(0)->circle->runAction(Sequence::create(ScaleTo::create(1.5, 0.29), CallFuncN::create(CC_CALLBACK_0(TurtorialScene::Tutorial2_part1, this)),NULL));
@@ -61,10 +60,10 @@ void TurtorialScene::Tutorial2_part1()
 
 	_listButton.at(0)->scheduleUpdate();
 	_listButton.at(0)->can_Active = true;
-	_listButton.at(0)->time_dissapear = 1000;
+	_listButton.at(0)->_time_dissapear = 1000;
 	_listButton.at(0)->isFirst = true;
 
-
+	
 
 }
 
@@ -81,10 +80,10 @@ void TurtorialScene::Tutorial3()
 
 void TurtorialScene::Tutorial3_part1()
 {
-	_diabox->UpdateString("Press now!!!!");
+	_diabox->UpdateString("Tap now!!!!");
 	_diabox->SetTapToContinue(false);
 	
-	_listButton.at(1)->time_dissapear = 1000;
+	_listButton.at(1)->_time_dissapear = 1000;
 	_listButton.at(1)->scheduleUpdate();
 	_listButton.at(1)->Dissapear();
 	_listButton.at(1)->can_Active = true;
@@ -94,18 +93,40 @@ void TurtorialScene::Tutorial4()
 {
 	_diabox->UpdateString("Good! Let's try another one!");
 	_diabox->SetTapToContinue(true);
-	_listButton.at(2)->time_dissapear = 1000;
+	_myui->DisableExcept(_listButton.at(2)->mTag);
+	_listButton.at(2)->_time_dissapear = 1000;
 	Pause();
 }
 void TurtorialScene::ResetTutorial4()
 {
-	_mSonic->setPosition(5000, 300);
-	TapButton *tap= new TapButton(1, _listButton.at(3)->getPosition(), _mSonic, this);
+
+	_mSonic->setPosition(5000,600);
+	TapButton *tap= new TapButton(_listButton.at(3)->getPosition(), _mSonic, this);
 	tap->isFirst = true;
 	_listButton.erase(_listButton.begin() + 3);
 	_listButton.insert(3, tap);
 	Pause();
-	SetViewPointCenter(_mSonic->getPosition(),true);
+	SetViewPointCenter(_mSonic->getPosition(), true);
+	_diabox->UpdateString("Oops. Let's try again!");
+}
+
+void TurtorialScene::ResetTutorial5()
+{
+	_mSonic->setPosition(9400, 600);
+	
+	TapButton *tap = new TapButton(_listButton.at(6)->getPosition(), _mSonic, this);
+	tap->isFirst = true;
+	_listButton.erase(_listButton.begin() + 6);
+	_listButton.insert(6, tap);
+
+	TapButton *tap2 = new TapButton(_listButton.at(7)->getPosition(), _mSonic, this);
+	tap2->isFirst = true;
+	_listButton.erase(_listButton.begin() + 7);
+	_listButton.insert(7, tap2);
+
+
+	Pause();
+	SetViewPointCenter(_mSonic->getPosition(), true);
 	_diabox->UpdateString("Oops. Let's try again!");
 }
 
@@ -120,6 +141,7 @@ void TurtorialScene::RollBackground()
 
 void TurtorialScene::Pause()
 {
+	//_mSonic->SetVelocity(0,0);
 	_isPause = true;
 	_diabox->setVisible(true);
 	_diabox->setPosition(_mSonic->getPositionX(), _director->getWinSize().height*3/4);
@@ -129,6 +151,9 @@ void TurtorialScene::Pause()
 
 void TurtorialScene::Continue()
 {
+	if (count_tuto == 12) //Bug fix: tap to continue can active button of frog
+		_listMonster.at(0)->scheduleUpdate();
+	if(count_tuto!=7) //Bug fix: in Third button, player can break button before 
 	_myui->EnableAll();
 	if (count_tuto != 10) //Bug fix: When try again, it skip ring instruction
 	count_tuto++;
@@ -236,8 +261,8 @@ void TurtorialScene::LoadMap(CCTMXTiledMap * map)
 			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
 			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
 
-			int a = RandomHelper::random_int(1, 4);
-			auto button = new TapButton(a, Vec2(x_box, y_box), _mSonic, this);
+	
+			auto button = new TapButton(Vec2(x_box, y_box), _mSonic, this);
 			button->setZOrder(8);
 			button->circle->setZOrder(7);
 			button->isFirst = true;
@@ -325,9 +350,16 @@ void TurtorialScene::SetViewPointCenter(Point position,bool isFast)
 	Vec2 actualPosition = Vec2(x, y);
 
 	Vec2 centerOfView = Vec2(winSize.width / 2, winSize.height / 2);
-	Vec2 viewPoint = centerOfView - actualPosition + Vec2(-400, 0);
+	Vec2 viewPoint;
+
+	if(_mSonic->getPositionX()<13500)
+		viewPoint = centerOfView - actualPosition + Vec2(-300, 0);
+	else 
+		viewPoint = centerOfView - actualPosition;
+
 
 	auto currentCameraPosition = this->getPosition();
+//	this->getScene()->getDefaultCamera()->setPosition(viewPoint);
 	if(isFast)
 	this->setPosition(viewPoint);
 	else
@@ -348,14 +380,22 @@ bool TurtorialScene::onContactBegin(cocos2d::PhysicsContact & contact)
 		if (tagA == Define::Player)
 		{
 			if (spriteB->getTag() == Define::DIELAND)
-				ResetTutorial4();
+			{
+				if(spriteB->getPositionX()>=8000)
+				ResetTutorial5();
+				else 	ResetTutorial4();
+			}
 			Sonic *sonic = (Sonic*)spriteA;
 			sonic->HandleCollision(spriteB);
 		}
 		else
 		{
 			if (spriteA->getTag() == Define::DIELAND)
-				ResetTutorial4();
+			{
+				if (spriteA->getPositionX() >= 8000)
+					ResetTutorial5();
+				else 	ResetTutorial4();
+			}
 			Sonic *sonic = (Sonic*)spriteB;
 			sonic->HandleCollision(spriteA);
 		}
@@ -380,7 +420,8 @@ bool TurtorialScene::onContactBegin(cocos2d::PhysicsContact & contact)
 void TurtorialScene::update(float dt)
 {
 	
-
+	if(_myui!=nullptr && _myui->_istouch) //Bug fix: tap button cant skip
+		if (_isPause && count_tuto != 2 && count_tuto != 3 && count_tuto != 6 && count_tuto != 8) Continue();
 
 	if (_listButton.at(0)->getPositionX()- _mSonic->getPositionX() <= 150 && count_tuto < 2 && !_isPause)
 	{
@@ -408,11 +449,12 @@ void TurtorialScene::update(float dt)
 	if (_listButton.at(1)->getPositionX() - _mSonic->getPositionX() <= 150 && count_tuto ==5 && !_isPause)
 	{
 		Tutorial3();
+	
 		count_tuto++;
 	}
 	if (count_tuto == 6)
 	{
-
+	
 		if (_listButton.at(1)->isDelete)
 		{
 			Continue();
@@ -440,7 +482,7 @@ void TurtorialScene::update(float dt)
 	}
 	if (count_tuto == 9 && _listButton.at(3)->getPositionX()-_mSonic->getPositionX()<=1200 && !_isPause)
 	{
-		_diabox->UpdateString("OK! Now you know how to press the button!");
+		_diabox->UpdateString("OK! Now you know how to tap the screen!");
 		_diabox->SetTapToContinue(true);
 		Pause();
 	}
@@ -453,6 +495,7 @@ void TurtorialScene::update(float dt)
 	if (count_tuto == 12 && _listMonster.at(0)->getPositionX() - _mSonic->getPositionX() <= 800 && !_isPause)
 	{
 		Pause();
+		_listMonster.at(0)->unscheduleUpdate();
 		_diabox->UpdateString("Be careful! If you let button break, \nyou'll hit the enemy and drop your rings");
 	}
 	RollBackground();
@@ -474,7 +517,7 @@ void TurtorialScene::update(float dt)
 	else
 	{
 		if (_mSonic->getPosition().x < 0) _mSonic->setPosition(0, _mSonic->getPosition().y);
-		SetViewPointCenter(_mSonic->getPosition(),true);
+		SetViewPointCenter(_mSonic->getPosition(), true);
 
 	}
 
@@ -487,6 +530,7 @@ void TurtorialScene::updateStart(float dt)
 	this->getScene()->addChild(_myui);
 	_myui->setVisible(true);
 
+	
 	
 }
 
@@ -518,24 +562,6 @@ bool TurtorialScene::init()
 	LoadMap(_tileMap);
 	
 
-	auto ring = new SmallRing();
-	//ring->setPosition(mPlayerData->player->getPosition() + mPlayerData->player->getContentSize() / 2);
-	ring->setPosition(1072,188);
-	ring->getPhysicsBody()->setDynamic(true);
-	ring->getPhysicsBody()->setGravityEnable(true);
-
-	ring->getPhysicsBody()->setCollisionBitmask(2);
-
-	float x = RandomHelper::random_real(-1.0, 1.0);
-	float y = RandomHelper::random_real(0.0, 10.0);
-
-	ring->getPhysicsBody()->setVelocity(Vec2(0, 0));
-	ring->getPhysicsBody()->applyForce(Vec2(-3000000 * x, 800000 * y));
-	ring->getPhysicsBody()->setContactTestBitmask(1);
-	//ring->SetAutoRemove();
-	this->addChild(ring, 10);
-
-
 
 	
 	_diabox = new MyDialogBox();
@@ -545,10 +571,6 @@ bool TurtorialScene::init()
 
 	this->addChild(_diabox, 7);
 
-
-	//Monster* a = new Monster();
-	//a->setPosition(2000, 200);
-	//this->addChild(a);
 
 
 	//2 Parallax Scrolling
@@ -577,6 +599,7 @@ bool TurtorialScene::init()
 	this->addChild(blackImage, 6);
 
 	_mSonic->setZOrder(7);
+
 
 
 	

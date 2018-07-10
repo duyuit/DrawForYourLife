@@ -1,6 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "../external/tinyxml2/tinyxml2.h"
+using namespace std;
 using namespace tinyxml2;
 using namespace cocos2d;
 namespace Define {
@@ -21,11 +22,18 @@ namespace Define {
 	enum BUTTON_TAG
 	{
 		NONE,
-		X,
-		Cir,
-		Rectangcle,
-		Tri
+		BUTTON_LEFT,
+		BUTTON_RIGHT,
+	
 	};
+	static string button_left_green_path = "Button/button_left_green.png";
+	static string button_right_green_path = "Button/button_right_green.png";
+	static string button_left_grey_path = "Button/button_left_grey.png";
+	static string button_right_grey_path = "Button/button_right_grey.png";
+	static string button_fail_path= "Button/button_fail.png";
+
+
+
 	static float randomValueBetween(float min, float max)
 	{
 		assert(max > min);
