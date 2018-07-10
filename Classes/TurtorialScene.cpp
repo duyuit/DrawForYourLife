@@ -33,14 +33,14 @@ void TurtorialScene::Tutorial1()
 {
 	Pause();
 	_myui->setVisible(true);
-	_diabox->UpdateString("Look! There is a symbol like \none of four symbols on your left\nscreen");
+	_diabox->UpdateString("Look! There's an arrow button on your screen");
 
 
 }
 
 void TurtorialScene::Tutorial2()
 {
-	_diabox->UpdateString("The white circle will shrink to the symbol.When\nit fits, press the suitable button on left screen \nor the button will break, Sonic does nothing");
+	_diabox->UpdateString("The white circle will shrink to the button.When\nit fits, tap left or right on the screen \nor the button will break, Sonic does nothing");
 	_diabox->SetTapToContinue(false);
 	Pause();
 	_listButton.at(0)->circle->runAction(Sequence::create(ScaleTo::create(1.5, 0.29), CallFuncN::create(CC_CALLBACK_0(TurtorialScene::Tutorial2_part1, this)),NULL));
@@ -63,7 +63,7 @@ void TurtorialScene::Tutorial2_part1()
 	_listButton.at(0)->_time_dissapear = 1000;
 	_listButton.at(0)->isFirst = true;
 
-
+	
 
 }
 
@@ -80,7 +80,7 @@ void TurtorialScene::Tutorial3()
 
 void TurtorialScene::Tutorial3_part1()
 {
-	_diabox->UpdateString("Press now!!!!");
+	_diabox->UpdateString("Tap now!!!!");
 	_diabox->SetTapToContinue(false);
 	
 	_listButton.at(1)->_time_dissapear = 1000;
@@ -151,6 +151,8 @@ void TurtorialScene::Pause()
 
 void TurtorialScene::Continue()
 {
+	if (count_tuto == 12) //Bug fix: tap to continue can active button of frog
+		_listMonster.at(0)->scheduleUpdate();
 	if(count_tuto!=7) //Bug fix: in Third button, player can break button before 
 	_myui->EnableAll();
 	if (count_tuto != 10) //Bug fix: When try again, it skip ring instruction
@@ -418,7 +420,8 @@ bool TurtorialScene::onContactBegin(cocos2d::PhysicsContact & contact)
 void TurtorialScene::update(float dt)
 {
 	
-
+	if(_myui!=nullptr && _myui->_istouch) //Bug fix: tap button cant skip
+		if (_isPause && count_tuto != 2 && count_tuto != 3 && count_tuto != 6 && count_tuto != 8) Continue();
 
 	if (_listButton.at(0)->getPositionX()- _mSonic->getPositionX() <= 150 && count_tuto < 2 && !_isPause)
 	{
@@ -479,7 +482,7 @@ void TurtorialScene::update(float dt)
 	}
 	if (count_tuto == 9 && _listButton.at(3)->getPositionX()-_mSonic->getPositionX()<=1200 && !_isPause)
 	{
-		_diabox->UpdateString("OK! Now you know how to press the button!");
+		_diabox->UpdateString("OK! Now you know how to tap the screen!");
 		_diabox->SetTapToContinue(true);
 		Pause();
 	}
@@ -492,6 +495,7 @@ void TurtorialScene::update(float dt)
 	if (count_tuto == 12 && _listMonster.at(0)->getPositionX() - _mSonic->getPositionX() <= 800 && !_isPause)
 	{
 		Pause();
+		_listMonster.at(0)->unscheduleUpdate();
 		_diabox->UpdateString("Be careful! If you let button break, \nyou'll hit the enemy and drop your rings");
 	}
 	RollBackground();
@@ -559,7 +563,6 @@ bool TurtorialScene::init()
 	
 
 
-
 	
 	_diabox = new MyDialogBox();
 	_diabox->setPosition(1000, 400);
@@ -568,10 +571,6 @@ bool TurtorialScene::init()
 
 	this->addChild(_diabox, 7);
 
-
-	//Monster* a = new Monster();
-	//a->setPosition(2000, 200);
-	//this->addChild(a);
 
 
 	//2 Parallax Scrolling
@@ -601,9 +600,7 @@ bool TurtorialScene::init()
 
 	_mSonic->setZOrder(7);
 
-	auto temp = new MultipleButton(_mSonic,3,1);
-	temp->setPosition(500, 300);
-	this->addChild(temp);
+
 
 	
 	//Listener

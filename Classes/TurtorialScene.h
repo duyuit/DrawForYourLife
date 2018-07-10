@@ -22,8 +22,8 @@ public:
 	InfiniteParallaxNode* _backgroundNode2;
 	CCTMXTiledMap * _tileMap;
 	bool _isPause = false;
-
-	MyUI* _myui;
+	
+	MyUI* _myui=nullptr;
 
 	int count_to_move_scene = 0; // 
 	int delta_x = -30; //2 Variable to Shake Camera when sonic is pausing
@@ -59,36 +59,3 @@ public:
 	CREATE_FUNC(TurtorialScene);
 };
 
-class TarGetCircle:public Sprite
-{
-public:
-	TarGetCircle(float scale_first,Vec2 pos)
-	{
-		this->initWithFile("Button/circle.png");
-		this->setScale(scale_first);
-		this->setColor(Color3B(255, 255, 132));
-		this->setPosition(pos);
-		this->setZOrder(8);
-
-	
-
-
-		
-
-	
-	};
-	void RunAction()
-	{
-		auto fadeOut = FadeOut::create(0.1f);
-		auto reverse = fadeOut->reverse();
-		ActionInterval *fade = Sequence::create(fadeOut, reverse, nullptr);
-		auto fading = RepeatForever::create(fade);
-		this->runAction(fading);
-
-	
-
-
-	}
-
-	~TarGetCircle() {};
-};

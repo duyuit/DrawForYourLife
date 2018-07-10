@@ -99,6 +99,9 @@
     <ClCompile Include="..\Classes\MultipleButton.cpp">
       <Filter>src\GameComponent</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\TestScene.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -178,6 +181,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MultipleButton.h">
       <Filter>src\GameComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TestScene.h">
+      <Filter>src\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

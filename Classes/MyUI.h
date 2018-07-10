@@ -13,9 +13,18 @@ public:
 	Button *_button_left,*_button_right;
 	Sprite* ringIcon;
 	Label* countRing;
+	Sprite* _touch_guide;
+	bool _istouch = false;
 
+	int count_to_reset_touch = 0;
 	void update(float dt)
 	{
+		count_to_reset_touch++;
+		if (count_to_reset_touch == 10)
+		{
+			count_to_reset_touch = 0;
+			_istouch = false;
+		}
 		countRing->setString("X  " + std::to_string(mySonic->ringCollected));
 	}
 	void DisableExcept(BUTTON_TAG tag);

@@ -2,14 +2,18 @@
 
 void MyUI::DisableExcept(BUTTON_TAG tag)
 {
+	_touch_guide->setVisible(true);
 	switch (tag)
 	{
 	case Define::BUTTON_LEFT:
 		_button_right->setEnabled(false);
+		_touch_guide->setPosition((_director->getWinSize().width / 3)/ 2, _director->getWinSize().height / 2);
 		break;
 
 	case Define::BUTTON_RIGHT:
 		_button_left->setEnabled(false);
+		_touch_guide->setPosition((_director->getWinSize().width / 3)*(5 / 2), _director->getWinSize().height / 2);
+
 		break;
 
 	}
@@ -21,13 +25,21 @@ void MyUI::EnableAll()
 	
 	_button_left->setEnabled(true);
 	_button_right->setEnabled(true);
+	_touch_guide->setVisible(false);
 
 }
 
 MyUI::MyUI(Sonic * mSonic)
 {
 		mySonic = mSonic;
-	
+
+		_touch_guide = Sprite::create();
+		auto animation = Animation::createWithSpriteFrames(Define::loadAnim("GameComponents/touch.xml", "1"), 0.03f);
+		_touch_guide->runAction(RepeatForever::create(Animate::create(animation)));
+		_touch_guide->setVisible(false);
+		_touch_guide->setScale(0.6);
+		_touch_guide->setAnchorPoint(Vec2(0.5, 0.5));
+		this->addChild(_touch_guide);
 
 		_button_left = Button::create("GameComponents/black_button.png");
 		float delta_scale_x = (_director->getWinSize().width / 3)/_button_left->getContentSize().width;
@@ -110,9 +122,8 @@ MyUI::MyUI(Sonic * mSonic)
 			sprite->setPosition(touch->getLocation());
 			this->getParent()->addChild(sprite);
 			sprite->runAction(Sequence::create(touch_ani->get()->clone(), RemoveSelf::create(), nullptr));
-			//end_touch_position = touch->getLocation();
-			//_mSonic->handle_swipe(start_touch_position, end_touch_position);
-			//if (_isPause && count_tuto != 2 && count_tuto != 3 && count_tuto != 6 && count_tuto != 8) Continue();
+			
+			_istouch = true;
 		};
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, this);
 };

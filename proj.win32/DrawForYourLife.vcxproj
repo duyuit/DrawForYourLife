@@ -173,6 +173,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\SonicRunSlowState.cpp" />
     <ClCompile Include="..\Classes\SonicState.cpp" />
     <ClCompile Include="..\Classes\TapButton.cpp" />
+    <ClCompile Include="..\Classes\TestScene.cpp" />
     <ClCompile Include="..\Classes\TurtorialScene.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -201,6 +202,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\SonicRunSlowState.h" />
     <ClInclude Include="..\Classes\SonicState.h" />
     <ClInclude Include="..\Classes\TapButton.h" />
+    <ClInclude Include="..\Classes\TestScene.h" />
     <ClInclude Include="..\Classes\TurtorialScene.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>

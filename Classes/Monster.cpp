@@ -24,7 +24,7 @@ Monster::Monster()
 void Monster::Init(Sonic * sonic)
 {
 	this->initWithSpriteFrame(_idleAni->get()->getAnimation()->getFrames().at(0)->getSpriteFrame());
-	auto verti = PhysicsBody::createBox(this->getContentSize(), PhysicsMaterial(0.1f,0.6,0.0f));
+	auto verti = PhysicsBody::createBox(this->getContentSize(), PhysicsMaterial(0.1f, 0.6, 0.0f));
 
 	verti->setCategoryBitmask(16);    // 0010
 	verti->setCollisionBitmask(2);   // 0001
@@ -32,16 +32,20 @@ void Monster::Init(Sonic * sonic)
 
 	verti->setRotationEnable(false);
 	verti->setDynamic(true);
-	
+
 
 	this->setPhysicsBody(verti);
 	this->setTag(LANDMONSTER);
 
 	_sonic = sonic;
-	_tapButton = new TapButton(Vec2(0, 0), _sonic, (Layer*)_sonic->getParent());
+	/*_tapButton = new TapButton(Vec2(0, 0), _sonic, (Layer*)_sonic->getParent());
 	_tapButton->isFirst = true;
 	_tapButton->_time_circle_shrink = 0.7;
-	_tapButton->_action = SonicState::ROLL;
+	_tapButton->_action = SonicState::ROLL;*/
+
+	_multiButton = new MultipleButton(Vec2(0, 0),_sonic,(Layer*)_sonic->getParent(),3,2);
+
+	//this->addChild(_multiButton,10);
 
 	this->setAnchorPoint(Vec2(0.5f, 0));
 	SetStateByTag(IDLE);
@@ -64,8 +68,8 @@ void Monster::HandleCollision(Sprite * sprite)
 
 void Monster::update(float dt)
 {
-	_tapButton->setPosition(this->getPosition()+Vec2(0,150));
-
+	//_tapButton->setPosition(this->getPosition()+Vec2(0,150));
+	_multiButton->setPosition(this->getPosition() + Vec2(0, 150));
 	_time_action++;
 	this->setFlipX(_isLeft);
 	switch (_currentState)

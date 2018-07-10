@@ -6,7 +6,7 @@ MultipleButton::MultipleButton()
 {
 }
 
-MultipleButton::MultipleButton(Sonic* sonic,int button_count, float time)
+MultipleButton::MultipleButton(Vec2 pos, Sonic* sonic, Layer* layer,int button_count, float time)
 {
 	_mSonic = sonic;
 
@@ -63,17 +63,18 @@ MultipleButton::MultipleButton(Sonic* sonic,int button_count, float time)
 	mouseBar->setPercentage(0);
 	this->addChild(mouseBar, 10);
 	mouseBar->setPosition(0, 50);
+
 	this->scheduleUpdate();
+
+	this->setPosition(pos);
+	layer->addChild(this);
 }
 
 void MultipleButton::update(float dt)
 {
 	if (isDelete) return;
-	if (!isActive && this->getPositionX() - _mSonic->getPositionX() < 600)
-	{
-		isActive = true;
-		Active();
-	}
+	if (this->getPosition().x - _mSonic->getPosition().x <= 800 && !isActive)
+		this->Active();
 	if (isActive && _mSonic->_list_just_tap.size()>0)
 	{
 		for (int i = 0; i <  _mSonic->_list_just_tap.size(); i++)
@@ -99,6 +100,7 @@ void MultipleButton::update(float dt)
 
 void MultipleButton::Active()
 {
+	isActive = true;
 	_mSonic->_list_just_tap.clear();
 	mouseBar->runAction(Sequence::create(ProgressTo::create(1.3f, 70.0f), CallFuncN::create(CC_CALLBACK_0(MultipleButton::BlinkProgressBar, this)), nullptr));
 }
@@ -121,6 +123,7 @@ void MultipleButton::DeleteNow(bool check)
 		this->addChild(line,-1);
 
 		line->runAction(ProgressTo::create(0.3f, 100.0f));
+		_mSonic->SetStateByTag(SonicState::ROLL);
 		this->runAction(Sequence::create(DelayTime::create(0.6f), RemoveSelf::create(), nullptr));
 		
 	}
@@ -145,8 +148,9 @@ void MultipleButton::DeleteNow(bool check)
 
 void MultipleButton::BlinkProgressBar()
 {
+	if (isDelete) return;
 	mouseBar->runAction(ProgressTo::create(0.7, 100.0f));
-	mouseBar->runAction(Blink::create(0.7, 8));
+	mouseBar->runAction(Sequence::create(Blink::create(0.7, 8), CallFuncN::create(CC_CALLBACK_0(MultipleButton::DeleteNow, this,false)),nullptr));
 
 }
 

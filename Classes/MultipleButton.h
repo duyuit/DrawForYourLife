@@ -8,7 +8,7 @@ class MultipleButton:public Node
 {
 public:
 	MultipleButton();
-	MultipleButton(Sonic* sonic,int button_count, float time);
+	MultipleButton(Vec2 pos,Sonic* sonic,Layer* layer,int button_count, float time);
 	int _button_count = 3;
 	float _time = 1.5f;
 	bool isActive = false;
