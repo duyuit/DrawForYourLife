@@ -16,6 +16,7 @@ public:
 	void update(float dt);
 	Sprite* _border;
 	Sprite* _progressbar;
+
 	Sonic* _mSonic;
 	std::vector<int> _list_button_tag;
 	Vector<Sprite*> _list_button_sprite;

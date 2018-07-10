@@ -14,7 +14,6 @@ MultipleButton::MultipleButton(Sonic* sonic,int button_count, float time)
 	_progressbar->setFlipX(true);
 	_progressbar->setAnchorPoint(Vec2(0, 0.5f));
 	_progressbar->setScale(0.3, 0.3);
-	//this->addChild(_progressbar);
 
 	_border=  Sprite::create("GameComponents/border.png");
 	_border->setPosition(0, 50);
@@ -22,6 +21,7 @@ MultipleButton::MultipleButton(Sonic* sonic,int button_count, float time)
 	_border->setScale(0.3, 0.3);
 	this->addChild(_border);
 
+	
 
 	_break_left_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "left_break"), 0.1f)));
 	_break_right_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "right_break"), 0.1f)));
@@ -88,7 +88,9 @@ void MultipleButton::update(float dt)
 					_list_button_sprite.at(i)->initWithFile(Define::button_left_green_path);
 				else
 					_list_button_sprite.at(i)->initWithFile(Define::button_right_green_path);
+				if (i == _list_button_tag.size() - 1) DeleteNow(true);
 			}
+		
 		}
 		
 	}
@@ -104,8 +106,24 @@ void MultipleButton::Active()
 void MultipleButton::DeleteNow(bool check)
 {
 	isDelete = true;
-	if(check)
-		this->runAction(RemoveSelf::create());
+	if (check)
+	{
+		auto _green_line = Sprite::create("GameComponents/green_line.png");
+		_green_line->setPosition(0, 0);
+		_green_line->setAnchorPoint(Vec2(0, 0.5));
+
+		auto line= ProgressTimer::create(_green_line);
+		line->setType(ProgressTimerType::BAR);
+		line->setAnchorPoint(Vec2(0.0, 0.5));
+		line->setBarChangeRate(Vec2(1, 0));
+		line->setMidpoint(Vec2(0.0, 0.0));
+		line->setPercentage(0);
+		this->addChild(line,-1);
+
+		line->runAction(ProgressTo::create(0.3f, 100.0f));
+		this->runAction(Sequence::create(DelayTime::create(0.6f), RemoveSelf::create(), nullptr));
+		
+	}
 	else
 	{
 		for (int i=0;i<_list_button_sprite.size();i++)

@@ -21,5 +21,6 @@ public:
 	void DisableExcept(BUTTON_TAG tag);
 	void EnableAll();
 	MyUI(Sonic* mSonic);
-	
+protected:
+	RefPtr<Animate>  *touch_ani;
 };
