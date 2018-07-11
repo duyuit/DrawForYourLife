@@ -2,6 +2,7 @@
 #include "cocos2d.h"
 #include "Sonic.h"
 #include "ui/CocosGUI.h"
+#include "ComboScore.h"
 using namespace cocos2d;
 using namespace ui;
 
@@ -14,6 +15,7 @@ public:
 	Sprite* ringIcon;
 	Label* countRing;
 	Sprite* _touch_guide;
+	ComboScore* _combo;
 	bool _istouch = false;
 
 	int count_to_reset_touch = 0;

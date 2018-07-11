@@ -108,31 +108,6 @@ void MultipleButton::update(float dt)
 				_list_button_sprite.at(i)->initWithFile(Define::button_right_green_path);
 			if (i == 2) DeleteNow(true);
 		}
-	
-
-
-		/*if (count_to_auto_play == 20)
-		{
-			if (_list_button_tag.at(0) == 1)
-				_list_button_sprite.at(0)->initWithFile(Define::button_left_green_path);
-			else
-				_list_button_sprite.at(0)->initWithFile(Define::button_right_green_path);
-		}
-		else if (count_to_auto_play == 40)
-		{
-			if (_list_button_tag.at(1) == 1)
-				_list_button_sprite.at(1)->initWithFile(Define::button_left_green_path);
-			else
-				_list_button_sprite.at(1)->initWithFile(Define::button_right_green_path);
-		}
-		else if (count_to_auto_play == 60)
-		{
-			if (_list_button_tag.at(2) == 1)
-				_list_button_sprite.at(2)->initWithFile(Define::button_left_green_path);
-			else
-				_list_button_sprite.at(2)->initWithFile(Define::button_right_green_path);
-			this->DeleteNow(true);
-		}*/
 	}
 		
 }
@@ -166,9 +141,12 @@ void MultipleButton::DeleteNow(bool check)
 		_mSonic->SetStateByTag(SonicState::ROLL);
 		this->runAction(Sequence::create(DelayTime::create(0.6f), RemoveSelf::create(), nullptr));
 		
+		_mSonic->countCombo += _button_count;
+		isCountCombo = true;
 	}
 	else
 	{
+			
 		for (int i=0;i<_list_button_sprite.size();i++)
 		{
 			_list_button_sprite.at(i)->setScale(0.15);
@@ -180,8 +158,12 @@ void MultipleButton::DeleteNow(bool check)
 			{
 				_list_button_sprite.at(i)->runAction(_break_right_Ani->get()->clone());
 			}
+			
 		}
 		this->runAction(Sequence::create(DelayTime::create(1), RemoveSelf::create(),nullptr));
+
+		if (!isCountCombo) _mSonic->countCombo = 0;
+
 	}
 
 }

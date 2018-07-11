@@ -104,7 +104,9 @@ MyUI::MyUI(Sonic * mSonic)
 		this->addChild(countRing, 1);
 		this->scheduleUpdate();
 
-
+		//Add label combo score
+		_combo = new ComboScore(mSonic);
+		this->addChild(_combo, 1);
 		
 		touch_ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("GameComponents/ripple.xml","1"), 0.008f)));
 		auto listener1 = EventListenerTouchOneByOne::create();
