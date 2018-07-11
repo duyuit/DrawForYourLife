@@ -75,26 +75,66 @@ void MultipleButton::update(float dt)
 	if (isDelete) return;
 	if (this->getPosition().x - _mSonic->getPosition().x <= 800 && !isActive)
 		this->Active();
-	if (isActive && _mSonic->_list_just_tap.size()>0)
+	//if (isActive && _mSonic->_list_just_tap.size()>0)
+	//{
+	//	for (int i = 0; i <  _mSonic->_list_just_tap.size(); i++)
+	//	{
+	//		/*if (_mSonic->_list_just_tap.at(i) != _list_button_tag.at(i))
+	//		{
+	//			DeleteNow(false);
+	//		}
+	//		else*/
+	//		{
+	//			if (_list_button_tag.at(i) == 1)
+	//				_list_button_sprite.at(i)->initWithFile(Define::button_left_green_path);
+	//			else
+	//				_list_button_sprite.at(i)->initWithFile(Define::button_right_green_path);
+	//			if (i == _list_button_tag.size() - 1) DeleteNow(true);
+	//		}
+	//	
+	//	}
+	//	
+	//}
+	if (isActive)
 	{
-		for (int i = 0; i <  _mSonic->_list_just_tap.size(); i++)
+		count_to_auto_play++;
+		int i = count_to_auto_play / 20;
+		if (i<3)
 		{
-			/*if (_mSonic->_list_just_tap.at(i) != _list_button_tag.at(i))
-			{
-				DeleteNow(false);
-			}
-			else*/
-			{
-				if (_list_button_tag.at(i) == 1)
-					_list_button_sprite.at(i)->initWithFile(Define::button_left_green_path);
-				else
-					_list_button_sprite.at(i)->initWithFile(Define::button_right_green_path);
-				if (i == _list_button_tag.size() - 1) DeleteNow(true);
-			}
-		
+			
+			if (_list_button_tag.at(i) == 1)
+				_list_button_sprite.at(i)->initWithFile(Define::button_left_green_path);
+			else
+				_list_button_sprite.at(i)->initWithFile(Define::button_right_green_path);
+			if (i == 2) DeleteNow(true);
 		}
-		
+	
+
+
+		/*if (count_to_auto_play == 20)
+		{
+			if (_list_button_tag.at(0) == 1)
+				_list_button_sprite.at(0)->initWithFile(Define::button_left_green_path);
+			else
+				_list_button_sprite.at(0)->initWithFile(Define::button_right_green_path);
+		}
+		else if (count_to_auto_play == 40)
+		{
+			if (_list_button_tag.at(1) == 1)
+				_list_button_sprite.at(1)->initWithFile(Define::button_left_green_path);
+			else
+				_list_button_sprite.at(1)->initWithFile(Define::button_right_green_path);
+		}
+		else if (count_to_auto_play == 60)
+		{
+			if (_list_button_tag.at(2) == 1)
+				_list_button_sprite.at(2)->initWithFile(Define::button_left_green_path);
+			else
+				_list_button_sprite.at(2)->initWithFile(Define::button_right_green_path);
+			this->DeleteNow(true);
+		}*/
 	}
+		
 }
 
 

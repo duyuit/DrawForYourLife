@@ -74,7 +74,7 @@ void Sonic::update(float dt)
 	sprite->setPosition(getPosition());
 	this->getParent()->addChild(sprite);
 	sprite->setOpacity(100);
-	sprite->runAction(Sequence::create(FadeTo::create(1.5,0), RemoveSelf::create(), NULL));
+	sprite->runAction(Sequence::create(FadeTo::create(0.6,0), RemoveSelf::create(), NULL));
 
 	count_to_reset_just_tap++;
 	this->setFlippedX(!isLeft);
@@ -98,7 +98,7 @@ void Sonic::update(float dt)
 
 
 	mCurrentState->update();
-	if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL)
+	if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL  && mCurrentState->GetState() != SonicState::StateAction::ROLL)
 		this->SetStateByTag(SonicState::StateAction::FALL);
 	if (count_to_reset_just_tap == 20)
 	{

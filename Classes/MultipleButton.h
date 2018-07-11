@@ -12,6 +12,7 @@ public:
 	int _button_count = 3;
 	float _time = 1.5f;
 	bool isActive = false;
+	int count_to_auto_play = 0;
 
 	void update(float dt);
 	Sprite* _border;
