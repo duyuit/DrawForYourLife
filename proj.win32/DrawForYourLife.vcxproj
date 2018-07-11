@@ -156,6 +156,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\InfiniteParallaxNode.cpp" />
     <ClCompile Include="..\Classes\LandMonster.cpp" />
+    <ClCompile Include="..\Classes\LevelMap.cpp" />
+    <ClCompile Include="..\Classes\LoadScene.cpp" />
+    <ClCompile Include="..\Classes\LogoScene.cpp" />
+    <ClCompile Include="..\Classes\MenuScene.cpp" />
     <ClCompile Include="..\Classes\Monster.cpp" />
     <ClCompile Include="..\Classes\MultipleButton.cpp" />
     <ClCompile Include="..\Classes\MyDialogBox.cpp" />
@@ -185,6 +189,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\InfiniteParallaxNode.h" />
     <ClInclude Include="..\Classes\LandMonster.h" />
+    <ClInclude Include="..\Classes\LevelMap.h" />
+    <ClInclude Include="..\Classes\LoadScene.h" />
+    <ClInclude Include="..\Classes\LogoScene.h" />
+    <ClInclude Include="..\Classes\MenuScene.h" />
     <ClInclude Include="..\Classes\Monster.h" />
     <ClInclude Include="..\Classes\MultipleButton.h" />
     <ClInclude Include="..\Classes\MyDialogBox.h" />

@@ -3,7 +3,6 @@
 #define __LevelMap_H__
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
-#include "GamePlayScense.h"
 USING_NS_CC;
 class LevelMap : public cocos2d::Scene
 {

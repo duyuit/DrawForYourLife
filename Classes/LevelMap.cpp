@@ -118,8 +118,8 @@ bool LevelMap::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			auto gameScene = GamePlayScense::createScene();
-			Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
+		/*	auto gameScene = GamePlayScense::createScene();
+			Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));*/
 		}
 		break;
 		default:

@@ -27,7 +27,6 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "SimpleAudioEngine.h"
-#include "GamePlayScense.h"
 #include "LoadScene.h"
 
 using namespace std;
@@ -36,7 +35,7 @@ class MenuScene : public cocos2d::Scene
 public:
     static cocos2d::Scene* createScene();
     virtual bool init();
-	GamePlayScense* gamePlay;
+
     // a selector callback
 
     void menuCloseCallback(cocos2d::Ref* pSender);

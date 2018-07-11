@@ -79,11 +79,11 @@ void MultipleButton::update(float dt)
 	{
 		for (int i = 0; i <  _mSonic->_list_just_tap.size(); i++)
 		{
-			if (_mSonic->_list_just_tap.at(i) != _list_button_tag.at(i))
+			/*if (_mSonic->_list_just_tap.at(i) != _list_button_tag.at(i))
 			{
 				DeleteNow(false);
 			}
-			else
+			else*/
 			{
 				if (_list_button_tag.at(i) == 1)
 					_list_button_sprite.at(i)->initWithFile(Define::button_left_green_path);

@@ -65,6 +65,17 @@ Sonic::~Sonic()
 int count_to_reset_just_tap = 0;
 void Sonic::update(float dt)
 {
+
+	SpriteFrame* sprite_frame = mCurrentAnimate->get()->getAnimation()->getFrames().at(mCurrentAnimate->get()->getCurrentFrameIndex())->getSpriteFrame();
+	Sprite* sprite = Sprite::createWithSpriteFrame(sprite_frame);
+	sprite->setScale(0.5f);
+	sprite->setFlipX(!isLeft);
+	sprite->setAnchorPoint(Vec2(0.5, 0));
+	sprite->setPosition(getPosition());
+	this->getParent()->addChild(sprite);
+	sprite->setOpacity(100);
+	sprite->runAction(Sequence::create(FadeTo::create(1.5,0), RemoveSelf::create(), NULL));
+
 	count_to_reset_just_tap++;
 	this->setFlippedX(!isLeft);
 	if (dust!=nullptr)
@@ -84,20 +95,11 @@ void Sonic::update(float dt)
 			dust->setPosition(this->getPosition() + Vec2(-5, 0));
 		}
 	}
-	//if (_roll_circle && _roll_effect)
-	//{
-	//	_roll_circle->setPosition(this->getPosition());
-	//	_roll_effect->setPosition(this->getPosition() + Vec2(10, 0));
-	//}
+
 
 	mCurrentState->update();
 	if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL)
 		this->SetStateByTag(SonicState::StateAction::FALL);
-	/*if (lightning != nullptr && lightning2 != nullptr)
-	{
-		lightning->setPosition(this->getPosition() + Vec2(-15, 10));
-		lightning2->setPosition(this->getPosition() + Vec2(-15,5));
-	}*/
 	if (count_to_reset_just_tap == 20)
 	{
 		count_to_reset_just_tap = 0;

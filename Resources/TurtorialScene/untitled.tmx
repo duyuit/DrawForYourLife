@@ -57,7 +57,7 @@
  </objectgroup>
  <objectgroup name="Button">
   <object id="80" x="2258.67" y="1276.67" width="18" height="16.6667"/>
-  <object id="91" x="3287.33" y="1234.33" width="32" height="25.3333"/>
+  <object id="91" x="3322" y="1217" width="32" height="25.3333"/>
   <object id="92" x="4722.52" y="1211.79" width="60" height="36"/>
   <object id="93" x="6087" y="1121" width="44" height="56"/>
   <object id="94" x="7810" y="1105.67" width="26.6667" height="25.3333"/>

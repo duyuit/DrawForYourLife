@@ -288,6 +288,7 @@ void TestScene::updateStart(float dt)
 void TestScene::ResetTutorial4()
 {
 	_mSonic->setPosition(5000, 600);
+	_mSonic->SetStateByTag(SonicState::FALL);
 	TapButton *tap = new TapButton(_listButton.at(3)->getPosition(), _mSonic, this);
 	tap->isFirst = true;
 	_listButton.erase(_listButton.begin() + 3);
@@ -309,6 +310,11 @@ void TestScene::ResetTutorial5()
 	tap2->isFirst = true;
 	_listButton.erase(_listButton.begin() + 7);
 	_listButton.insert(7, tap2);
+
+	TapButton *tap3 = new TapButton(_listButton.at(8)->getPosition(), _mSonic, this);
+	tap3->isFirst = true;
+	_listButton.erase(_listButton.begin() +8);
+	_listButton.insert(8, tap3);
 	SetViewPointCenter(_mSonic->getPosition(), true);
 }
 
