@@ -1,5 +1,5 @@
 #include "MyUI.h"
-
+#include "TestScene.h"
 void MyUI::DisableExcept(BUTTON_TAG tag)
 {
 	_touch_guide->setVisible(true);
@@ -92,6 +92,27 @@ MyUI::MyUI(Sonic * mSonic)
 			}
 		});
 		this->addChild(_button_right, -1);
+
+		_restart = Button::create("Level_map/round.png");
+		_restart->setPosition(_director->getWinSize() - _restart->getContentSize());
+		_restart->setAnchorPoint(Vec2(0.5, 0.5));
+		_restart->addTouchEventListener([this](Ref* sender, Widget::TouchEventType type) {
+			auto but = (Button*)sender;
+			switch (type)
+			{
+			case ui::Widget::TouchEventType::BEGAN:
+				//but->setOpacity(255);
+				break;
+			case ui::Widget::TouchEventType::ENDED:
+				Director::getInstance()->replaceScene(TestScene::createScene());
+				//but->setOpacity(200);
+				break;
+			default:
+				break;
+			}
+		});
+		this->addChild(_restart, -1);
+
 
 		//Add Sprite ring
 		ringIcon = Sprite::create("Item/ring.png", Rect(200, 48, 64, 50));

@@ -51,7 +51,7 @@ Sonic::Sonic()
 	this->setFlipX(true);
 	this->setTag(Define::Player);
 
-
+	
 	
 	scheduleOnce(CC_SCHEDULE_SELECTOR(Sonic::updateStart), 0);
 	this->scheduleUpdate();
@@ -65,16 +65,20 @@ Sonic::~Sonic()
 int count_to_reset_just_tap = 0;
 void Sonic::update(float dt)
 {
-
-	SpriteFrame* sprite_frame = mCurrentAnimate->get()->getAnimation()->getFrames().at(mCurrentAnimate->get()->getCurrentFrameIndex())->getSpriteFrame();
-	Sprite* sprite = Sprite::createWithSpriteFrame(sprite_frame);
-	sprite->setScale(0.5f);
-	sprite->setFlipX(!isLeft);
-	sprite->setAnchorPoint(Vec2(0.5, 0));
-	sprite->setPosition(getPosition());
-	this->getParent()->addChild(sprite);
-	sprite->setOpacity(100);
-	sprite->runAction(Sequence::create(FadeTo::create(0.6,0), RemoveSelf::create(), NULL));
+	
+	/*if (count_to_reset_just_tap % 4== 0)
+	{
+		SpriteFrame* sprite_frame = mCurrentAnimate->get()->getAnimation()->getFrames().at(mCurrentAnimate->get()->getCurrentFrameIndex())->getSpriteFrame();
+		Sprite* sprite = Sprite::createWithSpriteFrame(sprite_frame);
+		sprite->setScale(0.5f);
+		sprite->setFlipX(!isLeft);
+		sprite->setAnchorPoint(Vec2(0.5, 0));
+		sprite->setPosition(getPosition());
+		this->getParent()->addChild(sprite);
+		sprite->setOpacity(100);
+		sprite->runAction(Sequence::create(FadeTo::create(0.6, 0), RemoveSelf::create(), NULL));
+	}*/
+	
 
 	count_to_reset_just_tap++;
 	this->setFlippedX(!isLeft);
@@ -228,27 +232,6 @@ void Sonic::SetState(SonicState * state)
 	this->runAction(mCurrentAction);
 }
 
-//void Sonic::AddLightning()
-//{
-//	//lightning = Sprite::create();
-//	//auto ani = Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("particle.xml", "lightning"), 0.08f));
-//	//lightning->runAction(RepeatForever::create(ani));
-//	//lightning->setPosition(this->getPosition() + Vec2(-15, 10));
-//	////lightning->setScale(0.5f);
-//	//lightning->setAnchorPoint(Vec2(1.0f, 0));
-//	//this->getParent()->addChild(lightning);
-//
-//
-//	//lightning2= Sprite::create();
-//	//auto ani1 = Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("particle.xml", "lightning"), 0.1f));
-//	//lightning2->runAction(RepeatForever::create(ani1));
-//	//lightning2->setPosition(this->getPosition() + Vec2(-15, 5));
-//	////lightning->setScale(0.5f);
-//	//lightning2->setAnchorPoint(Vec2(1.0f, 0));
-//	//this->getParent()->addChild(lightning2);
-//
-//}
-
 Vec2 Sonic::GetVelocity()
 {
 	return this->getPhysicsBody()->getVelocity();
@@ -261,6 +244,18 @@ void Sonic::HandleCollision(Sprite * sprite)
 		MyParticle::CreateEatItem(sprite->getPosition(), (Layer*) this->getParent());
 		sprite->runAction(RemoveSelf::create());
 		ringCollected++;
+	}
+	else if(sprite->getTag() == Define::MUSHROOM && mCurrentState->GetState()== SonicState::FALL) 
+	{
+		auto mush_room = (Mushroom*)sprite;
+		mush_room->Active();
+		this->SetVelocity(0, 0);
+		this->getPhysicsBody()->applyImpulse(Vec2(0, 200000));
+		this->SetStateByTag(SonicState::JUMP);
+		if (isLeft)
+			SetVelocityX(-200);
+		else
+			SetVelocityX(200);
 	}
 	
 	//When Sonic hits enemy, push back and drop rings
@@ -332,6 +327,8 @@ void Sonic::updateStart(float dt)
 	dust->runAction(RepeatForever::create(dust_anim->get()));
 	dust->setScale(1.3);
 	dust->setPosition(this->getPosition());
+	dust->setColor(Color3B(223, 85, 11));
+	//dust->runAction(TintTo::create(0.1, Color3B(273,28,36)));
 	this->getParent()->addChild(dust);
 
 	/*_roll_circle = Sprite::create();
@@ -352,4 +349,6 @@ void Sonic::updateStart(float dt)
 	//this->addChild(_roll_circle);
 	this->addChild(_roll_effect);
 	_roll_effect->setVisible(false);
+
+	
 }

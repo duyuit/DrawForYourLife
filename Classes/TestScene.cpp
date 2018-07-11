@@ -142,6 +142,23 @@ void TestScene::LoadMap(CCTMXTiledMap * map)
 			this->addChild(mon, 7);
 			}
 
+		//Load MushRoom
+		TMXObjectGroup *objectGroup_Mushroom = _tileMap->getObjectGroup("Mushroom");
+		for (int i = 0; i < objectGroup_Mushroom->getObjects().size(); i++)
+		{
+
+			Value objectemp = objectGroup_Mushroom->getObjects().at(i);
+
+			float wi_box = objectemp.asValueMap().at("width").asFloat();
+			float he_box = objectemp.asValueMap().at("height").asFloat();
+			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+
+			Mushroom *mush = new Mushroom();
+			mush->setPosition(x_box, y_box);
+			this->addChild(mush, 7);
+		}
+
 		//// Process object layer 
 		//auto objectGroup = map->getObjectGroup("Land2");
 		//auto objects = objectGroup->getObjects();

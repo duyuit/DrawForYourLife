@@ -114,6 +114,12 @@
     <ClCompile Include="..\Classes\MenuScene.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ShieldMonster.cpp">
+      <Filter>src\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Mushroom.cpp">
+      <Filter>src\MapObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -208,6 +214,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MenuScene.h">
       <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ShieldMonster.h">
+      <Filter>src\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Mushroom.h">
+      <Filter>src\MapObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

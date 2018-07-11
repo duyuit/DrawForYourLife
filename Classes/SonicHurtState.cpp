@@ -8,7 +8,7 @@ SonicHurtState::SonicHurtState(SonicData * playerData)
 	this->mPlayerData = playerData;
 	
 	mPlayerData->player->SetVelocity(0, 0);
-	mPlayerData->player->getPhysicsBody()->applyImpulse(Vec2(-500000, 200000));
+	mPlayerData->player->getPhysicsBody()->applyImpulse(Vec2(-200000, 200000));
 
 
 

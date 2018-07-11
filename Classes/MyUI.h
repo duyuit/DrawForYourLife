@@ -10,7 +10,7 @@ class MyUI:public Layer
 public:
 	MyUI() {};
 	Sonic* mySonic;
-	Button *_button_left,*_button_right;
+	Button *_button_left,*_button_right,*_restart;
 	Sprite* ringIcon;
 	Label* countRing;
 	Sprite* _touch_guide;

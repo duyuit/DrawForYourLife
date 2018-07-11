@@ -13,6 +13,7 @@
 #include "GameDefine.h"
 #include "GameParticle.h"
 #include "SmallRing.h"
+#include "Mushroom.h"
 using namespace cocos2d;
 using namespace Define;
 #pragma once
@@ -30,7 +31,7 @@ public:
 	bool CheckLastFrame(); // Check current animate is last Frame?
 	void SetStateByTag(SonicState::StateAction action); //Set state by put type of State
 	void SetState(SonicState *action); //Set state by new State()
-	//void AddLightning();
+
 	bool isLeft = false;   // Check Direction Sonic
 	Vec2 GetVelocity(); 
 	void HandleCollision(Sprite *sprite); //Use to handle collision with object

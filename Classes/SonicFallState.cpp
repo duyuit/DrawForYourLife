@@ -6,10 +6,10 @@
 SonicFallState::SonicFallState(SonicData * playerData)
 {
 	this->mPlayerData = playerData;
-	if (this->mPlayerData->player->isLeft)
+	/*if (this->mPlayerData->player->isLeft)
 		this->mPlayerData->player->SetVelocityX(-360);
 	else
-		this->mPlayerData->player->SetVelocityX(360);
+		this->mPlayerData->player->SetVelocityX(360);*/
 }
 
 SonicFallState::~SonicFallState()

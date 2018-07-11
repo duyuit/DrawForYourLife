@@ -10,7 +10,7 @@ public:
 	LogoScene();
 	~LogoScene();
 	static cocos2d::Scene* createScene();
-	void LogoScene::nextScene(cocos2d::Node* sender);
+	void nextScene(cocos2d::Node* sender);
 	virtual bool init();
 	CREATE_FUNC(LogoScene);
 };

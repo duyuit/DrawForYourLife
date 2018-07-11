@@ -162,8 +162,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\MenuScene.cpp" />
     <ClCompile Include="..\Classes\Monster.cpp" />
     <ClCompile Include="..\Classes\MultipleButton.cpp" />
+    <ClCompile Include="..\Classes\Mushroom.cpp" />
     <ClCompile Include="..\Classes\MyDialogBox.cpp" />
     <ClCompile Include="..\Classes\MyUI.cpp" />
+    <ClCompile Include="..\Classes\ShieldMonster.cpp" />
     <ClCompile Include="..\Classes\SmallRing.cpp" />
     <ClCompile Include="..\Classes\Sonic.cpp" />
     <ClCompile Include="..\Classes\SonicData.cpp" />
@@ -195,8 +197,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\MenuScene.h" />
     <ClInclude Include="..\Classes\Monster.h" />
     <ClInclude Include="..\Classes\MultipleButton.h" />
+    <ClInclude Include="..\Classes\Mushroom.h" />
     <ClInclude Include="..\Classes\MyDialogBox.h" />
     <ClInclude Include="..\Classes\MyUI.h" />
+    <ClInclude Include="..\Classes\ShieldMonster.h" />
     <ClInclude Include="..\Classes\SmallRing.h" />
     <ClInclude Include="..\Classes\Sonic.h" />
     <ClInclude Include="..\Classes\SonicData.h" />

@@ -105,12 +105,12 @@ void TapButton::update(float dt)
 		this->Active();
 	if (isActive && isFirst)
 	{
-		if (can_Active)
+		/*if (can_Active)
 		{
 			mTarget->SetStateByTag(_action);
 			DeleteNow(true);
 			return;
-		}
+		}*/
 
 		BUTTON_TAG tag = mTarget->mJustTap;
 		if (!can_Active && tag != NONE)

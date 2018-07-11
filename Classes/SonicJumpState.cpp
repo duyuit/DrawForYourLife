@@ -18,8 +18,8 @@ SonicJumpState::SonicJumpState(SonicData * playerData)
 
 void SonicJumpState::update()
 {
-
-	if (this->mPlayerData->player->getPhysicsBody()->getVelocity().y < -5 || this->mPlayerData->player->CheckLastFrame())
+	//this->mPlayerData->player->getPhysicsBody()->getVelocity().y < -5 ||
+	if ( this->mPlayerData->player->CheckLastFrame())
 		this->mPlayerData->player->SetStateByTag(SonicState::FALL);
 	
 }

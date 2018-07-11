@@ -17,7 +17,7 @@ public:
 	static cocos2d::Scene* createScene();
 	virtual bool init();
 	void nextScene(cocos2d::Node* sender);
-	void LevelMap::setStar(int level, int star);
+	void setStar(int level, int star);
 	CREATE_FUNC(LevelMap);
 };
 #endif
