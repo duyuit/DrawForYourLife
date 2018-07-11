@@ -65,16 +65,27 @@ Sonic::~Sonic()
 int count_to_reset_just_tap = 0;
 void Sonic::update(float dt)
 {
+	if (countCombo <= 5 && countCombo < 10)
+	{
+		SpriteFrame* sprite_frame = mCurrentAnimate->get()->getAnimation()->getFrames().at(mCurrentAnimate->get()->getCurrentFrameIndex())->getSpriteFrame();
+		Sprite* sprite = Sprite::createWithSpriteFrame(sprite_frame);
+		sprite->setScale(0.5f);
+		sprite->setFlipX(!isLeft);
+		sprite->setAnchorPoint(Vec2(0.5, 0));
+		sprite->setPosition(getPosition());
+		this->getParent()->addChild(sprite);
+		sprite->setOpacity(100);
+		sprite->runAction(Sequence::create(FadeTo::create(0.6, 0), RemoveSelf::create(), NULL));
+	}
+	else if (countCombo >= 10 && countCombo < 15)
+	{
 
-	SpriteFrame* sprite_frame = mCurrentAnimate->get()->getAnimation()->getFrames().at(mCurrentAnimate->get()->getCurrentFrameIndex())->getSpriteFrame();
-	Sprite* sprite = Sprite::createWithSpriteFrame(sprite_frame);
-	sprite->setScale(0.5f);
-	sprite->setFlipX(!isLeft);
-	sprite->setAnchorPoint(Vec2(0.5, 0));
-	sprite->setPosition(getPosition());
-	this->getParent()->addChild(sprite);
-	sprite->setOpacity(100);
-	sprite->runAction(Sequence::create(FadeTo::create(0.6,0), RemoveSelf::create(), NULL));
+	}
+	else if (countCombo >= 15)
+	{
+
+	}
+
 
 	count_to_reset_just_tap++;
 	this->setFlippedX(!isLeft);

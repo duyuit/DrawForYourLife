@@ -33,12 +33,12 @@ void ComboScore::SetColor()
 		_label->setColor(Color3B(255, 255, 0));
 		_label->setScale(1.05);
 	}
-	else if (x >= 10 && x < 20)
+	else if (x >= 10 && x < 15)
 	{
 		_label->setColor(Color3B(255, 128, 0));
 		_label->setScale(1.1);
 	}
-	else if (x >= 20)
+	else if (x >= 15)
 	{
 		_label->setColor(Color3B(255, 0, 0));
 		_label->setScale(1.2);
@@ -116,7 +116,7 @@ void ComboScore::Evaluate()
 			}
 			else _label2->setString("");
 		}
-		else if (x >= 10 && x < 20)
+		else if (x >= 10 && x < 15)
 		{
 			if (!isExcellent) 
 			{
@@ -126,7 +126,7 @@ void ComboScore::Evaluate()
 			}
 			else _label2->setString("");
 		}
-		else if (x >= 20)
+		else if (x >= 15)
 		{
 			if (!isPerfect) 
 			{
