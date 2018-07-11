@@ -142,6 +142,8 @@ void MultipleButton::DeleteNow(bool check)
 		_mSonic->SetStateByTag(SonicState::ROLL);
 		this->runAction(Sequence::create(DelayTime::create(0.6f), RemoveSelf::create(), nullptr));
 		
+		_mSonic->countCombo += _button_count;
+		isCountCombo = true;
 	}
 	else
 	{
@@ -160,6 +162,7 @@ void MultipleButton::DeleteNow(bool check)
 		this->runAction(Sequence::create(DelayTime::create(1), RemoveSelf::create(),nullptr));
 	}
 
+	if (!isCountCombo) _mSonic->countCombo = 0;
 }
 
 void MultipleButton::BlinkProgressBar()
