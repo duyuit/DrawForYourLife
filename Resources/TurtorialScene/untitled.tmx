@@ -69,12 +69,8 @@
   <object id="164" x="11184" y="1250"/>
   <object id="165" x="11474" y="1174"/>
   <object id="170" x="11718" y="1136.88"/>
-  <object id="209" x="1188.24" y="1275.97"/>
  </objectgroup>
- <objectgroup name="Mushroom">
-  <object id="207" x="1260" y="1419"/>
-  <object id="208" x="1589" y="1412"/>
- </objectgroup>
+ <objectgroup name="Mushroom"/>
  <objectgroup name="Ring">
   <object id="136" x="7009" y="1173"/>
   <object id="137" x="7086" y="1172"/>

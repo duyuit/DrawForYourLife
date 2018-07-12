@@ -73,7 +73,7 @@ MultipleButton::MultipleButton(Vec2 pos, Sonic* sonic, Layer* layer,int button_c
 void MultipleButton::update(float dt)
 {
 	if (isDelete) return;
-	if (this->getPosition().x - _mSonic->getPosition().x <= 800 && !isActive)
+	if (this->getPosition().x - _mSonic->getPosition().x <= 800 && !isActive && canActive)
 		this->Active();
 	if (isActive && _mSonic->_list_just_tap.size()>0)
 	{

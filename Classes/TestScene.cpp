@@ -19,6 +19,25 @@ void TestScene::RollBackground()
 	_backgroundNode2->updatePosition();
 }
 
+void TestScene::CheckButton()
+{
+	for (auto mon : _listMonster)
+	{
+		MultipleButton* multi_but = mon->_multiButton;
+		bool canActive = true;
+		for (auto tap_button : _listButton)
+		{
+			if (tap_button->getPositionX() < multi_but->getPositionX() && !tap_button->isDelete)
+			{
+				canActive = false;
+				break;
+			}
+		}
+		multi_but->canActive = canActive;
+}
+	
+}
+
 void TestScene::LoadMap(CCTMXTiledMap * map)
 {
 	try
@@ -139,6 +158,7 @@ void TestScene::LoadMap(CCTMXTiledMap * map)
 
 			Monster *mon = new FrogMonster(_mSonic);
 			mon->setPosition(x_box, y_box);
+			_listMonster.pushBack(mon);
 			this->addChild(mon, 7);
 			}
 
@@ -288,13 +308,23 @@ bool TestScene::onContactBegin(cocos2d::PhysicsContact & contact)
 
 void TestScene::update(float dt)
 {
+	for (int i = 0; i < 3; ++i)
+	{
+		this->getScene()->getPhysicsWorld()->step(1 / 60.0f);
+	}
+
 	RollBackground();
 	if (_mSonic->getPosition().x < 0) _mSonic->setPosition(0, _mSonic->getPosition().y);
 	SetViewPointCenter(_mSonic->getPosition(), true);
+	CheckButton();
+
+	
+
 }
 
 void TestScene::updateStart(float dt)
 {
+	this->getScene()->getPhysicsWorld()->setFixedUpdateRate(60);
 	_myui = new MyUI(_mSonic);
 
 	this->getScene()->addChild(_myui);
@@ -350,7 +380,8 @@ bool TestScene::init()
 
 	//Add MAP
 	_tileMap = new TMXTiledMap();
-	_tileMap->initWithTMXFile("LevelScene/LV1/untitled.tmx");
+	//_tileMap->initWithTMXFile("LevelScene/LV1/untitled.tmx");
+	_tileMap->initWithTMXFile("TurtorialScene/untitled.tmx");
 	this->addChild(_tileMap);
 
 

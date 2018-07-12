@@ -18,8 +18,11 @@ public:
 	CCTMXTiledMap * _tileMap;
 	MyUI* _myui = nullptr;
 	Vector<TapButton*> _listButton;
+	Vector<Monster*> _listMonster;
+
 	void RollBackground();
 
+	void CheckButton();
 	void LoadMap(CCTMXTiledMap* map);
 	void SetViewPointCenter(Point position, bool isFast);
 	bool onContactBegin(cocos2d::PhysicsContact & contact);

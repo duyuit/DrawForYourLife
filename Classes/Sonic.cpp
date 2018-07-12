@@ -87,17 +87,10 @@ void Sonic::update(float dt)
 		if (mCurrentState->GetState() == SonicState::RUN_FAST || mCurrentState->GetState() == SonicState::ROLL)
 			dust->setVisible(true);
 		else dust->setVisible(false);
-		dust->setFlippedX(isLeft);
-		if (isLeft)
-		{
-			dust->setAnchorPoint(Vec2(0, 0));
-			dust->setPosition(this->getPosition() + Vec2(5, 0));
-		}
-		else
-		{
-			dust->setAnchorPoint(Vec2(1, 0));
-			dust->setPosition(this->getPosition() + Vec2(-5, 0));
-		}
+		
+		dust->setAnchorPoint(Vec2(1, 0));
+		dust->setPosition(this->getPosition() + Vec2(-5, 0));
+		
 	}
 
 
@@ -245,7 +238,7 @@ void Sonic::HandleCollision(Sprite * sprite)
 		sprite->runAction(RemoveSelf::create());
 		ringCollected++;
 	}
-	else if(sprite->getTag() == Define::MUSHROOM && (mCurrentState->GetState()== SonicState::FALL || mCurrentState->GetState() == SonicState::ROLL))
+	else if(sprite->getTag() == Define::MUSHROOM /*&& (mCurrentState->GetState()== SonicState::FALL || mCurrentState->GetState() == SonicState::ROLL)*/)
 	{
 		auto mush_room = (Mushroom*)sprite;
 		mush_room->Active();
@@ -327,7 +320,7 @@ void Sonic::updateStart(float dt)
 	dust->runAction(RepeatForever::create(dust_anim->get()));
 	dust->setScale(1.3);
 	dust->setPosition(this->getPosition());
-	dust->setColor(Color3B(223, 85, 11));
+//	dust->setColor(Color3B(223, 85, 11));
 	//dust->runAction(TintTo::create(0.1, Color3B(273,28,36)));
 	this->getParent()->addChild(dust);
 

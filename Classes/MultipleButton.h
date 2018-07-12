@@ -13,6 +13,8 @@ public:
 	float _time = 1.5f;
 	bool isActive = false;
 	bool isCountCombo = false;
+	bool canActive = false;
+
 	int count_to_auto_play = 0;
 
 	void update(float dt);
