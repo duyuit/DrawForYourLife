@@ -13,6 +13,7 @@ public:
 	float _time_circle_shrink = 1;
 	SonicState::StateAction _action = SonicState::JUMP;
 	int isLeft;
+	int isCountCombo = false;
 
 
 	RefPtr<Animate>  *_break_Ani;

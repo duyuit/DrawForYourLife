@@ -77,12 +77,13 @@ void TapButton::DeleteNow(bool check)
 			this->initWithFile(Define::button_right_green_path);
 		this->runAction(Sequence::create(DelayTime::create(0.7), RemoveSelf::create(),nullptr));
 		mTarget->countCombo++;
+		isCountCombo = true;
 	}
 	else
 	{
 		this->setScale(0.15);
 		this->runAction(Sequence::create(_break_Ani->get(), RemoveSelf::create(), nullptr));
-		mTarget->countCombo = 0;
+		if (!isCountCombo) mTarget->countCombo = 0;
 	}
 }
 
