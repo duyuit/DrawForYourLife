@@ -245,7 +245,7 @@ void Sonic::HandleCollision(Sprite * sprite)
 		sprite->runAction(RemoveSelf::create());
 		ringCollected++;
 	}
-	else if(sprite->getTag() == Define::MUSHROOM && mCurrentState->GetState()== SonicState::FALL) 
+	else if(sprite->getTag() == Define::MUSHROOM && (mCurrentState->GetState()== SonicState::FALL || mCurrentState->GetState() == SonicState::ROLL))
 	{
 		auto mush_room = (Mushroom*)sprite;
 		mush_room->Active();

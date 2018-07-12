@@ -350,7 +350,7 @@ bool TestScene::init()
 
 	//Add MAP
 	_tileMap = new TMXTiledMap();
-	_tileMap->initWithTMXFile("TurtorialScene/untitled.tmx");
+	_tileMap->initWithTMXFile("LevelScene/LV1/untitled.tmx");
 	this->addChild(_tileMap);
 
 

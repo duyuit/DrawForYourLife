@@ -148,5 +148,26 @@ MyUI::MyUI(Sonic * mSonic)
 			
 			_istouch = true;
 		};
+
+		auto eventListener = EventListenerKeyboard::create();
+		eventListener->onKeyPressed = [=](EventKeyboard::KeyCode keyCode, Event* event) {
+	
+
+
+		};
+		eventListener->onKeyReleased = [=](EventKeyboard::KeyCode keyCode, Event* event) {
+			if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW)
+			{
+				mySonic->mJustTap = BUTTON_TAG::BUTTON_LEFT;
+				mySonic->_list_just_tap.push_back(BUTTON_TAG::BUTTON_LEFT);
+			}
+			else if (keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW)
+			{
+				mySonic->mJustTap = BUTTON_TAG::BUTTON_RIGHT;
+				mySonic->_list_just_tap.push_back(BUTTON_TAG::BUTTON_RIGHT);
+			}
+
+		};
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, this);
 };

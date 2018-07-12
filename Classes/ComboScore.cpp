@@ -13,7 +13,7 @@ ComboScore::ComboScore(Sonic* mSonic) {
 	_label->setVisible(false);
 	this->addChild(_label, 1);
 
-	_label2 = Label::createWithTTF("", "fonts/INVASION2000.ttf", 48);
+	_label2 = Label::createWithTTF("", "fonts/INVASION2000.TTF", 48);
 	_label2->setAnchorPoint(Vec2(0.5f, 0.5f));
 	_label2->setVisible(false);
 	_mySonic->addChild(_label2, 100);

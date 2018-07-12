@@ -95,21 +95,21 @@ void MultipleButton::update(float dt)
 		}
 		
 	}
-	/*if (isActive)
-	{
-		count_to_auto_play++;
-		int i = count_to_auto_play / 20;
-		if (i<3)
-		{
-			
-			if (_list_button_tag.at(i) == 1)
-				_list_button_sprite.at(i)->initWithFile(Define::button_left_green_path);
-			else
-				_list_button_sprite.at(i)->initWithFile(Define::button_right_green_path);
-			if (i == 2) DeleteNow(true);
-		}
+	//if (isActive)
+	//{
+	//	count_to_auto_play++;
+	//	int i = count_to_auto_play / 20;
+	//	if (i<3)
+	//	{
+	//		
+	//		if (_list_button_tag.at(i) == 1)
+	//			_list_button_sprite.at(i)->initWithFile(Define::button_left_green_path);
+	//		else
+	//			_list_button_sprite.at(i)->initWithFile(Define::button_right_green_path);
+	//		if (i == 2) DeleteNow(true);
+	//	}
 
-	}*/
+	//}
 		
 }
 
