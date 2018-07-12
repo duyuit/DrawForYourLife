@@ -38,10 +38,15 @@ void ComboScore::SetColor()
 		_label->setColor(Color3B(255, 128, 0));
 		_label->setScale(1.1);
 	}
-	else if (x >= 15)
+	else if (x >= 15 && x < 20)
+	{
+		_label->setColor(Color3B(102, 102, 255));
+		_label->setScale(1.2);
+	}
+	else if (x >= 20)
 	{
 		_label->setColor(Color3B(255, 0, 0));
-		_label->setScale(1.2);
+		_label->setScale(1.3);
 	}
 	_label->enableOutline(Color4B::BLACK, 3);
 }
@@ -61,7 +66,7 @@ void ComboScore::ResetCombo()
 	_label2->stopAllActions();
 	_label2->setVisible(false);
 
-	isGood = isExcellent = isPerfect = false;
+	isCool = isGood = isExcellent = isPerfect = false;
 	_label2->setString("");
 }
 
@@ -108,27 +113,37 @@ void ComboScore::Evaluate()
 		
 		if (x >= 5 && x < 10)
 		{
-			if (!isGood)
+			if (!isCool)
 			{		
 				_label2->setColor(Color3B(255, 255, 0));
-				_label2->setString("Good!");
-				isGood = true;
+				_label2->setString("Cool!!");
+				isCool = true;
 			}
 			else _label2->setString("");
 		}
 		else if (x >= 10 && x < 15)
 		{
-			if (!isExcellent) 
+			if (!isGood) 
 			{
 				_label2->setColor(Color3B(255, 128, 0));
+				_label2->setString("Good!");
+				isGood = true;
+			}
+			else _label2->setString("");
+		}
+		else if (x >= 15 && x < 20)
+		{
+			if (!isExcellent) 
+			{
+				_label2->setColor(Color3B(102, 102, 255));
 				_label2->setString("Excellent!");
 				isExcellent = true;
 			}
 			else _label2->setString("");
 		}
-		else if (x >= 15)
+		else if (x >= 20)
 		{
-			if (!isPerfect) 
+			if (!isPerfect)
 			{
 				_label2->setColor(Color3B(255, 0, 0));
 				_label2->setString("Perfect!");

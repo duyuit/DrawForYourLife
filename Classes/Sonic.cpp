@@ -65,32 +65,109 @@ Sonic::~Sonic()
 int count_to_reset_just_tap = 0;
 void Sonic::update(float dt)
 {
-	
-	/*if (count_to_reset_just_tap % 4== 0)
+	if (countCombo > 0 && countCombo < 5)
 	{
-		SpriteFrame* sprite_frame = mCurrentAnimate->get()->getAnimation()->getFrames().at(mCurrentAnimate->get()->getCurrentFrameIndex())->getSpriteFrame();
-		Sprite* sprite = Sprite::createWithSpriteFrame(sprite_frame);
-		sprite->setScale(0.5f);
-		sprite->setFlipX(!isLeft);
-		sprite->setAnchorPoint(Vec2(0.5, 0));
-		sprite->setPosition(getPosition());
-		this->getParent()->addChild(sprite);
-		sprite->setOpacity(100);
-		sprite->runAction(Sequence::create(FadeTo::create(0.6, 0), RemoveSelf::create(), NULL));
-	}*/
+		streak->setVisible(false);
+	}
+	else if (countCombo >= 5 && countCombo < 10)
+	{
+		if (count_to_reset_just_tap % 5 == 0)
+		{
+			SpriteFrame* sprite_frame = mCurrentAnimate->get()->getAnimation()->getFrames().at(mCurrentAnimate->get()->getCurrentFrameIndex())->getSpriteFrame();
+			Sprite* sprite = Sprite::createWithSpriteFrame(sprite_frame);
+			sprite->setScale(0.5f);
+			sprite->setFlipX(!isLeft);
+			sprite->setAnchorPoint(Vec2(0.5, 0));
+			sprite->setPosition(getPosition());
+			this->getParent()->addChild(sprite);
+			sprite->setOpacity(100);
+			sprite->runAction(Sequence::create(FadeTo::create(0.8, 0), RemoveSelf::create(), NULL));
+		}
+
+	}
+	else if (countCombo >= 10 && countCombo < 15)
+	{
+		if (count_to_reset_just_tap % 5 == 0)
+		{
+			SpriteFrame* sprite_frame = mCurrentAnimate->get()->getAnimation()->getFrames().at(mCurrentAnimate->get()->getCurrentFrameIndex())->getSpriteFrame();
+			Sprite* sprite = Sprite::createWithSpriteFrame(sprite_frame);
+			sprite->setScale(0.5f);
+			sprite->setFlipX(!isLeft);
+			sprite->setAnchorPoint(Vec2(0.5, 0));
+			sprite->setPosition(getPosition());
+			this->getParent()->addChild(sprite);
+			sprite->setOpacity(100);
+			sprite->runAction(Sequence::create(FadeTo::create(0.8, 0), RemoveSelf::create(), NULL));
+		}
+	}
+	else if (countCombo >= 15)
+	{
+		if (count_to_reset_just_tap % 5 == 0)
+		{
+			SpriteFrame* sprite_frame = mCurrentAnimate->get()->getAnimation()->getFrames().at(mCurrentAnimate->get()->getCurrentFrameIndex())->getSpriteFrame();
+			Sprite* sprite = Sprite::createWithSpriteFrame(sprite_frame);
+			sprite->setScale(0.5f);
+			sprite->setFlipX(!isLeft);
+			sprite->setAnchorPoint(Vec2(0.5, 0));
+			sprite->setPosition(getPosition());
+			this->getParent()->addChild(sprite);
+			sprite->setOpacity(100);
+			sprite->runAction(Sequence::create(FadeTo::create(0.8, 0), RemoveSelf::create(), NULL));
+		}
+
+		if (streak != nullptr)
+			streak->setVisible(true);
+			streak->setPosition(this->getPosition() + Vec2(10, 30));
+	}
+
 	
 
 	count_to_reset_just_tap++;
 	this->setFlippedX(!isLeft);
-	if (dust!=nullptr)
+
+	if (countCombo >= 0 && countCombo < 20)
 	{
-		if (mCurrentState->GetState() == SonicState::RUN_FAST || mCurrentState->GetState() == SonicState::ROLL)
-			dust->setVisible(true);
-		else dust->setVisible(false);
-		
-		dust->setAnchorPoint(Vec2(1, 0));
-		dust->setPosition(this->getPosition() + Vec2(-5, 0));
-		
+		if (dust != nullptr)
+		{
+			flame->setVisible(false);
+
+			if (mCurrentState->GetState() == SonicState::RUN_FAST || mCurrentState->GetState() == SonicState::ROLL)
+				dust->setVisible(true);
+			else dust->setVisible(false);
+			dust->setFlippedX(isLeft);
+			if (isLeft)
+			{
+				dust->setAnchorPoint(Vec2(0, 0));
+				dust->setPosition(this->getPosition() + Vec2(5, 0));
+			}
+			else
+			{
+				dust->setAnchorPoint(Vec2(1, 0));
+				dust->setPosition(this->getPosition() + Vec2(-5, 0));
+			}
+		}
+	}
+	else if (countCombo >= 20)
+	{
+		if (flame != nullptr)
+		{
+			dust->setVisible(false);
+
+			if (mCurrentState->GetState() == SonicState::RUN_FAST || mCurrentState->GetState() == SonicState::ROLL)
+				flame->setVisible(true);
+			else flame->setVisible(false);
+			flame->setFlippedX(isLeft);
+			if (isLeft)
+			{
+				flame->setAnchorPoint(Vec2(0, 0));
+				flame->setPosition(this->getPosition() + Vec2(5, 0));
+			}
+			else
+			{
+				flame->setAnchorPoint(Vec2(1, 0));
+				flame->setPosition(this->getPosition() + Vec2(-5, 0));
+			}
+		}
 	}
 
 
@@ -315,6 +392,7 @@ void Sonic::DropRing()
 
 void Sonic::updateStart(float dt)
 {
+	//Dust effect
 	dust = Sprite::create();
 	auto dust_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Particle/particle.xml", "dust"), 0.05f)));;
 	dust->runAction(RepeatForever::create(dust_anim->get()));
@@ -323,6 +401,15 @@ void Sonic::updateStart(float dt)
 //	dust->setColor(Color3B(223, 85, 11));
 	//dust->runAction(TintTo::create(0.1, Color3B(273,28,36)));
 	this->getParent()->addChild(dust);
+
+	//Flame effect
+	flame = Sprite::create();
+	auto flame_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Particle/particle.xml", "flame"), 0.04f)));
+	flame->runAction(RepeatForever::create(flame_anim->get()));
+	flame->setScale(1.2);
+	flame->setPosition(this->getPosition() + Vec2(25, 0));
+	flame->setVisible(false);
+	this->getParent()->addChild(flame, 100);
 
 	/*_roll_circle = Sprite::create();
 	_roll_circle->setAnchorPoint(Vec2(0.5, 0.5));
@@ -343,5 +430,18 @@ void Sonic::updateStart(float dt)
 	this->addChild(_roll_effect);
 	_roll_effect->setVisible(false);
 
-	
+	//MotionStreak
+	streak = MotionStreak::create(2, 3, 60, Color3B::RED, "Particle/streak.png");
+	streak->setAnchorPoint(Vec2(0, 0.5));
+	streak->setVisible(false);
+	this->getParent()->addChild(streak);
+	auto colorAction = RepeatForever::create(Sequence::create(
+		TintTo::create(0.2f, 255, 0, 0),
+		TintTo::create(0.2f, 0, 255, 0),
+		TintTo::create(0.2f, 0, 255, 255),
+		TintTo::create(0.2f, 255, 255, 0),
+		TintTo::create(0.2f, 255, 0, 255),
+		TintTo::create(0.2f, 255, 255, 255),
+		nullptr));
+	streak->runAction(colorAction);	
 }

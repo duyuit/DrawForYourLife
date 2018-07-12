@@ -11,7 +11,7 @@ public:
 	//Sprite* _sprite;
 	Sonic* _mySonic;
 	int _pre_combo = 0;
-	bool isGood = false, isExcellent = false, isPerfect = false;
+	bool isCool = false, isGood = false, isExcellent = false, isPerfect = false;
 	Label* _label;	//Label X combo
 	Label* _label2; //Label (Nice!, Good!, Excellent!, Perfect!)
 

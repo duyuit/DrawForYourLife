@@ -32,6 +32,15 @@
     <sprite x="389" y="223" w="74" h="61" oX="389" oY="223" oW="276" oH="434" />
   </Animation>
 
-
+  <Animation name="flame" imagePath="Particle/particle.png" width="532" height="600">
+    <sprite x="380" y="321" w="91" h="38" oX="380" oY="321" oW="329" oH="438" />
+    <sprite x="260" y="308" w="104" h="52" oX="260" oY="308" oW="329" oH="438" />
+    <sprite x="134" y="302" w="104" h="55" oX="134" oY="302" oW="329" oH="438" />
+    <sprite x="356" y="394" w="113" h="58" oX="356" oY="394" oW="329" oH="438" />
+    <sprite x="204" y="390" w="111" h="59" oX="204" oY="390" oW="329" oH="438" />
+    <sprite x="354" y="498" w="106" h="60" oX="354" oY="498" oW="329" oH="438" />
+    <sprite x="202" y="507" w="105" h="44" oX="202" oY="507" oW="329" oH="438" />
+    <sprite x="41" y="501" w="96" h="66" oX="41" oY="501" oW="329" oH="438" />
+  </Animation>
 
 </Animations>

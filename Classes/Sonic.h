@@ -63,6 +63,8 @@ private:
 
 
 	Sprite* dust = nullptr;
+	Sprite* flame = nullptr;
+	MotionStreak* streak = nullptr;
 
 	void updateStart(float dt);
 	Action* mCurrentAction;
