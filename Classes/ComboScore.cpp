@@ -80,7 +80,7 @@ void ComboScore::CreateEffect()
 	//_sprite->setRotation(-15);
 
 	_label->setString("X " + std::to_string(_mySonic->countCombo) + " COMBO");
-	_label->setPosition(Vec2(110, 0.875 * _director->getWinSize().height));
+	_label->setPosition(Vec2(110, _director->getWinSize().height - _mySonic->getContentSize().height));
 	_label->setRotation(-15);
 
 	_label->runAction(FadeIn::create(0.1));
