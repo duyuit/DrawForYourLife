@@ -60,6 +60,13 @@ void ComboScore::UpdateCombo()
 
 void ComboScore::ResetCombo()
 {
+	if (_mySonic->isBlueToRed)
+	{
+		_mySonic->SwapAllAni();
+		_mySonic->isRedToBlue = true;
+		_mySonic->isBlueToRed = false;
+	}
+
 	_label->stopAllActions();
 	_label->setVisible(false);
 

@@ -4,6 +4,7 @@
 
 Sonic::Sonic()
 {
+	//Blue Sonic
 	Vector<SpriteFrame*> run_slow_FL = loadAnim("Sonic/sonic_animation.xml", "run_slow");
 	Vector<SpriteFrame*> run_normal_FL = loadAnim("Sonic/sonic_animation.xml", "run_normal");
 	Vector<SpriteFrame*> run_fast_FL = loadAnim("Sonic/sonic_animation.xml", "run_fast");
@@ -12,6 +13,16 @@ Sonic::Sonic()
 	Vector<SpriteFrame*> fall_FL = loadAnim("Sonic/sonic_animation.xml", "fall");
 	Vector<SpriteFrame*> hurt_FL = loadAnim("Sonic/sonic_animation.xml", "hurt");
 
+	//Red Sonic
+	Vector<SpriteFrame*> run_slow_red_FL = loadAnim("Sonic/sonic_animation_red.xml", "run_slow");
+	Vector<SpriteFrame*> run_normal_red_FL = loadAnim("Sonic/sonic_animation_red.xml", "run_normal");
+	Vector<SpriteFrame*> run_fast_red_FL = loadAnim("Sonic/sonic_animation_red.xml", "run_fast");
+	Vector<SpriteFrame*> jump_red_FL = loadAnim("Sonic/sonic_animation_red.xml", "jump");
+	Vector<SpriteFrame*> roll_red_FL = loadAnim("Sonic/sonic_animation_red.xml", "roll");
+	Vector<SpriteFrame*> fall_red_FL = loadAnim("Sonic/sonic_animation_red.xml", "fall");
+	Vector<SpriteFrame*> hurt_red_FL = loadAnim("Sonic/sonic_animation_red.xml", "hurt");
+
+	//Blue Sonic Ani
 	run_fast_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_fast_FL, 0.01f)));
 	run_slow_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_slow_FL, 0.1f)));
 	run_normal_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_normal_FL, 0.07f)));
@@ -21,6 +32,15 @@ Sonic::Sonic()
 	roll_sky_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Sonic/sonic_animation.xml", "roll_in_sky"), 0.03f)));;
 	hurt_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(hurt_FL, 0.05f)));
 
+	//Red Sonic Ani
+	run_fast_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_fast_red_FL, 0.01f)));
+	run_slow_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_slow_red_FL, 0.1f)));
+	run_normal_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_normal_red_FL, 0.07f)));
+	jump_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(jump_red_FL, 0.03f)));
+	roll_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_red_FL, 0.03f)));
+	fall_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fall_red_FL, 0.01f)));
+	roll_sky_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Sonic/sonic_animation_red.xml", "roll_in_sky"), 0.03f)));;
+	hurt_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(hurt_red_FL, 0.05f)));
 
 	auto verti = PhysicsBody::createCircle(75, PhysicsMaterial(0.1f, 0.0f, 0.0f));
 
@@ -65,11 +85,8 @@ Sonic::~Sonic()
 int count_to_reset_just_tap = 0;
 void Sonic::update(float dt)
 {
-	if (countCombo > 0 && countCombo < 5)
-	{
-		streak->setVisible(false);
-	}
-	else if (countCombo >= 5 && countCombo < 10)
+	//Set effects combo for Sonic 
+	if (countCombo >= 5)
 	{
 		if (count_to_reset_just_tap % 5 == 0)
 		{
@@ -84,43 +101,24 @@ void Sonic::update(float dt)
 			sprite->runAction(Sequence::create(FadeTo::create(0.8, 0), RemoveSelf::create(), NULL));
 		}
 
-	}
-	else if (countCombo >= 10 && countCombo < 15)
-	{
-		if (count_to_reset_just_tap % 5 == 0)
+		if (countCombo >= 10 && countCombo < 15)
 		{
-			SpriteFrame* sprite_frame = mCurrentAnimate->get()->getAnimation()->getFrames().at(mCurrentAnimate->get()->getCurrentFrameIndex())->getSpriteFrame();
-			Sprite* sprite = Sprite::createWithSpriteFrame(sprite_frame);
-			sprite->setScale(0.5f);
-			sprite->setFlipX(!isLeft);
-			sprite->setAnchorPoint(Vec2(0.5, 0));
-			sprite->setPosition(getPosition());
-			this->getParent()->addChild(sprite);
-			sprite->setOpacity(100);
-			sprite->runAction(Sequence::create(FadeTo::create(0.8, 0), RemoveSelf::create(), NULL));
+			if (!isBlueToRed)
+			{
+				SwapAllAni();
+				isBlueToRed = true;
+				isRedToBlue = false;
+			}
 		}
-	}
-	else if (countCombo >= 15)
-	{
-		if (count_to_reset_just_tap % 5 == 0)
+		else if (countCombo >= 15)
 		{
-			SpriteFrame* sprite_frame = mCurrentAnimate->get()->getAnimation()->getFrames().at(mCurrentAnimate->get()->getCurrentFrameIndex())->getSpriteFrame();
-			Sprite* sprite = Sprite::createWithSpriteFrame(sprite_frame);
-			sprite->setScale(0.5f);
-			sprite->setFlipX(!isLeft);
-			sprite->setAnchorPoint(Vec2(0.5, 0));
-			sprite->setPosition(getPosition());
-			this->getParent()->addChild(sprite);
-			sprite->setOpacity(100);
-			sprite->runAction(Sequence::create(FadeTo::create(0.8, 0), RemoveSelf::create(), NULL));
-		}
-
-		if (streak != nullptr)
-			streak->setVisible(true);
+			if (streak != nullptr)
+				streak->setVisible(true);
 			streak->setPosition(this->getPosition() + Vec2(10, 30));
+		}
+
 	}
 
-	
 
 	count_to_reset_just_tap++;
 	this->setFlippedX(!isLeft);
@@ -444,4 +442,26 @@ void Sonic::updateStart(float dt)
 		TintTo::create(0.2f, 255, 255, 255),
 		nullptr));
 	streak->runAction(colorAction);	
+}
+
+
+void Sonic::SwapAni(RefPtr<Animate> *&blue, RefPtr<Animate> *&red)
+{
+	RefPtr<Animate> *x = blue;
+
+	blue = red;
+	red = x;
+	x = nullptr;
+}
+
+void Sonic::SwapAllAni()
+{
+	SwapAni(run_fast_Ani, run_fast_red_Ani);
+	SwapAni(run_slow_Ani, run_slow_red_Ani);
+	SwapAni(run_normal_Ani, run_normal_red_Ani);
+	SwapAni(jump_Ani, jump_red_Ani);
+	SwapAni(roll_Ani, roll_red_Ani);
+	SwapAni(fall_Ani, fall_red_Ani);
+	SwapAni(roll_sky_Ani, roll_sky_red_Ani);
+	SwapAni(hurt_Ani, hurt_red_Ani);
 }
