@@ -49,6 +49,10 @@ public:
 	int ringCollected = 0; //Count rings Sonic collected
 	int baseLife = 2; //Count the number of your dropping rings (drop ring 3 times you die)
 	int countCombo = 0; //Count the combo tap button, no missing
+	bool isBlueToRed = false, isRedToBlue = false;
+
+	void SwapAni(RefPtr<Animate> *&blue, RefPtr<Animate> *&red); //Swap red and blue Sonic
+	void SwapAllAni();
 
 	std::vector<int> _list_just_tap;
 	BUTTON_TAG mJustTap = NONE;
@@ -66,7 +70,14 @@ private:
 	RefPtr<Animate>  *roll_sky_Ani;
 	RefPtr<Animate>  *hurt_Ani;
 
-
+	RefPtr<Animate>  *run_slow_red_Ani;
+	RefPtr<Animate>  *run_normal_red_Ani;
+	RefPtr<Animate>  *run_fast_red_Ani;
+	RefPtr<Animate>  *jump_red_Ani;
+	RefPtr<Animate>  *roll_red_Ani;
+	RefPtr<Animate>  *fall_red_Ani;
+	RefPtr<Animate>  *roll_sky_red_Ani;
+	RefPtr<Animate>  *hurt_red_Ani;
 
 
 	Sprite* dust = nullptr;
