@@ -174,7 +174,7 @@ void Sonic::update(float dt)
 	mCurrentState->update();
 	if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL  && mCurrentState->GetState() != SonicState::StateAction::ROLL)
 		this->SetStateByTag(SonicState::StateAction::FALL);
-	if (count_to_reset_just_tap == 20)
+	if (count_to_reset_just_tap == 40)
 	{
 		count_to_reset_just_tap = 0;
 		mJustTap = NONE;
@@ -313,6 +313,15 @@ void Sonic::HandleCollision(Sprite * sprite)
 	{
 		MyParticle::CreateEatItem(sprite->getPosition(), (Layer*) this->getParent());
 		sprite->runAction(RemoveSelf::create());
+		if (_last_id_ring_sound)
+			SimpleAudioEngine::getInstance()->playEffect(Define::_music_eat_ring_efftect_path);
+		else
+			SimpleAudioEngine::getInstance()->playEffect(Define::_music_eat_ring_efftect_path_1);
+		_last_id_ring_sound = !_last_id_ring_sound;
+
+	//	SimpleAudioEngine::getInstance()->preloadEffect(Define::_music_eat_ring_efftect_path);
+	//	SimpleAudioEngine::getInstance()->sharedEngine()->playEffect(Define::_music_eat_ring_efftect_path);
+		//SimpleAudioEngine::sharedEngine()->playEffect(Define::_music_eat_ring_efftect_path);
 		ringCollected++;
 	}
 	else if(sprite->getTag() == Define::MUSHROOM /*&& (mCurrentState->GetState()== SonicState::FALL || mCurrentState->GetState() == SonicState::ROLL)*/)

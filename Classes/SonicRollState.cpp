@@ -10,6 +10,8 @@ SonicRollState::SonicRollState(SonicData * playerData)
 	if (this->mPlayerData->player->isLeft)	this->mPlayerData->player->SetVelocityX(-500);
 	else
 		this->mPlayerData->player->SetVelocityX(500);
+	sound_effect= SimpleAudioEngine::getInstance()->playEffect(Define::_music_roll_effect_path);
+
 
 }
 
@@ -27,6 +29,7 @@ void SonicRollState::update()
 	if (this->mPlayerData->player->CheckLastFrame())
 	{
 		this->mPlayerData->player->_roll_effect->setVisible(false);
+		SimpleAudioEngine::getInstance()->stopEffect(sound_effect);
 		this->mPlayerData->player->SetStateByTag(StateAction::RUN_FAST);
 		return;
 	}

@@ -11,6 +11,26 @@ TestScene::~TestScene()
 {
 }
 
+void TestScene::LoadSound()
+{
+	audio = SimpleAudioEngine::getInstance();
+	audio->preloadBackgroundMusic(Define::_music_lv1_background_path);
+	audio->playBackgroundMusic(Define::_music_lv1_background_path);
+	audio->preloadEffect(Define::_music_combo_effect_path);
+	audio->preloadEffect(Define::_music_eat_ring_efftect_path);
+	audio->preloadEffect(Define::_music_roll_effect_path);
+	audio->preloadEffect(Define::_music_jump_effect_path);
+	audio->preloadEffect(Define::_music_eat_ring_efftect_path_1);
+	//audio->preloadBackgroundMusic("stdioBackGroungGamePlay.mp3");
+
+	// sound effect.
+	//audio->preloadEffect("stdioEffeectShot.wav");
+	//audio->preloadEffect("stdioEffectCollision.wav");
+
+	// khi không cần sử dụng đoạn nhạc nào đó trong trò chơi.
+	
+}
+
 void TestScene::RollBackground()
 {
 	_backgroundNode->setPosition(_backgroundNode->getPosition() - Vec2(5, 0));
@@ -380,8 +400,8 @@ bool TestScene::init()
 
 	//Add MAP
 	_tileMap = new TMXTiledMap();
-	//_tileMap->initWithTMXFile("LevelScene/LV1/untitled.tmx");
-	_tileMap->initWithTMXFile("TurtorialScene/untitled.tmx");
+	_tileMap->initWithTMXFile("LevelScene/LV1/untitled.tmx");
+	//_tileMap->initWithTMXFile("TurtorialScene/untitled.tmx");
 	this->addChild(_tileMap);
 
 
@@ -417,6 +437,7 @@ bool TestScene::init()
 
 	_mSonic->setZOrder(7);
 
+	LoadSound();
 
 
 	auto contactListener = EventListenerPhysicsContact::create();
@@ -424,6 +445,8 @@ bool TestScene::init()
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
 	scheduleOnce(CC_SCHEDULE_SELECTOR(TestScene::updateStart), 0);
+
+
 	this->scheduleUpdate();
 	return true;
 }

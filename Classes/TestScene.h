@@ -6,6 +6,7 @@
 #include "FrogMonster.h"
 #include "MyDialogBox.h"
 #include "MultipleButton.h"
+
 using namespace cocos2d;
 class TestScene : public cocos2d::Layer
 {
@@ -19,7 +20,9 @@ public:
 	MyUI* _myui = nullptr;
 	Vector<TapButton*> _listButton;
 	Vector<Monster*> _listMonster;
+	SimpleAudioEngine* audio;
 
+	void LoadSound();
 	void RollBackground();
 
 	void CheckButton();

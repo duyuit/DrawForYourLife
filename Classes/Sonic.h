@@ -14,6 +14,9 @@
 #include "GameParticle.h"
 #include "SmallRing.h"
 #include "Mushroom.h"
+#include <SimpleAudioEngine.h>
+using namespace CocosDenshion;
+
 using namespace cocos2d;
 using namespace Define;
 #pragma once
@@ -21,6 +24,7 @@ using namespace Define;
 class Sonic: public Sprite
 {
 public:
+
 	Sonic();
 	~Sonic();
 	void update(float dt);
@@ -34,9 +38,11 @@ public:
 
 	bool isLeft = false;   // Check Direction Sonic
 	Vec2 GetVelocity(); 
-	void HandleCollision(Sprite *sprite); //Use to handle collision with object
+	void HandleCollision(Sprite *sprite); //Use to handle collision with objects
 	void SetVelocity(int x, int y); 
 	void SetVelocityX(int x); //Set velocity X, old Y
+
+	bool _last_id_ring_sound = false;
 
 	void DropRing();
 	int ringCollected = 0; //Count rings Sonic collected
