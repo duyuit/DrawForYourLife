@@ -21,6 +21,7 @@ void TestScene::LoadSound()
 	audio->preloadEffect(Define::_music_roll_effect_path);
 	audio->preloadEffect(Define::_music_jump_effect_path);
 	audio->preloadEffect(Define::_music_eat_ring_efftect_path_1);
+	audio->preloadEffect(Define::_music_button_effect_path);
 	//audio->preloadBackgroundMusic("stdioBackGroungGamePlay.mp3");
 
 	// sound effect.

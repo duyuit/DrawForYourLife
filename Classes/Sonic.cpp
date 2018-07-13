@@ -313,11 +313,12 @@ void Sonic::HandleCollision(Sprite * sprite)
 	{
 		MyParticle::CreateEatItem(sprite->getPosition(), (Layer*) this->getParent());
 		sprite->runAction(RemoveSelf::create());
-		if (_last_id_ring_sound)
+		/*if (_last_id_ring_sound)
 			SimpleAudioEngine::getInstance()->playEffect(Define::_music_eat_ring_efftect_path);
 		else
 			SimpleAudioEngine::getInstance()->playEffect(Define::_music_eat_ring_efftect_path_1);
-		_last_id_ring_sound = !_last_id_ring_sound;
+		_last_id_ring_sound = !_last_id_ring_sound;*/
+		experimental::AudioEngine::play2d(Define::_music_eat_ring_efftect_path);
 
 	//	SimpleAudioEngine::getInstance()->preloadEffect(Define::_music_eat_ring_efftect_path);
 	//	SimpleAudioEngine::getInstance()->sharedEngine()->playEffect(Define::_music_eat_ring_efftect_path);

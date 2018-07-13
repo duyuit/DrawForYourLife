@@ -15,6 +15,7 @@
 #include "SmallRing.h"
 #include "Mushroom.h"
 #include <SimpleAudioEngine.h>
+#include <AudioEngine.h>
 using namespace CocosDenshion;
 
 using namespace cocos2d;

@@ -38,6 +38,7 @@ namespace Define {
 	static char* _music_eat_ring_efftect_path_1 = "Music/eat_ring_effect_1.wav";
 	static char* _music_jump_effect_path = "Music/sonic_jump_effect.mp3";
 	static char* _music_combo_effect_path = "Music/combo_effect.mp3";
+	static char* _music_button_effect_path = "Music/select_button.mp3";
 	//static char* _music_eat_ring_effect_path = "Music/eat_ring_effect.mp3";
 
 
