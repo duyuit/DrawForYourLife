@@ -1,17 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Animations>
-  <Animation name="right_break" imagePath="Button/break_button.png" width="1500" height="1500">
-    <sprite x="16" y="99" w="249" h="249" oX="16" oY="99" oW="422" oH="1209" />
-    <sprite x="341" y="95" w="270" h="270" oX="341" oY="95" oW="422" oH="1209" />
-    <sprite x="682" y="95" w="297" h="289" oX="682" oY="95" oW="422" oH="1209" />
-    <sprite x="1008" y="92" w="313" h="306" oX="1008" oY="92" oW="422" oH="1209" />
-    <sprite x="322" y="432" w="313" h="311" oX="322" oY="432" oW="422" oH="1209" />
+  <Animation name="blue_left_break" imagePath="Button/button_break.png" width="1500" height="2500">
+    <sprite x="281" y="59" w="169" h="162" oX="281" oY="59" oW="-836" oH="1004" />
+    <sprite x="539" y="54" w="190" h="185" oX="539" oY="54" oW="-836" oH="1004" />
+    <sprite x="838" y="55" w="200" h="196" oX="838" oY="55" oW="-836" oH="1004" />
+    <sprite x="1140" y="51" w="217" h="218" oX="1140" oY="51" oW="-836" oH="1004" />
   </Animation>
-  <Animation name="left_break" imagePath="Button/break_button.png" width="1500" height="1500">
-    <sprite x="56" y="967" w="249" h="249" oX="56" oY="967" oW="1160" oH="1272" />
-    <sprite x="376" y="948" w="271" h="273" oX="376" oY="948" oW="1160" oH="1272" />
-    <sprite x="741" y="955" w="288" h="293" oX="741" oY="955" oW="1160" oH="1272" />
-    <sprite x="1104" y="955" w="299" h="306" oX="1104" oY="955" oW="1160" oH="1272" />
-    <sprite x="1079" y="600" w="299" h="306" oX="1079" oY="600" oW="1160" oH="1272" />
+  <Animation name="blue_right_break" imagePath="Button/button_break.png" width="1500" height="2500">
+    <sprite x="276" y="330" w="170" h="170" oX="276" oY="330" oW="-553" oH="1009" />
+    <sprite x="534" y="328" w="187" h="191" oX="534" oY="328" oW="-553" oH="1009" />
+    <sprite x="843" y="338" w="201" h="205" oX="843" oY="338" oW="-553" oH="1009" />
+    <sprite x="1139" y="326" w="219" h="232" oX="1139" oY="326" oW="-553" oH="1009" />
+  </Animation>
+  <Animation name="gray_left_break" imagePath="Button/button_break.png" width="1500" height="2500">
+    <sprite x="272" y="685" w="168" h="167" oX="272" oY="685" oW="581" oH="1032" />
+    <sprite x="540" y="679" w="190" h="191" oX="540" oY="679" oW="581" oH="1032" />
+    <sprite x="834" y="663" w="202" h="205" oX="834" oY="663" oW="581" oH="1032" />
+    <sprite x="1160" y="657" w="217" h="219" oX="1160" oY="657" oW="581" oH="1032" />
+  </Animation>
+  <Animation name="gray_right_break" imagePath="Button/button_break.png" width="1500" height="2500">
+    <sprite x="272" y="1021" w="169" h="170" oX="272" oY="1021" oW="918" oH="1049" />
+    <sprite x="541" y="1019" w="190" h="194" oX="541" oY="1019" oW="918" oH="1049" />
+    <sprite x="847" y="1018" w="203" h="210" oX="847" oY="1018" oW="918" oH="1049" />
+    <sprite x="1173" y="1015" w="210" h="219" oX="1173" oY="1015" oW="918" oH="1049" />
+  </Animation>
+  <Animation name="green_right_break" imagePath="Button/button_break.png" width="1500" height="2500">
+    <sprite x="269" y="1337" w="170" h="170" oX="269" oY="1337" oW="1238" oH="1022" />
+    <sprite x="537" y="1333" w="194" h="196" oX="537" oY="1333" oW="1238" oH="1022" />
+    <sprite x="833" y="1332" w="208" h="213" oX="833" oY="1332" oW="1238" oH="1022" />
+    <sprite x="1146" y="1334" w="221" h="226" oX="1146" oY="1334" oW="1238" oH="1022" />
+  </Animation>
+  <Animation name="green_left_break" imagePath="Button/button_break.png" width="1500" height="2500">
+    <sprite x="266" y="1669" w="169" h="162" oX="266" oY="1669" oW="1568" oH="1031" />
+    <sprite x="558" y="1659" w="193" h="184" oX="558" oY="1659" oW="1568" oH="1031" />
+    <sprite x="843" y="1633" w="210" h="205" oX="843" oY="1633" oW="1568" oH="1031" />
+    <sprite x="1156" y="1641" w="225" h="220" oX="1156" oY="1641" oW="1568" oH="1031" />
+  </Animation>
+  <Animation name="red_left_break" imagePath="Button/button_break.png" width="1500" height="2500">
+    <sprite x="270" y="1949" w="169" h="168" oX="270" oY="1949" oW="1847" oH="1031" />
+    <sprite x="556" y="1953" w="187" h="190" oX="556" oY="1953" oW="1847" oH="1031" />
+    <sprite x="847" y="1959" w="200" h="201" oX="847" oY="1959" oW="1847" oH="1031" />
+    <sprite x="1153" y="1961" w="210" h="214" oX="1153" oY="1961" oW="1847" oH="1031" />
+  </Animation>
+  <Animation name="red_right_break" imagePath="Button/button_break.png" width="1500" height="2500">
+    <sprite x="267" y="2261" w="169" h="167" oX="267" oY="2261" oW="2162" oH="1029" />
+    <sprite x="555" y="2260" w="186" h="186" oX="555" oY="2260" oW="2162" oH="1029" />
+    <sprite x="858" y="2264" w="201" h="197" oX="858" oY="2264" oW="2162" oH="1029" />
+    <sprite x="1150" y="2258" w="214" h="212" oX="1150" oY="2258" oW="2162" oH="1029" />
   </Animation>
 </Animations>

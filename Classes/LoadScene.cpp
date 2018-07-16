@@ -25,7 +25,6 @@ bool LoadScene::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	auto loading = Sprite::create("Menu/sonic_loading.png");
-	//auto loading = Sprite::create("level_map_snow_finish.png");
 	loading->setScale(visibleSize.width / loading->getContentSize().width, visibleSize.height / loading->getContentSize().height);
 	loading->setAnchorPoint(Vec2(0.5, 0.5));
 	loading->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));

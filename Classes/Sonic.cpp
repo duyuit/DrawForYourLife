@@ -29,7 +29,7 @@ Sonic::Sonic()
 	jump_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(jump_FL, 0.03f)));
 	roll_Ani=new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_FL, 0.03f)));
 	fall_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fall_FL, 0.01f)));
-	roll_sky_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Sonic/sonic_animation.xml", "roll_in_sky"), 0.03f)));;
+	roll_sky_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(false, "roll_in_sky"), 0.03f)));;
 	hurt_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(hurt_FL, 0.05f)));
 
 	//Red Sonic Ani
@@ -39,7 +39,7 @@ Sonic::Sonic()
 	jump_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(jump_red_FL, 0.03f)));
 	roll_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_red_FL, 0.03f)));
 	fall_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fall_red_FL, 0.01f)));
-	roll_sky_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Sonic/sonic_animation_red.xml", "roll_in_sky"), 0.03f)));;
+	roll_sky_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(true, "roll_in_sky"), 0.03f)));;
 	hurt_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(hurt_red_FL, 0.05f)));
 
 	auto verti = PhysicsBody::createCircle(75, PhysicsMaterial(0.1f, 0.0f, 0.0f));
@@ -77,7 +77,7 @@ Sonic::Sonic()
 	scheduleOnce(CC_SCHEDULE_SELECTOR(Sonic::updateStart), 0);
 	this->scheduleUpdate();
 
-	SwapAllAni();
+	SwapAllAni();//Bug fix:Hao super Lag when Sonic change to red
 }
 
 
@@ -174,7 +174,7 @@ void Sonic::update(float dt)
 	mCurrentState->update();
 	if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL  && mCurrentState->GetState() != SonicState::StateAction::ROLL)
 		this->SetStateByTag(SonicState::StateAction::FALL);
-	if (count_to_reset_just_tap == 40)
+	if (count_to_reset_just_tap == 10)
 	{
 		count_to_reset_just_tap = 0;
 		mJustTap = NONE;
@@ -455,7 +455,7 @@ void Sonic::updateStart(float dt)
 		nullptr));
 	streak->runAction(colorAction);	
 
-	SwapAllAni();
+	SwapAllAni(); //Bug fix:Hao super Lag when Sonic change to red
 	
 }
 
@@ -522,5 +522,5 @@ void Sonic::SwapAllAni()
 	SwapAni(roll_sky_Ani, roll_sky_red_Ani);
 	SwapAni(hurt_Ani, hurt_red_Ani);
 	this->stopAllActions();
-	this->SetStateByTag(SonicState::RUN_FAST);
+	this->SetStateByTag(mCurrentState->GetState());
 }

@@ -18,11 +18,11 @@ public:
 	RefPtr<Animate>  *_break_Ani;
 	BUTTON_TAG mTag;
 	bool isDelete=false;
-	bool isFirst = false;
+	bool canActive = false;
 	bool isActive = false;
 	bool isTrue = false;
 	~TapButton();
-	void OnSetFirst(bool is);
+	void SetCanActive(bool is);
 	void Active();
 	void Dissapear();
 	void DeleteNow(bool check);

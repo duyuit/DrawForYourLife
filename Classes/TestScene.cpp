@@ -22,6 +22,9 @@ void TestScene::LoadSound()
 	audio->preloadEffect(Define::_music_jump_effect_path);
 	audio->preloadEffect(Define::_music_eat_ring_efftect_path_1);
 	audio->preloadEffect(Define::_music_button_effect_path);
+
+	//SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.1f);
+	//SimpleAudioEngine::getInstance()->setEffectsVolume(0.1f);
 	//audio->preloadBackgroundMusic("stdioBackGroungGamePlay.mp3");
 
 	// sound effect.
@@ -43,6 +46,16 @@ void TestScene::RollBackground()
 
 void TestScene::CheckButton()
 {
+	if(!_mSonic->isInMultipleButton)
+	for (int i = _listButton.size() - 2; i > -1; i--)
+	{		
+		if (_listButton.at(i)->isDelete /*&& _listButton.at(i+1)->getPositionX() - _mSonic->getPositionX() < 600*/)
+		{
+			_listButton.at(i + 1)->SetCanActive(true);
+			break;
+		}
+	}
+
 	for (auto mon : _listMonster)
 	{
 		MultipleButton* multi_but = mon->_multiButton;
@@ -57,12 +70,7 @@ void TestScene::CheckButton()
 		}
 		multi_but->canActive = canActive;
 	}
-	for(int i= _listButton.size()-2;i>-1;i--)
-		if (_listButton.at(i)->isDelete)
-		{
-			_listButton.at(i + 1)->OnSetFirst(true);
-			break;
-		}
+
 	
 	
 }
@@ -166,7 +174,7 @@ void TestScene::LoadMap(CCTMXTiledMap * map)
 
 			auto button = new TapButton(Vec2(x_box, y_box), _mSonic, this);
 			button->setZOrder(8);
-			button->isFirst = false;
+			button->canActive = false;
 			_listButton.push_back(button);
 		}
 		
@@ -182,7 +190,7 @@ void TestScene::LoadMap(CCTMXTiledMap * map)
 				}
 			}
 		}
-		_listButton.at(0)->OnSetFirst(true);
+		_listButton.at(0)->SetCanActive(true);
 	
 
 		////Load Monster Position
@@ -365,7 +373,7 @@ void TestScene::update(float dt)
 
 void TestScene::updateStart(float dt)
 {
-//	this->getScene()->getPhysicsWorld()->setFixedUpdateRate(60);
+	//this->getScene()->getPhysicsWorld()->setFixedUpdateRate(60);
 	_myui = new MyUI(_mSonic);
 
 	this->getScene()->addChild(_myui);

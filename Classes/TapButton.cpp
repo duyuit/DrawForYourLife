@@ -6,7 +6,7 @@ TapButton::TapButton(Vec2 pos, Sonic* sprite, Layer* layer)
 {
 	isLeft = RandomHelper::random_int(1, 2);
 	
-
+	this->initWithFile("Button/unknow.png");
 	this->setPosition(pos);
 
 
@@ -23,35 +23,53 @@ TapButton::~TapButton()
 {
 }
 
-void TapButton::OnSetFirst(bool is)
+void TapButton::SetCanActive(bool is)
 {
-	if (is == isFirst) return;
-	isFirst = is;
-	if (is)
+	if (is == canActive) return;
+	canActive = is;
+	if (isActive)
 	{
 		switch (isLeft)
 		{
 		case 2:
-			this->initWithFile(Define::button_right_grey_path);
-			_break_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "right_break"), 0.1f)));
+			this->initWithFile(Define::button_right_blue_path);
+			_break_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "blue_right_break"), 0.1f)));
 			mTag = BUTTON_TAG::BUTTON_RIGHT;
 			break;
 
 		case 1:
-			this->initWithFile(Define::button_left_grey_path);
+			this->initWithFile(Define::button_left_blue_path);
 			mTag = BUTTON_TAG::BUTTON_LEFT;
-			_break_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "left_break"), 0.1f))); break;
+			_break_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "blue_left_break"), 0.1f))); break;
 
 		default:
 			break;
 		}
-
 	}
 }
 
 void TapButton::Active()
 {	
 	isActive = true;
+	if (canActive)
+	{
+		switch (isLeft)
+		{
+		case 2:
+			this->initWithFile(Define::button_right_blue_path);
+			_break_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "blue_right_break"), 0.1f)));
+			mTag = BUTTON_TAG::BUTTON_RIGHT;
+			break;
+
+		case 1:
+			this->initWithFile(Define::button_left_blue_path);
+			mTag = BUTTON_TAG::BUTTON_LEFT;
+			_break_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "blue_left_break"), 0.1f))); break;
+
+		default:
+			break;
+		}
+	}
 }
 
 void TapButton::Dissapear()
@@ -73,13 +91,14 @@ void TapButton::DeleteNow(bool check)
 	if (check)
 	{
 	
-		this->runAction(Sequence::create(DelayTime::create(0.7), RemoveSelf::create(),nullptr));
+		this->runAction(RemoveSelf::create());
 		mTarget->countCombo++;
 		isCountCombo = true;
 	}
 	else
 	{
-		this->setScale(0.15);
+		
+		//this->setScale(0.15);
 		this->runAction(Sequence::create(_break_Ani->get(), RemoveSelf::create(), nullptr));
 		if (!isCountCombo) mTarget->countCombo = 0;
 	}
@@ -95,10 +114,10 @@ void TapButton::update(float dt)
 	if (this->getPositionX() < mTarget->getPositionX()) DeleteNow(false);
 	if (this->getPosition().x - mTarget->getPosition().x <= 600 && !isActive)
 		this->Active();
-	if (isActive && isFirst)
+	if (isActive && canActive)
 	{
 		
-		isTrue = true;
+		//isTrue = true;
 			//mTarget->SetStateByTag(_action);
 		/*	DeleteNow(true);
 			return;*/

@@ -58,7 +58,7 @@ void TurtorialScene::Tutorial2_part1()
 
 	_listButton.at(0)->scheduleUpdate();
 	_listButton.at(0)->_time_dissapear = 1000;
-	_listButton.at(0)->isFirst = true;
+	//_listButton.at(0)->isFirst = true;
 
 	
 
@@ -97,7 +97,7 @@ void TurtorialScene::ResetTutorial4()
 
 	_mSonic->setPosition(5000,600);
 	TapButton *tap= new TapButton(_listButton.at(3)->getPosition(), _mSonic, this);
-	tap->isFirst = true;
+//	tap->isFirst = true;
 	_listButton.erase(_listButton.begin() + 3);
 	_listButton.insert(3, tap);
 	Pause();
@@ -110,12 +110,12 @@ void TurtorialScene::ResetTutorial5()
 	_mSonic->setPosition(9400, 600);
 	
 	TapButton *tap = new TapButton(_listButton.at(6)->getPosition(), _mSonic, this);
-	tap->isFirst = true;
+	//tap->isFirst = true;
 	_listButton.erase(_listButton.begin() + 6);
 	_listButton.insert(6, tap);
 
 	TapButton *tap2 = new TapButton(_listButton.at(7)->getPosition(), _mSonic, this);
-	tap2->isFirst = true;
+	//tap2->isFirst = true;
 	_listButton.erase(_listButton.begin() + 7);
 	_listButton.insert(7, tap2);
 
@@ -259,7 +259,7 @@ void TurtorialScene::LoadMap(CCTMXTiledMap * map)
 	
 			auto button = new TapButton(Vec2(x_box, y_box), _mSonic, this);
 			button->setZOrder(8);
-			button->isFirst = true;
+		//	button->isFirst = true;
 			_listButton.pushBack(button);
 		}
 		_listButton.at(0)->unscheduleUpdate();

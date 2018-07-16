@@ -33,6 +33,8 @@ public:
 	RefPtr<Animate>  *mCurrentAnimate;
 	SonicState *mCurrentState;
 	SonicData *mData;
+	bool isInMultipleButton = false;
+
 	bool CheckLastFrame(); // Check current animate is last Frame?
 	void SetStateByTag(SonicState::StateAction action); //Set state by put type of State
 	void SetState(SonicState *action); //Set state by new State()

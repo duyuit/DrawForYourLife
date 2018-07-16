@@ -31,6 +31,8 @@ namespace Define {
 	static string button_right_green_path = "Button/button_right_green.png";
 	static string button_left_grey_path = "Button/button_left_grey.png";
 	static string button_right_grey_path = "Button/button_right_grey.png";
+	static string button_left_blue_path = "Button/button_left_blue.png";
+	static string button_right_blue_path = "Button/button_right_blue.png";
 	static string button_fail_path= "Button/button_fail.png";
 	static char* _music_lv1_background_path= "Music/lv1_background.mp3";
 	static char* _music_roll_effect_path= "Music/roll_effect.wav";

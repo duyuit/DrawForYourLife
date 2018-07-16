@@ -23,8 +23,8 @@ MultipleButton::MultipleButton(Vec2 pos, Sonic* sonic, Layer* layer,int button_c
 
 	
 
-	_break_left_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "left_break"), 0.1f)));
-	_break_right_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "right_break"), 0.1f)));
+	_break_left_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "blue_left_break"), 0.1f)));
+	_break_right_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "blue_right_break"), 0.1f)));
 	
 	_button_count = button_count;
 	_time = time;
@@ -40,8 +40,8 @@ MultipleButton::MultipleButton(Vec2 pos, Sonic* sonic, Layer* layer,int button_c
 	
 		switch (a)
 		{
-		case 1:button = Sprite::create(Define::button_left_grey_path); break;
-			case 2:button = Sprite::create(Define::button_right_grey_path); break;
+		case 1:button = Sprite::create(Define::button_left_blue_path); break;
+			case 2:button = Sprite::create(Define::button_right_blue_path); break;
 		}
 		_list_button_sprite.pushBack(button);
 		_list_button_tag.push_back(a);
@@ -89,7 +89,8 @@ void MultipleButton::update(float dt)
 					_list_button_sprite.at(i)->initWithFile(Define::button_left_green_path);
 				else
 					_list_button_sprite.at(i)->initWithFile(Define::button_right_green_path);
-				if (i == _list_button_tag.size() - 1) DeleteNow(true);
+				if (i == _list_button_tag.size() - 1) 
+					DeleteNow(true);
 			}
 		
 		}
@@ -116,6 +117,7 @@ void MultipleButton::update(float dt)
 
 void MultipleButton::Active()
 {
+	_mSonic->isInMultipleButton = true;
 	isActive = true;
 	_mSonic->_list_just_tap.clear();
 	mouseBar->runAction(Sequence::create(ProgressTo::create(1.3f, 70.0f), CallFuncN::create(CC_CALLBACK_0(MultipleButton::BlinkProgressBar, this)), nullptr));
@@ -123,6 +125,7 @@ void MultipleButton::Active()
 
 void MultipleButton::DeleteNow(bool check)
 {
+	_mSonic->isInMultipleButton = false;
 	isDelete = true;
 	if (check)
 	{
@@ -149,7 +152,6 @@ void MultipleButton::DeleteNow(bool check)
 	{
 		for (int i=0;i<_list_button_sprite.size();i++)
 		{
-			_list_button_sprite.at(i)->setScale(0.15);
 			if (_list_button_tag.at(i) == 1)
 			{
 				_list_button_sprite.at(i)->runAction(_break_left_Ani->get()->clone());
