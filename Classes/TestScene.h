@@ -18,7 +18,7 @@ public:
 	InfiniteParallaxNode* _backgroundNode2;
 	CCTMXTiledMap * _tileMap;
 	MyUI* _myui = nullptr;
-	Vector<TapButton*> _listButton;
+	vector<TapButton*> _listButton;
 	Vector<Monster*> _listMonster;
 	SimpleAudioEngine* audio;
 

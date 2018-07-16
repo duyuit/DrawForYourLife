@@ -64,22 +64,22 @@
  </objectgroup>
  <objectgroup name="DieLand">
   <object id="161" x="9922.2" y="1573.64" width="1789.94" height="30.303"/>
-  <object id="215" x="1740.67" y="1365.33" width="125.333" height="44"/>
+  <object id="215" x="1682.67" y="1479.33" width="125.333" height="44"/>
   <object id="240" x="6269.7" y="1333.33" width="21.2121" height="69.697"/>
   <object id="241" x="6593.94" y="1209.09" width="12.1212" height="78.7879"/>
   <object id="242" x="6788.65" y="1113.76" width="7.55151" height="37.7576"/>
  </objectgroup>
  <objectgroup name="Button">
-  <object id="218" x="1838.17" y="1270.33"/>
-  <object id="221" x="2195.33" y="1252.67"/>
-  <object id="222" x="2624" y="1010"/>
-  <object id="231" x="4617" y="1319.67"/>
-  <object id="232" x="4981.33" y="1312"/>
-  <object id="243" x="6283.39" y="1191.28"/>
-  <object id="244" x="6596.72" y="1044"/>
-  <object id="245" x="6796.06" y="988.727"/>
-  <object id="270" x="7855.82" y="1049.03"/>
-  <object id="282" x="9063.33" y="1343.33"/>
+  <object id="218" x="1680.17" y="1266.33"/>
+  <object id="221" x="2189.33" y="1240.67"/>
+  <object id="222" x="2444" y="1172"/>
+  <object id="231" x="4473" y="1341.67"/>
+  <object id="232" x="4799.33" y="1318"/>
+  <object id="243" x="6153.39" y="1215.28"/>
+  <object id="244" x="6464.72" y="1092"/>
+  <object id="245" x="6678.06" y="1002.73"/>
+  <object id="270" x="7789.82" y="1067.03"/>
+  <object id="282" x="9043.33" y="1361.33"/>
   <object id="325" x="12592" y="1304"/>
   <object id="327" x="12806" y="1304"/>
   <object id="329" x="12994" y="1300"/>

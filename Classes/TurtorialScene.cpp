@@ -43,8 +43,6 @@ void TurtorialScene::Tutorial2()
 	_diabox->UpdateString("The white circle will shrink to the button.When\nit fits, tap left or right on the screen \nor the button will break, Sonic does nothing");
 	_diabox->SetTapToContinue(false);
 	Pause();
-	_listButton.at(0)->circle->runAction(Sequence::create(ScaleTo::create(1.5, 0.29), CallFuncN::create(CC_CALLBACK_0(TurtorialScene::Tutorial2_part1, this)),NULL));
-
 	
 }
 
@@ -59,7 +57,6 @@ void TurtorialScene::Tutorial2_part1()
 	_myui->DisableExcept(_listButton.at(0)->mTag);
 
 	_listButton.at(0)->scheduleUpdate();
-	_listButton.at(0)->can_Active = true;
 	_listButton.at(0)->_time_dissapear = 1000;
 	_listButton.at(0)->isFirst = true;
 
@@ -75,7 +72,6 @@ void TurtorialScene::Tutorial3()
 
 	_myui->DisableExcept(_listButton.at(1)->mTag);
 	_listButton.at(1)->unscheduleUpdate();
-	_listButton.at(1)->circle->runAction(Sequence::create(ScaleTo::create(1.5, 0.29), CallFuncN::create(CC_CALLBACK_0(TurtorialScene::Tutorial3_part1, this)), NULL));
 }
 
 void TurtorialScene::Tutorial3_part1()
@@ -86,7 +82,6 @@ void TurtorialScene::Tutorial3_part1()
 	_listButton.at(1)->_time_dissapear = 1000;
 	_listButton.at(1)->scheduleUpdate();
 	_listButton.at(1)->Dissapear();
-	_listButton.at(1)->can_Active = true;
 }
 
 void TurtorialScene::Tutorial4()
@@ -264,7 +259,6 @@ void TurtorialScene::LoadMap(CCTMXTiledMap * map)
 	
 			auto button = new TapButton(Vec2(x_box, y_box), _mSonic, this);
 			button->setZOrder(8);
-			button->circle->setZOrder(7);
 			button->isFirst = true;
 			_listButton.pushBack(button);
 		}
@@ -470,13 +464,11 @@ void TurtorialScene::update(float dt)
 	{
 		
 		
-		if (_listButton.at(2)->can_Active)
-		{
+		
 			_myui->DisableExcept(_listButton.at(2)->mTag);
 			_diabox->UpdateString("Press!!");
 			_diabox->SetTapToContinue(false);
 			Pause();
-		}
 		if (_listButton.at(2)->isDelete)
 			Continue();
 	}

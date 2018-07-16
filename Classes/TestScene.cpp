@@ -55,7 +55,14 @@ void TestScene::CheckButton()
 			}
 		}
 		multi_but->canActive = canActive;
-}
+	}
+	for(int i= _listButton.size()-2;i>-1;i--)
+		if (_listButton.at(i)->isDelete)
+		{
+			_listButton.at(i + 1)->isFirst = true;
+			break;
+		}
+	
 	
 }
 
@@ -92,7 +99,6 @@ void TestScene::LoadMap(CCTMXTiledMap * map)
 
 			this->addChild(edgeSp); // Add v�o Layer
 		}
-
 
 
 		//Load DieLand (die when collision with)
@@ -159,9 +165,21 @@ void TestScene::LoadMap(CCTMXTiledMap * map)
 
 			auto button = new TapButton(Vec2(x_box, y_box), _mSonic, this);
 			button->setZOrder(8);
-			button->circle->setZOrder(7);
-			button->isFirst = true;
-			_listButton.pushBack(button);
+			button->isFirst = false;
+			_listButton.push_back(button);
+		}
+		_listButton.at(0)->isFirst = true;
+		for (int i = 0; i < _listButton.size(); i++)
+		{
+			for (int j = i + 1; j < _listButton.size(); j++)
+			{
+				if (_listButton.at(i)->getPositionX() > _listButton.at(j)->getPositionX())
+				{
+					auto temp = _listButton.at(i);
+					_listButton.at(i) = _listButton.at(j);
+					_listButton.at(j) = temp;
+				}
+			}
 		}
 	
 
@@ -329,10 +347,10 @@ bool TestScene::onContactBegin(cocos2d::PhysicsContact & contact)
 
 void TestScene::update(float dt)
 {
-	for (int i = 0; i < 3; ++i)
-	{
-		this->getScene()->getPhysicsWorld()->step(1 / 60.0f);
-	}
+	//for (int i = 0; i < 3; ++i)
+	//{
+	//	this->getScene()->getPhysicsWorld()->step(1 / 60.0f);
+	//}
 
 	RollBackground();
 	if (_mSonic->getPosition().x < 0) _mSonic->setPosition(0, _mSonic->getPosition().y);
@@ -345,7 +363,7 @@ void TestScene::update(float dt)
 
 void TestScene::updateStart(float dt)
 {
-	this->getScene()->getPhysicsWorld()->setFixedUpdateRate(60);
+//	this->getScene()->getPhysicsWorld()->setFixedUpdateRate(60);
 	_myui = new MyUI(_mSonic);
 
 	this->getScene()->addChild(_myui);
@@ -357,11 +375,6 @@ void TestScene::ResetTutorial4()
 {
 	_mSonic->setPosition(5000, 600);
 	_mSonic->SetStateByTag(SonicState::FALL);
-	TapButton *tap = new TapButton(_listButton.at(3)->getPosition(), _mSonic, this);
-	tap->isFirst = true;
-	_listButton.erase(_listButton.begin() + 3);
-	_listButton.insert(3, tap);
-
 	SetViewPointCenter(_mSonic->getPosition(), true);
 }
 
@@ -369,20 +382,10 @@ void TestScene::ResetTutorial5()
 {
 	_mSonic->setPosition(9400, 600);
 
-	TapButton *tap = new TapButton(_listButton.at(6)->getPosition(), _mSonic, this);
-	tap->isFirst = true;
-	_listButton.erase(_listButton.begin() + 6);
-	_listButton.insert(6, tap);
+	_listButton.at(6) = new TapButton(_listButton.at(6)->getPosition(), _mSonic, this);
+	_listButton.at(7) = new TapButton(_listButton.at(7)->getPosition(), _mSonic, this);
+	_listButton.at(8)= new TapButton(_listButton.at(8)->getPosition(), _mSonic, this);
 
-	TapButton *tap2 = new TapButton(_listButton.at(7)->getPosition(), _mSonic, this);
-	tap2->isFirst = true;
-	_listButton.erase(_listButton.begin() + 7);
-	_listButton.insert(7, tap2);
-
-	TapButton *tap3 = new TapButton(_listButton.at(8)->getPosition(), _mSonic, this);
-	tap3->isFirst = true;
-	_listButton.erase(_listButton.begin() +8);
-	_listButton.insert(8, tap3);
 	SetViewPointCenter(_mSonic->getPosition(), true);
 }
 
@@ -461,7 +464,7 @@ cocos2d::Scene * TestScene::createScene()
 
 	// optional: set debug draw
 	//scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
-	scene->getPhysicsWorld()->step(1 / 60.0f);
+	//scene->getPhysicsWorld()->step(1 / 60.0f);
 
 
 
