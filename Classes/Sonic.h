@@ -88,6 +88,9 @@ private:
 	Action* mCurrentAction;
 	Define::SWIPE_DIRECTION cur_Swipe_direction;
 
+	Vector<SpriteFrame*>  sonic_loadAnim(bool isRed, std::string key);
+	
+
 
 
 	

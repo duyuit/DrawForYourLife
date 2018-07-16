@@ -5,22 +5,7 @@ using namespace Define;
 TapButton::TapButton(Vec2 pos, Sonic* sprite, Layer* layer)
 {
 	isLeft = RandomHelper::random_int(1, 2);
-	switch (isLeft)
-	{
-	case 2:
-		this->initWithFile(Define::button_right_grey_path);
-		_break_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "right_break"), 0.1f)));
-		mTag = BUTTON_TAG::BUTTON_RIGHT;
-		break;
-		
-	case 1:
-		this->initWithFile(Define::button_left_grey_path);
-		mTag = BUTTON_TAG::BUTTON_LEFT;
-		_break_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "left_break"), 0.1f))); break;
 	
-	default:
-		break;
-	}
 
 	this->setPosition(pos);
 
@@ -36,6 +21,32 @@ TapButton::TapButton(Vec2 pos, Sonic* sprite, Layer* layer)
 
 TapButton::~TapButton()
 {
+}
+
+void TapButton::OnSetFirst(bool is)
+{
+	if (is == isFirst) return;
+	isFirst = is;
+	if (is)
+	{
+		switch (isLeft)
+		{
+		case 2:
+			this->initWithFile(Define::button_right_grey_path);
+			_break_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "right_break"), 0.1f)));
+			mTag = BUTTON_TAG::BUTTON_RIGHT;
+			break;
+
+		case 1:
+			this->initWithFile(Define::button_left_grey_path);
+			mTag = BUTTON_TAG::BUTTON_LEFT;
+			_break_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "left_break"), 0.1f))); break;
+
+		default:
+			break;
+		}
+
+	}
 }
 
 void TapButton::Active()
@@ -81,16 +92,17 @@ void TapButton::update(float dt)
 
 
 	if (isDelete) return;
+	if (this->getPositionX() < mTarget->getPositionX()) DeleteNow(false);
 	if (this->getPosition().x - mTarget->getPosition().x <= 600 && !isActive)
 		this->Active();
 	if (isActive && isFirst)
 	{
-	/*	if (can_Active)
-		{
-			mTarget->SetStateByTag(_action);
-			DeleteNow(true);
-			return;
-		}*/
+		
+		isTrue = true;
+			//mTarget->SetStateByTag(_action);
+		/*	DeleteNow(true);
+			return;*/
+		
 
 		BUTTON_TAG tag = mTarget->mJustTap;
 	

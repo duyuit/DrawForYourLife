@@ -5,22 +5,22 @@
 Sonic::Sonic()
 {
 	//Blue Sonic
-	Vector<SpriteFrame*> run_slow_FL = loadAnim("Sonic/sonic_animation.xml", "run_slow");
-	Vector<SpriteFrame*> run_normal_FL = loadAnim("Sonic/sonic_animation.xml", "run_normal");
-	Vector<SpriteFrame*> run_fast_FL = loadAnim("Sonic/sonic_animation.xml", "run_fast");
-	Vector<SpriteFrame*> jump_FL = loadAnim("Sonic/sonic_animation.xml", "jump");
-	Vector<SpriteFrame*> roll_FL = loadAnim("Sonic/sonic_animation.xml", "roll");
-	Vector<SpriteFrame*> fall_FL = loadAnim("Sonic/sonic_animation.xml", "fall");
-	Vector<SpriteFrame*> hurt_FL = loadAnim("Sonic/sonic_animation.xml", "hurt");
+	Vector<SpriteFrame*> run_slow_FL = sonic_loadAnim(false, "run_slow");
+	Vector<SpriteFrame*> run_normal_FL = sonic_loadAnim(false,"run_normal");
+	Vector<SpriteFrame*> run_fast_FL = sonic_loadAnim(false, "run_fast");
+	Vector<SpriteFrame*> jump_FL = sonic_loadAnim(false, "jump");
+	Vector<SpriteFrame*> roll_FL = sonic_loadAnim(false, "roll");
+	Vector<SpriteFrame*> fall_FL = sonic_loadAnim(false, "fall");
+	Vector<SpriteFrame*> hurt_FL = sonic_loadAnim(false, "hurt");
 
 	//Red Sonic
-	Vector<SpriteFrame*> run_slow_red_FL = loadAnim("Sonic/sonic_animation_red.xml", "run_slow");
-	Vector<SpriteFrame*> run_normal_red_FL = loadAnim("Sonic/sonic_animation_red.xml", "run_normal");
-	Vector<SpriteFrame*> run_fast_red_FL = loadAnim("Sonic/sonic_animation_red.xml", "run_fast");
-	Vector<SpriteFrame*> jump_red_FL = loadAnim("Sonic/sonic_animation_red.xml", "jump");
-	Vector<SpriteFrame*> roll_red_FL = loadAnim("Sonic/sonic_animation_red.xml", "roll");
-	Vector<SpriteFrame*> fall_red_FL = loadAnim("Sonic/sonic_animation_red.xml", "fall");
-	Vector<SpriteFrame*> hurt_red_FL = loadAnim("Sonic/sonic_animation_red.xml", "hurt");
+	Vector<SpriteFrame*> run_slow_red_FL = sonic_loadAnim(true, "run_slow");
+	Vector<SpriteFrame*> run_normal_red_FL = sonic_loadAnim(true, "run_normal");
+	Vector<SpriteFrame*> run_fast_red_FL = sonic_loadAnim(true, "run_fast");
+	Vector<SpriteFrame*> jump_red_FL = sonic_loadAnim(true, "jump");
+	Vector<SpriteFrame*> roll_red_FL = sonic_loadAnim(true, "roll");
+	Vector<SpriteFrame*> fall_red_FL = sonic_loadAnim(true, "fall");
+	Vector<SpriteFrame*> hurt_red_FL = sonic_loadAnim(true, "hurt");
 
 	//Blue Sonic Ani
 	run_fast_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_fast_FL, 0.01f)));
@@ -67,15 +67,17 @@ Sonic::Sonic()
 	mCurrentState = new SonicRunSlowState(mData);
 	mCurrentAnimate = run_slow_Ani;
 	mCurrentAction = mCurrentAnimate->get();
+
 	SetStateByTag(SonicState::StateAction::RUN_FAST);
+	
 	this->setFlipX(true);
 	this->setTag(Define::Player);
 
 	
-	
 	scheduleOnce(CC_SCHEDULE_SELECTOR(Sonic::updateStart), 0);
 	this->scheduleUpdate();
-	
+
+	SwapAllAni();
 }
 
 
@@ -452,7 +454,51 @@ void Sonic::updateStart(float dt)
 		TintTo::create(0.2f, 255, 255, 255),
 		nullptr));
 	streak->runAction(colorAction);	
+
+	SwapAllAni();
+	
 }
+
+Vector<SpriteFrame*> Sonic::sonic_loadAnim(bool isRed,std::string key)
+{
+	Vector<SpriteFrame*> list;
+	std::string path2 = FileUtils::getInstance()->getStringFromFile("Sonic/sonic_animation.xml");
+
+	tinyxml2::XMLDocument *doc = new tinyxml2::XMLDocument();
+	tinyxml2::XMLError eResult = doc->Parse(path2.c_str(), path2.size());
+
+	tinyxml2::XMLElement* root = doc->RootElement();
+	tinyxml2::XMLElement* child = root->FirstChildElement();
+	while (child)
+	{
+		if (child->Attribute("name") == key)
+		{
+			tinyxml2::XMLElement* ele = child->FirstChildElement();
+			while (ele)
+			{
+				float x;
+				ele->QueryFloatAttribute("x", &x);
+				float y;
+				ele->QueryFloatAttribute("y", &y);
+				float w;
+				ele->QueryFloatAttribute("w", &w);
+				float h;
+				ele->QueryFloatAttribute("h", &h);
+
+				if(isRed)
+					list.pushBack(SpriteFrame::create("Sonic/99072_red.png", Rect(x, y, w, h)));
+				else
+					list.pushBack(SpriteFrame::create("Sonic/99072.png", Rect(x, y, w, h)));
+				ele = ele->NextSiblingElement();
+			}
+			break;
+		}
+		child = child->NextSiblingElement();
+	}
+
+	return list;
+}
+
 
 
 void Sonic::SwapAni(RefPtr<Animate> *&blue, RefPtr<Animate> *&red)
@@ -466,6 +512,7 @@ void Sonic::SwapAni(RefPtr<Animate> *&blue, RefPtr<Animate> *&red)
 
 void Sonic::SwapAllAni()
 {
+	
 	SwapAni(run_fast_Ani, run_fast_red_Ani);
 	SwapAni(run_slow_Ani, run_slow_red_Ani);
 	SwapAni(run_normal_Ani, run_normal_red_Ani);
@@ -474,4 +521,6 @@ void Sonic::SwapAllAni()
 	SwapAni(fall_Ani, fall_red_Ani);
 	SwapAni(roll_sky_Ani, roll_sky_red_Ani);
 	SwapAni(hurt_Ani, hurt_red_Ani);
+	this->stopAllActions();
+	this->SetStateByTag(SonicState::RUN_FAST);
 }

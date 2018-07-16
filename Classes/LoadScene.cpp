@@ -1,4 +1,5 @@
 #include "LoadScene.h"
+#include "TestScene.h"
 USING_NS_CC;
 using namespace std;
 using namespace ui;
@@ -53,15 +54,18 @@ bool LoadScene::init()
 	border->addChild(mouseBar, 10);
 
 
+
+
 	auto actionMoveDone = CallFuncN::create(CC_CALLBACK_1(LoadScene::nextScene, this));
-	mouseBar->runAction(Sequence::create(ProgressFromTo::create(2.0f, 0.0f, 100), actionMoveDone, NULL));
+	mouseBar->runAction(Sequence::create(ProgressFromTo::create(1.0f, 0.0f, 100), actionMoveDone, NULL));
 
 	return true;
 }
 
 void LoadScene::nextScene(cocos2d::Node* sender)
 {
-	auto sceneLevelMap = LevelMap::createScene();
+	sceneLevelMap = TestScene::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(1, sceneLevelMap));
+
 }
 

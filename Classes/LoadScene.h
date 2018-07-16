@@ -12,6 +12,7 @@ public:
 	static cocos2d::Scene* createScene();
 	virtual bool init();
 	void nextScene(cocos2d::Node* sender);
+	Scene* sceneLevelMap;
 	CREATE_FUNC(LoadScene);
 };
 #endif

@@ -40,6 +40,7 @@ void TestScene::RollBackground()
 	_backgroundNode2->updatePosition();
 }
 
+
 void TestScene::CheckButton()
 {
 	for (auto mon : _listMonster)
@@ -59,7 +60,7 @@ void TestScene::CheckButton()
 	for(int i= _listButton.size()-2;i>-1;i--)
 		if (_listButton.at(i)->isDelete)
 		{
-			_listButton.at(i + 1)->isFirst = true;
+			_listButton.at(i + 1)->OnSetFirst(true);
 			break;
 		}
 	
@@ -168,7 +169,7 @@ void TestScene::LoadMap(CCTMXTiledMap * map)
 			button->isFirst = false;
 			_listButton.push_back(button);
 		}
-		_listButton.at(0)->isFirst = true;
+		
 		for (int i = 0; i < _listButton.size(); i++)
 		{
 			for (int j = i + 1; j < _listButton.size(); j++)
@@ -181,6 +182,7 @@ void TestScene::LoadMap(CCTMXTiledMap * map)
 				}
 			}
 		}
+		_listButton.at(0)->OnSetFirst(true);
 	
 
 		////Load Monster Position

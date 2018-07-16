@@ -58,6 +58,7 @@ MyUI::MyUI(Sonic * mSonic)
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 			//	but->setOpacity(200);
+		
 				mySonic->mJustTap = BUTTON_TAG::BUTTON_LEFT;
 				mySonic->_list_just_tap.push_back(BUTTON_TAG::BUTTON_LEFT);
 				SimpleAudioEngine::getInstance()->playEffect(Define::_music_button_effect_path);
@@ -160,6 +161,7 @@ MyUI::MyUI(Sonic * mSonic)
 		eventListener->onKeyReleased = [=](EventKeyboard::KeyCode keyCode, Event* event) {
 			if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW)
 			{
+				mySonic->countCombo = 10;
 				mySonic->mJustTap = BUTTON_TAG::BUTTON_LEFT;
 				mySonic->_list_just_tap.push_back(BUTTON_TAG::BUTTON_LEFT);
 			}
