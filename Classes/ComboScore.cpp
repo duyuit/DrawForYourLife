@@ -2,6 +2,7 @@
 
 ComboScore::ComboScore(Sonic* mSonic) {
 	_mySonic = mSonic;
+	_distance = mSonic->getContentSize().height;
 
 	//_sprite = Sprite::create("label-ring-bg.png");
 	//_sprite->setAnchorPoint(Vec2(0.5f, 0.5f));
@@ -87,7 +88,7 @@ void ComboScore::CreateEffect()
 	//_sprite->setRotation(-15);
 
 	_label->setString("X " + std::to_string(_mySonic->countCombo) + " COMBO");
-	_label->setPosition(Vec2(110, _director->getWinSize().height - _mySonic->getContentSize().height));
+	_label->setPosition(Vec2(110, _director->getWinSize().height - _distance));
 	_label->setRotation(-15);
 
 	_label->runAction(FadeIn::create(0.1));
@@ -171,6 +172,7 @@ void ComboScore::Evaluate()
 
 void ComboScore::update(float dt)
 {
+	
 	if (_pre_combo != _mySonic->countCombo)
 	{
 		if (_mySonic->countCombo == 0)
