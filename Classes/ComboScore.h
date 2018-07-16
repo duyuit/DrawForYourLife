@@ -14,6 +14,7 @@ public:
 	bool isCool = false, isGood = false, isExcellent = false, isPerfect = false;
 	Label* _label;	//Label X combo
 	Label* _label2; //Label (Nice!, Good!, Excellent!, Perfect!)
+	int _distance = 0;
 
 	ComboScore(Sonic* mSonic);
 
