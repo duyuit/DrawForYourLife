@@ -118,6 +118,7 @@ void TapButton::update(float dt)
 	{
 		
 		//isTrue = true;
+		//DeleteNow(true);
 			//mTarget->SetStateByTag(_action);
 		/*	DeleteNow(true);
 			return;*/
@@ -138,10 +139,13 @@ void TapButton::update(float dt)
 				this->initWithFile(Define::button_left_green_path);
 			else
 				this->initWithFile(Define::button_right_green_path);
+			if(this->getPositionX()- mTarget->getPositionX()>200)
+			mTarget->SetStateByTag(SonicState::RUNSKIP);
 		}
 
 		if (isTrue &&  this->getPositionX() - mTarget->getPositionX() <= 10)
 		{
+			mTarget->SetVelocityX(0);
 			mTarget->SetStateByTag(_action);
 			DeleteNow(true);
 			return;

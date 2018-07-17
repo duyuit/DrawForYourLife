@@ -45,12 +45,6 @@
     <ClCompile Include="..\Classes\SonicRunFastState.cpp">
       <Filter>src\Sonic</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\SonicRunNormalState.cpp">
-      <Filter>src\Sonic</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\SonicRunSlowState.cpp">
-      <Filter>src\Sonic</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\SonicState.cpp">
       <Filter>src\Sonic</Filter>
     </ClCompile>
@@ -123,6 +117,12 @@
     <ClCompile Include="..\Classes\ComboScore.cpp">
       <Filter>src\GameComponent</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\SonicDieState.cpp">
+      <Filter>src\Sonic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SonicRunSkipState.cpp">
+      <Filter>src\Sonic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -141,12 +141,6 @@
       <Filter>src\Sonic</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\SonicRunFastState.h">
-      <Filter>src\Sonic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SonicRunNormalState.h">
-      <Filter>src\Sonic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SonicRunSlowState.h">
       <Filter>src\Sonic</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\SonicState.h">
@@ -226,6 +220,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\ComboScore.h">
       <Filter>src\GameComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SonicDieState.h">
+      <Filter>src\Sonic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SonicRunSkipState.h">
+      <Filter>src\Sonic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -317,23 +317,13 @@ bool TestScene::onContactBegin(cocos2d::PhysicsContact & contact)
 
 		if (tagA == Define::Player)
 		{
-			if (spriteB->getTag() == Define::DIELAND)
-			{
-				if (spriteB->getPositionX() >= 8000)
-					ResetTutorial5();
-				else 	ResetTutorial4();
-			}
+			
 			Sonic *sonic = (Sonic*)spriteA;
 			sonic->HandleCollision(spriteB);
 		}
 		else
 		{
-			if (spriteA->getTag() == Define::DIELAND)
-			{
-				if (spriteA->getPositionX() >= 8000)
-					ResetTutorial5();
-				else 	ResetTutorial4();
-			}
+		
 			Sonic *sonic = (Sonic*)spriteB;
 			sonic->HandleCollision(spriteA);
 		}
@@ -362,6 +352,9 @@ void TestScene::update(float dt)
 	//	this->getScene()->getPhysicsWorld()->step(1 / 60.0f);
 	//}
 
+	if (_mSonic->isDelete)
+		Director::getInstance()->replaceScene(this->createScene());
+
 	RollBackground();
 	if (_mSonic->getPosition().x < 0) _mSonic->setPosition(0, _mSonic->getPosition().y);
 	SetViewPointCenter(_mSonic->getPosition(), true);
@@ -381,23 +374,7 @@ void TestScene::updateStart(float dt)
 
 }
 
-void TestScene::ResetTutorial4()
-{
-	_mSonic->setPosition(5000, 600);
-	_mSonic->SetStateByTag(SonicState::FALL);
-	SetViewPointCenter(_mSonic->getPosition(), true);
-}
 
-void TestScene::ResetTutorial5()
-{
-	_mSonic->setPosition(9400, 600);
-
-	_listButton.at(6) = new TapButton(_listButton.at(6)->getPosition(), _mSonic, this);
-	_listButton.at(7) = new TapButton(_listButton.at(7)->getPosition(), _mSonic, this);
-	_listButton.at(8)= new TapButton(_listButton.at(8)->getPosition(), _mSonic, this);
-
-	SetViewPointCenter(_mSonic->getPosition(), true);
-}
 
 bool TestScene::init()
 {
@@ -421,7 +398,7 @@ bool TestScene::init()
 
 	//Add Sonic
 	_mSonic = new Sonic();
-	_mSonic->setPosition(500, 200);
+	_mSonic->setPosition(500, 150);
 	SetViewPointCenter(_mSonic->getPosition(), true);
 	this->addChild(_mSonic);
 	LoadMap(_tileMap);
@@ -452,7 +429,7 @@ bool TestScene::init()
 	_mSonic->setZOrder(7);
 
 	LoadSound();
-
+	MyParticle::CreateWind(_mSonic->getPosition(), this);
 
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(TestScene::onContactBegin, this);

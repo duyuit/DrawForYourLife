@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Animations>
+
+  <Animation name="run_skip" imagePath="Sonic/99072.png" width="2048" height="4000">
+    <sprite x="129" y="3459" w="141" h="143" oX="129" oY="3459" oW="3473" oH="1420" />
+    <sprite x="385" y="3458" w="143" h="142" oX="385" oY="3458" oW="3473" oH="1420" />
+    <sprite x="641" y="3458" w="140" h="144" oX="641" oY="3458" oW="3473" oH="1420" />
+    <sprite x="897" y="3458" w="141" h="143" oX="897" oY="3458" oW="3473" oH="1420" />
+    <sprite x="1153" y="3458" w="141" h="142" oX="1153" oY="3458" oW="3473" oH="1420" />
+    <sprite x="1409" y="3459" w="142" h="141" oX="1409" oY="3459" oW="3473" oH="1420" />
+  </Animation>
+
   <Animation name="run_fast" imagePath="Sonic/99072.png" width="2048" height="3274">
     <sprite x="602" y="811" w="118" h="128" oX="602" oY="811" oW="581" oH="1859" />
     <sprite x="851" y="810" w="118" h="128" oX="851" oY="810" oW="581" oH="1859" />

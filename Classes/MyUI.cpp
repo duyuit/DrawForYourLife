@@ -115,7 +115,7 @@ MyUI::MyUI(Sonic * mSonic)
 			}
 		});
 		this->addChild(_restart, -1);
-
+	
 
 		//Add Sprite ring
 		ringIcon = Sprite::create("Item/ring.png", Rect(200, 48, 64, 50));

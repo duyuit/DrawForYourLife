@@ -31,8 +31,7 @@ public:
 	bool onContactBegin(cocos2d::PhysicsContact & contact);
 	void update(float dt);
 	void updateStart(float dt);
-	void ResetTutorial4();
-	void ResetTutorial5();
+	
 	virtual bool init();
 	static cocos2d::Scene* createScene();
 	CREATE_FUNC(TestScene);

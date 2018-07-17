@@ -1,15 +1,15 @@
 #include "cocos2d.h"
 #include <string>
-#include "SonicRunSlowState.h"
 #include "SonicData.h"
 #include "SonicState.h"
-#include "SonicRunNormalState.h"
 #include "SonicRunFastState.h"
 #include "SonicJumpState.h"
 #include "SonicRollState.h"
 #include "SonicFallState.h"
 #include "SonicHoldState.h"
 #include "SonicHurtState.h"
+#include "SonicDieState.h"
+#include "SonicRunSkipState.h"
 #include "GameDefine.h"
 #include "GameParticle.h"
 #include "SmallRing.h"
@@ -46,7 +46,7 @@ public:
 	void SetVelocityX(int x); //Set velocity X, old Y
 
 	bool _last_id_ring_sound = false;
-
+	bool isDelete = false;
 	void DropRing();
 	int ringCollected = 0; //Count rings Sonic collected
 	int baseLife = 2; //Count the number of your dropping rings (drop ring 3 times you die)
@@ -63,24 +63,23 @@ public:
 	Sprite* _roll_circle = nullptr;
 	Sprite* _roll_effect = nullptr;
 private:
-	RefPtr<Animate>  *run_slow_Ani;
-	RefPtr<Animate>  *run_normal_Ani;
+
 	RefPtr<Animate>  *run_fast_Ani;
 	RefPtr<Animate>  *jump_Ani;
 	RefPtr<Animate>  *roll_Ani;
 	RefPtr<Animate>  *fall_Ani;
 	RefPtr<Animate>  *roll_sky_Ani;
 	RefPtr<Animate>  *hurt_Ani;
+	RefPtr<Animate>  *run_skip_Ani;
 
-	RefPtr<Animate>  *run_slow_red_Ani;
-	RefPtr<Animate>  *run_normal_red_Ani;
+	
 	RefPtr<Animate>  *run_fast_red_Ani;
 	RefPtr<Animate>  *jump_red_Ani;
 	RefPtr<Animate>  *roll_red_Ani;
 	RefPtr<Animate>  *fall_red_Ani;
 	RefPtr<Animate>  *roll_sky_red_Ani;
 	RefPtr<Animate>  *hurt_red_Ani;
-
+	RefPtr<Animate>  *run_skip_red_Ani;
 
 	Sprite* dust = nullptr;
 	Sprite* flame = nullptr;

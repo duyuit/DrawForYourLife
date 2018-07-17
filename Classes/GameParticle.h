@@ -42,5 +42,35 @@ namespace MyParticle
 		smoke->runAction(sequence);
 	};
 
+	static void CreateWind(Vec2 pos, Layer* layer)
+	{
+		
+		
+		for (int i = 0; i < 10; i++)
+		{
+			int ran = RandomHelper::random_int(1, 3);
+			Sprite* wind;
+			switch (ran)
+			{case 1:
+				wind = Sprite::create("Particle/wind.png", Rect(0, 0, 207, 9));
+				break;
+			case 2:wind = Sprite::create("Particle/wind.png", Rect(0, 20, 342, 17));
+				break;
+			case 3: wind = Sprite::create("Particle/wind.png", Rect(0, 56, 194, 8));
+				break;
+
+			default:
+				break;
+			}
+			wind->setAnchorPoint(Vec2(0, 0));
+			int ran2 = RandomHelper::random_int(1, 10);
+			wind->setPosition(pos+ Vec2(1500+ 100 * ran +100 *ran2,100*ran + 50*ran2));
+			wind->runAction(Sequence::create(MoveBy::create(1, Vec2(-2000, 0)), RemoveSelf::create(), nullptr));
+			layer->addChild(wind);
+		}
+
+
+		
+	};
 
 }

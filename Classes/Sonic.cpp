@@ -5,43 +5,40 @@
 Sonic::Sonic()
 {
 	//Blue Sonic
-	Vector<SpriteFrame*> run_slow_FL = sonic_loadAnim(false, "run_slow");
-	Vector<SpriteFrame*> run_normal_FL = sonic_loadAnim(false,"run_normal");
+
+
 	Vector<SpriteFrame*> run_fast_FL = sonic_loadAnim(false, "run_fast");
 	Vector<SpriteFrame*> jump_FL = sonic_loadAnim(false, "jump");
 	Vector<SpriteFrame*> roll_FL = sonic_loadAnim(false, "roll");
 	Vector<SpriteFrame*> fall_FL = sonic_loadAnim(false, "fall");
 	Vector<SpriteFrame*> hurt_FL = sonic_loadAnim(false, "hurt");
-
+	Vector<SpriteFrame*> skip_FL = sonic_loadAnim(false, "run_skip");
 	//Red Sonic
-	Vector<SpriteFrame*> run_slow_red_FL = sonic_loadAnim(true, "run_slow");
-	Vector<SpriteFrame*> run_normal_red_FL = sonic_loadAnim(true, "run_normal");
+
 	Vector<SpriteFrame*> run_fast_red_FL = sonic_loadAnim(true, "run_fast");
 	Vector<SpriteFrame*> jump_red_FL = sonic_loadAnim(true, "jump");
 	Vector<SpriteFrame*> roll_red_FL = sonic_loadAnim(true, "roll");
 	Vector<SpriteFrame*> fall_red_FL = sonic_loadAnim(true, "fall");
 	Vector<SpriteFrame*> hurt_red_FL = sonic_loadAnim(true, "hurt");
-
+	Vector<SpriteFrame*> skip_red_FL = sonic_loadAnim(true, "run_skip");
 	//Blue Sonic Ani
 	run_fast_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_fast_FL, 0.01f)));
-	run_slow_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_slow_FL, 0.1f)));
-	run_normal_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_normal_FL, 0.07f)));
+
 	jump_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(jump_FL, 0.03f)));
 	roll_Ani=new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_FL, 0.03f)));
 	fall_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fall_FL, 0.01f)));
 	roll_sky_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(false, "roll_in_sky"), 0.03f)));;
 	hurt_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(hurt_FL, 0.05f)));
-
+	run_skip_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(skip_FL, 0.05f)));
 	//Red Sonic Ani
 	run_fast_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_fast_red_FL, 0.01f)));
-	run_slow_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_slow_red_FL, 0.1f)));
-	run_normal_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_normal_red_FL, 0.07f)));
+	
 	jump_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(jump_red_FL, 0.03f)));
 	roll_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_red_FL, 0.03f)));
 	fall_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fall_red_FL, 0.01f)));
 	roll_sky_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(true, "roll_in_sky"), 0.03f)));;
 	hurt_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(hurt_red_FL, 0.05f)));
-
+	run_skip_red_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(skip_red_FL, 0.05f)));
 	auto verti = PhysicsBody::createCircle(75, PhysicsMaterial(0.1f, 0.0f, 0.0f));
 
 	verti->setCategoryBitmask(1);    // 0010
@@ -55,7 +52,7 @@ Sonic::Sonic()
 	this->setPhysicsBody(verti);
 
 
-	this->initWithSpriteFrame(run_slow_FL.at(0));
+	this->initWithSpriteFrame(run_fast_FL.at(0));
 	this->setPosition(200, 100);
 	this->setAnchorPoint(Vec2(0.5f, 0));
 	verti->setPositionOffset(Vec2(117 / 4, 151 / 4));
@@ -64,8 +61,8 @@ Sonic::Sonic()
 
 	this->mData = new SonicData();
 	this->mData->player = this;
-	mCurrentState = new SonicRunSlowState(mData);
-	mCurrentAnimate = run_slow_Ani;
+	mCurrentState = new SonicRunFastState(mData);
+	mCurrentAnimate = run_fast_Ani;
 	mCurrentAction = mCurrentAnimate->get();
 
 	SetStateByTag(SonicState::StateAction::RUN_FAST);
@@ -172,13 +169,13 @@ void Sonic::update(float dt)
 
 
 	mCurrentState->update();
-	if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL  && mCurrentState->GetState() != SonicState::StateAction::ROLL)
+	if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL  && mCurrentState->GetState() != SonicState::StateAction::ROLL && mCurrentState->GetState() != SonicState::StateAction::DIE)
 		this->SetStateByTag(SonicState::StateAction::FALL);
-	if (count_to_reset_just_tap == 10)
-	{
-		count_to_reset_just_tap = 0;
-		mJustTap = NONE;
-	}
+	//if (count_to_reset_just_tap == 10)
+	//{
+	//	count_to_reset_just_tap = 0;
+	//	mJustTap = NONE;
+	//}
 }
 
 void Sonic::handle_swipe(Vec2 start, Vec2 end)
@@ -224,12 +221,7 @@ void Sonic::SetStateByTag(SonicState::StateAction action)
 {
 	switch (action)
 	{
-	case SonicState::RUN_SLOW:
-		this->SetState(new SonicRunSlowState(mData));
-		break;
-	case SonicState::RUN_NORMAL:
-		this->SetState(new SonicRunNormalState(mData));
-		break;
+	
 	case SonicState::RUN_FAST:
 		this->SetState(new SonicRunFastState(mData));
 		break;
@@ -248,7 +240,12 @@ void Sonic::SetStateByTag(SonicState::StateAction action)
 	case SonicState::HURT:
 		this->SetState(new SonicHurtState(mData));
 		break;
-
+	case SonicState::DIE:
+		this->SetState(new SonicDieState(mData));
+		break;
+	case SonicState::RUNSKIP:
+		this->SetState(new SonicRunSkipState(mData));
+		break;
 	}
 }
 
@@ -262,15 +259,7 @@ void Sonic::SetState(SonicState * state)
 
 	switch (mCurrentState->GetState())
 	{
-	case SonicState::RUN_SLOW:
-
-		mCurrentAnimate = run_slow_Ani;
-		mCurrentAction = RepeatForever::create(mCurrentAnimate->get());
-		break;
-	case SonicState::RUN_NORMAL:
-		mCurrentAnimate = run_normal_Ani;
-		mCurrentAction = RepeatForever::create(mCurrentAnimate->get());
-		break;
+	
 	case SonicState::RUN_FAST:
 		mCurrentAnimate = run_fast_Ani;
 		mCurrentAction = RepeatForever::create(mCurrentAnimate->get());
@@ -297,7 +286,23 @@ void Sonic::SetState(SonicState * state)
 		this->stopAllActions();
 		mCurrentAnimate = hurt_Ani;
 		mCurrentAction = mCurrentAnimate->get()->clone();
+		break; 
+	case SonicState::RUNSKIP:
+		mCurrentAnimate = run_skip_Ani;
+		mCurrentAction = RepeatForever::create(mCurrentAnimate->get());
 		break;
+	case SonicState::DIE:
+		this->stopAllActions();
+		this->getPhysicsBody()->removeFromWorld();
+
+		auto restart_scene = CallFunc::create([this]()
+		{
+			this->isDelete = true;
+		});
+		this->runAction(Sequence::create(JumpBy::create(1.5, Vec2(-200, -400), 200,1), restart_scene,nullptr));
+		return;
+		break;
+	
 	}
 	this->runAction(mCurrentAction);
 }
@@ -320,12 +325,12 @@ void Sonic::HandleCollision(Sprite * sprite)
 		_last_id_ring_sound = !_last_id_ring_sound;*/
 		experimental::AudioEngine::play2d(Define::_music_eat_ring_efftect_path);
 
-	//	SimpleAudioEngine::getInstance()->preloadEffect(Define::_music_eat_ring_efftect_path);
-	//	SimpleAudioEngine::getInstance()->sharedEngine()->playEffect(Define::_music_eat_ring_efftect_path);
-		//SimpleAudioEngine::sharedEngine()->playEffect(Define::_music_eat_ring_efftect_path);
+		//	SimpleAudioEngine::getInstance()->preloadEffect(Define::_music_eat_ring_efftect_path);
+		//	SimpleAudioEngine::getInstance()->sharedEngine()->playEffect(Define::_music_eat_ring_efftect_path);
+			//SimpleAudioEngine::sharedEngine()->playEffect(Define::_music_eat_ring_efftect_path);
 		ringCollected++;
 	}
-	else if(sprite->getTag() == Define::MUSHROOM /*&& (mCurrentState->GetState()== SonicState::FALL || mCurrentState->GetState() == SonicState::ROLL)*/)
+	else if (sprite->getTag() == Define::MUSHROOM /*&& (mCurrentState->GetState()== SonicState::FALL || mCurrentState->GetState() == SonicState::ROLL)*/)
 	{
 		auto mush_room = (Mushroom*)sprite;
 		mush_room->Active();
@@ -337,7 +342,8 @@ void Sonic::HandleCollision(Sprite * sprite)
 		else
 			SetVelocityX(200);
 	}
-	
+	else if (sprite->getTag() == Define::DIELAND)
+		this->SetStateByTag(SonicState::DIE);
 	//When Sonic hits enemy, push back and drop rings
 	if (sprite->getTag() == Define::LANDMONSTER && mCurrentState->GetState() != SonicState::ROLL)
 	{
@@ -514,8 +520,7 @@ void Sonic::SwapAllAni()
 {
 	
 	SwapAni(run_fast_Ani, run_fast_red_Ani);
-	SwapAni(run_slow_Ani, run_slow_red_Ani);
-	SwapAni(run_normal_Ani, run_normal_red_Ani);
+
 	SwapAni(jump_Ani, jump_red_Ani);
 	SwapAni(roll_Ani, roll_red_Ani);
 	SwapAni(fall_Ani, fall_red_Ani);
