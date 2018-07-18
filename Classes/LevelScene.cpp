@@ -44,19 +44,19 @@ void LevelScene::CheckButton()
 			}
 		}
 
-	for (auto mon : _listMonster)
+	for (auto multi_button : _listMultipleButton)
 	{
-		MultipleButton* multi_but = mon->_multiButton;
+		
 		bool canActive = true;
 		for (auto tap_button : _listButton)
 		{
-			if (tap_button->getPositionX() < multi_but->getPositionX() && !tap_button->isDelete)
+			if (tap_button->getPositionX() < multi_button->getPositionX() && !tap_button->isDelete)
 			{
 				canActive = false;
 				break;
 			}
 		}
-		multi_but->canActive = canActive;
+		multi_button->canActive = canActive;
 	}
 }
 
@@ -199,10 +199,12 @@ void LevelScene::LoadMap(string path)
 			Monster *mon = new FrogMonster(_mSonic);
 			mon->setPosition(x_box, y_box);
 			_listMonster.pushBack(mon);
+			_listMultipleButton.pushBack(mon->_multiButton);
 			this->addChild(mon, 7);
 		}
 
-		//Load MushRoom
+		//Load 
+
 		TMXObjectGroup *objectGroup_Mushroom = _tileMap->getObjectGroup("Mushroom");
 		for (int i = 0; i < objectGroup_Mushroom->getObjects().size(); i++)
 		{
