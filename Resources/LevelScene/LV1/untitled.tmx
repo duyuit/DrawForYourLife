@@ -55,11 +55,7 @@
   <object id="333" x="11716" y="1414" width="2358" height="188"/>
   <object id="341" x="7202" y="1258"/>
  </objectgroup>
- <objectgroup name="Land2">
-  <object id="357" x="11712.7" y="1412.33">
-   <polyline points="28,-2 -59.3333,11"/>
-  </object>
- </objectgroup>
+ <objectgroup name="Land2"/>
  <objectgroup name="Monster">
   <object id="226" x="3964" y="1348"/>
   <object id="259" x="8538.67" y="1526.67"/>

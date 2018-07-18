@@ -123,6 +123,9 @@
     <ClCompile Include="..\Classes\SonicRunSkipState.cpp">
       <Filter>src\Sonic</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\LevelScene.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -226,6 +229,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\SonicRunSkipState.h">
       <Filter>src\Sonic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LevelScene.h">
+      <Filter>src\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

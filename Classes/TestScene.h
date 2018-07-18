@@ -1,38 +1,13 @@
 #pragma once
-#include "InfiniteParallaxNode.h"
-#include "TapButton.h"
-#include "MyUI.h"
-#include "SmallRing.h"
-#include "FrogMonster.h"
-#include "MyDialogBox.h"
-#include "MultipleButton.h"
+#include "LevelScene.h"
 
 using namespace cocos2d;
-class TestScene : public cocos2d::Layer
+class TestScene : public LevelScene
 {
 public:
 	TestScene();
 	~TestScene();
-	Sonic* _mSonic;
-	InfiniteParallaxNode* _backgroundNode;
-	InfiniteParallaxNode* _backgroundNode2;
-	CCTMXTiledMap * _tileMap;
-	MyUI* _myui = nullptr;
-	vector<TapButton*> _listButton;
-	Vector<Monster*> _listMonster;
-	SimpleAudioEngine* audio;
-
-	void LoadSound();
-	void RollBackground();
-
-	void CheckButton();
-	void LoadMap(CCTMXTiledMap* map);
-	void SetViewPointCenter(Point position, bool isFast);
-	bool onContactBegin(cocos2d::PhysicsContact & contact);
-	void update(float dt);
-	void updateStart(float dt);
-	
-	virtual bool init();
+	bool init() override;
 	static cocos2d::Scene* createScene();
 	CREATE_FUNC(TestScene);
 };

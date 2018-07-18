@@ -40,7 +40,7 @@ void TurtorialScene::Tutorial1()
 
 void TurtorialScene::Tutorial2()
 {
-	_diabox->UpdateString("The white circle will shrink to the button.When\nit fits, tap left or right on the screen \nor the button will break, Sonic does nothing");
+	_diabox->UpdateString("You must press on left or right on screen\n to interact with button");
 	_diabox->SetTapToContinue(false);
 	Pause();
 	
@@ -49,11 +49,7 @@ void TurtorialScene::Tutorial2()
 void TurtorialScene::Tutorial2_part1()
 {
 
-	auto fadeOut = FadeOut::create(0.1f);
-	auto reverse = fadeOut->reverse();
-	ActionInterval *fade = Sequence::create(fadeOut, reverse, nullptr);
-	auto fading = RepeatForever::create(fade);
-	_listButton.at(0)->runAction(fading);
+
 	_myui->DisableExcept(_listButton.at(0)->mTag);
 
 	_listButton.at(0)->scheduleUpdate();

@@ -1,5 +1,6 @@
 #include "LoadScene.h"
 #include "TestScene.h"
+#include "TurtorialScene.h"
 USING_NS_CC;
 using namespace std;
 using namespace ui;

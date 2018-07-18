@@ -178,4 +178,4 @@ void MultipleButton::BlinkProgressBar()
 
 MultipleButton::~MultipleButton()
 {
-}
+} 
