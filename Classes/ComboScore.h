@@ -16,6 +16,7 @@ public:
 	Label* _label2; //Label (Nice!, Good!, Excellent!, Perfect!)
 	int _distance = 0;
 
+	Sprite* flame;
 	ComboScore(Sonic* mSonic);
 
 	void SetColor();
@@ -25,5 +26,9 @@ public:
 	void Evaluate();
 
 	void update(float dt);
+private:
+	RefPtr<Animate>  *flame_Ani;
+	RefPtr<Animate>  *flame_blue_Ani;
+	Vector<SpriteFrame*> flame_FL;
 };
 

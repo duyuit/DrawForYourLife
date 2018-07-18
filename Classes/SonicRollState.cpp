@@ -11,6 +11,7 @@ SonicRollState::SonicRollState(SonicData * playerData)
 	else
 		this->mPlayerData->player->SetVelocityX(500);
 	sound_effect= SimpleAudioEngine::getInstance()->playEffect(Define::_music_roll_effect_path);
+	MyParticle::CreateWind(this->mPlayerData->player->getPosition(), (Layer*) this->mPlayerData->player->getParent());
 
 
 }

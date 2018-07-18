@@ -229,43 +229,43 @@ void TestScene::LoadMap(CCTMXTiledMap * map)
 		}
 
 		//// Process object layer 
-		//auto objectGroup = map->getObjectGroup("Land2");
-		//auto objects = objectGroup->getObjects();
-		//for (auto object : objects)
-		//{
-		//	auto dic = object.asValueMap();
-		//	float objectX = dic.at("x").asFloat();
-		//	float objectY = dic.at("y").asFloat();
+		auto objectGroup = map->getObjectGroup("Land2");
+		auto objects = objectGroup->getObjects();
+		for (auto object : objects)
+		{
+			auto dic = object.asValueMap();
+			float objectX = dic.at("x").asFloat();
+			float objectY = dic.at("y").asFloat();
 
 
-		//	auto drawNode = DrawNode::create();
-		//	auto pointsVector = dic.at("polylinePoints").asValueVector();
-		//	auto size = pointsVector.size();
-		//	// Get Point 
-		//	if (size > 0)
-		//	{
-		//		Vec2* points = new Vec2[size];
-		//		int i = 0;
-		//		for (auto pointValue : pointsVector)
-		//		{
-		//			auto dicp = pointValue.asValueMap();
-		//			auto x = dicp.at("x").asFloat();
-		//			auto y = -dicp.at("y").asFloat(); // y takes a negative value 
-		//			points[i] = Vec2(x, y);
-		//			i++;
-		//		}
-		//		// Draw the polyline 
-		//		//  drawNode->drawPoly(points, size, false, Color4F::RED);
-		//		auto sprite = Sprite::create();
-		//		auto box = PhysicsBody::createEdgePolygon(points, 5);
-		//		sprite->setPhysicsBody(box);
-		//		sprite->setPosition(objectX, objectY);
-		//		this->addChild(sprite);
-		//		delete[] points;
-		//		//drawNode->setPosition(objectX, objectY);
-		//		//this->addChild(drawNode, 10);
-		//	}
-		//}
+			auto drawNode = DrawNode::create();
+			auto pointsVector = dic.at("polylinePoints").asValueVector();
+			auto size = pointsVector.size();
+			// Get Point 
+			if (size > 0)
+			{
+				Vec2* points = new Vec2[size];
+				int i = 0;
+				for (auto pointValue : pointsVector)
+				{
+					auto dicp = pointValue.asValueMap();
+					auto x = dicp.at("x").asFloat();
+					auto y = -dicp.at("y").asFloat(); // y takes a negative value 
+					points[i] = Vec2(x, y);
+					i++;
+				}
+				// Draw the polyline 
+				//  drawNode->drawPoly(points, size, false, Color4F::RED);
+				auto sprite = Sprite::create();
+				auto box = PhysicsBody::createEdgePolygon(points, 5);
+				sprite->setPhysicsBody(box);
+				sprite->setPosition(objectX, objectY);
+				this->addChild(sprite);
+				delete[] points;
+				//drawNode->setPosition(objectX, objectY);
+				//this->addChild(drawNode, 10);
+			}
+		}
 
 
 
@@ -347,6 +347,8 @@ bool TestScene::onContactBegin(cocos2d::PhysicsContact & contact)
 
 void TestScene::update(float dt)
 {
+	log("%f", _mSonic->GetVelocity().x);
+	//CCLog(to_string().c_str());
 	//for (int i = 0; i < 3; ++i)
 	//{
 	//	this->getScene()->getPhysicsWorld()->step(1 / 60.0f);

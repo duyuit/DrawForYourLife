@@ -62,6 +62,7 @@ namespace MyParticle
 			default:
 				break;
 			}
+			wind->setOpacity(200);
 			wind->setAnchorPoint(Vec2(0, 0));
 			int ran2 = RandomHelper::random_int(1, 10);
 			wind->setPosition(pos+ Vec2(1500+ 100 * ran +100 *ran2,100*ran + 50*ran2));

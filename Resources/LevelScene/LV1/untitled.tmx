@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-up" width="220" height="25" tilewidth="64" tileheight="64" infinite="0" nextobjectid="356">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-up" width="220" height="25" tilewidth="64" tileheight="64" infinite="0" nextobjectid="364">
  <tileset firstgid="1" name="Untitled" tilewidth="64" tileheight="64" tilecount="81" columns="9">
   <image source="tileset_map.png" trans="9ef3d4" width="600" height="600"/>
  </tileset>
- <layer name="Tile Layer 2" width="220" height="25" visible="0">
+ <layer name="Tile Layer 2" width="220" height="25">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -54,6 +54,11 @@
   <object id="332" x="11202" y="1434" width="508" height="10"/>
   <object id="333" x="11716" y="1414" width="2358" height="188"/>
   <object id="341" x="7202" y="1258"/>
+ </objectgroup>
+ <objectgroup name="Land2">
+  <object id="357" x="11712.7" y="1412.33">
+   <polyline points="28,-2 -59.3333,11"/>
+  </object>
  </objectgroup>
  <objectgroup name="Monster">
   <object id="226" x="3964" y="1348"/>

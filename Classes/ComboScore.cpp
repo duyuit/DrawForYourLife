@@ -19,6 +19,16 @@ ComboScore::ComboScore(Sonic* mSonic) {
 	_label2->setVisible(false);
 	_mySonic->addChild(_label2, 100);
 
+
+	flame = Sprite::create();
+	flame->setAnchorPoint(Vec2(0.5, 0));
+	flame->setScale(1.2, 0.7);
+	flame_FL =Define::loadAnim("Particle/flame_combo.xml", "1");
+	flame_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(flame_FL, 0.06f)));
+	flame_blue_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Particle/flame_combo_blue.xml", "1"), 0.06f)));
+	//flame->runAction(RepeatForever::create(flame_Ani->get()));
+	this->addChild(flame,0);
+
 	this->scheduleUpdate();
 }
 
@@ -89,6 +99,7 @@ void ComboScore::CreateEffect()
 
 	_label->setString("X " + std::to_string(_mySonic->countCombo) + " COMBO");
 	_label->setPosition(Vec2(110, _director->getWinSize().height - _distance));
+	flame->setPosition(_label->getPosition()+Vec2(0,-50));
 	_label->setRotation(-15);
 
 	_label->runAction(FadeIn::create(0.1));
@@ -172,18 +183,40 @@ void ComboScore::Evaluate()
 
 void ComboScore::update(float dt)
 {
-	
-	if (_pre_combo != _mySonic->countCombo)
+	int combo = _mySonic->countCombo;
+	if (_pre_combo != combo)
 	{
-		if (_mySonic->countCombo == 0)
+		if (combo == 0)
 		{
 			ResetCombo();
+			flame->setVisible(false);
 		}
 		else
 		{
 			SimpleAudioEngine::getInstance()->playEffect(Define::_music_combo_effect_path);
 			UpdateCombo();
 
+			
+			if (combo < 5) flame->setVisible(false);
+			else flame->setVisible(true);
+			if (combo > 5 && combo < 10 && _pre_combo <= 5)
+			{
+				flame->stopAllActions();
+				flame->runAction(RepeatForever::create(flame_blue_Ani->get()));
+			}
+			else if (combo > 10 && combo < 15 && _pre_combo <= 10)
+			{
+				flame->stopAllActions();
+				flame->runAction(RepeatForever::create(flame_Ani->get()));
+			}
+			else if (combo > 15 && _pre_combo <= 15)
+			{
+				flame->stopAllActions();
+				flame_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(flame_FL, 0.02f)));
+			//	flame_Ani->get()->getAnimation()->setsetDelayPerUnit(0.02f);
+				flame->runAction(RepeatForever::create(flame_Ani->get()));
+			}
+			
 		}
 		SetColor();	
 	}

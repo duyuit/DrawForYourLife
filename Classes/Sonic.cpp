@@ -169,6 +169,9 @@ void Sonic::update(float dt)
 
 
 	mCurrentState->update();
+	if(_roll_effect!=nullptr)
+	if (mCurrentState->GetState() != SonicState::ROLL && _roll_effect->isVisible())
+		_roll_effect->setVisible(false);
 	if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL  && mCurrentState->GetState() != SonicState::StateAction::ROLL && mCurrentState->GetState() != SonicState::StateAction::DIE)
 		this->SetStateByTag(SonicState::StateAction::FALL);
 	//if (count_to_reset_just_tap == 10)
@@ -526,6 +529,7 @@ void Sonic::SwapAllAni()
 	SwapAni(fall_Ani, fall_red_Ani);
 	SwapAni(roll_sky_Ani, roll_sky_red_Ani);
 	SwapAni(hurt_Ani, hurt_red_Ani);
+	SwapAni(run_skip_Ani, run_skip_red_Ani);
 	this->stopAllActions();
 	this->SetStateByTag(mCurrentState->GetState());
 }

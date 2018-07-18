@@ -75,28 +75,28 @@ void MultipleButton::update(float dt)
 	if (isDelete) return;
 	if (this->getPosition().x - _mSonic->getPosition().x <= 800 && !isActive && canActive)
 		this->Active();
-	//if (isActive && _mSonic->_list_just_tap.size()>0)
-	//{
-	//	for (int i = 0; i <  _mSonic->_list_just_tap.size(); i++)
-	//	{
-	//		if (_mSonic->_list_just_tap.at(i) != _list_button_tag.at(i))
-	//		{
-	//			DeleteNow(false);
-	//		}
-	//		else
-	//		{
-	//			if (_list_button_tag.at(i) == 1)
-	//				_list_button_sprite.at(i)->initWithFile(Define::button_left_green_path);
-	//			else
-	//				_list_button_sprite.at(i)->initWithFile(Define::button_right_green_path);
-	//			if (i == _list_button_tag.size() - 1) 
-	//				DeleteNow(true);
-	//		}
-	//	
-	//	}
-	//	
-	//}
-	if (isActive)
+	if (isActive && _mSonic->_list_just_tap.size()>0)
+	{
+		for (int i = 0; i <  _mSonic->_list_just_tap.size(); i++)
+		{
+			if (_mSonic->_list_just_tap.at(i) != _list_button_tag.at(i))
+			{
+				DeleteNow(false);
+			}
+			else
+			{
+				if (_list_button_tag.at(i) == 1)
+					_list_button_sprite.at(i)->initWithFile(Define::button_left_green_path);
+				else
+					_list_button_sprite.at(i)->initWithFile(Define::button_right_green_path);
+				if (i == _list_button_tag.size() - 1) 
+					DeleteNow(true);
+			}
+		
+		}
+		
+	}
+	/*if (isActive)
 	{
 		count_to_auto_play++;
 		int i = count_to_auto_play / 20;
@@ -110,7 +110,7 @@ void MultipleButton::update(float dt)
 			if (i == 2) DeleteNow(true);
 		}
 
-	}
+	}*/
 		
 }
 
