@@ -5,7 +5,7 @@
 SonicDieState::SonicDieState(SonicData * playerData)
 {
 	this->mPlayerData = playerData;
-	this->mPlayerData->player->setTextureRect(Rect(1632,3220,164,178));
+//	this->mPlayerData->player->setTextureRect(Rect(1632,3220,164,178));
 
 }
 

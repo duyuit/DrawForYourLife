@@ -34,19 +34,28 @@ void TurtorialScene::Tutorial1()
 	Pause();
 	_myui->setVisible(true);
 	_diabox->UpdateString("Look! There's a secret button on your screen\nit will active when you close enought");
-
+	
 
 }
 
 void TurtorialScene::Tutorial2()
 {
-	_diabox->UpdateString("You must press on left or right on screen\n to interact with button");
-	_diabox->SetTapToContinue(false);
-	if(_listButton.at(0)->mTag==BUTTON_LEFT)
-	_myui->DisableExcept(true);
-	else _myui->DisableExcept(false);
+	_diabox->UpdateString("Now you can see direction of button, and a timer.\nPress more soon,more score for you");
+//	_listButton.at(0)->mouseBar->stopAllActions();
+	_listButton.at(0)->time = 100;
 	Pause();
 	
+	
+}
+
+void TurtorialScene::Tutorial2_part1()
+{
+	_diabox->UpdateString("You must press on left or right on screen\n to interact with button");
+	_diabox->SetTapToContinue(false);
+	BUTTON_TAG temp = _listButton.at(0)->mTag;
+	_myui->DisableExcept(_listButton.at(0)->mTag);
+	count_tuto++;
+	Pause();
 }
 
 
@@ -113,25 +122,25 @@ void TurtorialScene::ResetTutorial5()
 void TurtorialScene::Pause()
 {
 	//_mSonic->SetVelocity(0,0);
-	_isPause = true;
-	_diabox->setVisible(true);
-	_diabox->setPosition(_mSonic->getPositionX(), _director->getWinSize().height*3/4);
-	blackImage->setPosition(_mSonic->getPosition());
-	blackImage->setVisible(true);
+	//_isPause = true;
+	//_diabox->setVisible(true);
+	//_diabox->setPosition(_mSonic->getPositionX(), _director->getWinSize().height*3/4);
+	//blackImage->setPosition(_mSonic->getPosition());
+	//blackImage->setVisible(true);
 }
 
 void TurtorialScene::Continue()
 {
-	if (count_tuto == 12) //Bug fix: tap to continue can active button of frog
-		_listMonster.at(0)->scheduleUpdate();
-	if(count_tuto!=7) //Bug fix: in Third button, player can break button before 
-	_myui->EnableAll();
-	if (count_tuto != 10) //Bug fix: When try again, it skip ring instruction
-	count_tuto++;
-	_isPause = false;
-	_mSonic->SetVelocityX(340);
-	_diabox->setVisible(false);
-	blackImage->setVisible(false);
+	//if (count_tuto == 12) //Bug fix: tap to continue can active button of frog
+	//	_listMonster.at(0)->scheduleUpdate();
+	//if(count_tuto!=7) //Bug fix: in Third button, player can break button before 
+	//_myui->EnableAll();
+	//if (count_tuto != 10) //Bug fix: When try again, it skip ring instruction
+	//count_tuto++;
+	//_isPause = false;
+	//_mSonic->SetVelocityX(340);
+	//_diabox->setVisible(false);
+	//blackImage->setVisible(false);
 }
 
 
@@ -190,85 +199,96 @@ bool TurtorialScene::onContactBegin(cocos2d::PhysicsContact & contact)
 
 void TurtorialScene::update(float dt)
 {
-	
-	if(_myui!=nullptr && _myui->_istouch) //Bug fix: tap button cant skip
-		if (_isPause && count_tuto != 2 && count_tuto != 3 && count_tuto != 6 && count_tuto != 8) Continue();
-
-	if (_listButton.at(0)->getPositionX()- _mSonic->getPositionX() <= 800 && count_tuto < 2 && !_isPause)
+	/*if (_mSonic->isDelete)
 	{
-		Tutorial1();
-	}
-	if (_listButton.at(0)->getPositionX() - _mSonic->getPositionX() <= 600 && count_tuto == 2 )
-	{
-		Tutorial2();
-		count_tuto++;
-	}
-	if (count_tuto == 3 )
-	{
-		if (_listButton.at(0)->isTrue)
-		{
-			Continue();
-			_myui->EnableAll();
-		}
-	}
-	if (count_tuto == 4 && _listButton.at(1)->getPositionX() - _mSonic->getPositionX() <= 900 && !_isPause)
-	{
-		Pause();
-		_diabox->UpdateString("Good job! Let's continue!");
-		_diabox->SetTapToContinue(true);
-	}
-	if (_listButton.at(1)->getPositionX() - _mSonic->getPositionX() <= 150 && count_tuto ==5 && !_isPause)
-	{
-		Tutorial3();
-	
-		count_tuto++;
-	}
-	if (count_tuto == 6)
-	{
-	
-		if (_listButton.at(1)->isDelete)
-		{
-			Continue();
-		}
-	}
-	if (count_tuto == 7 && _listButton.at(2)->getPositionX()-_mSonic->getPositionX()<=650 && !_isPause)
-	{
-	
-		if(!_isPause)
-		Tutorial4();
-	}
-	if (count_tuto == 8)
-	{
-		
-		
-		
-			_myui->DisableExcept(_listButton.at(2)->mTag);
-			_diabox->UpdateString("Press!!");
-			_diabox->SetTapToContinue(false);
-			Pause();
-		if (_listButton.at(2)->isDelete)
-			Continue();
-	}
-	if (count_tuto == 9 && _listButton.at(3)->getPositionX()-_mSonic->getPositionX()<=1200 && !_isPause)
-	{
-		_diabox->UpdateString("OK! Now you know how to tap the screen!");
-		_diabox->SetTapToContinue(true);
-		Pause();
-	}
-	/*if (count_tuto == 10 && _listRing.at(0)->getPositionX() - _mSonic->getPositionX()<=800 && !_isPause)
-	{
-		Pause();
-		_diabox->UpdateString("Collect ring to upgrade your abilities");
-		count_tuto++;
+		Director::getInstance()->replaceScene(TurtorialScene::createScene());
+		return;
 	}*/
-	if (count_tuto == 12 && _listMonster.at(0)->getPositionX() - _mSonic->getPositionX() <= 800 && !_isPause)
-	{
-		Pause();
-		_listMonster.at(0)->unscheduleUpdate();
-		_diabox->UpdateString("Be careful! If you let button break, \nyou'll hit the enemy and drop your rings");
-	}
+	CheckButton();
 	RollBackground();
-	if (_isPause)
+	SetViewPointCenter(_mSonic->getPosition(), true);
+	{
+		//if(_myui!=nullptr && _myui->_istouch) //Bug fix: tap button cant skip
+		//	if (_isPause && count_tuto != 2 && count_tuto != 3 && count_tuto != 6 && count_tuto != 8) Continue();
+
+		//if (_listButton.at(0)->getPositionX()- _mSonic->getPositionX() <= 800 && count_tuto < 2 && !_isPause)
+		//{
+		//	Tutorial1();
+		//}
+
+		//if (_listButton.at(0)->getPositionX() - _mSonic->getPositionX() <= 600 && count_tuto == 2 )
+		//{
+		//	Tutorial2();
+		//	//count_tuto++;
+		//}
+		//if (count_tuto == 3 && !_isPause)
+		//{
+		//	Tutorial2_part1();
+		//	
+		//}
+		//if (count_tuto == 4 && _isPause)
+		//{
+		//	if (_listButton.at(0)->isTrue)
+		//	{
+		//	Continue();
+		//	_myui->EnableAll();
+		//	}
+		//	/*Pause();
+		//	_diabox->UpdateString("Good job! Let's continue!");
+		//	_diabox->SetTapToContinue(true);*/
+		//}
+		//if (_listButton.at(1)->getPositionX() - _mSonic->getPositionX() <= 150 && count_tuto ==5 && !_isPause)
+		//{
+		//	Tutorial3();
+		//
+		//	count_tuto++;
+		//}
+		//if (count_tuto == 6)
+		//{
+		//
+		//	if (_listButton.at(1)->isDelete)
+		//	{
+		//		Continue();
+		//	}
+		//}
+		//if (count_tuto == 7 && _listButton.at(2)->getPositionX()-_mSonic->getPositionX()<=650 && !_isPause)
+		//{
+		//
+		//	if(!_isPause)
+		//	Tutorial4();
+		//}
+		//if (count_tuto == 8)
+		//{
+		//	
+		//	
+		//	
+		//		_myui->DisableExcept(_listButton.at(2)->mTag);
+		//		_diabox->UpdateString("Press!!");
+		//		_diabox->SetTapToContinue(false);
+		//		Pause();
+		//	if (_listButton.at(2)->isDelete)
+		//		Continue();
+		//}
+		//if (count_tuto == 9 && _listButton.at(3)->getPositionX()-_mSonic->getPositionX()<=1200 && !_isPause)
+		//{
+		//	_diabox->UpdateString("OK! Now you know how to tap the screen!");
+		//	_diabox->SetTapToContinue(true);
+		//	Pause();
+		//}
+		///*if (count_tuto == 10 && _listRing.at(0)->getPositionX() - _mSonic->getPositionX()<=800 && !_isPause)
+		//{
+		//	Pause();
+		//	_diabox->UpdateString("Collect ring to upgrade your abilities");
+		//	count_tuto++;
+		//}*/
+		//if (count_tuto == 12 && _listMonster.at(0)->getPositionX() - _mSonic->getPositionX() <= 800 && !_isPause)
+		//{
+		//	Pause();
+		//	_listMonster.at(0)->unscheduleUpdate();
+		//	_diabox->UpdateString("Be careful! If you let button break, \nyou'll hit the enemy and drop your rings");
+		//}
+	}
+	/*if (_isPause)
 	{
 		count_to_move_scene++;
 		_mSonic->SetVelocityX(0);
@@ -285,10 +305,10 @@ void TurtorialScene::update(float dt)
 	}
 	else
 	{
-		if (_mSonic->getPosition().x < 0) _mSonic->setPosition(0, _mSonic->getPosition().y);
-		SetViewPointCenter(_mSonic->getPosition(), true);
+		if (_mSonic->getPosition().x < 0) _mSonic->setPosition(0, _mSonic->getPosition().y);*/
+		
 
-	}
+	//}
 
 }
 
@@ -311,12 +331,14 @@ bool TurtorialScene::init()
 	//_mSonic->setPosition(1000, 200);
 
 	
-	blackImage = Sprite::create("TurtorialScene/black.png");
+	/*blackImage = Sprite::create("TurtorialScene/black.png");
 	blackImage->setColor(Color3B(0, 0, 0));
 	blackImage->setScale(20);
 	blackImage->setOpacity(100);
-	this->addChild(blackImage, 6);
-
+	this->addChild(blackImage, 6);*/
+	
+	_mSonic->setPosition(300, 150);
+	SetViewPointCenter(_mSonic->getPosition(), true);
 	_mSonic->setZOrder(7);
 
 
@@ -333,7 +355,7 @@ bool TurtorialScene::init()
 
 		// trigger when you let up
 		listener1->onTouchEnded = [this](Touch* touch, Event* event) {
-			if (_isPause && count_tuto != 2 && count_tuto != 3 && count_tuto != 6 && count_tuto != 8) Continue();
+		//	if (_isPause  && count_tuto != 6 && count_tuto != 8) Continue();
 		};
 
 
@@ -351,7 +373,6 @@ bool TurtorialScene::init()
 	}
 
 	
-	Pause();
 	return true;
 }
 

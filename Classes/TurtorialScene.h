@@ -18,6 +18,7 @@ public:
 	void Tutorial1();
 
 	void Tutorial2();
+	void Tutorial2_part1();
 
 	void Tutorial3();
 	void Tutorial3_part1();

@@ -11,12 +11,13 @@ public:
 	SonicState::StateAction _action = SonicState::JUMP;
 	int isLeft;
 	int isCountCombo = false;
-	
+	float time = 1.4;
+	ProgressTimer* mouseBar;
 	Sprite* _border;
 	Sprite* _progressbar;
 
 	RefPtr<Animate>  *_break_Ani;
-	BUTTON_TAG mTag;
+	BUTTON_TAG mTag = NONE;
 	bool isDelete=false;
 	bool canActive = false;
 	bool isActive = false;
@@ -28,7 +29,7 @@ public:
 	void DeleteNow(bool check);
 	void update(float dt);
 protected:
-	ProgressTimer* mouseBar;
+
 	Label* _label; //Perfect, Great, Bad
 };
 

@@ -281,15 +281,15 @@ void LevelScene::SetViewPointCenter(Point position, bool isFast)
 	if (_mSonic->getPositionX()<13500)
 		viewPoint = centerOfView - actualPosition + Vec2(-300, 0);
 	else
-		viewPoint = centerOfView - actualPosition;
+	viewPoint = centerOfView - actualPosition;
 
 
 	auto currentCameraPosition = this->getPosition();
 	//	this->getScene()->getDefaultCamera()->setPosition(viewPoint);
-	if (isFast)
-		this->setPosition(viewPoint);
-	else
-		this->setPosition((viewPoint - currentCameraPosition)*_director->getDeltaTime() + currentCameraPosition);
+	//if (isFast)
+	this->setPosition(viewPoint);
+	/*else
+		this->setPosition((viewPoint - currentCameraPosition)*_director->getDeltaTime() + currentCameraPosition);*/
 }
 
 bool LevelScene::onContactBegin(cocos2d::PhysicsContact & contact)

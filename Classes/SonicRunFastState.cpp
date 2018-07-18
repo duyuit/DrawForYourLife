@@ -19,7 +19,7 @@ SonicRunFastState::~SonicRunFastState()
 
 void SonicRunFastState::update()
 {
-	this->mPlayerData->player->SetVelocityX(340);
+	this->mPlayerData->player->SetVelocityX(2000);
 }
 
 void SonicRunFastState::handle_swipe(Define::SWIPE_DIRECTION direct)

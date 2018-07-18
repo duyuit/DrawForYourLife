@@ -5,7 +5,7 @@ using namespace Define;
 TapButton::TapButton(Vec2 pos, Sonic* sprite, Layer* layer)
 {
 	isLeft = RandomHelper::random_int(1, 2);
-	
+	mTag =(BUTTON_TAG) isLeft;
 	this->initWithFile("Button/unknow.png");
 	this->setPosition(pos);
 
@@ -35,7 +35,7 @@ TapButton::TapButton(Vec2 pos, Sonic* sprite, Layer* layer)
 
 	mouseBar = ProgressTimer::create(_progressbar);
 	mouseBar->setType(ProgressTimerType::BAR);
-	mouseBar->setAnchorPoint(Vec2(0.4, 0));
+	mouseBar->setAnchorPoint(Vec2(0.5, 0));
 	mouseBar->setBarChangeRate(Vec2(1, 0));
 	mouseBar->setMidpoint(Vec2(0.0, 0.0));
 	mouseBar->setReverseDirection(true);
@@ -94,18 +94,16 @@ void TapButton::SetCanActive(bool is)
 			mouseBar->runAction(Spawn::create(Blink::create(0.7, 8),ProgressTo::create(0.3, 100.0f),nullptr));
 			
 		});
-		mouseBar->runAction(Sequence::create(ProgressTo::create(1.4f, 83.0f), func, nullptr));
+		mouseBar->runAction(Sequence::create(ProgressTo::create(time, 83.0f), func, nullptr));
 		switch (isLeft)
 		{
 		case 2:
 			this->initWithFile(Define::button_right_blue_path);
 			_break_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "blue_right_break"), 0.1f)));
-			mTag = BUTTON_TAG::BUTTON_RIGHT;
 			break;
 
 		case 1:
 			this->initWithFile(Define::button_left_blue_path);
-			mTag = BUTTON_TAG::BUTTON_LEFT;
 			_break_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "blue_left_break"), 0.1f))); break;
 
 		default:
@@ -125,19 +123,17 @@ void TapButton::Active()
 			mouseBar->runAction(Spawn::create(Blink::create(0.7, 8), ProgressTo::create(0.3, 100.0f), nullptr));
 
 		});
-		mouseBar->runAction(Sequence::create(ProgressTo::create(1.4f, 83.0f), func, nullptr));
+		mouseBar->runAction(Sequence::create(ProgressTo::create(time, 83.0f), func, nullptr));
 		_border->setVisible(true);
 		switch (isLeft)
 		{
 		case 2:
 			this->initWithFile(Define::button_right_blue_path);
 			_break_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "blue_right_break"), 0.1f)));
-			mTag = BUTTON_TAG::BUTTON_RIGHT;
 			break;
 
 		case 1:
 			this->initWithFile(Define::button_left_blue_path);
-			mTag = BUTTON_TAG::BUTTON_LEFT;
 			_break_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "blue_left_break"), 0.1f))); break;
 
 		default:

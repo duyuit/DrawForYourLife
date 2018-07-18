@@ -84,6 +84,8 @@ Sonic::~Sonic()
 int count_to_reset_just_tap = 0;
 void Sonic::update(float dt)
 {
+	if (isDelete)
+		return;
 	//Set effects combo for Sonic 
 	if (countCombo >= 5)
 	{
@@ -222,6 +224,7 @@ bool Sonic::CheckLastFrame()
 
 void Sonic::SetStateByTag(SonicState::StateAction action)
 {
+	if (isDelete) return;
 	switch (action)
 	{
 	
@@ -254,6 +257,8 @@ void Sonic::SetStateByTag(SonicState::StateAction action)
 
 void Sonic::SetState(SonicState * state)
 {
+	if (isDelete) return;
+
 	if (mCurrentState != NULL && mCurrentState != nullptr)
 		delete mCurrentState;
 	mCurrentState = state;
@@ -295,18 +300,20 @@ void Sonic::SetState(SonicState * state)
 		mCurrentAction = RepeatForever::create(mCurrentAnimate->get());
 		break;
 	case SonicState::DIE:
+		
 		this->stopAllActions();
-		this->getPhysicsBody()->removeFromWorld();
-
-		auto restart_scene = CallFunc::create([this]()
+		//this->getPhysicsBody()->removeFromWorld();
+		//isDelete = true;
+	/*	auto restart_scene = CallFunc::create([this]()
 		{
 			this->isDelete = true;
 		});
-		this->runAction(Sequence::create(JumpBy::create(1.5, Vec2(-200, -400), 200,1), restart_scene,nullptr));
-		return;
+		this->runAction(Sequence::create(JumpBy::create(1.5, Vec2(-200, -400), 200,1), restart_scene,nullptr));*/
+		//mCurrentAction = nullptr;
 		break;
 	
 	}
+	if(mCurrentAction!=nullptr)
 	this->runAction(mCurrentAction);
 }
 
@@ -342,7 +349,10 @@ void Sonic::HandleCollision(Sprite * sprite)
 			SetVelocityX(200);
 	}
 	else if (sprite->getTag() == Define::DIELAND)
+	{
+		if(mCurrentState->GetState()!=SonicState::DIE)
 		this->SetStateByTag(SonicState::DIE);
+	}
 	//When Sonic hits enemy, push back and drop rings
 	if (sprite->getTag() == Define::LANDMONSTER && mCurrentState->GetState() != SonicState::ROLL)
 	{

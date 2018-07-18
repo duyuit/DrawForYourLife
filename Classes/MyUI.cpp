@@ -1,5 +1,6 @@
 #include "MyUI.h"
 #include "TestScene.h"
+#include "TurtorialScene.h"
 void MyUI::DisableExcept(BUTTON_TAG tag)
 {
 	_touch_guide->setVisible(true);
@@ -12,17 +13,20 @@ void MyUI::DisableExcept(BUTTON_TAG tag)
 
 	case Define::BUTTON_RIGHT:
 		_button_left->setEnabled(false);
-		_touch_guide->setPosition((_director->getWinSize().width / 3)*(5 / 2), _director->getWinSize().height / 2);
+		_touch_guide->setPosition(_director->getWinSize().width - _director->getWinSize().width / 6, _director->getWinSize().height / 2);
 
 		break;
 
 	}
-
+	_button_right->setOpacity(150);
+	_button_left->setOpacity(150);
 }
 
 void MyUI::EnableAll()
 {
-	
+	_button_right->setOpacity(0);
+	_button_left->setOpacity(0);
+
 	_button_left->setEnabled(true);
 	_button_right->setEnabled(true);
 	_touch_guide->setVisible(false);
@@ -41,7 +45,7 @@ MyUI::MyUI(Sonic * mSonic)
 		_touch_guide->setAnchorPoint(Vec2(0.5, 0.5));
 		this->addChild(_touch_guide);
 
-		_button_left = Button::create("GameComponents/black_button.png");
+		_button_left = Button::create(Define::button_left_grey_path);
 		float delta_scale_x = (_director->getWinSize().width / 3)/_button_left->getContentSize().width;
 		float delta_scale_y= _director->getWinSize().height / _button_left->getContentSize().height;
 		_button_left->setScale(delta_scale_x, delta_scale_y);
@@ -72,7 +76,7 @@ MyUI::MyUI(Sonic * mSonic)
 
 
 
-		_button_right = Button::create("GameComponents/black_button.png");
+		_button_right = Button::create(Define::button_right_grey_path);
 		_button_right->setScale(delta_scale_x, delta_scale_y);
 		_button_right->setPosition(Vec2(_director->getWinSize().width - _button_left->getContentSize().width*delta_scale_x / 2, 0));
 		_button_right->setAnchorPoint(Vec2(0.5, 0));
@@ -107,7 +111,7 @@ MyUI::MyUI(Sonic * mSonic)
 				//but->setOpacity(255);
 				break;
 			case ui::Widget::TouchEventType::ENDED:
-				Director::getInstance()->replaceScene(TestScene::createScene());
+				Director::getInstance()->replaceScene(TurtorialScene::createScene());
 				//but->setOpacity(200);
 				break;
 			default:
