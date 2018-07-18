@@ -64,7 +64,7 @@ bool LoadScene::init()
 
 void LoadScene::nextScene(cocos2d::Node* sender)
 {
-	sceneLevelMap = TestScene::createScene();
+	sceneLevelMap = TurtorialScene::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(1, sceneLevelMap));
 
 }

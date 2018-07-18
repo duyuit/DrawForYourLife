@@ -11,7 +11,6 @@ MultipleButton::MultipleButton(Vec2 pos, Sonic* sonic, Layer* layer,int button_c
 	_mSonic = sonic;
 
 	_progressbar =  Sprite::create("GameComponents/progress.png");
-	_progressbar->setFlipX(true);
 	_progressbar->setAnchorPoint(Vec2(0, 0.5f));
 	_progressbar->setScale(0.3, 0.3);
 
@@ -62,12 +61,19 @@ MultipleButton::MultipleButton(Vec2 pos, Sonic* sonic, Layer* layer,int button_c
 	mouseBar->setReverseDirection(true);
 	mouseBar->setPercentage(0);
 	this->addChild(mouseBar, 10);
-	mouseBar->setPosition(0, 50);
+	mouseBar->setPosition(0, 47);
 
 	this->scheduleUpdate();
 
 	this->setPosition(pos);
 	layer->addChild(this);
+
+	_label = Label::createWithTTF("", "fonts/INVASION2000.TTF", 50);
+	_label->enableOutline(Color4B::BLACK, 3);
+	_label->setAnchorPoint(Vec2(0.0, 0.5));
+	_label->setVisible(false);
+	_label->setPosition(0, 50);
+	this->addChild(_label, 2);
 }
 
 void MultipleButton::update(float dt)
@@ -120,7 +126,7 @@ void MultipleButton::Active()
 	_mSonic->isInMultipleButton = true;
 	isActive = true;
 	_mSonic->_list_just_tap.clear();
-	mouseBar->runAction(Sequence::create(ProgressTo::create(1.3f, 70.0f), CallFuncN::create(CC_CALLBACK_0(MultipleButton::BlinkProgressBar, this)), nullptr));
+	mouseBar->runAction(Sequence::create(ProgressTo::create(1.4f, 83.0f), CallFuncN::create(CC_CALLBACK_0(MultipleButton::BlinkProgressBar, this)), nullptr));
 }
 
 void MultipleButton::DeleteNow(bool check)
@@ -148,6 +154,7 @@ void MultipleButton::DeleteNow(bool check)
 		
 		_mSonic->countCombo += _button_count;
 		isCountCombo = true;
+		CheckLabel(mouseBar->getPercentage());
 	}
 	else
 	{
@@ -171,11 +178,43 @@ void MultipleButton::DeleteNow(bool check)
 void MultipleButton::BlinkProgressBar()
 {
 	if (isDelete) return;
-	mouseBar->runAction(ProgressTo::create(0.7, 100.0f));
+	mouseBar->runAction(ProgressTo::create(0.3, 100.0f));
 	mouseBar->runAction(Sequence::create(Blink::create(0.7, 8), CallFuncN::create(CC_CALLBACK_0(MultipleButton::DeleteNow, this,false)),nullptr));
 
 }
 
 MultipleButton::~MultipleButton()
 {
-} 
+}
+
+void MultipleButton::CheckLabel(float percen)
+{
+	_label->setVisible(true);
+	_border->setVisible(false);
+	mouseBar->setVisible(false);
+	if (percen < 40)
+	{
+		_label->setColor(Color3B(255, 0, 128));
+		_label->setString("Perfect!");
+	}
+	else if (percen > 40 && percen < 70)
+	{
+		_label->setColor(Color3B(0, 255, 255));
+		_label->setString("Great!");
+	}
+	else
+	{
+		_label->setColor(Color3B(255, 128, 0));
+		_label->setString("Bad!");
+	}
+	_label->setScale(2);
+	auto shake = Repeat::create(
+		Sequence::create(
+			MoveBy::create(0.08f, Vec2(20, 0)),
+			MoveBy::create(0.08f, Vec2(-20, 0)),
+			MoveBy::create(0.012f, Vec2(0, 10)),
+			MoveBy::create(0.012f, Vec2(0, -10)),
+			nullptr), 2);
+
+	_label->runAction(Sequence::create(ScaleTo::create(0.3, 1), shake, nullptr));
+}

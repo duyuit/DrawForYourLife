@@ -37,5 +37,7 @@ public:
 	~MultipleButton();
 protected:
 	ProgressTimer* mouseBar;
+	void CheckLabel(float percen); 
+	Label* _label; //Perfect, Great, Bad
 };
 

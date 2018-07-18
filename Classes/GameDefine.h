@@ -24,7 +24,7 @@ namespace Define {
 	{
 		NONE,
 		BUTTON_LEFT,
-		BUTTON_RIGHT,
+		BUTTON_RIGHT
 	
 	};
 	static string button_left_green_path = "Button/button_left_green.png";

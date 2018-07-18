@@ -17,7 +17,7 @@ bool TestScene::init()
 {
 //	int a = 0;
 	LevelScene::init();
-	string s = "TurtorialScene/untitled.tmx";
+	string s = "LevelScene/LV1/untitled.tmx";
 	LoadMap(s);
 	return true;
 	
@@ -31,7 +31,7 @@ cocos2d::Scene * TestScene::createScene()
 	scene->getPhysicsWorld()->setGravity(Vec2(0, -1000));
 
 	// optional: set debug draw
-	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+	//scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
 	//scene->getPhysicsWorld()->step(1 / 60.0f);
 
 

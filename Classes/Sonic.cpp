@@ -174,11 +174,11 @@ void Sonic::update(float dt)
 		_roll_effect->setVisible(false);
 	if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL  && mCurrentState->GetState() != SonicState::StateAction::ROLL && mCurrentState->GetState() != SonicState::StateAction::DIE)
 		this->SetStateByTag(SonicState::StateAction::FALL);
-	//if (count_to_reset_just_tap == 10)
-	//{
-	//	count_to_reset_just_tap = 0;
-	//	mJustTap = NONE;
-	//}
+	if (count_to_reset_just_tap == 20)
+	{
+		count_to_reset_just_tap = 0;
+		mJustTap = NONE;
+	}
 }
 
 void Sonic::handle_swipe(Vec2 start, Vec2 end)
@@ -327,10 +327,6 @@ void Sonic::HandleCollision(Sprite * sprite)
 			SimpleAudioEngine::getInstance()->playEffect(Define::_music_eat_ring_efftect_path_1);
 		_last_id_ring_sound = !_last_id_ring_sound;*/
 		experimental::AudioEngine::play2d(Define::_music_eat_ring_efftect_path);
-
-		//	SimpleAudioEngine::getInstance()->preloadEffect(Define::_music_eat_ring_efftect_path);
-		//	SimpleAudioEngine::getInstance()->sharedEngine()->playEffect(Define::_music_eat_ring_efftect_path);
-			//SimpleAudioEngine::sharedEngine()->playEffect(Define::_music_eat_ring_efftect_path);
 		ringCollected++;
 	}
 	else if (sprite->getTag() == Define::MUSHROOM /*&& (mCurrentState->GetState()== SonicState::FALL || mCurrentState->GetState() == SonicState::ROLL)*/)
