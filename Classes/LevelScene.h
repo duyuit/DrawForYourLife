@@ -21,6 +21,7 @@ public:
 	vector<TapButton*> _listButton;
 	Vector<Monster*> _listMonster;
 	SimpleAudioEngine* audio;
+	Vector<MultipleButton*> _listMultipleButton;
 
 	void LoadSound();
 	void RollBackground();
