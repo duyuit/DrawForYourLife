@@ -7,6 +7,8 @@ public:
 	void update(float dt) override;
 	void SetStateByTag(MONSTERSTATE state) override;
 	bool _flipped = false;
+	Sprite* water=nullptr;
+	RefPtr<Animate>  *_water_splash;
 	~SharkMonster();
 };
 

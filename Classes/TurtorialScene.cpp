@@ -328,10 +328,10 @@ bool TurtorialScene::init()
 	_mSonic->setZOrder(7);
 
 	
-	/*auto fish = new SharkMonster(_mSonic);
+	auto fish = new SharkMonster(_mSonic);
 	fish->setPosition(_mSonic->getPosition()+Vec2(800, 0));
-	this->addChild(fish);*/
-
+	this->addChild(fish);
+	//fish->setParent(this);
 	
 	//Listener
 	{

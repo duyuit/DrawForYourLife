@@ -31,8 +31,8 @@ FrogMonster::FrogMonster(Sonic* sonic)
 	//this->setPhysicsBody(verti);
 	//this->setTag(LANDMONSTER);
 
-	//_sonic = sonic;
-	//_tapButton = new TapButton(RandomHelper::random_int(1, 4), Vec2(0, 0), _sonic, (Layer*)_sonic->getParent());
+	//_mSonic = sonic;
+	//_tapButton = new TapButton(RandomHelper::random_int(1, 4), Vec2(0, 0), _mSonic, (Layer*)_mSonic->getParent());
 	//_tapButton->isFirst = true;
 	//_tapButton->_action = SonicState::ROLL;
 	////_tapButton->unscheduleUpdate();
