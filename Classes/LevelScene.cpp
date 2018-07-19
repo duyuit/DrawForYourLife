@@ -202,8 +202,7 @@ void LevelScene::LoadMap(string path)
 			this->addChild(mon, 7);
 		}
 
-		//Load 
-
+		//Load Mushroom
 		TMXObjectGroup *objectGroup_Mushroom = _tileMap->getObjectGroup("Mushroom");
 		for (int i = 0; i < objectGroup_Mushroom->getObjects().size(); i++)
 		{
@@ -218,6 +217,24 @@ void LevelScene::LoadMap(string path)
 			Mushroom *mush = new Mushroom();
 			mush->setPosition(x_box, y_box);
 			this->addChild(mush, 7);
+		}
+
+		//Load Chest
+		TMXObjectGroup *objectGroup_Chest = _tileMap->getObjectGroup("Chest");
+		for (int i = 0; i < objectGroup_Chest->getObjects().size(); i++)
+		{
+
+			Value objectemp = objectGroup_Chest->getObjects().at(i);
+
+			float wi_box = objectemp.asValueMap().at("width").asFloat();
+			float he_box = objectemp.asValueMap().at("height").asFloat();
+			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+
+			BonusChest *chest = new BonusChest(_mSonic);
+			chest->setPosition(x_box, y_box);
+			this->addChild(chest, 1);
+			_listMultipleButton.pushBack(chest->_multiButton);
 		}
 
 		//// Process object layer 
@@ -277,7 +294,7 @@ void LevelScene::SetViewPointCenter(Point position, bool isFast)
 	Vec2 centerOfView = Vec2(winSize.width / 2, winSize.height / 2);
 	Vec2 viewPoint;
 
-	if (_mSonic->getPositionX()<13500)
+	if (_mSonic->getPositionX()<15600)
 		viewPoint = centerOfView - actualPosition + Vec2(-300, 0);
 	else
 	viewPoint = centerOfView - actualPosition;
