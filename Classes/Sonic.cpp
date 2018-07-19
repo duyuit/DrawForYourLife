@@ -302,16 +302,15 @@ void Sonic::SetState(SonicState * state)
 	case SonicState::DIE:
 		
 		this->stopAllActions();
-		//this->getPhysicsBody()->removeFromWorld();
-		//isDelete = true;
-	/*	auto restart_scene = CallFunc::create([this]()
+		this->getPhysicsBody()->removeFromWorld();
+		
+		auto restart_scene = CallFunc::create([this]()
 		{
 			this->isDelete = true;
 		});
-		this->runAction(Sequence::create(JumpBy::create(1.5, Vec2(-200, -400), 200,1), restart_scene,nullptr));*/
-		//mCurrentAction = nullptr;
+		mCurrentAction =  Sequence::create(JumpBy::create(1.5, Vec2(-200, -400), 200, 1), restart_scene, nullptr);
 		break;
-	
+		
 	}
 	if(mCurrentAction!=nullptr)
 	this->runAction(mCurrentAction);
@@ -348,10 +347,10 @@ void Sonic::HandleCollision(Sprite * sprite)
 		else
 			SetVelocityX(200);
 	}
-	else if (sprite->getTag() == Define::DIELAND)
+	else if (sprite->getTag() == Define::DIELAND && mCurrentState->GetState() != SonicState::DIE)
 	{
-		if(mCurrentState->GetState()!=SonicState::DIE)
 		this->SetStateByTag(SonicState::DIE);
+		return;
 	}
 	//When Sonic hits enemy, push back and drop rings
 	if (sprite->getTag() == Define::LANDMONSTER && mCurrentState->GetState() != SonicState::ROLL)

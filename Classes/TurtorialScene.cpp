@@ -159,23 +159,13 @@ bool TurtorialScene::onContactBegin(cocos2d::PhysicsContact & contact)
 		
 		if (tagA == Define::Player)
 		{
-			if (spriteB->getTag() == Define::DIELAND)
-			{
-				if(spriteB->getPositionX()>=8000)
-				ResetTutorial5();
-				else 	ResetTutorial4();
-			}
+			
 			Sonic *sonic = (Sonic*)spriteA;
 			sonic->HandleCollision(spriteB);
 		}
 		else
 		{
-			if (spriteA->getTag() == Define::DIELAND)
-			{
-				if (spriteA->getPositionX() >= 8000)
-					ResetTutorial5();
-				else 	ResetTutorial4();
-			}
+			
 			Sonic *sonic = (Sonic*)spriteB;
 			sonic->HandleCollision(spriteA);
 		}
@@ -199,14 +189,10 @@ bool TurtorialScene::onContactBegin(cocos2d::PhysicsContact & contact)
 
 void TurtorialScene::update(float dt)
 {
-	/*if (_mSonic->isDelete)
-	{
-		Director::getInstance()->replaceScene(TurtorialScene::createScene());
-		return;
-	}*/
-	CheckButton();
-	RollBackground();
-	SetViewPointCenter(_mSonic->getPosition(), true);
+	if (_mSonic->isDelete)
+	Director::getInstance()->replaceScene(this->createScene());
+	LevelScene::update(dt);
+	
 	{
 		//if(_myui!=nullptr && _myui->_istouch) //Bug fix: tap button cant skip
 		//	if (_isPause && count_tuto != 2 && count_tuto != 3 && count_tuto != 6 && count_tuto != 8) Continue();
@@ -319,7 +305,7 @@ bool TurtorialScene::init()
 	LevelScene::init();
 	
 
-	LoadMap("TurtorialScene/untitled.tmx");
+	LoadMap("LevelScene/StoneMap/tutorial.tmx");
 	
 	_diabox = new MyDialogBox();
 	_diabox->setPosition(1000, 400);

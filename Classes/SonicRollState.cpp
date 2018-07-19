@@ -25,7 +25,7 @@ void SonicRollState::update()
 	if (this->mPlayerData->player->mCurrentAnimate->get()->getCurrentFrameIndex() == 10)
 	{
 		this->mPlayerData->player->_roll_effect->setVisible(true);
-		this->mPlayerData->player->SetVelocityX(600);
+		this->mPlayerData->player->SetVelocityX(650);
 	}
 	if (this->mPlayerData->player->CheckLastFrame())
 	{

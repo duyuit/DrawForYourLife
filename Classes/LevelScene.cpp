@@ -335,8 +335,7 @@ bool LevelScene::onContactBegin(cocos2d::PhysicsContact & contact)
 
 void LevelScene::update(float dt)
 {
-	if (_mSonic->isDelete)
-		Director::getInstance()->replaceScene(this->createScene());
+
 
 	RollBackground();
 	if (_mSonic->getPosition().x < 0) _mSonic->setPosition(0, _mSonic->getPosition().y);
