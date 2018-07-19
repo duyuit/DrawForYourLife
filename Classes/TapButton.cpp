@@ -47,6 +47,7 @@ TapButton::TapButton(Vec2 pos, Sonic* sprite, Layer* layer)
 
 void TapButton::ActiveButton(BUTTON_TAG dir)
 {
+	if (isDelete || isTrue) return;
 	if (dir == mTag)
 	{
 		//DeleteNow(true);

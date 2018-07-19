@@ -8,7 +8,7 @@ cocos2d::Scene * TurtorialScene::createScene()
 	scene->getPhysicsWorld()->setGravity(Vec2(0, -1000));
 
 	// optional: set debug draw
-	//scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
 	scene->getPhysicsWorld()->step(1 / 60.0f);
 
 
@@ -327,7 +327,10 @@ bool TurtorialScene::init()
 	SetViewPointCenter(_mSonic->getPosition(), true);
 	_mSonic->setZOrder(7);
 
-
+	
+	/*auto fish = new SharkMonster(_mSonic);
+	fish->setPosition(_mSonic->getPosition()+Vec2(800, 0));
+	this->addChild(fish);*/
 
 	
 	//Listener

@@ -126,7 +126,9 @@
     <ClCompile Include="..\Classes\LevelScene.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="SharkMonster.cpp" />
+    <ClCompile Include="..\Classes\SharkMonster.cpp">
+      <Filter>src\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -234,7 +236,9 @@
     <ClInclude Include="..\Classes\LevelScene.h">
       <Filter>src\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="SharkMonster.h" />
+    <ClInclude Include="..\Classes\SharkMonster.h">
+      <Filter>src\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

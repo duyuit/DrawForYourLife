@@ -4,6 +4,7 @@
 #include "MyUI.h"
 #include "SmallRing.h"
 #include "FrogMonster.h"
+#include "SharkMonster.h"
 #include "MyDialogBox.h"
 #include "MultipleButton.h"
 using namespace cocos2d;
