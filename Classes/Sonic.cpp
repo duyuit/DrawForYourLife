@@ -555,6 +555,7 @@ void Sonic::SwapAllAni()
 
 void Sonic::ActiveButton(BUTTON_TAG dir)
 {
+	mJustTap = dir;
 	TapButton* tap =(TapButton*) mCurrentButton;
 	if(tap!=nullptr)
 	tap->ActiveButton(dir);

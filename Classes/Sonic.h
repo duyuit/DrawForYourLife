@@ -59,7 +59,7 @@ public:
 
 	std::vector<int> _list_just_tap;
 	void ActiveButton(BUTTON_TAG dir);
-	//BUTTON_TAG mJustTap = NONE;
+	BUTTON_TAG mJustTap = NONE;
 
 
 	Sprite* _roll_circle = nullptr;
