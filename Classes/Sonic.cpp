@@ -1,6 +1,6 @@
 ﻿#include "Sonic.h"
 
-
+#include "TapButton.h"
 
 Sonic::Sonic()
 {
@@ -176,11 +176,11 @@ void Sonic::update(float dt)
 		_roll_effect->setVisible(false);
 	if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL  && mCurrentState->GetState() != SonicState::StateAction::ROLL && mCurrentState->GetState() != SonicState::StateAction::DIE)
 		this->SetStateByTag(SonicState::StateAction::FALL);
-	if (count_to_reset_just_tap == 20)
+	/*if (count_to_reset_just_tap == 40)
 	{
 		count_to_reset_just_tap = 0;
 		mJustTap = NONE;
-	}
+	}*/
 }
 
 void Sonic::handle_swipe(Vec2 start, Vec2 end)
@@ -327,12 +327,9 @@ void Sonic::HandleCollision(Sprite * sprite)
 	{
 		MyParticle::CreateEatItem(sprite->getPosition(), (Layer*) this->getParent());
 		sprite->runAction(RemoveSelf::create());
-		/*if (_last_id_ring_sound)
-			SimpleAudioEngine::getInstance()->playEffect(Define::_music_eat_ring_efftect_path);
-		else
-			SimpleAudioEngine::getInstance()->playEffect(Define::_music_eat_ring_efftect_path_1);
-		_last_id_ring_sound = !_last_id_ring_sound;*/
-		experimental::AudioEngine::play2d(Define::_music_eat_ring_efftect_path);
+		//Play sound when eat rings
+		SimpleAudioEngine::getInstance()->playEffect(Define::_music_eat_ring_efftect_path);
+		
 		ringCollected++;
 	}
 	else if (sprite->getTag() == Define::MUSHROOM /*&& (mCurrentState->GetState()== SonicState::FALL || mCurrentState->GetState() == SonicState::ROLL)*/)
@@ -537,4 +534,11 @@ void Sonic::SwapAllAni()
 	SwapAni(run_skip_Ani, run_skip_red_Ani);
 	this->stopAllActions();
 	this->SetStateByTag(mCurrentState->GetState());
+}
+
+void Sonic::ActiveButton(BUTTON_TAG dir)
+{
+	TapButton* tap =(TapButton*) mCurrentButton;
+	if(tap!=nullptr)
+	tap->ActiveButton(dir);
 }

@@ -16,8 +16,10 @@ public:
 	Sprite* _border;
 	Sprite* _progressbar;
 
+	void ActiveButton(BUTTON_TAG dir);
 	RefPtr<Animate>  *_break_Ani;
 	BUTTON_TAG mTag = NONE;
+
 	bool isDelete=false;
 	bool canActive = false;
 	bool isActive = false;

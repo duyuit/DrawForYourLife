@@ -45,6 +45,25 @@ TapButton::TapButton(Vec2 pos, Sonic* sprite, Layer* layer)
 }
 
 
+void TapButton::ActiveButton(BUTTON_TAG dir)
+{
+	if (dir == mTag)
+	{
+		//DeleteNow(true);
+		CheckLabel(mouseBar->getPercentage());
+		isTrue = true;
+		SimpleAudioEngine::getInstance()->playEffect(Define::_music_combo_effect_path);
+		if (isLeft == 1)
+			this->initWithFile(Define::button_left_green_path);
+		else
+			this->initWithFile(Define::button_right_green_path);
+		if (this->getPositionX() - mTarget->getPositionX()>300)
+			mTarget->SetStateByTag(SonicState::RUNSKIP);
+	}
+	else 
+		DeleteNow(false);
+}
+
 TapButton::~TapButton()
 {
 }
@@ -87,6 +106,7 @@ void TapButton::SetCanActive(bool is)
 	canActive = is;
 	if (isActive)
 	{
+		mTarget->mCurrentButton = this;
 		_border->setVisible(true);
 		auto func = CallFunc::create([this]()
 		{
@@ -117,6 +137,7 @@ void TapButton::Active()
 	isActive = true;
 	if (canActive)
 	{
+		mTarget->mCurrentButton = this;
 		auto func = CallFunc::create([this]()
 		{
 			if (isDelete) return;
@@ -146,13 +167,13 @@ void TapButton::Active()
 
 void TapButton::DeleteNow(bool check)
 {
+	mTarget->mCurrentButton = nullptr;
 	_border->runAction(RemoveSelf::create());
 	_progressbar->runAction(RemoveSelf::create());
 	mouseBar->runAction(RemoveSelf::create());
 
 
 	isDelete = true;
-	mTarget->mJustTap = NONE;
 	if (check)
 	{
 	
@@ -189,26 +210,14 @@ void TapButton::update(float dt)
 			return;*/
 		
 
-		BUTTON_TAG tag = mTarget->mJustTap;
+		//BUTTON_TAG tag = mTarget->mJustTap;
 		//tag = mTag;
 
-		if (tag != NONE && tag != mTag)
+		/*if (tag != NONE && tag != mTag)
 		{
 			DeleteNow(false);
 			return;
-		}
-
-		if (tag == mTag && !isTrue)
-		{
-			CheckLabel(mouseBar->getPercentage());
-			isTrue = true;
-			if (isLeft == 1)
-				this->initWithFile(Define::button_left_green_path);
-			else
-				this->initWithFile(Define::button_right_green_path);
-			if(this->getPositionX()- mTarget->getPositionX()>300)
-			mTarget->SetStateByTag(SonicState::RUNSKIP);
-		}
+		}*/
 
 		if (isTrue &&  this->getPositionX() - mTarget->getPositionX() <= 10)
 		{

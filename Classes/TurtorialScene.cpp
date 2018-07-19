@@ -310,7 +310,7 @@ bool TurtorialScene::init()
 	_diabox = new MyDialogBox();
 	_diabox->setPosition(1000, 400);
 	_diabox->SetScale(0.7);
-	_diabox->SetTapToContinue(true);
+	_diabox->SetTapToContinue(false);
 
 	this->addChild(_diabox, 7);
 
@@ -350,10 +350,10 @@ bool TurtorialScene::init()
 
 
 
-		auto contactListener = EventListenerPhysicsContact::create();
+		/*auto contactListener = EventListenerPhysicsContact::create();
 		contactListener->onContactBegin = CC_CALLBACK_1(TurtorialScene::onContactBegin, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
-		scheduleOnce(CC_SCHEDULE_SELECTOR(TurtorialScene::updateStart), 0);
+		scheduleOnce(CC_SCHEDULE_SELECTOR(TurtorialScene::updateStart), 0);*/
 
 
 	}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Animations>
+  <Animation name="1" imagePath="Monster/SwingShark.png" width="591" height="131">
+    <sprite x="0" y="1" w="55" h="42" oX="0" oY="1" oW="49" oH="265" />
+    <sprite x="65" y="0" w="62" h="42" oX="65" oY="0" oW="49" oH="265" />
+    <sprite x="139" y="0" w="59" h="40" oX="139" oY="0" oW="49" oH="265" />
+    <sprite x="209" y="0" w="53" h="41" oX="209" oY="0" oW="49" oH="265" />
+  </Animation>
+
+  <Animation name="bite" imagePath="Monster/SwingShark.png" width="591" height="131">
+    <sprite x="6" y="64" w="47" h="41" oX="6" oY="64" oW="102" oH="500" />
+    <sprite x="71" y="64" w="46" h="41" oX="71" oY="64" oW="102" oH="500" />
+    <sprite x="136" y="64" w="46" h="41" oX="136" oY="64" oW="102" oH="500" />
+    <sprite x="201" y="64" w="46" h="41" oX="201" oY="64" oW="102" oH="500" />
+    <sprite x="265" y="64" w="47" h="41" oX="265" oY="64" oW="102" oH="500" />
+    <sprite x="330" y="64" w="47" h="41" oX="330" oY="64" oW="102" oH="500" />
+    <sprite x="395" y="64" w="47" h="41" oX="395" oY="64" oW="102" oH="500" />
+    <sprite x="459" y="64" w="46" h="41" oX="459" oY="64" oW="102" oH="500" />
+  </Animation>
+
+</Animations>

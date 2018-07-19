@@ -126,6 +126,7 @@
     <ClCompile Include="..\Classes\LevelScene.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="SharkMonster.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -233,6 +234,7 @@
     <ClInclude Include="..\Classes\LevelScene.h">
       <Filter>src\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="SharkMonster.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
