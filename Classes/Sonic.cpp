@@ -13,6 +13,7 @@ Sonic::Sonic()
 	Vector<SpriteFrame*> fall_FL = sonic_loadAnim(false, "fall");
 	Vector<SpriteFrame*> hurt_FL = sonic_loadAnim(false, "hurt");
 	Vector<SpriteFrame*> skip_FL = sonic_loadAnim(false, "run_skip");
+	Vector<SpriteFrame*> roll_chest_FL = sonic_loadAnim(false, "roll_chest");
 	//Red Sonic
 
 	Vector<SpriteFrame*> run_fast_red_FL = sonic_loadAnim(true, "run_fast");
@@ -21,6 +22,7 @@ Sonic::Sonic()
 	Vector<SpriteFrame*> fall_red_FL = sonic_loadAnim(true, "fall");
 	Vector<SpriteFrame*> hurt_red_FL = sonic_loadAnim(true, "hurt");
 	Vector<SpriteFrame*> skip_red_FL = sonic_loadAnim(true, "run_skip");
+	Vector<SpriteFrame*> roll_chest_red_FL = sonic_loadAnim(true, "roll_chest");
 	//Blue Sonic Ani
 	run_fast_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_fast_FL, 0.01f)));
 
@@ -30,6 +32,7 @@ Sonic::Sonic()
 	roll_sky_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(false, "roll_in_sky"), 0.03f)));;
 	hurt_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(hurt_FL, 0.05f)));
 	run_skip_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(skip_FL, 0.05f)));
+	roll_chest_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_chest_FL, 0.03f)));
 	//Red Sonic Ani
 	run_fast_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_fast_red_FL, 0.01f)));
 	
@@ -39,6 +42,7 @@ Sonic::Sonic()
 	roll_sky_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(true, "roll_in_sky"), 0.03f)));;
 	hurt_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(hurt_red_FL, 0.05f)));
 	run_skip_red_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(skip_red_FL, 0.05f)));
+	roll_chest_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_chest_red_FL, 0.03f)));
 	auto verti = PhysicsBody::createCircle(75, PhysicsMaterial(0.1f, 0.0f, 0.0f));
 
 	verti->setCategoryBitmask(1);    // 0010
@@ -172,7 +176,7 @@ void Sonic::update(float dt)
 
 	mCurrentState->update();
 	if(_roll_effect!=nullptr)
-	if (mCurrentState->GetState() != SonicState::ROLL && _roll_effect->isVisible())
+	if (mCurrentState->GetState() != SonicState::ROLL && mCurrentState->GetState() != SonicState::ROLL_CHEST && _roll_effect->isVisible())
 		_roll_effect->setVisible(false);
 	if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL  && mCurrentState->GetState() != SonicState::StateAction::ROLL && mCurrentState->GetState() != SonicState::StateAction::DIE)
 		this->SetStateByTag(SonicState::StateAction::FALL);
@@ -252,7 +256,11 @@ void Sonic::SetStateByTag(SonicState::StateAction action)
 	case SonicState::RUNSKIP:
 		this->SetState(new SonicRunSkipState(mData));
 		break;
+	case SonicState::ROLL_CHEST:
+		this->SetState(new SonicRollChestState(mData));
+		break;
 	}
+	
 }
 
 void Sonic::SetState(SonicState * state)
@@ -297,6 +305,10 @@ void Sonic::SetState(SonicState * state)
 		break; 
 	case SonicState::RUNSKIP:
 		mCurrentAnimate = run_skip_Ani;
+		mCurrentAction = RepeatForever::create(mCurrentAnimate->get());
+		break;
+	case SonicState::ROLL_CHEST:
+		mCurrentAnimate = roll_chest_Ani;
 		mCurrentAction = RepeatForever::create(mCurrentAnimate->get());
 		break;
 	case SonicState::DIE:
@@ -346,6 +358,10 @@ void Sonic::HandleCollision(Sprite * sprite)
 			SetVelocityX(-200);
 		else
 			SetVelocityX(200);
+	}
+	else if (sprite->getTag() == Define::CHEST && mCurrentState->GetState() == SonicState::ROLL)
+	{
+		this->SetStateByTag(SonicState::ROLL_CHEST);
 	}
 	else if (sprite->getTag() == Define::DIELAND && mCurrentState->GetState() != SonicState::DIE)
 	{
@@ -535,6 +551,7 @@ void Sonic::SwapAllAni()
 	SwapAni(roll_sky_Ani, roll_sky_red_Ani);
 	SwapAni(hurt_Ani, hurt_red_Ani);
 	SwapAni(run_skip_Ani, run_skip_red_Ani);
+	SwapAni(roll_chest_Ani, roll_chest_red_Ani);
 	this->stopAllActions();
 	this->SetStateByTag(mCurrentState->GetState());
 }

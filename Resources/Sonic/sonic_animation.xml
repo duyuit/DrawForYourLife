@@ -135,6 +135,18 @@
 
     
   </Animation>
+  <Animation name="roll_chest" imagePath="Sonic/99072.png" width="2048" height="3274">
+
+       <sprite x="840" y="1338" w="117" h="97" oX="840" oY="1338" oW="1372" oH="1863" />
+    <sprite x="1090" y="1338" w="116" h="97" oX="1090" oY="1338" oW="1372" oH="1863" />
+    <sprite x="1339" y="1338" w="115" h="97" oX="1339" oY="1338" oW="1372" oH="1863" />
+    <sprite x="1587" y="1338" w="116" h="97" oX="1587" oY="1338" oW="1372" oH="1863" />
+    <sprite x="1836" y="1338" w="115" h="97" oX="1836" oY="1338" oW="1372" oH="1863" />
+
+
+    
+  </Animation>
+  
   <Animation name="fall" imagePath="Sonic/99072.png" width="2048" height="3274">
     <sprite x="1598" y="2025" w="129" h="153" oX="1598" oY="2025" oW="569" oH="618" />
     <sprite x="1847" y="2025" w="129" h="153" oX="1847" oY="2025" oW="569" oH="618" />

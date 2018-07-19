@@ -3,6 +3,7 @@
 #include "TapButton.h"
 #include "MyUI.h"
 #include "SmallRing.h"
+#include "BonusChest.h"
 #include "FrogMonster.h"
 #include "MyDialogBox.h"
 #include "MultipleButton.h"

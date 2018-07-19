@@ -126,6 +126,12 @@
     <ClCompile Include="..\Classes\LevelScene.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\BonusChest.cpp">
+      <Filter>src\MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SonicRollChestState.cpp">
+      <Filter>src\Sonic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -232,6 +238,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\LevelScene.h">
       <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BonusChest.h">
+      <Filter>src\MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SonicRollChestState.h">
+      <Filter>src\Sonic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
