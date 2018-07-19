@@ -193,7 +193,6 @@ void ComboScore::update(float dt)
 		}
 		else
 		{
-			SimpleAudioEngine::getInstance()->playEffect(Define::_music_combo_effect_path);
 			UpdateCombo();
 
 			

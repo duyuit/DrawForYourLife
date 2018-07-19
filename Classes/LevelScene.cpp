@@ -20,7 +20,7 @@ void LevelScene::LoadSound()
 	audio->preloadEffect(Define::_music_eat_ring_efftect_path);
 	audio->preloadEffect(Define::_music_roll_effect_path);
 	audio->preloadEffect(Define::_music_jump_effect_path);
-	audio->preloadEffect(Define::_music_eat_ring_efftect_path_1);
+//	audio->preloadEffect(Define::_music_eat_ring_efftect_path_1);
 	audio->preloadEffect(Define::_music_button_effect_path);
 }
 
@@ -65,7 +65,6 @@ void LevelScene::LoadMap(string path)
 	//Add MAP
 	_tileMap = new TMXTiledMap();
 	_tileMap->initWithTMXFile(path);
-	//_tileMap->initWithTMXFile("TurtorialScene/untitled.tmx");
 	this->addChild(_tileMap);
 
 	try
@@ -345,6 +344,7 @@ void LevelScene::update(float dt)
 
 void LevelScene::updateStart(float dt)
 {
+//	this->getScene()->getPhysicsWorld()->setFixedUpdateRate(60);
 	_myui = new MyUI(_mSonic);
 
 	this->getScene()->addChild(_myui);

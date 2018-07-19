@@ -46,7 +46,7 @@ public:
 	void SetVelocity(int x, int y); 
 	void SetVelocityX(int x); //Set velocity X, old Y
 
-	bool _last_id_ring_sound = false;
+	Sprite* mCurrentButton = nullptr;
 	bool isDelete = false;
 	void DropRing();
 	int ringCollected = 0; //Count rings Sonic collected
@@ -58,7 +58,8 @@ public:
 	void SwapAllAni();
 
 	std::vector<int> _list_just_tap;
-	BUTTON_TAG mJustTap = NONE;
+	void ActiveButton(BUTTON_TAG dir);
+	//BUTTON_TAG mJustTap = NONE;
 
 
 	Sprite* _roll_circle = nullptr;

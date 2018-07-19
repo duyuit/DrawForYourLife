@@ -131,7 +131,6 @@ void MultipleButton::Active()
 
 void MultipleButton::DeleteNow(bool check)
 {
-	_mSonic->mJustTap = NONE;
 	_mSonic->isInMultipleButton = false;
 	isDelete = true;
 	if (check)

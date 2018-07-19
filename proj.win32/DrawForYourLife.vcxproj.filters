@@ -126,12 +126,16 @@
     <ClCompile Include="..\Classes\LevelScene.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="..\Classes\BonusChest.cpp">
       <Filter>src\MapObject</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\SonicRollChestState.cpp">
       <Filter>src\Sonic</Filter>
     </ClCompile>
+=======
+    <ClCompile Include="SharkMonster.cpp" />
+>>>>>>> Dev
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -239,12 +243,16 @@
     <ClInclude Include="..\Classes\LevelScene.h">
       <Filter>src\Scene</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="..\Classes\BonusChest.h">
       <Filter>src\MapObject</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\SonicRollChestState.h">
       <Filter>src\Sonic</Filter>
     </ClInclude>
+=======
+    <ClInclude Include="SharkMonster.h" />
+>>>>>>> Dev
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
