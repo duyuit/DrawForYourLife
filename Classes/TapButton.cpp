@@ -42,6 +42,7 @@ TapButton::TapButton(Vec2 pos, Sonic* sprite, Layer* layer)
 	mouseBar->setPercentage(0);
 	this->addChild(mouseBar, 10);
 	mouseBar->setPosition(this->getContentSize()*0.3 + Size(0,150));
+//	this->autorelease();
 }
 
 
@@ -78,16 +79,19 @@ void TapButton::CheckLabel(float percen)
 	{
 		_label->setColor(Color3B(255, 0, 128));
 		_label->setString("Perfect!");
+		score = PERFECT;
 	}
 	else if (percen > 30 && percen < 70)
 	{
 		_label->setColor(Color3B(0,255,255));
 		_label->setString("Great!");
+		score = GREAT;
 	}
 	else
 	{
 		_label->setColor(Color3B(255,128,0));
 		_label->setString("Bad!");
+		score = BAD;
 	}
 	_label->setScale(2);
 	auto shake= Repeat::create(
@@ -186,6 +190,7 @@ void TapButton::DeleteNow(bool check)
 	{
 		
 		//this->setScale(0.15);
+		if(_break_Ani!=nullptr)
 		this->runAction(Sequence::create(_break_Ani->get(), RemoveSelf::create(), nullptr));
 		if (!isCountCombo) mTarget->countCombo = 0;
 	}

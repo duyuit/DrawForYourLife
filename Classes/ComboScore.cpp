@@ -28,7 +28,7 @@ ComboScore::ComboScore(Sonic* mSonic) {
 	flame_blue_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Particle/flame_combo_blue.xml", "1"), 0.06f)));
 	//flame->runAction(RepeatForever::create(flame_Ani->get()));
 	this->addChild(flame,0);
-
+	//this->autorelease();
 	this->scheduleUpdate();
 }
 

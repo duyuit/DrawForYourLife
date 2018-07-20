@@ -29,7 +29,7 @@ public:
 	void RollBackground();
 
 	void CheckButton();
-	void LoadMap(string path);
+	virtual void LoadMap(string path);
 	void SetViewPointCenter(Point position, bool isFast);
 	bool onContactBegin(cocos2d::PhysicsContact & contact);
 	void update(float dt);

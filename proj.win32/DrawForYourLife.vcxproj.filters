@@ -129,6 +129,11 @@
     <ClCompile Include="..\Classes\SharkMonster.cpp">
       <Filter>src\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\BonusChest.cpp" />
+    <ClCompile Include="..\Classes\SonicRollChestState.cpp" />
+    <ClCompile Include="..\Classes\SonicStopState.cpp">
+      <Filter>src\Sonic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -238,6 +243,11 @@
     </ClInclude>
     <ClInclude Include="..\Classes\SharkMonster.h">
       <Filter>src\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BonusChest.h" />
+    <ClInclude Include="..\Classes\SonicRollChestState.h" />
+    <ClInclude Include="..\Classes\SonicStopState.h">
+      <Filter>src\Sonic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

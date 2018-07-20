@@ -8,7 +8,7 @@ cocos2d::Scene * TurtorialScene::createScene()
 	scene->getPhysicsWorld()->setGravity(Vec2(0, -1000));
 
 	// optional: set debug draw
-	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+//	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
 	scene->getPhysicsWorld()->step(1 / 60.0f);
 
 
@@ -20,6 +20,42 @@ cocos2d::Scene * TurtorialScene::createScene()
 }
 
 
+void TurtorialScene::LoadMap(string path)
+{
+	LevelScene::LoadMap(path);
+
+	TMXObjectGroup *objectGroup_Mushroom = _tileMap->getObjectGroup("Fish");
+	for (int i = 0; i < objectGroup_Mushroom->getObjects().size(); i++)
+	{
+
+		Value objectemp = objectGroup_Mushroom->getObjects().at(i);
+
+		float wi_box = objectemp.asValueMap().at("width").asFloat();
+		float he_box = objectemp.asValueMap().at("height").asFloat();
+		float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+		float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+
+		SharkMonster *mush = new SharkMonster(_mSonic);
+		mush->setPosition(x_box, y_box);
+		_listButton.push_back(mush->_tapButton);
+		this->addChild(mush, 7);
+	}
+
+	for (int i = 0; i < _listButton.size(); i++)
+	{
+		for (int j = i + 1; j < _listButton.size(); j++)
+		{
+			if (_listButton.at(i)->getPositionX() > _listButton.at(j)->getPositionX())
+			{
+				auto temp = _listButton.at(i);
+				_listButton.at(i) = _listButton.at(j);
+				_listButton.at(j) = temp;
+			}
+		}
+	}
+	_listButton.at(0)->SetCanActive(true);
+}
+
 TurtorialScene::TurtorialScene()
 {
 }
@@ -27,6 +63,7 @@ TurtorialScene::TurtorialScene()
 
 TurtorialScene::~TurtorialScene()
 {
+	//autorelease();
 }
 
 void TurtorialScene::Tutorial1()
@@ -323,14 +360,14 @@ bool TurtorialScene::init()
 	blackImage->setOpacity(100);
 	this->addChild(blackImage, 6);*/
 	
-	_mSonic->setPosition(300, 150);
+	_mSonic->setPosition(100, 150);
 	SetViewPointCenter(_mSonic->getPosition(), true);
 	_mSonic->setZOrder(7);
 
 	
-	auto fish = new SharkMonster(_mSonic);
-	fish->setPosition(_mSonic->getPosition()+Vec2(800, 0));
-	this->addChild(fish);
+	/*auto fish = new SharkMonster(_mSonic);
+	fish->setPosition(_mSonic->getPosition()+Vec2(1000, 200));
+	this->addChild(fish);*/
 	//fish->setParent(this);
 	
 	//Listener

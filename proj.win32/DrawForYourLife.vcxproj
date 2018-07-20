@@ -183,6 +183,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\SonicRunFastState.cpp" />
     <ClCompile Include="..\Classes\SonicRunSkipState.cpp" />
     <ClCompile Include="..\Classes\SonicState.cpp" />
+    <ClCompile Include="..\Classes\SonicStopState.cpp" />
     <ClCompile Include="..\Classes\TapButton.cpp" />
     <ClCompile Include="..\Classes\TestScene.cpp" />
     <ClCompile Include="..\Classes\TurtorialScene.cpp" />
@@ -223,6 +224,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\SonicRunFastState.h" />
     <ClInclude Include="..\Classes\SonicRunSkipState.h" />
     <ClInclude Include="..\Classes\SonicState.h" />
+    <ClInclude Include="..\Classes\SonicStopState.h" />
     <ClInclude Include="..\Classes\TapButton.h" />
     <ClInclude Include="..\Classes\TestScene.h" />
     <ClInclude Include="..\Classes\TurtorialScene.h" />

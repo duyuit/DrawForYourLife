@@ -25,6 +25,7 @@ SmallRing::SmallRing()
 	
 	this->setPhysicsBody(body);
 	this->setTag(Define::Ring);
+
 }
 
 

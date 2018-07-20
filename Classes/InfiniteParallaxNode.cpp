@@ -13,6 +13,7 @@ InfiniteParallaxNode* InfiniteParallaxNode::create()
 		delete node;
 		node = 0;
 	}
+	//node->autorelease();
 	return node;
 }
 

@@ -33,9 +33,10 @@ Sonic::Sonic()
 	hurt_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(hurt_FL, 0.05f)));
 	run_skip_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(skip_FL, 0.05f)));
 	roll_chest_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_chest_FL, 0.03f)));
+	stop_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(false, "stop"), 0.05f)));
+	
 	//Red Sonic Ani
 	run_fast_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_fast_red_FL, 0.01f)));
-	
 	jump_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(jump_red_FL, 0.03f)));
 	roll_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_red_FL, 0.03f)));
 	fall_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fall_red_FL, 0.01f)));
@@ -43,6 +44,8 @@ Sonic::Sonic()
 	hurt_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(hurt_red_FL, 0.05f)));
 	run_skip_red_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(skip_red_FL, 0.05f)));
 	roll_chest_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_chest_red_FL, 0.03f)));
+	stop_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(true, "stop"), 0.05f)));
+	
 	auto verti = PhysicsBody::createCircle(75, PhysicsMaterial(0.1f, 0.0f, 0.0f));
 
 	verti->setCategoryBitmask(1);    // 0010
@@ -79,6 +82,7 @@ Sonic::Sonic()
 	this->scheduleUpdate();
 
 	SwapAllAni();//Bug fix:Hao super Lag when Sonic change to red
+	//autorelease();
 }
 
 
@@ -259,6 +263,9 @@ void Sonic::SetStateByTag(SonicState::StateAction action)
 	case SonicState::ROLL_CHEST:
 		this->SetState(new SonicRollChestState(mData));
 		break;
+	case SonicState::STOP:
+		this->SetState(new SonicStopState(mData));
+		break;
 	}
 	
 }
@@ -310,7 +317,11 @@ void Sonic::SetState(SonicState * state)
 	case SonicState::ROLL_CHEST:
 		mCurrentAnimate = roll_chest_Ani;
 		mCurrentAction = RepeatForever::create(mCurrentAnimate->get());
-		break;
+		break; 
+	case SonicState::STOP:
+			mCurrentAnimate = stop_Ani;
+			mCurrentAction = mCurrentAnimate->get();
+			break;
 	case SonicState::DIE:
 		
 		this->stopAllActions();
@@ -322,7 +333,7 @@ void Sonic::SetState(SonicState * state)
 		});
 		mCurrentAction =  Sequence::create(JumpBy::create(1.5, Vec2(-200, -400), 200, 1), restart_scene, nullptr);
 		break;
-		
+	
 	}
 	if(mCurrentAction!=nullptr)
 	this->runAction(mCurrentAction);
@@ -549,6 +560,7 @@ void Sonic::SwapAllAni()
 	SwapAni(hurt_Ani, hurt_red_Ani);
 	SwapAni(run_skip_Ani, run_skip_red_Ani);
 	SwapAni(roll_chest_Ani, roll_chest_red_Ani);
+	SwapAni(stop_Ani, stop_red_Ani);
 	this->stopAllActions();
 	this->SetStateByTag(mCurrentState->GetState());
 }

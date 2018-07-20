@@ -74,6 +74,7 @@ MultipleButton::MultipleButton(Vec2 pos, Sonic* sonic, Layer* layer,int button_c
 	_label->setVisible(false);
 	_label->setPosition(0, 50);
 	this->addChild(_label, 2);
+//	this->autorelease();
 }
 
 void MultipleButton::update(float dt)

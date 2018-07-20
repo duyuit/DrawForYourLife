@@ -20,7 +20,7 @@ Mushroom::Mushroom()
 	body->setCollisionBitmask(0);   // 0001
 	body->setContactTestBitmask(1);
 
-
+//	this->autorelease();
 	this->setPhysicsBody(body);
 
 }

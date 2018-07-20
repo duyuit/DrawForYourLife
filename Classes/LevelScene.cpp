@@ -9,6 +9,8 @@ LevelScene::LevelScene()
 
 LevelScene::~LevelScene()
 {
+
+
 }
 
 void LevelScene::LoadSound()
@@ -20,7 +22,6 @@ void LevelScene::LoadSound()
 	audio->preloadEffect(Define::_music_eat_ring_efftect_path);
 	audio->preloadEffect(Define::_music_roll_effect_path);
 	audio->preloadEffect(Define::_music_jump_effect_path);
-//	audio->preloadEffect(Define::_music_eat_ring_efftect_path_1);
 	audio->preloadEffect(Define::_music_button_effect_path);
 }
 
@@ -294,10 +295,10 @@ void LevelScene::SetViewPointCenter(Point position, bool isFast)
 	Vec2 centerOfView = Vec2(winSize.width / 2, winSize.height / 2);
 	Vec2 viewPoint;
 
-	if (_mSonic->getPositionX()<15600)
+	//if (_mSonic->getPositionX()<15600)
 		viewPoint = centerOfView - actualPosition + Vec2(-300, 0);
-	else
-	viewPoint = centerOfView - actualPosition;
+	/*else
+	viewPoint = centerOfView - actualPosition;*/
 
 
 	auto currentCameraPosition = this->getPosition();
@@ -361,7 +362,7 @@ void LevelScene::update(float dt)
 
 void LevelScene::updateStart(float dt)
 {
-//	this->getScene()->getPhysicsWorld()->setFixedUpdateRate(60);
+	this->getScene()->getPhysicsWorld()->setFixedUpdateRate(60);
 	_myui = new MyUI(_mSonic);
 
 	this->getScene()->addChild(_myui);

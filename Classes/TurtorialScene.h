@@ -10,7 +10,7 @@ public:
 	int count_to_move_scene = 0; // 
 	int delta_x = -30; //2 Variable to Shake Camera when sonic is pausing
 	int count_tuto =0;
-
+	void LoadMap(string path) override;
 	Sprite* blackImage;
 
 	TurtorialScene();

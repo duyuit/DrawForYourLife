@@ -2,7 +2,12 @@
 #include "cocos2d.h"
 #include "Sonic.h"
 using namespace cocos2d;
-
+enum TYPE_SCORE
+{
+	PERFECT,
+	GREAT,
+	BAD
+};
 class TapButton:public Sprite
 {
 public:
@@ -12,12 +17,13 @@ public:
 	int isLeft;
 	int isCountCombo = false;
 	float time = 1.4;
+	TYPE_SCORE score;
 	ProgressTimer* mouseBar;
 	Sprite* _border;
 	Sprite* _progressbar;
 
 	void ActiveButton(BUTTON_TAG dir);
-	RefPtr<Animate>  *_break_Ani;
+	RefPtr<Animate>  *_break_Ani=nullptr;
 	BUTTON_TAG mTag = NONE;
 
 	bool isDelete=false;

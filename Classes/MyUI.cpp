@@ -182,4 +182,5 @@ MyUI::MyUI(Sonic * mSonic)
 		};
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, this);
+	//	this->autorelease();
 };

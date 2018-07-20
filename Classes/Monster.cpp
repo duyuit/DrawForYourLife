@@ -17,7 +17,7 @@ Monster::Monster()
 	_fightAni= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fightFL, 0.05f)));
 
 	//this->Init(sonic);
-
+	//this->autorelease();
 	
 }
 

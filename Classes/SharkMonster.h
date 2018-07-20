@@ -9,6 +9,9 @@ public:
 	bool _flipped = false;
 	Sprite* water=nullptr;
 	RefPtr<Animate>  *_water_splash;
+
+	bool _isActiveEarly = true;
+	bool _isButtonActive = false;
 	~SharkMonster();
 };
 

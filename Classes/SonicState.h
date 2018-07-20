@@ -18,7 +18,8 @@ public:
 		HURT,
 		DIE,
 		RUNSKIP,
-		ROLL_CHEST
+		ROLL_CHEST,
+		STOP
 	};
 	SonicState();
 	~SonicState();
