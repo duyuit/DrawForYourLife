@@ -27,9 +27,11 @@ public:
 	void ResetTutorial4();
 	void ResetTutorial5();
 
+	virtual void  ReloadScene() override;
 	void Pause();
 	void Continue();
-	void update(float dt);
+	void update(float dt) override;
+	void updateStart(float dt) override;
 	bool onContactBegin(cocos2d::PhysicsContact & contact);
 	virtual bool init();
 	static cocos2d::Scene* createScene();

@@ -25,6 +25,7 @@ public:
 	SimpleAudioEngine* audio;
 	Vector<MultipleButton*> _listMultipleButton;
 
+	virtual void ReloadScene();
 	void LoadSound();
 	void RollBackground();
 
@@ -33,7 +34,7 @@ public:
 	void SetViewPointCenter(Point position, bool isFast);
 	bool onContactBegin(cocos2d::PhysicsContact & contact);
 	void update(float dt);
-	void updateStart(float dt);
+	virtual void updateStart(float dt);
 
 	virtual bool init();
 	static cocos2d::Scene* createScene();

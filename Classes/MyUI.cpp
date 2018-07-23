@@ -112,7 +112,12 @@ MyUI::MyUI(Sonic * mSonic)
 				//but->setOpacity(255);
 				break;
 			case ui::Widget::TouchEventType::ENDED:
-				Director::getInstance()->replaceScene(TurtorialScene::createScene());
+				if (current_scene != nullptr)
+				{
+					auto scene = (LevelScene*)current_scene;
+					scene->ReloadScene();
+				}				//this->getParent()->getChildByTag(1);
+				
 				//but->setOpacity(200);
 				break;
 			default:

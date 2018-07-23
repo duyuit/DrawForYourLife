@@ -13,6 +13,15 @@ LevelScene::~LevelScene()
 
 }
 
+void LevelScene::MyPause()
+{
+	// Pause everthing
+}
+
+void LevelScene::ReloadScene()
+{
+}
+
 void LevelScene::LoadSound()
 {
 	audio = SimpleAudioEngine::getInstance();
@@ -352,7 +361,6 @@ bool LevelScene::onContactBegin(cocos2d::PhysicsContact & contact)
 
 void LevelScene::update(float dt)
 {
-
 
 	RollBackground();
 	if (_mSonic->getPosition().x < 0) _mSonic->setPosition(0, _mSonic->getPosition().y);

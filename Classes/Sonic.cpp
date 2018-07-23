@@ -55,7 +55,6 @@ Sonic::Sonic()
 	verti->setRotationEnable(false);
 	verti->setDynamic(true);
 	
-	//verti->getShape(0)->setRestitution(0.0f);//đàn hồi
 	this->setPhysicsBody(verti);
 
 

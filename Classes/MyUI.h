@@ -3,6 +3,7 @@
 #include "Sonic.h"
 #include "ui/CocosGUI.h"
 #include "ComboScore.h"
+
 using namespace cocos2d;
 using namespace ui;
 
@@ -10,6 +11,7 @@ class MyUI:public Layer
 {
 public:
 	MyUI() {};
+	Layer *current_scene = nullptr;
 	Sonic* mySonic;
 	Button *_button_left,*_button_right,*_restart;
 	Sprite* ringIcon;

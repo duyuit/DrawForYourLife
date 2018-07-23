@@ -156,6 +156,11 @@ void TurtorialScene::ResetTutorial5()
 }
 
 
+void TurtorialScene::ReloadScene()
+{
+	Director::getInstance()->replaceScene(this->createScene());
+}
+
 void TurtorialScene::Pause()
 {
 	//_mSonic->SetVelocity(0,0);
@@ -335,6 +340,13 @@ void TurtorialScene::update(float dt)
 
 }
 
+void TurtorialScene::updateStart(float dt)
+{
+	LevelScene::updateStart(1);
+		_myui->current_scene = this;
+
+}
+
 
 
 bool TurtorialScene::init()
@@ -398,7 +410,9 @@ bool TurtorialScene::init()
 
 	}
 
-	
+	scheduleOnce(CC_SCHEDULE_SELECTOR(TurtorialScene::updateStart), 0);
+
+
 	return true;
 }
 
