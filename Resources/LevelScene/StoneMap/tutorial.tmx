@@ -49,7 +49,6 @@
  <objectgroup name="Monster">
   <object id="147" x="11248" y="1340" width="16" height="15"/>
   <object id="175" x="14849.9" y="1369.27"/>
-  <object id="239" x="1930.3" y="1366.67"/>
  </objectgroup>
  <objectgroup name="Chest">
   <object id="226" x="18077.1" y="1417.85"/>

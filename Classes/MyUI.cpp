@@ -99,24 +99,139 @@ MyUI::MyUI(Sonic * mSonic)
 		});
 		this->addChild(_button_right, -1);
 
-		_restart = Button::create("Level_map/round.png");
+		//visibleSzie level map
+		auto visibleSize = Director::getInstance()->getVisibleSize();
+		Vec2 origin = Director::getInstance()->getVisibleOrigin();
+		float scaleX = visibleSize.width / 2;
+		float scaleY = visibleSize.height / 2;
+
+		//Board Star
+		board = Sprite::create("Level_map/game_board.png");
+		//board->setScale(origin.x /2, origin.y /2);
+		board->setAnchorPoint(Vec2(0.5f, 0.5f));
+		board->setOpacity(0);
+		board->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+		board->setVisible(false);
+		this->addChild(board, 5);
+
+		layer = LayerColor::create();
+		layer->setColor(Color3B::BLACK);
+		layer->setOpacity(200);
+		this->addChild(layer);
+		layer->setVisible(false);
+
+		//Define delta x size board
+		float delta_x = board->getContentSize().width / 10;
+		float delta_y = board->getContentSize().height * 2 / 5;
+		//Define number scale button in Board Star
+		float numScale = 0.9;
+
+		//Label Board Star
+		auto myLabel = Label::createWithTTF("Pausing", "fonts/hemi.ttf", 30);
+		myLabel->setAnchorPoint(Vec2(0.5f, 0.5f));
+		myLabel->setPosition(Vec2(delta_x * 6 - delta_x * 2 / 2, delta_y * 2.5 - delta_y / 2));
+		board->addChild(myLabel, 2);
+
+		//Button round in Board Star
+		auto button_board_round = Button::create("Level_map/round.png");
+		//button_board_round->setScale(numScale*scaleX, numScale*scaleY);
+		button_board_round->setAnchorPoint(Vec2(0.5f, 0.5f));
+		button_board_round->setPosition(Vec2(delta_x * 2 / 2, delta_y));
+		board->addChild(button_board_round, 6);
+		button_board_round->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+			switch (type)
+			{
+			case ui::Widget::TouchEventType::BEGAN:
+				break;
+			case ui::Widget::TouchEventType::ENDED:
+			{
+				_restart->setVisible(true);
+				board->setVisible(false);
+				if (current_scene != nullptr)
+				{
+					auto scene = (LevelScene*)current_scene;
+					scene->ReloadScene();
+				}
+			}
+				break;
+			default:
+				break;
+			}
+		});
+
+		//Button play  in Board Star
+		auto button_board_play = Button::create("Level_map/play.png");
+		//button_board_play->setScale(numScale*scaleX, numScale*scaleY);
+		button_board_play->setAnchorPoint(Vec2(0.5f, 0.5f));
+		button_board_play->setPosition(Vec2(delta_x * 10 / 2, delta_y));
+		board->addChild(button_board_play, 6);
+		button_board_play->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+			switch (type)
+			{
+			case ui::Widget::TouchEventType::BEGAN:
+				break;
+			case ui::Widget::TouchEventType::ENDED:
+			{
+				_restart->setVisible(true);
+				board->setVisible(false);
+				layer->setVisible(false);
+				if (current_scene != nullptr)
+				{
+					auto scene = (LevelScene*)current_scene;
+					scene->MyResume();
+				}
+			}
+				break;
+			default:
+				break;
+			}
+		});
+
+		//Button cancel in Board Star
+		auto button_board_cancel = Button::create("Level_map/out.png");
+		//button_board_cancel->setScale(numScale*scaleX, numScale*scaleY);
+		button_board_cancel->setAnchorPoint(Vec2(0.5f, 0.5f));
+		button_board_cancel->setPosition(Vec2(delta_x * 19 / 2, delta_y));
+		board->addChild(button_board_cancel, 6);
+
+		button_board_cancel->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+			switch (type)
+			{
+			case ui::Widget::TouchEventType::BEGAN:
+				break;
+			case ui::Widget::TouchEventType::ENDED:
+			{
+				//setEnabledAll(true);
+				_restart->setVisible(true);
+				board->setVisible(false);
+				layer->setVisible(false);
+			}
+				break;
+			default:
+				break;
+			}
+		});
+
+		_restart = Button::create("Level_map/pause.png");
 		_restart->setPosition(_director->getWinSize() - _restart->getContentSize());
+		_restart->setScale(0.8);
 		_restart->setAnchorPoint(Vec2(0.5, 0.5));
 		_restart->addTouchEventListener([this](Ref* sender, Widget::TouchEventType type) {
 			auto but = (Button*)sender;
 			switch (type)
 			{
 			case ui::Widget::TouchEventType::BEGAN:
-				//but->setOpacity(255);
 				break;
-			case ui::Widget::TouchEventType::ENDED:
+			case ui::Widget::TouchEventType::ENDED: {
+				_restart->setVisible(false);
+				board->setVisible(true);
+				layer->setVisible(true);
 				if (current_scene != nullptr)
 				{
 					auto scene = (LevelScene*)current_scene;
-					scene->ReloadScene();
-				}				//this->getParent()->getChildByTag(1);
-				
-				//but->setOpacity(200);
+					scene->MyPause();
+				}
+			}
 				break;
 			default:
 				break;

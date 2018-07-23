@@ -17,9 +17,11 @@ public:
 	Sprite* ringIcon;
 	Label* countRing;
 	Sprite* _touch_guide;
-	ComboScore* _combo;
-	bool _istouch = false;
+	ComboScore* _combo;	
+	Sprite* board;
+	LayerColor *layer = nullptr;
 
+	bool _istouch = false;
 	int count_to_reset_touch = 0;
 	void update(float dt)
 	{

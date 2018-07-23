@@ -196,12 +196,12 @@ void ComboScore::update(float dt)
 			
 			if (combo < 5) flame->setVisible(false);
 			else flame->setVisible(true);
-			if (combo > 5 && combo < 10 && _pre_combo <= 5)
+			if (combo > 5 && combo <= 10 && _pre_combo <= 5)
 			{
 				flame->stopAllActions();
 				flame->runAction(RepeatForever::create(flame_blue_Ani->get()));
 			}
-			else if (combo > 10 && combo < 15 && _pre_combo <= 10)
+			else if (combo > 10 && combo <= 15 && _pre_combo <= 10)
 			{
 				flame->stopAllActions();
 				flame->runAction(RepeatForever::create(flame_Ani->get()));

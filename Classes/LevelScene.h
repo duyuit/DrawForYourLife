@@ -26,10 +26,10 @@ public:
 	Vector<MultipleButton*> _listMultipleButton;
 
 	virtual void MyPause();
+	virtual void MyResume();
 	virtual void ReloadScene();
 	void LoadSound();
 	void RollBackground();
-	void Pause();
 	void CheckButton();
 	virtual void LoadMap(string path);
 	void SetViewPointCenter(Point position, bool isFast);

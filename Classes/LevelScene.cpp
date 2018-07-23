@@ -16,6 +16,20 @@ LevelScene::~LevelScene()
 void LevelScene::MyPause()
 {
 	// Pause everthing
+	this->pause();
+	for (auto child : this->getChildren()) {
+		child->pauseSchedulerAndActions();
+	}
+	Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(0);
+}
+void LevelScene::MyResume()
+{
+	// Pause everthing
+	this->resume();
+	for (auto child : this->getChildren()) {
+		child->resumeSchedulerAndActions();
+	}
+	Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1);
 }
 
 void LevelScene::ReloadScene()
