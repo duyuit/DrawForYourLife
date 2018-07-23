@@ -111,11 +111,10 @@ void Sonic::update(float dt)
 
 		if (countCombo >= 10 && countCombo < 15)
 		{
-			if (!isBlueToRed)
+			if (!isRed)
 			{
 				SwapAllAni();
-				isBlueToRed = true;
-				isRedToBlue = false;
+				isRed = true;
 			}
 		}
 		else if (countCombo >= 15)

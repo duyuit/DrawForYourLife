@@ -53,7 +53,7 @@ public:
 	int ringCollected = 0; //Count rings Sonic collected
 	int baseLife = 2; //Count the number of your dropping rings (drop ring 3 times you die)
 	int countCombo = 0; //Count the combo tap button, no missing
-	bool isBlueToRed = false, isRedToBlue = false;
+	bool isRed = false;
 
 	void SwapAni(RefPtr<Animate> *&blue, RefPtr<Animate> *&red); //Swap red and blue Sonic
 	void SwapAllAni();
