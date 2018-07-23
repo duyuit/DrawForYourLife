@@ -9,7 +9,7 @@ MultipleButton::MultipleButton()
 MultipleButton::MultipleButton(Vec2 pos, Sonic* sonic, Layer* layer,int button_count, float time)
 {
 	_mSonic = sonic;
-
+	
 	_progressbar =  Sprite::create("GameComponents/progress.png");
 	_progressbar->setAnchorPoint(Vec2(0, 0.5f));
 	_progressbar->setScale(0.3, 0.3);
@@ -82,7 +82,7 @@ void MultipleButton::update(float dt)
 	if (isDelete) return;
 	if (this->getPosition().x - _mSonic->getPosition().x <= 800 && !isActive && canActive)
 		this->Active();
-	if (isActive && _mSonic->_list_just_tap.size()>0)
+	/*if (isActive && _mSonic->_list_just_tap.size()>0)
 	{
 		for (int i = 0; i <  _mSonic->_list_just_tap.size(); i++)
 		{
@@ -102,7 +102,7 @@ void MultipleButton::update(float dt)
 		
 		}
 		
-	}
+	}*/
 	/*if (isActive)
 	{
 		count_to_auto_play++;
@@ -122,16 +122,34 @@ void MultipleButton::update(float dt)
 }
 
 
+void MultipleButton::ActiveButton(BUTTON_TAG dir)
+{
+	if (_list_button_tag.at(current_button) != dir)
+		DeleteNow(false);
+	else
+	{
+		if (_list_button_tag.at(current_button) == 1)
+			_list_button_sprite.at(current_button)->initWithFile(Define::button_left_green_path);
+		else
+			_list_button_sprite.at(current_button)->initWithFile(Define::button_right_green_path);
+		current_button++;
+		if (current_button == _list_button_tag.size())
+			DeleteNow(true);
+	}
+
+}
+
 void MultipleButton::Active()
 {
+	_mSonic->mCurrentButton = this;
 	_mSonic->isInMultipleButton = true;
 	isActive = true;
-	_mSonic->_list_just_tap.clear();
 	mouseBar->runAction(Sequence::create(ProgressTo::create(1.4f, 83.0f), CallFuncN::create(CC_CALLBACK_0(MultipleButton::BlinkProgressBar, this)), nullptr));
 }
 
 void MultipleButton::DeleteNow(bool check)
 {
+	_mSonic->mCurrentButton = nullptr;
 	_mSonic->isInMultipleButton = false;
 	isDelete = true;
 	if (check)

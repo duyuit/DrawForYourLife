@@ -430,7 +430,7 @@ bool LevelScene::init()
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(LevelScene::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
-	scheduleOnce(CC_SCHEDULE_SELECTOR(LevelScene::updateStart), 0);
+	//scheduleOnce(CC_SCHEDULE_SELECTOR(LevelScene::updateStart), 0);
 
 
 	this->scheduleUpdate();

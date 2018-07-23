@@ -27,10 +27,10 @@ public:
 	SonicState::StateAction _action;
 	bool isDelete = false;
 
+	int current_button = 0;
 	RefPtr<Animate>  *_break_left_Ani;
 	RefPtr<Animate>  *_break_right_Ani;
-	
-
+	void ActiveButton(BUTTON_TAG dir);
 	void Active();
 	void DeleteNow(bool check);
 	void BlinkProgressBar();

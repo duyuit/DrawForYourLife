@@ -1,7 +1,7 @@
 ﻿#include "Sonic.h"
 
 #include "TapButton.h"
-
+#include "MultipleButton.h"
 Sonic::Sonic()
 {
 	//Blue Sonic
@@ -566,7 +566,22 @@ void Sonic::SwapAllAni()
 void Sonic::ActiveButton(BUTTON_TAG dir)
 {
 	mJustTap = dir;
-	TapButton* tap =(TapButton*) mCurrentButton;
-	if(tap!=nullptr)
-	tap->ActiveButton(dir);
+	if (mCurrentButton != nullptr)
+	{
+		if (isInMultipleButton)
+		{
+			MultipleButton* tap = (MultipleButton*)mCurrentButton;
+			tap->ActiveButton(dir);
+		}
+		else
+		{
+			TapButton* tap = (TapButton*)mCurrentButton;
+			tap->ActiveButton(dir);
+		}
+
+	}
+
+
+
+
 }

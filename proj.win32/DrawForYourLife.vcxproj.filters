@@ -25,6 +25,9 @@
     <Filter Include="src\Scene">
       <UniqueIdentifier>{02a0b001-ee3a-4ba0-9896-d8c3ef2dde20}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Plane">
+      <UniqueIdentifier>{934cb837-362c-45fa-9663-aca39407f5da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -129,9 +132,13 @@
     <ClCompile Include="..\Classes\SharkMonster.cpp">
       <Filter>src\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BonusChest.cpp" />
-    <ClCompile Include="..\Classes\SonicRollChestState.cpp" />
     <ClCompile Include="..\Classes\SonicStopState.cpp">
+      <Filter>src\Sonic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BonusChest.cpp">
+      <Filter>src\MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SonicRollChestState.cpp">
       <Filter>src\Sonic</Filter>
     </ClCompile>
   </ItemGroup>
@@ -244,9 +251,13 @@
     <ClInclude Include="..\Classes\SharkMonster.h">
       <Filter>src\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\BonusChest.h" />
-    <ClInclude Include="..\Classes\SonicRollChestState.h" />
     <ClInclude Include="..\Classes\SonicStopState.h">
+      <Filter>src\Sonic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BonusChest.h">
+      <Filter>src\MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SonicRollChestState.h">
       <Filter>src\Sonic</Filter>
     </ClInclude>
   </ItemGroup>
