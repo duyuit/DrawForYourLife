@@ -71,12 +71,11 @@ void ComboScore::UpdateCombo()
 
 void ComboScore::ResetCombo()
 {
-	/*if (_mySonic->isBlueToRed)
+	if (_mySonic->isRed)
 	{
 		_mySonic->SwapAllAni();
-		_mySonic->isRedToBlue = true;
-		_mySonic->isBlueToRed = false;
-	}*/
+		_mySonic->isRed = false;
+	}
 
 	_label->stopAllActions();
 	_label->setVisible(false);
@@ -194,7 +193,6 @@ void ComboScore::update(float dt)
 		else
 		{
 			UpdateCombo();
-
 			
 			if (combo < 5) flame->setVisible(false);
 			else flame->setVisible(true);
@@ -208,11 +206,17 @@ void ComboScore::update(float dt)
 				flame->stopAllActions();
 				flame->runAction(RepeatForever::create(flame_Ani->get()));
 			}
-			else if (combo > 15 && _pre_combo <= 15)
+			else if (combo > 15 && _pre_combo <= 20 && _pre_combo <= 15)
+			{
+				flame->stopAllActions();
+				flame_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(flame_FL, 0.04f)));
+			//	flame_Ani->get()->getAnimation()->setsetDelayPerUnit(0.02f);
+				flame->runAction(RepeatForever::create(flame_Ani->get()));
+			}
+			else if (combo > 20 && _pre_combo <= 20)
 			{
 				flame->stopAllActions();
 				flame_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(flame_FL, 0.02f)));
-			//	flame_Ani->get()->getAnimation()->setsetDelayPerUnit(0.02f);
 				flame->runAction(RepeatForever::create(flame_Ani->get()));
 			}
 			
