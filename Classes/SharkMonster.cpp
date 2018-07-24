@@ -8,7 +8,7 @@ SharkMonster::SharkMonster(Sonic *sonic)
 	Vector<SpriteFrame*> fightFL = loadAnim("Monster/shark.xml", "bite");
 
 	_runAni = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(runFL, 0.07f)));
-	_fightAni = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fightFL, 0.05f)));
+	_fightAni = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fightFL, 0.08f)));
 
 	
 	_water_splash= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Particle/water_splash.xml","1"), 0.05f)));
@@ -188,7 +188,7 @@ void SharkMonster::SetStateByTag(MONSTERSTATE state)
 		
 		//
 		this->getPhysicsBody()->setGravityEnable(true);
-		this->getPhysicsBody()->setPositionOffset(Vec2(20, 0));
+		this->getPhysicsBody()->setPositionOffset(Vec2(10, 0));
 		this->getPhysicsBody()->setVelocity(Vec2(0, 0));
 		this->getPhysicsBody()->applyForce(Vec2(0,13000000));
 		break;
