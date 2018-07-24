@@ -51,7 +51,7 @@ public:
 	bool isDelete = false;
 	void DropRing();
 	int ringCollected = 0; //Count rings Sonic collected
-	int baseLife = 2; //Count the number of your dropping rings (drop ring 3 times you die)
+	float baseMul = 1.0; //Multiple the ring
 	int countCombo = 0; //Count the combo tap button, no missing
 	bool isRed = false;
 

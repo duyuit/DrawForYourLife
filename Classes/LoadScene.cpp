@@ -57,8 +57,8 @@ bool LoadScene::init()
 
 
 	auto actionMoveDone = CallFuncN::create(CC_CALLBACK_1(LoadScene::nextScene, this));
-	mouseBar->runAction(Sequence::create(ProgressFromTo::create(1.0f, 0.0f, 100), actionMoveDone, NULL));
-
+	mouseBar->runAction(ProgressFromTo::create(1.0f, 0.0f, 100));
+	this->runAction(Sequence::create(DelayTime::create(2.0), actionMoveDone, NULL));
 	return true;
 }
 

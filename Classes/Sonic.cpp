@@ -351,7 +351,7 @@ void Sonic::HandleCollision(Sprite * sprite)
 		//Play sound when eat rings
 		SimpleAudioEngine::getInstance()->playEffect(Define::_music_eat_ring_efftect_path);
 		
-		ringCollected++;
+		ringCollected = (float)ringCollected + baseMul;
 	}
 	else if (sprite->getTag() == Define::MUSHROOM /*&& (mCurrentState->GetState()== SonicState::FALL || mCurrentState->GetState() == SonicState::ROLL)*/)
 	{
@@ -368,6 +368,7 @@ void Sonic::HandleCollision(Sprite * sprite)
 	else if (sprite->getTag() == Define::CHEST && mCurrentState->GetState() == SonicState::ROLL)
 	{
 		this->SetStateByTag(SonicState::ROLL_CHEST);
+		return;
 	}
 	else if (sprite->getTag() == Define::DIELAND && mCurrentState->GetState() != SonicState::DIE)
 	{
@@ -377,30 +378,19 @@ void Sonic::HandleCollision(Sprite * sprite)
 	//When Sonic hits enemy, push back and drop rings
 	if (sprite->getTag() == Define::LANDMONSTER && mCurrentState->GetState() != SonicState::ROLL)
 	{
-		
-
 		this->SetStateByTag(SonicState::HURT);
 		this->runAction(Blink::create(2, 10));
-		if (ringCollected > 0 && baseLife > 0)
+		if (ringCollected > 0)
 		{
 			int t = ringCollected; //Temp variable
-			for (int i = 0; i < (int)(t / baseLife); i++)
+			for (int i = 0; i < (int)(t / 2); i++)
 			{
 				runAction(CallFuncN::create(CC_CALLBACK_0(Sonic::DropRing, this)));
-				//DropRing();
-				 ringCollected--;
+				ringCollected--;
 			}
-			baseLife--;
-		}
-		else if ( ringCollected <= 0 || baseLife <= 0)
-		{
-			 ringCollected = 0;
-			baseLife = 2;
 		}
 		//Monster cant collision with Sonic 
-		sprite->getPhysicsBody()->setContactTestBitmask(0);
-	
-		
+		sprite->getPhysicsBody()->setContactTestBitmask(0);	
 	}
 	mCurrentState->HandleCollision(sprite);
 }
@@ -424,14 +414,15 @@ void Sonic::DropRing()
 	ring->getPhysicsBody()->setGravityEnable(true);
 
 	ring->getPhysicsBody()->setCollisionBitmask(2);
+	ring->getPhysicsBody()->setContactTestBitmask(0);
 
 	float x = RandomHelper::random_real(-1.0, 1.0);
 	float y = RandomHelper::random_real(0.0, 10.0);
 
 	ring->getPhysicsBody()->setVelocity(Vec2(0, 0));
 	ring->getPhysicsBody()->applyForce(Vec2(-3000000 * x, 800000 * y));
+	ring->SetAutoRemove(); 
 	ring->getPhysicsBody()->setContactTestBitmask(1);
-	ring->SetAutoRemove();
 
 	this->getParent()->addChild(ring, 10);
 }
