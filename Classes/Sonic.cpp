@@ -351,7 +351,7 @@ void Sonic::HandleCollision(Sprite * sprite)
 		//Play sound when eat rings
 		SimpleAudioEngine::getInstance()->playEffect(Define::_music_eat_ring_efftect_path);
 		
-		ringCollected = (float)ringCollected + baseMul;
+		ringCollected++;
 	}
 	else if (sprite->getTag() == Define::MUSHROOM /*&& (mCurrentState->GetState()== SonicState::FALL || mCurrentState->GetState() == SonicState::ROLL)*/)
 	{

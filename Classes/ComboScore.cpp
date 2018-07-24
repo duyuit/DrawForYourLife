@@ -71,7 +71,7 @@ void ComboScore::UpdateCombo()
 
 void ComboScore::ResetCombo()
 {
-	_mySonic->baseMul = 1.0;
+	_mySonic->scoreMul = 1.0;
 	if (_mySonic->isRed)
 	{
 		_mySonic->SwapAllAni();
@@ -134,7 +134,7 @@ void ComboScore::Evaluate()
 		{
 			if (!isCool)
 			{		
-				_mySonic->baseMul = 1.5;
+				_mySonic->scoreMul = 1.5;
 				_label2->setColor(Color3B(255, 255, 0));
 				_label2->setString("Cool!!");
 				isCool = true;
@@ -145,7 +145,7 @@ void ComboScore::Evaluate()
 		{
 			if (!isGood) 
 			{
-				_mySonic->baseMul = 2.0;
+				_mySonic->scoreMul = 2.0;
 				_label2->setColor(Color3B(255, 128, 0));
 				_label2->setString("Good!");
 				isGood = true;
@@ -156,7 +156,7 @@ void ComboScore::Evaluate()
 		{
 			if (!isExcellent) 
 			{
-				_mySonic->baseMul = 2.5;
+				_mySonic->scoreMul = 2.5;
 				_label2->setColor(Color3B(102, 102, 255));
 				_label2->setString("Excellent!");
 				isExcellent = true;
@@ -167,7 +167,7 @@ void ComboScore::Evaluate()
 		{
 			if (!isPerfect)
 			{
-				_mySonic->baseMul = 3.0;
+				_mySonic->scoreMul = 3.0;
 				_label2->setColor(Color3B(255, 0, 0));
 				_label2->setString("Perfect!");
 				isPerfect = true;
