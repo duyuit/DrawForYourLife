@@ -57,6 +57,13 @@ void BonusChest::CreateRing()
 
 	this->getParent()->addChild(ring, 10);
 
+	_mSonic->runAction(
+		Sequence::create(
+			MoveBy::create(0.05f, Vec2(10, 0)),
+			MoveBy::create(0.1f, Vec2(-20, 0)),
+			MoveBy::create(0.05f, Vec2(10, 0)),
+			nullptr));
+
 	this->runAction(
 			Repeat::create(
 				Sequence::create(

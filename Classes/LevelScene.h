@@ -16,19 +16,20 @@ public:
 	~LevelScene();
 
 	Sonic* _mSonic;
-	InfiniteParallaxNode* _backgroundNode;
-	InfiniteParallaxNode* _backgroundNode2;
+	InfiniteParallaxNode *_backgroundNode, *_backgroundNode2;
 	CCTMXTiledMap * _tileMap=nullptr;
 	MyUI* _myui = nullptr;
 	vector<TapButton*> _listButton;
 	Vector<Monster*> _listMonster;
 	SimpleAudioEngine* audio;
 	Vector<MultipleButton*> _listMultipleButton;
+	int _speedParallax = 1;
 
 	virtual void MyPause();
 	virtual void MyResume();
 	virtual void ReloadScene();
 	void LoadSound();
+	void CreateParallaxNode(string path);
 	void RollBackground();
 	void CheckButton();
 	virtual void LoadMap(string path);
