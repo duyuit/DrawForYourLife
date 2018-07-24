@@ -36,6 +36,23 @@ void LevelScene::ReloadScene()
 {
 }
 
+void LevelScene::SortButton()
+{
+	for (int i = 0; i < _listButton.size(); i++)
+	{
+		for (int j = i + 1; j < _listButton.size(); j++)
+		{
+			if (_listButton.at(i)->getPositionX() > _listButton.at(j)->getPositionX())
+			{
+				auto temp = _listButton.at(i);
+				_listButton.at(i) = _listButton.at(j);
+				_listButton.at(j) = temp;
+			}
+		}
+	}
+	_listButton.at(0)->SetCanActive(true);
+}
+
 void LevelScene::LoadSound()
 {
 	audio = SimpleAudioEngine::getInstance();
@@ -123,6 +140,23 @@ void LevelScene::LoadMap(string path)
 			this->addChild(edgeSp); // Add v�o Layer
 		}
 
+		TMXObjectGroup *objectGroup_fish = _tileMap->getObjectGroup("Fish");
+		for (int i = 0; i < objectGroup_fish->getObjects().size(); i++)
+		{
+
+			Value objectemp = objectGroup_fish->getObjects().at(i);
+
+			float wi_box = objectemp.asValueMap().at("width").asFloat();
+			float he_box = objectemp.asValueMap().at("height").asFloat();
+			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+
+			SharkMonster *mush = new SharkMonster(_mSonic,Vec2(x_box,y_box));
+			_listButton.push_back(mush->_tapButton);
+			this->addChild(mush, 7);
+		}
+	
+
 
 		//Load DieLand (die when collision with)
 		TMXObjectGroup *objectGroup_hold_land = _tileMap->getObjectGroup("DieLand");
@@ -192,19 +226,7 @@ void LevelScene::LoadMap(string path)
 			_listButton.push_back(button);
 		}
 
-		for (int i = 0; i < _listButton.size(); i++)
-		{
-			for (int j = i + 1; j < _listButton.size(); j++)
-			{
-				if (_listButton.at(i)->getPositionX() > _listButton.at(j)->getPositionX())
-				{
-					auto temp = _listButton.at(i);
-					_listButton.at(i) = _listButton.at(j);
-					_listButton.at(j) = temp;
-				}
-			}
-		}
-		_listButton.at(0)->SetCanActive(true);
+	
 
 
 		////Load Monster Position
@@ -225,7 +247,7 @@ void LevelScene::LoadMap(string path)
 			_listMultipleButton.pushBack(mon->_multiButton);
 			this->addChild(mon, 7);
 		}
-
+		SortButton();
 		//Load Mushroom
 		TMXObjectGroup *objectGroup_Mushroom = _tileMap->getObjectGroup("Mushroom");
 		for (int i = 0; i < objectGroup_Mushroom->getObjects().size(); i++)
@@ -260,6 +282,8 @@ void LevelScene::LoadMap(string path)
 			this->addChild(chest, 1);
 			_listMultipleButton.pushBack(chest->_multiButton);
 		}
+
+	
 
 		//// Process object layer 
 		//auto objectGroup = _tileMap->getObjectGroup("Land2");

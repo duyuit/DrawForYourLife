@@ -156,8 +156,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\ComboScore.cpp" />
     <ClCompile Include="..\Classes\FrogMonster.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="..\Classes\HoldLand.cpp" />
     <ClCompile Include="..\Classes\InfiniteParallaxNode.cpp" />
     <ClCompile Include="..\Classes\LandMonster.cpp" />
+    <ClCompile Include="..\Classes\Level1Scene.cpp" />
     <ClCompile Include="..\Classes\LevelMap.cpp" />
     <ClCompile Include="..\Classes\LevelScene.cpp" />
     <ClCompile Include="..\Classes\LoadScene.cpp" />
@@ -197,8 +199,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\GameDefine.h" />
     <ClInclude Include="..\Classes\GameParticle.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
+    <ClInclude Include="..\Classes\HoldLand.h" />
     <ClInclude Include="..\Classes\InfiniteParallaxNode.h" />
     <ClInclude Include="..\Classes\LandMonster.h" />
+    <ClInclude Include="..\Classes\Level1Scene.h" />
     <ClInclude Include="..\Classes\LevelMap.h" />
     <ClInclude Include="..\Classes\LevelScene.h" />
     <ClInclude Include="..\Classes\LoadScene.h" />

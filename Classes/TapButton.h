@@ -12,6 +12,7 @@ class TapButton:public Sprite
 {
 public:
 	TapButton(Vec2 pos,Sonic *sprite,Layer* layer);
+	TapButton(Vec2 pos, Sonic *sprite, Layer* layer,bool isLeft);
 	Sonic* mTarget;
 	SonicState::StateAction _action = SonicState::JUMP;
 	int isLeft;
@@ -25,7 +26,8 @@ public:
 	void ActiveButton(BUTTON_TAG dir);
 	RefPtr<Animate>  *_break_Ani=nullptr;
 	BUTTON_TAG mTag = NONE;
-
+	
+	bool use_for_Hold = false;
 	bool isDelete=false;
 	bool canActive = false;
 	bool isActive = false;

@@ -2,7 +2,7 @@
 
 
 
-SharkMonster::SharkMonster(Sonic *sonic)
+SharkMonster::SharkMonster(Sonic *sonic, Vec2 pos)
 {
 	Vector<SpriteFrame*> runFL = loadAnim("Monster/shark.xml", "run");
 	Vector<SpriteFrame*> fightFL = loadAnim("Monster/shark.xml", "bite");
@@ -12,7 +12,6 @@ SharkMonster::SharkMonster(Sonic *sonic)
 
 	
 	_water_splash= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Particle/water_splash.xml","1"), 0.05f)));
-//	Monster::Init(sonic);
 
 	this->initWithSpriteFrame(runFL.at(0));
 	auto verti = PhysicsBody::createBox(this->getContentSize(), PhysicsMaterial(0.1f, 0.6, 0.0f));
@@ -22,7 +21,6 @@ SharkMonster::SharkMonster(Sonic *sonic)
 	verti->setContactTestBitmask(1);
 	
 
-	//verti->setRotationEnable(false);
 	verti->setGravityEnable(false);
 
 
@@ -31,23 +29,23 @@ SharkMonster::SharkMonster(Sonic *sonic)
 
 	_mSonic = sonic;
 
-	_tapButton = new TapButton(Vec2(0, 0), _mSonic, (Layer*)_mSonic->getParent());
+	_tapButton = new TapButton(pos, _mSonic, (Layer*)_mSonic->getParent());
 	_tapButton->SetCanActive(true);
-	
+	_tapButton->_action = SonicState::RUN_FAST;
 
-
+	this->setPosition(pos);
 	this->setAnchorPoint(Vec2(0.5f, 0));
 	this->SetStateByTag(RUN);
 	this->scheduleUpdate();
 
 
 
-	//this->getPhysicsBody()->setCollisionBitmask(0);
 	
 }
 
 void SharkMonster::update(float dt)
 {
+	//When fall, flip down
 	if (this->getPhysicsBody()->getVelocity().y < -10 && !_flipped)
 	{
 
@@ -56,6 +54,7 @@ void SharkMonster::update(float dt)
 
 	}
 
+	//When fall to water, run water splash animation
 	if (water != nullptr)
 	{
 		if (this->getPositionY() < water->getPositionY())
@@ -72,7 +71,7 @@ void SharkMonster::update(float dt)
 
 	if (isDelete) return;
 
-	
+	//Update position tapbutton
 	_tapButton->setPosition(this->getPosition() + Vec2(0, 150));
 	
 
@@ -83,7 +82,7 @@ void SharkMonster::update(float dt)
 	switch (_currentState)
 	{
 	case RUN:
-		if (_time_action ==50)
+		if (_time_action ==25)
 		{
 			_isLeft = !_isLeft;
 			SetStateByTag(RUN);
@@ -102,6 +101,7 @@ void SharkMonster::update(float dt)
 	default:
 		break;
 	}
+
 	if (!_isButtonActive)
 	{
 		if (_tapButton->isTrue) 
@@ -139,6 +139,8 @@ void SharkMonster::update(float dt)
 			}
 		}
 	}
+
+	//If press wrong or no press
 	if (_tapButton->isDelete && this->getPositionX() - _mSonic->getPositionX()<20 && _tapButton->score!=PERFECT)
 	{
 		this->SetStateByTag(FIGHT);

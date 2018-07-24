@@ -32,7 +32,7 @@ public:
 	void Continue();
 	void update(float dt) override;
 	void updateStart(float dt) override;
-	bool onContactBegin(cocos2d::PhysicsContact & contact);
+//	bool onContactBegin(cocos2d::PhysicsContact & contact);
 	virtual bool init();
 	static cocos2d::Scene* createScene();
 	CREATE_FUNC(TurtorialScene);

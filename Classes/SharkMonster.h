@@ -3,7 +3,7 @@
 class SharkMonster:public Monster
 {
 public:
-	SharkMonster(Sonic *sonic);
+	SharkMonster(Sonic *sonic,Vec2 pos);
 	void update(float dt) override;
 	void SetStateByTag(MONSTERSTATE state) override;
 	bool _flipped = false;

@@ -141,6 +141,7 @@ void MultipleButton::ActiveButton(BUTTON_TAG dir)
 
 void MultipleButton::Active()
 {
+	//DeleteNow(true);
 	_mSonic->mCurrentButton = this;
 	_mSonic->isInMultipleButton = true;
 	isActive = true;

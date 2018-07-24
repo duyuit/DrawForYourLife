@@ -1,6 +1,7 @@
 #include "LoadScene.h"
 #include "TestScene.h"
 #include "TurtorialScene.h"
+#include "Level1Scene.h"
 USING_NS_CC;
 using namespace std;
 using namespace ui;
@@ -64,7 +65,7 @@ bool LoadScene::init()
 
 void LoadScene::nextScene(cocos2d::Node* sender)
 {
-	sceneLevelMap = TurtorialScene::createScene();
+	sceneLevelMap = Level1Scene::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(1, sceneLevelMap));
 
 }

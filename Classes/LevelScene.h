@@ -8,6 +8,7 @@
 #include "SharkMonster.h"
 #include "MyDialogBox.h"
 #include "MultipleButton.h"
+#include "HoldLand.h"
 using namespace cocos2d;
 class LevelScene : public cocos2d::Layer
 {
@@ -28,6 +29,7 @@ public:
 	virtual void MyPause();
 	virtual void MyResume();
 	virtual void ReloadScene();
+	void SortButton();
 	void LoadSound();
 	void RollBackground();
 	void CheckButton();

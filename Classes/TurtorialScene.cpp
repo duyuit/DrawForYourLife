@@ -24,36 +24,9 @@ void TurtorialScene::LoadMap(string path)
 {
 	LevelScene::LoadMap(path);
 
-	TMXObjectGroup *objectGroup_Mushroom = _tileMap->getObjectGroup("Fish");
-	for (int i = 0; i < objectGroup_Mushroom->getObjects().size(); i++)
-	{
+	
 
-		Value objectemp = objectGroup_Mushroom->getObjects().at(i);
-
-		float wi_box = objectemp.asValueMap().at("width").asFloat();
-		float he_box = objectemp.asValueMap().at("height").asFloat();
-		float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
-		float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
-
-		SharkMonster *mush = new SharkMonster(_mSonic);
-		mush->setPosition(x_box, y_box);
-		_listButton.push_back(mush->_tapButton);
-		this->addChild(mush, 7);
-	}
-
-	for (int i = 0; i < _listButton.size(); i++)
-	{
-		for (int j = i + 1; j < _listButton.size(); j++)
-		{
-			if (_listButton.at(i)->getPositionX() > _listButton.at(j)->getPositionX())
-			{
-				auto temp = _listButton.at(i);
-				_listButton.at(i) = _listButton.at(j);
-				_listButton.at(j) = temp;
-			}
-		}
-	}
-	_listButton.at(0)->SetCanActive(true);
+	//SortButton();
 }
 
 TurtorialScene::TurtorialScene()
@@ -188,46 +161,46 @@ void TurtorialScene::Continue()
 
 
 
-bool TurtorialScene::onContactBegin(cocos2d::PhysicsContact & contact)
-{
-	auto spriteA = (Sprite*)contact.getShapeA()->getBody()->getNode(); // 1
-	auto spriteB = (Sprite*)contact.getShapeB()->getBody()->getNode(); // 2
-
-	int tagA = spriteA->getTag();                                      // 3
-	int tagB = spriteB->getTag();
-
-	if (tagA == Define::Player || tagB == Define::Player)
-	{
-		
-		if (tagA == Define::Player)
-		{
-			
-			Sonic *sonic = (Sonic*)spriteA;
-			sonic->HandleCollision(spriteB);
-		}
-		else
-		{
-			
-			Sonic *sonic = (Sonic*)spriteB;
-			sonic->HandleCollision(spriteA);
-		}
-	}
-	if (tagA == Define::LANDMONSTER || tagB == Define::LANDMONSTER)
-	{
-		if (tagA == Define::LANDMONSTER)
-		{
-			Monster *monster = (Monster*)spriteA;
-			monster->HandleCollision(spriteB);
-		}
-		else
-		{
-			Monster *monster = (Monster*)spriteB;
-			monster->HandleCollision(spriteA);
-		}
-	}
-
-	return true;
-}
+//bool TurtorialScene::onContactBegin(cocos2d::PhysicsContact & contact)
+//{
+//	auto spriteA = (Sprite*)contact.getShapeA()->getBody()->getNode(); // 1
+//	auto spriteB = (Sprite*)contact.getShapeB()->getBody()->getNode(); // 2
+//
+//	int tagA = spriteA->getTag();                                      // 3
+//	int tagB = spriteB->getTag();
+//
+//	if (tagA == Define::Player || tagB == Define::Player)
+//	{
+//		
+//		if (tagA == Define::Player)
+//		{
+//			
+//			Sonic *sonic = (Sonic*)spriteA;
+//			sonic->HandleCollision(spriteB);
+//		}
+//		else
+//		{
+//			
+//			Sonic *sonic = (Sonic*)spriteB;
+//			sonic->HandleCollision(spriteA);
+//		}
+//	}
+//	if (tagA == Define::LANDMONSTER || tagB == Define::LANDMONSTER)
+//	{
+//		if (tagA == Define::LANDMONSTER)
+//		{
+//			Monster *monster = (Monster*)spriteA;
+//			monster->HandleCollision(spriteB);
+//		}
+//		else
+//		{
+//			Monster *monster = (Monster*)spriteB;
+//			monster->HandleCollision(spriteA);
+//		}
+//	}
+//
+//	return true;
+//}
 
 void TurtorialScene::update(float dt)
 {
@@ -377,38 +350,31 @@ bool TurtorialScene::init()
 	_mSonic->setZOrder(7);
 
 	
-	/*auto fish = new SharkMonster(_mSonic);
-	fish->setPosition(_mSonic->getPosition()+Vec2(1000, 200));
-	this->addChild(fish);*/
-	//fish->setParent(this);
+	
 	
 	//Listener
-	{
-		auto listener1 = EventListenerTouchOneByOne::create();
+	//{
+	//	auto listener1 = EventListenerTouchOneByOne::create();
 
-		listener1->onTouchBegan = [this](Touch* touch, Event* event) {
-		
-			return true;
-		};
+	//	listener1->onTouchBegan = [this](Touch* touch, Event* event) {
+	//	
+	//		return true;
+	//	};
 
-		// trigger when you let up
-		listener1->onTouchEnded = [this](Touch* touch, Event* event) {
-		//	if (_isPause  && count_tuto != 6 && count_tuto != 8) Continue();
-		};
-
-
-		_eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, this);
+	//	// trigger when you let up
+	//	listener1->onTouchEnded = [this](Touch* touch, Event* event) {
+	//	//	if (_isPause  && count_tuto != 6 && count_tuto != 8) Continue();
+	//	};
 
 
+	//	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, this);
 
 
-		/*auto contactListener = EventListenerPhysicsContact::create();
-		contactListener->onContactBegin = CC_CALLBACK_1(TurtorialScene::onContactBegin, this);
-		_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
-		scheduleOnce(CC_SCHEDULE_SELECTOR(TurtorialScene::updateStart), 0);*/
 
 
-	}
+
+
+	//}
 
 	scheduleOnce(CC_SCHEDULE_SELECTOR(TurtorialScene::updateStart), 0);
 

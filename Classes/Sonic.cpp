@@ -180,7 +180,7 @@ void Sonic::update(float dt)
 	if(_roll_effect!=nullptr)
 	if (mCurrentState->GetState() != SonicState::ROLL && mCurrentState->GetState() != SonicState::ROLL_CHEST && _roll_effect->isVisible())
 		_roll_effect->setVisible(false);
-	if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL  && mCurrentState->GetState() != SonicState::StateAction::ROLL && mCurrentState->GetState() != SonicState::StateAction::DIE)
+	if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL  && mCurrentState->GetState() != SonicState::StateAction::ROLL && mCurrentState->GetState() != SonicState::StateAction::DIE  && mCurrentState->GetState() != SonicState::StateAction::DIE)
 		this->SetStateByTag(SonicState::StateAction::FALL);
 	/*if (count_to_reset_just_tap == 40)
 	{

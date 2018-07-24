@@ -45,6 +45,51 @@ TapButton::TapButton(Vec2 pos, Sonic* sprite, Layer* layer)
 //	this->autorelease();
 }
 
+TapButton::TapButton(Vec2 pos, Sonic * sprite, Layer * layer, bool isLeft)
+{
+	//TapButton(pos, sprite, layer);
+	this->initWithFile("Button/unknow.png");
+	this->setPosition(pos);
+
+
+	this->setScale(0.3);
+
+	mTarget = sprite;
+	this->scheduleUpdate();
+	layer->addChild(this);
+
+
+	_progressbar = Sprite::create("GameComponents/progress.png");
+	_progressbar->setAnchorPoint(Vec2(0.5, 0));
+
+	_border = Sprite::create("GameComponents/border.png");
+	_border->setPosition(this->getContentSize()*0.3 + Size(0, 150));
+	_border->setAnchorPoint(Vec2(0.5, 0));
+	_border->setVisible(false);
+	this->addChild(_border);
+
+	_label = Label::createWithTTF("", "fonts/INVASION2000.TTF", 130);
+	_label->setAnchorPoint(Vec2(0.5f, 0));
+	_label->setVisible(false);
+	_label->enableOutline(Color4B::BLACK, 5);
+	_label->setPosition(this->getContentSize()*0.3 + Size(0, 150));
+	this->addChild(_label, 2);
+
+	mouseBar = ProgressTimer::create(_progressbar);
+	mouseBar->setType(ProgressTimerType::BAR);
+	mouseBar->setAnchorPoint(Vec2(0.5, 0));
+	mouseBar->setBarChangeRate(Vec2(1, 0));
+	mouseBar->setMidpoint(Vec2(0.0, 0.0));
+	mouseBar->setReverseDirection(true);
+	mouseBar->setPercentage(0);
+	this->addChild(mouseBar, 10);
+	mouseBar->setPosition(this->getContentSize()*0.3 + Size(0, 150));
+	
+	if (isLeft)
+		mTag = BUTTON_LEFT;
+	else mTag = BUTTON_RIGHT;
+}
+
 
 void TapButton::ActiveButton(BUTTON_TAG dir)
 {
@@ -107,6 +152,7 @@ void TapButton::CheckLabel(float percen)
 
 void TapButton::SetCanActive(bool is)
 {
+
 	if (is == canActive) return;
 	canActive = is;
 	if (isActive)
@@ -120,14 +166,14 @@ void TapButton::SetCanActive(bool is)
 			
 		});
 		mouseBar->runAction(Sequence::create(ProgressTo::create(time, 83.0f), func, nullptr));
-		switch (isLeft)
+		switch (mTag)
 		{
-		case 2:
+		case BUTTON_RIGHT:
 			this->initWithFile(Define::button_right_blue_path);
 			_break_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "blue_right_break"), 0.1f)));
 			break;
 
-		case 1:
+		case BUTTON_LEFT:
 			this->initWithFile(Define::button_left_blue_path);
 			_break_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "blue_left_break"), 0.1f))); break;
 
@@ -151,14 +197,14 @@ void TapButton::Active()
 		});
 		mouseBar->runAction(Sequence::create(ProgressTo::create(time, 83.0f), func, nullptr));
 		_border->setVisible(true);
-		switch (isLeft)
+		switch (mTag)
 		{
-		case 2:
+		case BUTTON_RIGHT:
 			this->initWithFile(Define::button_right_blue_path);
 			_break_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "blue_right_break"), 0.1f)));
 			break;
 
-		case 1:
+		case BUTTON_LEFT:
 			this->initWithFile(Define::button_left_blue_path);
 			_break_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "blue_left_break"), 0.1f))); break;
 
@@ -203,12 +249,21 @@ void TapButton::update(float dt)
 
 
 	if (isDelete) return;
-	if (this->getPositionX() < mTarget->getPositionX()) DeleteNow(false);
-	if (this->getPosition().x - mTarget->getPosition().x <= 600 && !isActive)
+	if (this->getPositionX() < mTarget->getPositionX() && !use_for_Hold) 
+		DeleteNow(false);
+	if (this->getPosition().x - mTarget->getPosition().x <= 600 && !isActive && !use_for_Hold)
 		this->Active();
 	if (isActive && canActive)
 	{
 		
+		if (isTrue && use_for_Hold)
+		{
+			mTarget->getPhysicsBody()->setGravityEnable(true);
+			mTarget->SetVelocityX(0);
+			mTarget->SetStateByTag(_action);
+			DeleteNow(true);
+			return;
+		}
 		
 		//DeleteNow(true);
 			//mTarget->SetStateByTag(_action);

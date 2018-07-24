@@ -1,6 +1,6 @@
 #include "SonicJumpState.h"
 #include "Sonic.h"
-
+#include "HoldLand.h"
 
 
 SonicJumpState::SonicJumpState(SonicData * playerData)
@@ -47,8 +47,15 @@ void SonicJumpState::HandleCollision(Sprite * sprite)
 {
 	if (sprite->getTag() == Define::HoldPlace)
 	{
-		this->mPlayerData->player->setPosition(sprite->getPosition());
-		this->mPlayerData->player->SetStateByTag(SonicState::StateAction::HOLD);
+		
+		HoldLand *hold = (HoldLand*)sprite;
+		if (!hold->isActive)
+		{
+			hold->Active();
+			this->mPlayerData->player->setPosition(sprite->getPosition());
+			this->mPlayerData->player->SetStateByTag(SonicState::StateAction::HOLD);
+		}
+	
 	}
 }
 
