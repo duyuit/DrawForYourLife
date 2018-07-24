@@ -17,10 +17,11 @@ bool TestScene::init()
 {
 //	int a = 0;
 	LevelScene::init();
-	string s = "LevelScene/LV1/untitled.tmx";
+	string s = "LevelScene/StoneMap/lv1.tmx";
 	LoadMap(s);
-	return true;
-	
+
+	CreateParallaxNode("Map_stone/stone_bg3.png");
+	return true;	
 }
 
 cocos2d::Scene * TestScene::createScene()

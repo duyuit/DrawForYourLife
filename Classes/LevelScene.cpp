@@ -65,12 +65,36 @@ void LevelScene::LoadSound()
 	audio->preloadEffect(Define::_music_button_effect_path);
 }
 
+void LevelScene::CreateParallaxNode(string path)
+{
+	//2 Parallax Scrolling
+	{
+		_backgroundNode = InfiniteParallaxNode::create();
+
+		auto _galaxy = Sprite::create(path);
+		_galaxy->setAnchorPoint(Point(0, 0));
+		_galaxy->setScale(_director->getVisibleSize().width / _galaxy->getContentSize().width); //auto scale background fitting screen
+		_backgroundNode->addChild(_galaxy, -1, Point(0.1, 1), Point(0, 0));
+		this->addChild(_backgroundNode, -1);
+
+		_backgroundNode2 = InfiniteParallaxNode::create();
+
+		auto _galaxy2 = Sprite::create(path);
+		_galaxy2->setAnchorPoint(Point(0, 0));
+		_galaxy2->setScale(_director->getVisibleSize().width / _galaxy->getContentSize().width); //auto scale background fitting screen
+		_backgroundNode2->addChild(_galaxy2, -1, Point(0.1, 1), Point(_galaxy2->getContentSize().width * _galaxy->getScale(), 0));
+		this->addChild(_backgroundNode2, -1);
+	}
+}
+
 void LevelScene::RollBackground()
 {
-	_backgroundNode->setPosition(_backgroundNode->getPosition() - Vec2(5, 0));
+	_backgroundNode->setPosition(_backgroundNode->getPosition() - Vec2(5 * _speedParallax, 0));
 	_backgroundNode->updatePosition();
-	_backgroundNode2->setPosition(_backgroundNode2->getPosition() - Vec2(5, 0));
+	_backgroundNode2->setPosition(_backgroundNode2->getPosition() - Vec2(5 * _speedParallax, 0));
 	_backgroundNode2->updatePosition();
+
+	
 }
 
 void LevelScene::CheckButton()
@@ -351,7 +375,7 @@ void LevelScene::SetViewPointCenter(Point position, bool isFast)
 	auto currentCameraPosition = this->getPosition();
 	//	this->getScene()->getDefaultCamera()->setPosition(viewPoint);
 	//if (isFast)
-	this->setPosition(viewPoint);
+	if (_mSonic->mCurrentState->GetState() != SonicState::ROLL_CHEST) this->setPosition(viewPoint);
 	/*else
 		this->setPosition((viewPoint - currentCameraPosition)*_director->getDeltaTime() + currentCameraPosition);*/
 }
@@ -399,7 +423,6 @@ bool LevelScene::onContactBegin(cocos2d::PhysicsContact & contact)
 
 void LevelScene::update(float dt)
 {
-
 	RollBackground();
 	if (_mSonic->getPosition().x < 0) _mSonic->setPosition(0, _mSonic->getPosition().y);
 	SetViewPointCenter(_mSonic->getPosition(), true);
@@ -436,29 +459,6 @@ bool LevelScene::init()
 	_mSonic->setPosition(500, 200);
 	SetViewPointCenter(_mSonic->getPosition(), true);
 	this->addChild(_mSonic);
-
-
-
-
-	//2 Parallax Scrolling
-	{
-		_backgroundNode = InfiniteParallaxNode::create();
-
-		auto _galaxy = Sprite::create("Map_stone/stone_bg3.png");
-		_galaxy->setAnchorPoint(Point(0, 0));
-		_galaxy->setScale(visibleSize.width / _galaxy->getContentSize().width); //auto scale background fitting screen
-		_backgroundNode->addChild(_galaxy, -1, Point(0.1, 1), Point(0, 0));
-		this->addChild(_backgroundNode, -1);
-
-		_backgroundNode2 = InfiniteParallaxNode::create();
-
-		auto _galaxy2 = Sprite::create("Map_stone/stone_bg3.png");
-		_galaxy2->setAnchorPoint(Point(0, 0));
-		_galaxy2->setScale(visibleSize.width / _galaxy->getContentSize().width); //auto scale background fitting screen
-		_backgroundNode2->addChild(_galaxy2, -1, Point(0.1, 1), Point(_galaxy2->getContentSize().width * _galaxy->getScale(), 0));
-		this->addChild(_backgroundNode2, -1);
-
-	}
 
 	_mSonic->setZOrder(7);
 

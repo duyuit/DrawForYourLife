@@ -247,7 +247,9 @@ MyUI::MyUI(Sonic * mSonic)
 
 		//Add label count rings
 		countRing = Label::createWithTTF("X  " + std::to_string(mSonic->ringCollected), "fonts/Marker Felt.ttf", 36);
-		countRing->setPosition(Vec2(125, _director->getWinSize().height - ringIcon->getContentSize().height));
+		countRing->setAnchorPoint(Vec2(0, 0.5));
+		countRing->setPosition(Vec2(100, _director->getWinSize().height - ringIcon->getContentSize().height));
+		countRing->enableOutline(Color4B::BLACK, 3);
 		this->addChild(countRing, 1);
 		this->scheduleUpdate();
 

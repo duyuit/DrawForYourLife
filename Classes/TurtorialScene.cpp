@@ -326,8 +326,8 @@ bool TurtorialScene::init()
 {
 	LevelScene::init();
 	
-
 	LoadMap("LevelScene/StoneMap/tutorial.tmx");
+	CreateParallaxNode("Map_stone/stone_bg3.png");
 	
 	_diabox = new MyDialogBox();
 	_diabox->setPosition(1000, 400);
