@@ -46,7 +46,7 @@ public:
 	void HandleCollision(Sprite *sprite); //Use to handle collision with objects
 	void SetVelocity(int x, int y); 
 	void SetVelocityX(int x); //Set velocity X, old Y
-
+	float scoreMul = 1;
 	Node* mCurrentButton = nullptr;
 	bool isDelete = false;
 	void DropRing();
