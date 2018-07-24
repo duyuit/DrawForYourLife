@@ -58,8 +58,8 @@
   <object id="419" x="13888" y="966" width="250" height="440"/>
  </objectgroup>
  <objectgroup name="Fish">
-  <object id="425" x="10418.9" y="1489.06"/>
-  <object id="426" x="11672" y="1494"/>
+  <object id="425" x="10418.9" y="1505.06"/>
+  <object id="426" x="11672" y="1506"/>
  </objectgroup>
  <objectgroup name="Land2"/>
  <objectgroup name="HoldLandLeft" offsetx="26" offsety="24">

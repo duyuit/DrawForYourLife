@@ -150,6 +150,9 @@
     <ClCompile Include="..\Classes\HoldLand.cpp">
       <Filter>src\MapObject</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\SelectMap.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -274,6 +277,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\HoldLand.h">
       <Filter>src\MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SelectMap.h">
+      <Filter>src\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

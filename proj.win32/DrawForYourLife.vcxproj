@@ -170,6 +170,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Mushroom.cpp" />
     <ClCompile Include="..\Classes\MyDialogBox.cpp" />
     <ClCompile Include="..\Classes\MyUI.cpp" />
+    <ClCompile Include="..\Classes\SelectMap.cpp" />
     <ClCompile Include="..\Classes\SharkMonster.cpp" />
     <ClCompile Include="..\Classes\ShieldMonster.cpp" />
     <ClCompile Include="..\Classes\SmallRing.cpp" />
@@ -213,6 +214,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Mushroom.h" />
     <ClInclude Include="..\Classes\MyDialogBox.h" />
     <ClInclude Include="..\Classes\MyUI.h" />
+    <ClInclude Include="..\Classes\SelectMap.h" />
     <ClInclude Include="..\Classes\SharkMonster.h" />
     <ClInclude Include="..\Classes\ShieldMonster.h" />
     <ClInclude Include="..\Classes\SmallRing.h" />
