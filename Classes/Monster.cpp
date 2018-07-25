@@ -17,7 +17,7 @@ Monster::Monster()
 	_fightAni= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fightFL, 0.05f)));
 
 	//this->Init(sonic);
-
+	//this->autorelease();
 	
 }
 
@@ -37,21 +37,28 @@ void Monster::Init(Sonic * sonic)
 	this->setPhysicsBody(verti);
 	this->setTag(LANDMONSTER);
 
-	_sonic = sonic;
-	/*_tapButton = new TapButton(Vec2(0, 0), _sonic, (Layer*)_sonic->getParent());
+	_mSonic = sonic;
+	/*_tapButton = new TapButton(Vec2(0, 0), _mSonic, (Layer*)_mSonic->getParent());
 	_tapButton->isFirst = true;
 	_tapButton->_time_circle_shrink = 0.7;
 	_tapButton->_action = SonicState::ROLL;*/
 
-	_multiButton = new MultipleButton(Vec2(0, 0),_sonic,(Layer*)_sonic->getParent(),3,2);
+	_multiButton = new MultipleButton(Vec2(0, 0),_mSonic,(Layer*)_mSonic->getParent(),3,2);
 
 	//this->addChild(_multiButton,10);
 
 	this->setAnchorPoint(Vec2(0.5f, 0));
-	SetStateByTag(IDLE);
+	SetStateByTag(RUN);
 	this->scheduleUpdate();
 }
 
+
+bool Monster::CheckLastFrame()
+{
+	if (_currentAnimate->get()->getCurrentFrameIndex() == _currentAnimate->get()->getAnimation()->getFrames().size() - 1)
+		return true;
+	return false;
+}
 
 void Monster::HandleCollision(Sprite * sprite)
 {
@@ -119,7 +126,7 @@ void Monster::SetStateByTag(MONSTERSTATE state)
 	case RUN:
 		_currentAnimate = _runAni;
 		_currentAction = RepeatForever::create(_currentAnimate->get()->clone());
-		if (this->getPosition().x - _sonic->getPosition().x < 1500) //Fix when move scene, Monster move wrong position
+		if (this->getPosition().x - _mSonic->getPosition().x < 1500) //Fix when move scene, Monster move wrong position
 		{
 			if (_isLeft) this->getPhysicsBody()->setVelocity(Vec2(-100, 0));
 			else  this->getPhysicsBody()->setVelocity(Vec2(100, 0));

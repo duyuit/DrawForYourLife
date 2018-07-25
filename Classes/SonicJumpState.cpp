@@ -1,6 +1,6 @@
 #include "SonicJumpState.h"
 #include "Sonic.h"
-
+#include "HoldLand.h"
 
 
 SonicJumpState::SonicJumpState(SonicData * playerData)
@@ -11,15 +11,15 @@ SonicJumpState::SonicJumpState(SonicData * playerData)
 		this->mPlayerData->player->SetVelocityX(-360);
 	else
 		this->mPlayerData->player->SetVelocityX(360);
-
+	SimpleAudioEngine::getInstance()->playEffect(Define::_music_jump_effect_path);
 }
 
 
 
 void SonicJumpState::update()
 {
-
-	if (this->mPlayerData->player->getPhysicsBody()->getVelocity().y < -5 || this->mPlayerData->player->CheckLastFrame())
+	//this->mPlayerData->player->getPhysicsBody()->getVelocity().y < -5 ||
+	if ( this->mPlayerData->player->CheckLastFrame())
 		this->mPlayerData->player->SetStateByTag(SonicState::FALL);
 	
 }
@@ -47,8 +47,15 @@ void SonicJumpState::HandleCollision(Sprite * sprite)
 {
 	if (sprite->getTag() == Define::HoldPlace)
 	{
-		this->mPlayerData->player->setPosition(sprite->getPosition());
-		this->mPlayerData->player->SetStateByTag(SonicState::StateAction::HOLD);
+		
+		HoldLand *hold = (HoldLand*)sprite;
+		if (!hold->isActive)
+		{
+			hold->Active();
+			this->mPlayerData->player->setPosition(sprite->getPosition());
+			this->mPlayerData->player->SetStateByTag(SonicState::StateAction::HOLD);
+		}
+	
 	}
 }
 

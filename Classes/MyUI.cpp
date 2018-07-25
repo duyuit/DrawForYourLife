@@ -1,4 +1,6 @@
 #include "MyUI.h"
+#include "TestScene.h"
+#include "TurtorialScene.h"
 
 void MyUI::DisableExcept(BUTTON_TAG tag)
 {
@@ -12,17 +14,20 @@ void MyUI::DisableExcept(BUTTON_TAG tag)
 
 	case Define::BUTTON_RIGHT:
 		_button_left->setEnabled(false);
-		_touch_guide->setPosition((_director->getWinSize().width / 3)*(5 / 2), _director->getWinSize().height / 2);
+		_touch_guide->setPosition(_director->getWinSize().width - _director->getWinSize().width / 6, _director->getWinSize().height / 2);
 
 		break;
 
 	}
-
+	_button_right->setOpacity(150);
+	_button_left->setOpacity(150);
 }
 
 void MyUI::EnableAll()
 {
-	
+	_button_right->setOpacity(0);
+	_button_left->setOpacity(0);
+
 	_button_left->setEnabled(true);
 	_button_right->setEnabled(true);
 	_touch_guide->setVisible(false);
@@ -41,7 +46,7 @@ MyUI::MyUI(Sonic * mSonic)
 		_touch_guide->setAnchorPoint(Vec2(0.5, 0.5));
 		this->addChild(_touch_guide);
 
-		_button_left = Button::create("GameComponents/black_button.png");
+		_button_left = Button::create(Define::button_left_grey_path);
 		float delta_scale_x = (_director->getWinSize().width / 3)/_button_left->getContentSize().width;
 		float delta_scale_y= _director->getWinSize().height / _button_left->getContentSize().height;
 		_button_left->setScale(delta_scale_x, delta_scale_y);
@@ -58,8 +63,9 @@ MyUI::MyUI(Sonic * mSonic)
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 			//	but->setOpacity(200);
-				mySonic->mJustTap = BUTTON_TAG::BUTTON_LEFT;
-				mySonic->_list_just_tap.push_back(BUTTON_TAG::BUTTON_LEFT);
+				
+				mySonic->ActiveButton(BUTTON_TAG::BUTTON_LEFT);
+				SimpleAudioEngine::getInstance()->playEffect(Define::_music_button_effect_path);
 				break;
 			default:
 				break;
@@ -70,7 +76,7 @@ MyUI::MyUI(Sonic * mSonic)
 
 
 
-		_button_right = Button::create("GameComponents/black_button.png");
+		_button_right = Button::create(Define::button_right_grey_path);
 		_button_right->setScale(delta_scale_x, delta_scale_y);
 		_button_right->setPosition(Vec2(_director->getWinSize().width - _button_left->getContentSize().width*delta_scale_x / 2, 0));
 		_button_right->setAnchorPoint(Vec2(0.5, 0));
@@ -83,8 +89,8 @@ MyUI::MyUI(Sonic * mSonic)
 				//but->setOpacity(255);
 				break;
 			case ui::Widget::TouchEventType::ENDED:
-				mySonic->mJustTap = BUTTON_TAG::BUTTON_RIGHT;
-				mySonic->_list_just_tap.push_back(BUTTON_TAG::BUTTON_RIGHT);
+					mySonic->ActiveButton(BUTTON_TAG::BUTTON_RIGHT);
+					SimpleAudioEngine::getInstance()->playEffect(Define::_music_button_effect_path); 
 				//but->setOpacity(200);
 				break;
 			default:
@@ -93,6 +99,147 @@ MyUI::MyUI(Sonic * mSonic)
 		});
 		this->addChild(_button_right, -1);
 
+		//visibleSzie level map
+		auto visibleSize = Director::getInstance()->getVisibleSize();
+		Vec2 origin = Director::getInstance()->getVisibleOrigin();
+		float scaleX = visibleSize.width / 2;
+		float scaleY = visibleSize.height / 2;
+
+		//Board Star
+		board = Sprite::create("Level_map/game_board.png");
+		//board->setScale(origin.x /2, origin.y /2);
+		board->setAnchorPoint(Vec2(0.5f, 0.5f));
+		board->setOpacity(0);
+		board->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+		board->setVisible(false);
+		this->addChild(board, 5);
+
+		layer = LayerColor::create();
+		layer->setColor(Color3B::BLACK);
+		layer->setOpacity(200);
+		this->addChild(layer);
+		layer->setVisible(false);
+
+		//Define delta x size board
+		float delta_x = board->getContentSize().width / 10;
+		float delta_y = board->getContentSize().height * 2 / 5;
+		//Define number scale button in Board Star
+		float numScale = 0.9;
+
+		//Label Board Star
+		auto myLabel = Label::createWithTTF("Pausing", "fonts/hemi.ttf", 30);
+		myLabel->setAnchorPoint(Vec2(0.5f, 0.5f));
+		myLabel->setPosition(Vec2(delta_x * 6 - delta_x * 2 / 2, delta_y * 2.5 - delta_y / 2));
+		board->addChild(myLabel, 2);
+
+		//Button round in Board Star
+		auto button_board_round = Button::create("Level_map/round.png");
+		//button_board_round->setScale(numScale*scaleX, numScale*scaleY);
+		button_board_round->setAnchorPoint(Vec2(0.5f, 0.5f));
+		button_board_round->setPosition(Vec2(delta_x * 2 / 2, delta_y));
+		board->addChild(button_board_round, 6);
+		button_board_round->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+			switch (type)
+			{
+			case ui::Widget::TouchEventType::BEGAN:
+				break;
+			case ui::Widget::TouchEventType::ENDED:
+			{
+				_restart->setVisible(true);
+				board->setVisible(false);
+				if (current_scene != nullptr)
+				{
+					auto scene = (LevelScene*)current_scene;
+					scene->ReloadScene();
+				}
+			}
+				break;
+			default:
+				break;
+			}
+		});
+
+		//Button play  in Board Star
+		auto button_board_play = Button::create("Level_map/play.png");
+		//button_board_play->setScale(numScale*scaleX, numScale*scaleY);
+		button_board_play->setAnchorPoint(Vec2(0.5f, 0.5f));
+		button_board_play->setPosition(Vec2(delta_x * 10 / 2, delta_y));
+		board->addChild(button_board_play, 6);
+		button_board_play->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+			switch (type)
+			{
+			case ui::Widget::TouchEventType::BEGAN:
+				break;
+			case ui::Widget::TouchEventType::ENDED:
+			{
+				_restart->setVisible(true);
+				board->setVisible(false);
+				layer->setVisible(false);
+				if (current_scene != nullptr)
+				{
+					auto scene = (LevelScene*)current_scene;
+					scene->MyResume();
+				}
+			}
+				break;
+			default:
+				break;
+			}
+		});
+
+		//Button cancel in Board Star
+		auto button_board_cancel = Button::create("Level_map/out.png");
+		//button_board_cancel->setScale(numScale*scaleX, numScale*scaleY);
+		button_board_cancel->setAnchorPoint(Vec2(0.5f, 0.5f));
+		button_board_cancel->setPosition(Vec2(delta_x * 19 / 2, delta_y));
+		board->addChild(button_board_cancel, 6);
+
+		button_board_cancel->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+			switch (type)
+			{
+			case ui::Widget::TouchEventType::BEGAN:
+				break;
+			case ui::Widget::TouchEventType::ENDED:
+			{
+				//setEnabledAll(true);
+				_restart->setVisible(true);
+				board->setVisible(false);
+				layer->setVisible(false);
+			}
+				break;
+			default:
+				break;
+			}
+		});
+
+		_restart = Button::create("Level_map/pause.png");
+		_restart->setPosition(_director->getWinSize() - _restart->getContentSize());
+		_restart->setScale(0.8);
+		_restart->setAnchorPoint(Vec2(0.5, 0.5));
+		_restart->addTouchEventListener([this](Ref* sender, Widget::TouchEventType type) {
+			auto but = (Button*)sender;
+			switch (type)
+			{
+			case ui::Widget::TouchEventType::BEGAN:
+				break;
+			case ui::Widget::TouchEventType::ENDED: {
+				_restart->setVisible(false);
+				board->setVisible(true);
+				layer->setVisible(true);
+				if (current_scene != nullptr)
+				{
+					auto scene = (LevelScene*)current_scene;
+					scene->MyPause();
+				}
+			}
+				break;
+			default:
+				break;
+			}
+		});
+		this->addChild(_restart, -1);
+	
+
 		//Add Sprite ring
 		ringIcon = Sprite::create("Item/ring.png", Rect(200, 48, 64, 50));
 		ringIcon->setPosition(Vec2(50, _director->getWinSize().height - ringIcon->getContentSize().height));
@@ -100,11 +247,15 @@ MyUI::MyUI(Sonic * mSonic)
 
 		//Add label count rings
 		countRing = Label::createWithTTF("X  " + std::to_string(mSonic->ringCollected), "fonts/Marker Felt.ttf", 36);
-		countRing->setPosition(Vec2(125, _director->getWinSize().height - ringIcon->getContentSize().height));
+		countRing->setAnchorPoint(Vec2(0, 0.5));
+		countRing->setPosition(Vec2(100, _director->getWinSize().height - ringIcon->getContentSize().height));
+		countRing->enableOutline(Color4B::BLACK, 3);
 		this->addChild(countRing, 1);
 		this->scheduleUpdate();
 
-
+		//Add label combo score
+		_combo = new ComboScore(mSonic);
+		this->addChild(_combo, 1);
 		
 		touch_ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("GameComponents/ripple.xml","1"), 0.008f)));
 		auto listener1 = EventListenerTouchOneByOne::create();
@@ -125,5 +276,30 @@ MyUI::MyUI(Sonic * mSonic)
 			
 			_istouch = true;
 		};
+
+		auto eventListener = EventListenerKeyboard::create();
+		eventListener->onKeyPressed = [=](EventKeyboard::KeyCode keyCode, Event* event) {
+	
+
+
+		};
+		eventListener->onKeyReleased = [=](EventKeyboard::KeyCode keyCode, Event* event) {
+
+			if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW)
+			{
+				//mySonic->countCombo = 10;
+				//mySonic->mJustTap = BUTTON_TAG::BUTTON_LEFT;
+				mySonic->ActiveButton(BUTTON_TAG::BUTTON_LEFT);
+			//	mySonic->SetStateByTag(SonicState::COUNTER);
+			}
+			else if (keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW)
+			{
+			//	mySonic->mJustTap = BUTTON_TAG::BUTTON_RIGHT;
+				mySonic->ActiveButton(BUTTON_TAG::BUTTON_RIGHT);
+			}
+
+		};
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, this);
+	//	this->autorelease();
 };

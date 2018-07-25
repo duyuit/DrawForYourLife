@@ -33,6 +33,7 @@ MyDialogBox::MyDialogBox()
 	this->addChild(_text,1);
 	this->addChild(_tap, 1);
 	this->scheduleUpdate();
+//	this->autorelease();
 }
 
 

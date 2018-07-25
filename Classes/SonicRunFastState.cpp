@@ -19,7 +19,9 @@ SonicRunFastState::~SonicRunFastState()
 
 void SonicRunFastState::update()
 {
-
+	this->mPlayerData->player->SetVelocityX(340);
+	if (this->mPlayerData->player->GetVelocity().y < -5)
+		this->mPlayerData->player->SetStateByTag(SonicState::StateAction::FALL);
 }
 
 void SonicRunFastState::handle_swipe(Define::SWIPE_DIRECTION direct)

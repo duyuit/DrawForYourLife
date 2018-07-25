@@ -15,7 +15,12 @@ public:
 		ROLL,
 		ROLL_IN_SKY,
 		HOLD,
-		HURT
+		HURT,
+		DIE,
+		RUNSKIP,
+		ROLL_CHEST,
+		STOP,
+		COUNTER
 	};
 	SonicState();
 	~SonicState();

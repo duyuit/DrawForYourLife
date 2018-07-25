@@ -1,34 +1,16 @@
 #pragma once
 
-#include "InfiniteParallaxNode.h"
-#include "TapButton.h"
-#include "MyUI.h"
-#include "SmallRing.h"
-#include "FrogMonster.h"
-#include "MyDialogBox.h"
-#include "MultipleButton.h"
-using namespace cocos2d;
-class TurtorialScene : public cocos2d::Layer
+#include "LevelScene.h"
+class TurtorialScene : public LevelScene
 {
 public:
-	Vec2 start_touch_position, end_touch_position;
-	Sonic* _mSonic;
-	Vector<TapButton*> _listButton;
-	Vector<SmallRing*> _listRing;
-	Vector<Monster*> _listMonster;
 	MyDialogBox* _diabox;
-
-	InfiniteParallaxNode* _backgroundNode;
-	InfiniteParallaxNode* _backgroundNode2;
-	CCTMXTiledMap * _tileMap;
 	bool _isPause = false;
 	
-	MyUI* _myui=nullptr;
-
 	int count_to_move_scene = 0; // 
 	int delta_x = -30; //2 Variable to Shake Camera when sonic is pausing
 	int count_tuto =0;
-
+	void LoadMap(string path) override;
 	Sprite* blackImage;
 
 	TurtorialScene();
@@ -45,15 +27,12 @@ public:
 	void ResetTutorial4();
 	void ResetTutorial5();
 
-	void RollBackground();
+	virtual void  ReloadScene() override;
 	void Pause();
 	void Continue();
-	void LoadMap(CCTMXTiledMap* map);
-	void SetViewPointCenter(Point position,bool isFast);
-	bool onContactBegin(cocos2d::PhysicsContact & contact);
-	void update(float dt);
-	void updateStart(float dt);
-
+	void update(float dt) override;
+	void updateStart(float dt) override;
+//	bool onContactBegin(cocos2d::PhysicsContact & contact);
 	virtual bool init();
 	static cocos2d::Scene* createScene();
 	CREATE_FUNC(TurtorialScene);

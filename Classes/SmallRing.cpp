@@ -25,6 +25,7 @@ SmallRing::SmallRing()
 	
 	this->setPhysicsBody(body);
 	this->setTag(Define::Ring);
+
 }
 
 
@@ -34,5 +35,6 @@ SmallRing::~SmallRing()
 
 void SmallRing::SetAutoRemove()
 {
+
 	this->runAction(Sequence::create(DelayTime::create(3), Blink::create(0.8, 5), RemoveSelf::create(), nullptr));
 }

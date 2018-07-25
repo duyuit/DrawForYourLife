@@ -2,31 +2,44 @@
 #include "cocos2d.h"
 #include "Sonic.h"
 using namespace cocos2d;
-
+enum TYPE_SCORE
+{
+	PERFECT,
+	GREAT,
+	BAD
+};
 class TapButton:public Sprite
 {
 public:
 	TapButton(Vec2 pos,Sonic *sprite,Layer* layer);
-	Sprite* circle;
+	TapButton(Vec2 pos, Sonic *sprite, Layer* layer,bool isLeft);
 	Sonic* mTarget;
-	float _time_dissapear = 0.5;
-	float _time_circle_shrink = 1;
 	SonicState::StateAction _action = SonicState::JUMP;
 	int isLeft;
+	int isCountCombo = false;
+	float time = 1.4;
+	TYPE_SCORE score;
+	ProgressTimer* mouseBar;
+	Sprite* _border;
+	Sprite* _progressbar;
 
-
-	RefPtr<Animate>  *_break_Ani;
+	void ActiveButton(BUTTON_TAG dir);
+	RefPtr<Animate>  *_break_Ani=nullptr;
+	BUTTON_TAG mTag = NONE;
 	
-	BUTTON_TAG mTag;
+	bool use_for_Hold = false;
 	bool isDelete=false;
-	bool isFirst = false;
-	bool can_Active = false;
+	bool canActive = false;
 	bool isActive = false;
+	bool isTrue = false;
 	~TapButton();
+	void CheckLabel(float percen);
+	void SetCanActive(bool is);
 	void Active();
-	void Dissapear();
 	void DeleteNow(bool check);
-	void DeleteCircle();
 	void update(float dt);
+protected:
+
+	Label* _label; //Perfect, Great, Bad
 };
 

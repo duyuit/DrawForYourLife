@@ -159,7 +159,6 @@ void HelloWorld::update(float dt)
 {
 	if (listButton.size() > 0)
 	{
-		listButton.at(0)->isFirst = true;
 		if (listButton.at(0)->isDelete) listButton.erase(listButton.begin());
 	}
 	

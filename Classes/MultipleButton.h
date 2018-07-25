@@ -12,6 +12,10 @@ public:
 	int _button_count = 3;
 	float _time = 1.5f;
 	bool isActive = false;
+	bool isCountCombo = false;
+	bool canActive = false;
+	bool isTrue = false; 
+	int count_to_auto_play = 0;
 
 	void update(float dt);
 	Sprite* _border;
@@ -23,15 +27,17 @@ public:
 	SonicState::StateAction _action;
 	bool isDelete = false;
 
+	int current_button = 0;
 	RefPtr<Animate>  *_break_left_Ani;
 	RefPtr<Animate>  *_break_right_Ani;
-	
-
+	void ActiveButton(BUTTON_TAG dir);
 	void Active();
 	void DeleteNow(bool check);
 	void BlinkProgressBar();
 	~MultipleButton();
 protected:
 	ProgressTimer* mouseBar;
+	void CheckLabel(float percen); 
+	Label* _label; //Perfect, Great, Bad
 };
 
