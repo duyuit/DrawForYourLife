@@ -238,23 +238,9 @@ MyUI::MyUI(Sonic * mSonic)
 			}
 		});
 		this->addChild(_restart, -1);
-	
 
-		//Add Sprite ring
-		ringIcon = Sprite::create("Item/ring.png", Rect(200, 48, 64, 50));
-		ringIcon->setPosition(Vec2(50, _director->getWinSize().height - ringIcon->getContentSize().height));
-		this->addChild(ringIcon, 1);
-
-		//Add label count rings
-		countRing = Label::createWithTTF("X  " + std::to_string(mSonic->ringCollected), "fonts/Marker Felt.ttf", 36);
-		countRing->setAnchorPoint(Vec2(0, 0.5));
-		countRing->setPosition(Vec2(100, _director->getWinSize().height - ringIcon->getContentSize().height));
-		countRing->enableOutline(Color4B::BLACK, 3);
-		this->addChild(countRing, 1);
-		this->scheduleUpdate();
-
-		//Add label combo score
-		_combo = new ComboScore(mSonic);
+		//Add label Ring-Combo-Score
+		_combo = new RingComboScore(mSonic);
 		this->addChild(_combo, 1);
 		
 		touch_ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("GameComponents/ripple.xml","1"), 0.008f)));
@@ -303,3 +289,13 @@ MyUI::MyUI(Sonic * mSonic)
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, this);
 	//	this->autorelease();
 };
+
+void MyUI::update(float dt)
+{
+	count_to_reset_touch++;
+	if (count_to_reset_touch == 10)
+	{
+		count_to_reset_touch = 0;
+		_istouch = false;
+	}
+}

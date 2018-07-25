@@ -218,16 +218,22 @@ void MultipleButton::CheckLabel(float percen)
 	{
 		_label->setColor(Color3B(255, 0, 128));
 		_label->setString("Perfect!");
+		_mSonic->score += 300 * _button_count * _mSonic->scoreMul;
+		_mSonic->countPerfect++;
 	}
 	else if (percen > 40 && percen < 70)
 	{
 		_label->setColor(Color3B(0, 255, 255));
 		_label->setString("Great!");
+		_mSonic->score += 200 * _button_count * _mSonic->scoreMul;
+		_mSonic->countGreat++;
 	}
 	else
 	{
 		_label->setColor(Color3B(255, 128, 0));
 		_label->setString("Bad!");
+		_mSonic->score += 100 * _button_count * _mSonic->scoreMul;
+		_mSonic->countBad++;
 	}
 	_label->setScale(2);
 	auto shake = Repeat::create(

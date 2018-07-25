@@ -125,18 +125,24 @@ void TapButton::CheckLabel(float percen)
 		_label->setColor(Color3B(255, 0, 128));
 		_label->setString("Perfect!");
 		score = PERFECT;
+		mTarget->score += 300 * mTarget->scoreMul;
+		mTarget->countPerfect++;
 	}
 	else if (percen > 30 && percen < 70)
 	{
 		_label->setColor(Color3B(0,255,255));
 		_label->setString("Great!");
 		score = GREAT;
+		mTarget->score += 200 * mTarget->scoreMul;
+		mTarget->countGreat++;
 	}
 	else
 	{
 		_label->setColor(Color3B(255,128,0));
 		_label->setString("Bad!");
 		score = BAD;
+		mTarget->score += 100 * mTarget->scoreMul;
+		mTarget->countBad++;
 	}
 	_label->setScale(2);
 	auto shake= Repeat::create(

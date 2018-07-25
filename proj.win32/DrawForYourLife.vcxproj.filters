@@ -2,9 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="..\Classes\ComboScore.cpp">
-      <Filter>Game\GameComponent</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\InfiniteParallaxNode.cpp">
       <Filter>Game\GameComponent</Filter>
     </ClCompile>
@@ -122,12 +119,12 @@
     <ClCompile Include="..\Classes\Coconut_Monkey.cpp">
       <Filter>Game\Monster</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\RingComboScore.cpp">
+      <Filter>Game\GameComponent</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
-    <ClInclude Include="..\Classes\ComboScore.h">
-      <Filter>Game\GameComponent</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\GameDefine.h">
       <Filter>Game\GameComponent</Filter>
     </ClInclude>
@@ -250,6 +247,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Coconut_Monkey.h">
       <Filter>Game\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\RingComboScore.h">
+      <Filter>Game\GameComponent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
