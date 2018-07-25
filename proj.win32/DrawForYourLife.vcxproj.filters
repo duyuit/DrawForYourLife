@@ -132,6 +132,7 @@
     <ClCompile Include="..\Classes\HoldLand.cpp">
       <Filter>src\MapObject</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="..\Classes\SonicCounterState.cpp">
       <Filter>src\Sonic</Filter>
     </ClCompile>
@@ -155,6 +156,10 @@
     </ClCompile>
     <ClCompile Include="..\Classes\TestScene.cpp">
       <Filter>src\Scene\Menu</Filter>
+=======
+    <ClCompile Include="..\Classes\SelectMap.cpp">
+      <Filter>src\Scene</Filter>
+>>>>>>> 7c75846b002c15afe0778d8aeebd1bbd5f3da418
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -263,6 +268,7 @@
     <ClInclude Include="..\Classes\HoldLand.h">
       <Filter>src\MapObject</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="..\Classes\SonicCounterState.h">
       <Filter>src\Sonic</Filter>
     </ClInclude>
@@ -286,6 +292,10 @@
     </ClInclude>
     <ClInclude Include="..\Classes\TestScene.h">
       <Filter>src\Scene\Menu</Filter>
+=======
+    <ClInclude Include="..\Classes\SelectMap.h">
+      <Filter>src\Scene</Filter>
+>>>>>>> 7c75846b002c15afe0778d8aeebd1bbd5f3da418
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
