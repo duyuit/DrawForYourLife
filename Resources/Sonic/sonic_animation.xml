@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Animations>
+<Animation name="counter" imagePath="Sonic/99072.png" width="2048" height="6000">
+    <sprite x="95" y="4798" w="102" h="133" oX="95" oY="4798" oW="5091" oH="1222" />
+    <sprite x="333" y="4813" w="140" h="119" oX="333" oY="4813" oW="5091" oH="1222" />
+    <sprite x="576" y="4803" w="168" h="129" oX="576" oY="4803" oW="5091" oH="1222" />
+    <sprite x="788" y="4790" w="196" h="141" oX="788" oY="4790" oW="5091" oH="1222" />
+    <sprite x="576" y="4803" w="168" h="129" oX="576" oY="4803" oW="5091" oH="1222" />
+    <sprite x="333" y="4813" w="140" h="119" oX="333" oY="4813" oW="5091" oH="1222" />
+    <sprite x="576" y="4803" w="168" h="129" oX="576" oY="4803" oW="5091" oH="1222" />
+    <sprite x="788" y="4790" w="196" h="141" oX="788" oY="4790" oW="5091" oH="1222" />
+    <sprite x="83" y="5076" w="241" h="167" oX="83" oY="5076" oW="5091" oH="1222" />
+    <sprite x="434" y="5041" w="358" h="258" oX="434" oY="5041" oW="5091" oH="1222" />
+    <sprite x="991" y="5092" w="95" h="181" oX="991" oY="5092" oW="5091" oH="1222" />
+<sprite x="1860" y="1538" w="122" h="145" oX="991" oY="5092" oW="5091" oH="1222" />
 
+  </Animation>
   <Animation name="stop" imagePath="Sonic/99072.png" width="2048" height="5000">
     <sprite x="93" y="4544" w="132" h="155" oX="93" oY="4544" oW="4599" oH="1967" />
     <sprite x="344" y="4544" w="158" h="155" oX="344" oY="4544" oW="4599" oH="1967" />

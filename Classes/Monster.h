@@ -27,6 +27,7 @@ public:
 	Sonic* _mSonic;
 	MultipleButton* _multiButton;
 
+	bool CheckLastFrame();
 	bool isDelete = false;
 	virtual void HandleCollision(Sprite *sprite); //Use to handle collision with object
 	virtual void update(float dt);

@@ -48,10 +48,17 @@ void Monster::Init(Sonic * sonic)
 	//this->addChild(_multiButton,10);
 
 	this->setAnchorPoint(Vec2(0.5f, 0));
-	SetStateByTag(IDLE);
+	SetStateByTag(RUN);
 	this->scheduleUpdate();
 }
 
+
+bool Monster::CheckLastFrame()
+{
+	if (_currentAnimate->get()->getCurrentFrameIndex() == _currentAnimate->get()->getAnimation()->getFrames().size() - 1)
+		return true;
+	return false;
+}
 
 void Monster::HandleCollision(Sprite * sprite)
 {

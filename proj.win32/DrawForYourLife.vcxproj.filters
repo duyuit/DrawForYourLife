@@ -1,354 +1,272 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="win32">
-      <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="resource">
-      <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src">
-      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Sonic">
-      <UniqueIdentifier>{f0e82d3d-2dd6-41ed-b391-dccac5348c8d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\MapObject">
-      <UniqueIdentifier>{e46629aa-c39d-4bd4-b0ab-533b011ad065}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Enemy">
-      <UniqueIdentifier>{4d4f5360-2f36-4074-b74b-5096bdf6180d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\GameComponent">
-      <UniqueIdentifier>{52710d91-60f7-4d63-8e2f-097888a89ab5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Scene">
-      <UniqueIdentifier>{02a0b001-ee3a-4ba0-9896-d8c3ef2dde20}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Plane">
-      <UniqueIdentifier>{934cb837-362c-45fa-9663-aca39407f5da}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Scene\Level">
-      <UniqueIdentifier>{c9fca1c1-4720-4ca8-8490-8a48d5a56bc1}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>win32</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Sonic.cpp">
-      <Filter>src\Sonic</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\SonicData.cpp">
-      <Filter>src\Sonic</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\SonicJumpState.cpp">
-      <Filter>src\Sonic</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\SonicRunFastState.cpp">
-      <Filter>src\Sonic</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\SonicState.cpp">
-      <Filter>src\Sonic</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\SonicRollState.cpp">
-      <Filter>src\Sonic</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\SonicFallState.cpp">
-      <Filter>src\Sonic</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\SonicHoldState.cpp">
-      <Filter>src\Sonic</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\LandMonster.cpp">
-      <Filter>src\Enemy</Filter>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\Classes\ComboScore.cpp">
+      <Filter>Game\GameComponent</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\InfiniteParallaxNode.cpp">
-      <Filter>src\GameComponent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\TapButton.cpp">
-      <Filter>src\GameComponent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
-      <Filter>src\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\SmallRing.cpp">
-      <Filter>src\MapObject</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\FrogMonster.cpp">
-      <Filter>src\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Monster.cpp">
-      <Filter>src\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MyDialogBox.cpp">
-      <Filter>src\GameComponent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\SonicHurtState.cpp">
-      <Filter>src\Sonic</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MyUI.cpp">
-      <Filter>src\GameComponent</Filter>
+      <Filter>Game\GameComponent</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\MultipleButton.cpp">
-      <Filter>src\GameComponent</Filter>
+      <Filter>Game\GameComponent</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\TestScene.cpp">
-      <Filter>src\Scene</Filter>
+    <ClCompile Include="..\Classes\MyDialogBox.cpp">
+      <Filter>Game\GameComponent</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\LevelMap.cpp">
-      <Filter>src\Scene</Filter>
+    <ClCompile Include="..\Classes\MyUI.cpp">
+      <Filter>Game\GameComponent</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\LoadScene.cpp">
-      <Filter>src\Scene</Filter>
+    <ClCompile Include="..\Classes\TapButton.cpp">
+      <Filter>Game\GameComponent</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\LogoScene.cpp">
-      <Filter>src\Scene</Filter>
+    <ClCompile Include="..\Classes\Sonic.cpp">
+      <Filter>Game\Sonic</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\MenuScene.cpp">
-      <Filter>src\Scene</Filter>
+    <ClCompile Include="..\Classes\SonicCounterState.cpp">
+      <Filter>Game\Sonic</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\ShieldMonster.cpp">
-      <Filter>src\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Mushroom.cpp">
-      <Filter>src\MapObject</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\ComboScore.cpp">
-      <Filter>src\GameComponent</Filter>
+    <ClCompile Include="..\Classes\SonicData.cpp">
+      <Filter>Game\Sonic</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\SonicDieState.cpp">
-      <Filter>src\Sonic</Filter>
+      <Filter>Game\Sonic</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\SonicRunSkipState.cpp">
-      <Filter>src\Sonic</Filter>
+    <ClCompile Include="..\Classes\SonicFallState.cpp">
+      <Filter>Game\Sonic</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\SharkMonster.cpp">
-      <Filter>src\Enemy</Filter>
+    <ClCompile Include="..\Classes\SonicHoldState.cpp">
+      <Filter>Game\Sonic</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\SonicStopState.cpp">
-      <Filter>src\Sonic</Filter>
+    <ClCompile Include="..\Classes\SonicHurtState.cpp">
+      <Filter>Game\Sonic</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BonusChest.cpp">
-      <Filter>src\MapObject</Filter>
+    <ClCompile Include="..\Classes\SonicJumpState.cpp">
+      <Filter>Game\Sonic</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\SonicRollChestState.cpp">
-      <Filter>src\Sonic</Filter>
+      <Filter>Game\Sonic</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\TurtorialScene.cpp">
-      <Filter>src\Scene\Level</Filter>
+    <ClCompile Include="..\Classes\SonicRollState.cpp">
+      <Filter>Game\Sonic</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Level1Scene.cpp">
-      <Filter>src\Scene\Level</Filter>
+    <ClCompile Include="..\Classes\SonicRunFastState.cpp">
+      <Filter>Game\Sonic</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\LevelScene.cpp">
-      <Filter>src\Scene\Level</Filter>
+    <ClCompile Include="..\Classes\SonicRunSkipState.cpp">
+      <Filter>Game\Sonic</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\HoldLand.cpp">
-      <Filter>src\MapObject</Filter>
+    <ClCompile Include="..\Classes\SonicState.cpp">
+      <Filter>Game\Sonic</Filter>
     </ClCompile>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <ClCompile Include="..\Classes\SonicCounterState.cpp">
-      <Filter>src\Sonic</Filter>
+    <ClCompile Include="..\Classes\SonicStopState.cpp">
+      <Filter>Game\Sonic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LandMonster.cpp">
+      <Filter>Game\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SharkMonster.cpp">
+      <Filter>Game\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ShieldMonster.cpp">
+      <Filter>Game\Monster</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\MonkeyMonster.cpp">
-      <Filter>src\Enemy</Filter>
+      <Filter>Game\Monster</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
-      <Filter>src\Scene\Menu</Filter>
+    <ClCompile Include="..\Classes\FrogMonster.cpp">
+      <Filter>Game\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BonusChest.cpp">
+      <Filter>Game\Map Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HoldLand.cpp">
+      <Filter>Game\Map Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Mushroom.cpp">
+      <Filter>Game\Map Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SmallRing.cpp">
+      <Filter>Game\Map Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Level1Scene.cpp">
+      <Filter>Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\LevelMap.cpp">
-      <Filter>src\Scene\Menu</Filter>
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LevelScene.cpp">
+      <Filter>Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\LoadScene.cpp">
-      <Filter>src\Scene\Menu</Filter>
+      <Filter>Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\LogoScene.cpp">
-      <Filter>src\Scene\Menu</Filter>
+      <Filter>Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\MenuScene.cpp">
-      <Filter>src\Scene\Menu</Filter>
+      <Filter>Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\TestScene.cpp">
-      <Filter>src\Scene\Menu</Filter>
-=======
-    <ClCompile Include="..\Classes\SelectMap.cpp">
-      <Filter>src\Scene</Filter>
->>>>>>> 7c75846b002c15afe0778d8aeebd1bbd5f3da418
+      <Filter>Game\Scene</Filter>
     </ClCompile>
-=======
->>>>>>> parent of 6aa5e1b... add monkey
-=======
->>>>>>> parent of 6aa5e1b... add monkey
+    <ClCompile Include="..\Classes\TurtorialScene.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Monster.cpp">
+      <Filter>Game\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>Game\GameComponent</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="main.h">
-      <Filter>win32</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Sonic.h">
-      <Filter>src\Sonic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SonicData.h">
-      <Filter>src\Sonic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SonicJumpState.h">
-      <Filter>src\Sonic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SonicRunFastState.h">
-      <Filter>src\Sonic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SonicState.h">
-      <Filter>src\Sonic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SonicRollState.h">
-      <Filter>src\Sonic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SonicFallState.h">
-      <Filter>src\Sonic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SonicHoldState.h">
-      <Filter>src\Sonic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\LandMonster.h">
-      <Filter>src\Enemy</Filter>
+    <ClInclude Include="main.h" />
+    <ClInclude Include="..\Classes\ComboScore.h">
+      <Filter>Game\GameComponent</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameDefine.h">
-      <Filter>src\GameComponent</Filter>
+      <Filter>Game\GameComponent</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameParticle.h">
-      <Filter>src\GameComponent</Filter>
+      <Filter>Game\GameComponent</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\InfiniteParallaxNode.h">
-      <Filter>src\GameComponent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\TapButton.h">
-      <Filter>src\GameComponent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\HelloWorldScene.h">
-      <Filter>src\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MyUI.h">
-      <Filter>src\GameComponent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SmallRing.h">
-      <Filter>src\MapObject</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\FrogMonster.h">
-      <Filter>src\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Monster.h">
-      <Filter>src\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MyDialogBox.h">
-      <Filter>src\GameComponent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SonicHurtState.h">
-      <Filter>src\Sonic</Filter>
+      <Filter>Game\GameComponent</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MultipleButton.h">
-      <Filter>src\GameComponent</Filter>
+      <Filter>Game\GameComponent</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\TestScene.h">
-      <Filter>src\Scene</Filter>
+    <ClInclude Include="..\Classes\MyDialogBox.h">
+      <Filter>Game\GameComponent</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\LevelMap.h">
-      <Filter>src\Scene</Filter>
+    <ClInclude Include="..\Classes\MyUI.h">
+      <Filter>Game\GameComponent</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\LoadScene.h">
-      <Filter>src\Scene</Filter>
+    <ClInclude Include="..\Classes\TapButton.h">
+      <Filter>Game\GameComponent</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\LogoScene.h">
-      <Filter>src\Scene</Filter>
+    <ClInclude Include="..\Classes\Sonic.h">
+      <Filter>Game\Sonic</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\MenuScene.h">
-      <Filter>src\Scene</Filter>
+    <ClInclude Include="..\Classes\SonicCounterState.h">
+      <Filter>Game\Sonic</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\ShieldMonster.h">
-      <Filter>src\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Mushroom.h">
-      <Filter>src\MapObject</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ComboScore.h">
-      <Filter>src\GameComponent</Filter>
+    <ClInclude Include="..\Classes\SonicData.h">
+      <Filter>Game\Sonic</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\SonicDieState.h">
-      <Filter>src\Sonic</Filter>
+      <Filter>Game\Sonic</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\SonicRunSkipState.h">
-      <Filter>src\Sonic</Filter>
+    <ClInclude Include="..\Classes\SonicFallState.h">
+      <Filter>Game\Sonic</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\SharkMonster.h">
-      <Filter>src\Enemy</Filter>
+    <ClInclude Include="..\Classes\SonicHoldState.h">
+      <Filter>Game\Sonic</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\SonicStopState.h">
-      <Filter>src\Sonic</Filter>
+    <ClInclude Include="..\Classes\SonicHurtState.h">
+      <Filter>Game\Sonic</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\BonusChest.h">
-      <Filter>src\MapObject</Filter>
+    <ClInclude Include="..\Classes\SonicJumpState.h">
+      <Filter>Game\Sonic</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\SonicRollChestState.h">
-      <Filter>src\Sonic</Filter>
+      <Filter>Game\Sonic</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\TurtorialScene.h">
-      <Filter>src\Scene\Level</Filter>
+    <ClInclude Include="..\Classes\SonicRollState.h">
+      <Filter>Game\Sonic</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Level1Scene.h">
-      <Filter>src\Scene\Level</Filter>
+    <ClInclude Include="..\Classes\SonicRunFastState.h">
+      <Filter>Game\Sonic</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\LevelScene.h">
-      <Filter>src\Scene\Level</Filter>
+    <ClInclude Include="..\Classes\SonicRunSkipState.h">
+      <Filter>Game\Sonic</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\HoldLand.h">
-      <Filter>src\MapObject</Filter>
+    <ClInclude Include="..\Classes\SonicState.h">
+      <Filter>Game\Sonic</Filter>
     </ClInclude>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <ClInclude Include="..\Classes\SonicCounterState.h">
-      <Filter>src\Sonic</Filter>
+    <ClInclude Include="..\Classes\SonicStopState.h">
+      <Filter>Game\Sonic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LandMonster.h">
+      <Filter>Game\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SharkMonster.h">
+      <Filter>Game\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ShieldMonster.h">
+      <Filter>Game\Monster</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MonkeyMonster.h">
-      <Filter>src\Enemy</Filter>
+      <Filter>Game\Monster</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\HelloWorldScene.h">
-      <Filter>src\Scene\Menu</Filter>
+    <ClInclude Include="..\Classes\FrogMonster.h">
+      <Filter>Game\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BonusChest.h">
+      <Filter>Game\Map Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HoldLand.h">
+      <Filter>Game\Map Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Mushroom.h">
+      <Filter>Game\Map Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SmallRing.h">
+      <Filter>Game\Map Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Level1Scene.h">
+      <Filter>Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\LevelMap.h">
-      <Filter>src\Scene\Menu</Filter>
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LevelScene.h">
+      <Filter>Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\LoadScene.h">
-      <Filter>src\Scene\Menu</Filter>
+      <Filter>Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\LogoScene.h">
-      <Filter>src\Scene\Menu</Filter>
+      <Filter>Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MenuScene.h">
-      <Filter>src\Scene\Menu</Filter>
+      <Filter>Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\TestScene.h">
-      <Filter>src\Scene\Menu</Filter>
-=======
-    <ClInclude Include="..\Classes\SelectMap.h">
-      <Filter>src\Scene</Filter>
->>>>>>> 7c75846b002c15afe0778d8aeebd1bbd5f3da418
+      <Filter>Game\Scene</Filter>
     </ClInclude>
-=======
->>>>>>> parent of 6aa5e1b... add monkey
-=======
->>>>>>> parent of 6aa5e1b... add monkey
+    <ClInclude Include="..\Classes\TurtorialScene.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Monster.h">
+      <Filter>Game\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>Game\GameComponent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="game.rc">
-      <Filter>resource</Filter>
-    </ResourceCompile>
+    <ResourceCompile Include="game.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Game">
+      <UniqueIdentifier>{1da092ee-2071-4ff3-a4ac-a437ba35405f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameComponent">
+      <UniqueIdentifier>{b02b0d0b-8199-454d-96de-b1888e38ffb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Sonic">
+      <UniqueIdentifier>{499722d7-4eb0-42be-abb3-e4bd03b3d42f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Monster">
+      <UniqueIdentifier>{7189ced5-586a-4491-a5f6-df832fe8e207}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Map Object">
+      <UniqueIdentifier>{7d9e1806-020d-47a9-abd8-49bec5fc7b05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene">
+      <UniqueIdentifier>{9b806f72-5d9c-4ff5-8546-892be3030db1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

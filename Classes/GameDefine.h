@@ -19,7 +19,8 @@ namespace Define {
 		land,
 		DIELAND,
 		MUSHROOM,
-		CHEST
+		CHEST,
+		COCONUT
 	};
 	enum BUTTON_TAG
 	{
