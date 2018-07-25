@@ -3,7 +3,7 @@
 
 #include "Sonic.h"
 
-
+#include "Coconut_Monkey.h"
 SonicCounterState::SonicCounterState(SonicData * playerData)
 {
 	this->mPlayerData = playerData;
@@ -30,6 +30,12 @@ void SonicCounterState::HandleCollision(Sprite * sprite)
 {
 	if (sprite->getTag() == Define::COCONUT)
 	{
-		sprite->getPhysicsBody()->applyImpulse(Vec2(0, -100000));
+		sprite->getPhysicsBody()->removeFromWorld();
+		//sprite->getPhysicsBody()->resetForces();
+		auto coconut = (Coconut_Monkey*)sprite;
+		coconut->ComeBack();
+		//	sprite->setRotation(0);
+		/*sprite->setPosition(this->mPlayerData->player->getPosition() + Vec2(0, 100));
+		sprite->getPhysicsBody()->applyImpulse(Vec2(0, 500000));*/
 	}
 }

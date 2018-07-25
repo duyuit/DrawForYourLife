@@ -1,6 +1,6 @@
 #include "MonkeyMonster.h"
 
-
+#include "Coconut_Monkey.h"
 
 
 MonkeyMonster::MonkeyMonster(Sonic * sonic, Vec2 pos)
@@ -45,12 +45,9 @@ void MonkeyMonster::update(float dt)
 		}
 		break;
 	case DIE:
-		if (_time_action == 100)
-		{
+	
 			MyParticle::CreateLandSmoke(this->getPosition(), (Layer*) this->getParent());
-			this->runAction(RemoveSelf::create());
-			return;
-		}
+		
 		break;
 	case FIGHT:
 		if (CheckLastFrame())
@@ -88,40 +85,33 @@ void MonkeyMonster::SetStateByTag(MONSTERSTATE state)
 		else	this->getPhysicsBody()->setVelocity(Vec2(0, 0));
 
 		break;
-	case DIE:
-		_currentAnimate = _dieAni;
-		_currentAction = _currentAnimate->get()->clone();
-		this->getPhysicsBody()->setContactTestBitmask(0);
-		break;
+	
 	case FIGHT:
 	
 
 		{
 		this->getPhysicsBody()->setVelocity(Vec2(0, 0)); 
-		auto coconut = Sprite::create("Monster/Coconut.png");
-		auto physic_body = PhysicsBody::createCircle(coconut->getContentSize().width / 2);
-		physic_body->setRotationEnable(true);
-		physic_body->setMass(210);
-
-		physic_body->setCategoryBitmask(16);    // 0010
-		physic_body->setCollisionBitmask(0);   // 0001
-		physic_body->setContactTestBitmask(1);
-
-	/*	physic_body->setCategoryBitmask(0);
-		physic_body->setCollisionBitmask(0);
-		physic_body->setContactTestBitmask(16);*/
-		coconut->setTag(Define::COCONUT);
+		auto coconut =new  Coconut_Monkey();
+	
 		
-		coconut->setPhysicsBody(physic_body);
+		
 		coconut->setPosition(this->getPosition()+Vec2(0,50));
 		coconut->getPhysicsBody()->setAngularVelocity(10);
 		coconut->getPhysicsBody()->applyImpulse(Vec2(-23000, 50000));
+		coconut->khi = this;
 
 		this->getParent()->addChild(coconut);
 
 
 		_currentAnimate = _fightAni;
 		_currentAction = _currentAnimate->get(); }
+		break;
+	case DIE:
+		MyParticle::CreateLandSmoke(this->getPosition(), (Layer*) this->getParent());
+		this->runAction( RemoveSelf::create());
+		isDelete = true;
+		this->getPhysicsBody()->setContactTestBitmask(0);
+		return;
 		break;
 	default:
 		break;

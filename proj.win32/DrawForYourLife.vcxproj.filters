@@ -119,6 +119,9 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>Game\GameComponent</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Coconut_Monkey.cpp">
+      <Filter>Game\Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -244,6 +247,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>Game\GameComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Coconut_Monkey.h">
+      <Filter>Game\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
