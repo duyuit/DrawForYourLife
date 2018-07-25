@@ -14,7 +14,7 @@ public:
 	bool isActive = false;
 	bool isCountCombo = false;
 	bool canActive = false;
-	bool isTrue = false; 
+
 	int count_to_auto_play = 0;
 
 	void update(float dt);

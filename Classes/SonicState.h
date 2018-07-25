@@ -19,8 +19,7 @@ public:
 		DIE,
 		RUNSKIP,
 		ROLL_CHEST,
-		STOP,
-		COUNTER
+		STOP
 	};
 	SonicState();
 	~SonicState();

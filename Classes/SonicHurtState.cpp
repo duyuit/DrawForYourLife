@@ -9,7 +9,7 @@ SonicHurtState::SonicHurtState(SonicData * playerData)
 	
 	mPlayerData->player->SetVelocity(0, 0);
 	mPlayerData->player->getPhysicsBody()->applyImpulse(Vec2(-200000, 200000));
-	lastUpdate = 0;
+
 
 
 
@@ -22,8 +22,7 @@ SonicHurtState::~SonicHurtState()
 
 void SonicHurtState::update()
 {
-	lastUpdate++;
-	if (lastUpdate==60)
+	if (this->mPlayerData->player->CheckLastFrame())
 	{
 		this->mPlayerData->player->SetStateByTag(StateAction::RUN_FAST);
 		return;

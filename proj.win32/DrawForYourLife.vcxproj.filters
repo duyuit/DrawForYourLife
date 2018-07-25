@@ -25,11 +25,11 @@
     <Filter Include="src\Scene">
       <UniqueIdentifier>{02a0b001-ee3a-4ba0-9896-d8c3ef2dde20}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Plane">
+      <UniqueIdentifier>{934cb837-362c-45fa-9663-aca39407f5da}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Scene\Level">
       <UniqueIdentifier>{c9fca1c1-4720-4ca8-8490-8a48d5a56bc1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Scene\Menu">
-      <UniqueIdentifier>{d95a8b71-505f-4493-b623-07df48177c37}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +72,9 @@
     <ClCompile Include="..\Classes\TapButton.cpp">
       <Filter>src\GameComponent</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\SmallRing.cpp">
       <Filter>src\MapObject</Filter>
     </ClCompile>
@@ -92,6 +95,21 @@
     </ClCompile>
     <ClCompile Include="..\Classes\MultipleButton.cpp">
       <Filter>src\GameComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TestScene.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LevelMap.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LoadScene.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LogoScene.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MenuScene.cpp">
+      <Filter>src\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\ShieldMonster.cpp">
       <Filter>src\Enemy</Filter>
@@ -133,6 +151,7 @@
       <Filter>src\MapObject</Filter>
     </ClCompile>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <ClCompile Include="..\Classes\SonicCounterState.cpp">
       <Filter>src\Sonic</Filter>
     </ClCompile>
@@ -161,6 +180,8 @@
       <Filter>src\Scene</Filter>
 >>>>>>> 7c75846b002c15afe0778d8aeebd1bbd5f3da418
     </ClCompile>
+=======
+>>>>>>> parent of 6aa5e1b... add monkey
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -208,6 +229,9 @@
     <ClInclude Include="..\Classes\TapButton.h">
       <Filter>src\GameComponent</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\HelloWorldScene.h">
+      <Filter>src\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="..\Classes\MyUI.h">
       <Filter>src\GameComponent</Filter>
     </ClInclude>
@@ -228,6 +252,21 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MultipleButton.h">
       <Filter>src\GameComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TestScene.h">
+      <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LevelMap.h">
+      <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LoadScene.h">
+      <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LogoScene.h">
+      <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MenuScene.h">
+      <Filter>src\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ShieldMonster.h">
       <Filter>src\Enemy</Filter>
@@ -269,6 +308,7 @@
       <Filter>src\MapObject</Filter>
     </ClInclude>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <ClInclude Include="..\Classes\SonicCounterState.h">
       <Filter>src\Sonic</Filter>
     </ClInclude>
@@ -297,6 +337,8 @@
       <Filter>src\Scene</Filter>
 >>>>>>> 7c75846b002c15afe0778d8aeebd1bbd5f3da418
     </ClInclude>
+=======
+>>>>>>> parent of 6aa5e1b... add monkey
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
