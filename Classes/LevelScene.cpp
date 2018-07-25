@@ -102,7 +102,7 @@ void LevelScene::CheckButton()
 	if (!_mSonic->isInMultipleButton)
 		for (int i = _listButton.size() - 2; i > -1; i--)
 		{
-			if (_listButton.at(i)->isDelete /*&& _listButton.at(i+1)->getPositionX() - _mSonic->getPositionX() < 600*/)
+			if (_listButton.at(i)->isDelete && _listButton.at(i+1)->getPositionX() - _mSonic->getPositionX() < 600)
 			{
 				_listButton.at(i + 1)->SetCanActive(true);
 				break;

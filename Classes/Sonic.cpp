@@ -34,7 +34,7 @@ Sonic::Sonic()
 	run_skip_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(skip_FL, 0.05f)));
 	roll_chest_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_chest_FL, 0.03f)));
 	stop_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(false, "stop"), 0.05f)));
-	
+	counter_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(false, "counter"), 0.05f)));
 	//Red Sonic Ani
 	run_fast_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_fast_red_FL, 0.01f)));
 	jump_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(jump_red_FL, 0.03f)));
@@ -45,7 +45,7 @@ Sonic::Sonic()
 	run_skip_red_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(skip_red_FL, 0.05f)));
 	roll_chest_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_chest_red_FL, 0.03f)));
 	stop_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(true, "stop"), 0.05f)));
-	
+	counter_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(true, "counter"), 0.05f)));
 	auto verti = PhysicsBody::createCircle(75, PhysicsMaterial(0.1f, 0.0f, 0.0f));
 
 	verti->setCategoryBitmask(1);    // 0010
@@ -180,8 +180,8 @@ void Sonic::update(float dt)
 	if(_roll_effect!=nullptr)
 	if (mCurrentState->GetState() != SonicState::ROLL && mCurrentState->GetState() != SonicState::ROLL_CHEST && _roll_effect->isVisible())
 		_roll_effect->setVisible(false);
-	if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL  && mCurrentState->GetState() != SonicState::StateAction::ROLL && mCurrentState->GetState() != SonicState::StateAction::DIE  && mCurrentState->GetState() != SonicState::StateAction::DIE)
-		this->SetStateByTag(SonicState::StateAction::FALL);
+	/*if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL  && mCurrentState->GetState() != SonicState::StateAction::ROLL && mCurrentState->GetState() != SonicState::StateAction::DIE )
+		this->SetStateByTag(SonicState::StateAction::FALL);*/
 	/*if (count_to_reset_just_tap == 40)
 	{
 		count_to_reset_just_tap = 0;
@@ -264,6 +264,9 @@ void Sonic::SetStateByTag(SonicState::StateAction action)
 	case SonicState::STOP:
 		this->SetState(new SonicStopState(mData));
 		break;
+	case SonicState::COUNTER:
+		this->SetState(new SonicCounterState(mData));
+		break;
 	}
 	
 }
@@ -287,7 +290,7 @@ void Sonic::SetState(SonicState * state)
 		break;
 	case SonicState::JUMP:
 		mCurrentAnimate = jump_Ani;
-		mCurrentAction = mCurrentAnimate->get()->clone();
+		mCurrentAction = mCurrentAnimate->get();
 		break;
 	case SonicState::ROLL:
 		mCurrentAnimate = roll_Ani;
@@ -306,7 +309,7 @@ void Sonic::SetState(SonicState * state)
 	case SonicState::HURT:
 		this->stopAllActions();
 		mCurrentAnimate = hurt_Ani;
-		mCurrentAction = mCurrentAnimate->get()->clone();
+		mCurrentAction = mCurrentAnimate->get();
 		break; 
 	case SonicState::RUNSKIP:
 		mCurrentAnimate = run_skip_Ani;
@@ -320,6 +323,10 @@ void Sonic::SetState(SonicState * state)
 			mCurrentAnimate = stop_Ani;
 			mCurrentAction = mCurrentAnimate->get();
 			break;
+	case SonicState::COUNTER:
+		mCurrentAnimate = counter_Ani;
+		mCurrentAction = mCurrentAnimate->get();
+		break;
 	case SonicState::DIE:
 		
 		this->stopAllActions();
@@ -331,7 +338,7 @@ void Sonic::SetState(SonicState * state)
 		});
 		mCurrentAction =  Sequence::create(JumpBy::create(1.5, Vec2(-200, -400), 200, 1), restart_scene, nullptr);
 		break;
-	
+
 	}
 	if(mCurrentAction!=nullptr)
 	this->runAction(mCurrentAction);
@@ -376,7 +383,7 @@ void Sonic::HandleCollision(Sprite * sprite)
 		return;
 	}
 	//When Sonic hits enemy, push back and drop rings
-	if (sprite->getTag() == Define::LANDMONSTER && mCurrentState->GetState() != SonicState::ROLL)
+	if (sprite->getTag() == Define::LANDMONSTER && mCurrentState->GetState() != SonicState::ROLL &&mCurrentState->GetState() != SonicState::COUNTER)
 	{
 		this->SetStateByTag(SonicState::HURT);
 		this->runAction(Blink::create(2, 10));
@@ -550,6 +557,7 @@ void Sonic::SwapAllAni()
 	SwapAni(run_skip_Ani, run_skip_red_Ani);
 	SwapAni(roll_chest_Ani, roll_chest_red_Ani);
 	SwapAni(stop_Ani, stop_red_Ani);
+	SwapAni(counter_Ani, counter_red_Ani);
 	this->stopAllActions();
 	this->SetStateByTag(mCurrentState->GetState());
 }

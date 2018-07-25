@@ -155,6 +155,7 @@ void MultipleButton::DeleteNow(bool check)
 	isDelete = true;
 	if (check)
 	{
+		isTrue = true;
 		auto _green_line = Sprite::create("GameComponents/green_line.png");
 		_green_line->setPosition(0, 0);
 		_green_line->setAnchorPoint(Vec2(0, 0.5));
@@ -189,9 +190,11 @@ void MultipleButton::DeleteNow(bool check)
 			}
 		}
 		this->runAction(Sequence::create(DelayTime::create(1), RemoveSelf::create(),nullptr));
+		isTrue = false;
 	}
 
-	if (!isCountCombo) _mSonic->countCombo = 0;
+	if (!isCountCombo) 
+		_mSonic->countCombo = 0;
 }
 
 void MultipleButton::BlinkProgressBar()

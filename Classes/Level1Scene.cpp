@@ -48,6 +48,24 @@ void Level1Scene::LoadMap(string path)
 		HoldLand* hold = new HoldLand(Vec2(x_box, y_box), Size(wi_box, he_box), false, _mSonic, this);
 
 	}
+
+
+	TMXObjectGroup *objectGroup_monkey = _tileMap->getObjectGroup("Monkey");
+
+
+	for (int i = 0; i < objectGroup_monkey->getObjects().size(); i++)
+	{
+
+		Value objectemp = objectGroup_monkey->getObjects().at(i);
+
+		float wi_box = objectemp.asValueMap().at("width").asFloat();
+		float he_box = objectemp.asValueMap().at("height").asFloat();
+		float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+		float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+		MonkeyMonster *mon = new MonkeyMonster(_mSonic, Vec2(x_box, y_box));
+		_listMultipleButton.pushBack(mon->_multiButton);
+		this->addChild(mon);
+	}
 	
 	SortButton();
 }
@@ -103,7 +121,7 @@ cocos2d::Scene * Level1Scene::createScene()
 	scene->getPhysicsWorld()->setGravity(Vec2(0, -1000));
 
 	// optional: set debug draw
-	//	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
 	scene->getPhysicsWorld()->step(1 / 60.0f);
 
 
