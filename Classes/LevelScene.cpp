@@ -504,7 +504,7 @@ cocos2d::Scene * LevelScene::createScene()
 
 	// optional: set debug draw
 	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
-	//scene->getPhysicsWorld()->step(1 / 60.0f);
+	scene->getPhysicsWorld()->step(1 / 60.0f);
 
 
 
