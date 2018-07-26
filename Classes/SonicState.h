@@ -20,7 +20,8 @@ public:
 		RUNSKIP,
 		ROLL_CHEST,
 		STOP,
-		COUNTER
+		COUNTER,
+		END
 	};
 	SonicState();
 	~SonicState();

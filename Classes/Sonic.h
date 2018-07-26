@@ -13,6 +13,7 @@
 #include "SonicRollChestState.h"
 #include "SonicStopState.h"
 #include "SonicCounterState.h"
+#include "SonicEndState.h"
 #include "GameDefine.h"
 #include "GameParticle.h"
 #include "SmallRing.h"
@@ -83,6 +84,8 @@ private:
 	RefPtr<Animate>  *roll_chest_Ani;
 	RefPtr<Animate>  *stop_Ani;
 	RefPtr<Animate>  *counter_Ani;
+	RefPtr<Animate>  *end_Ani;
+
 
 	RefPtr<Animate>  *run_fast_red_Ani;
 	RefPtr<Animate>  *jump_red_Ani;
@@ -94,7 +97,7 @@ private:
 	RefPtr<Animate>  *roll_chest_red_Ani;
 	RefPtr<Animate>  *stop_red_Ani;
 	RefPtr<Animate>  *counter_red_Ani;
-
+	RefPtr<Animate>  *end_red_Ani;
 
 	Sprite* dust = nullptr;
 	Sprite* flame = nullptr;

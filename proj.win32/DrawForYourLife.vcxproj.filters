@@ -122,6 +122,9 @@
     <ClCompile Include="..\Classes\RingComboScore.cpp">
       <Filter>Game\GameComponent</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\SonicEndState.cpp">
+      <Filter>Game\Sonic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -250,6 +253,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\RingComboScore.h">
       <Filter>Game\GameComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SonicEndState.h">
+      <Filter>Game\Sonic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

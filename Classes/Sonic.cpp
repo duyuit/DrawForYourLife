@@ -35,6 +35,9 @@ Sonic::Sonic()
 	roll_chest_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_chest_FL, 0.03f)));
 	stop_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(false, "stop"), 0.05f)));
 	counter_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(false, "counter"), 0.05f)));
+	end_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(false, "end"), 0.05f)));
+	
+	
 	//Red Sonic Ani
 	run_fast_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_fast_red_FL, 0.01f)));
 	jump_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(jump_red_FL, 0.03f)));
@@ -46,6 +49,9 @@ Sonic::Sonic()
 	roll_chest_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_chest_red_FL, 0.03f)));
 	stop_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(true, "stop"), 0.05f)));
 	counter_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(true, "counter"), 0.05f)));
+	end_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(true, "end"), 0.05f)));
+	
+	
 	auto verti = PhysicsBody::createCircle(75, PhysicsMaterial(0.1f, 0.0f, 0.0f));
 
 	verti->setCategoryBitmask(1);    // 0010
@@ -267,6 +273,9 @@ void Sonic::SetStateByTag(SonicState::StateAction action)
 	case SonicState::COUNTER:
 		this->SetState(new SonicCounterState(mData));
 		break;
+	case SonicState::END:
+		this->SetState(new SonicEndState(mData));
+		break;
 	}
 	
 }
@@ -325,6 +334,10 @@ void Sonic::SetState(SonicState * state)
 			break;
 	case SonicState::COUNTER:
 		mCurrentAnimate = counter_Ani;
+		mCurrentAction = mCurrentAnimate->get();
+		break;
+	case SonicState::END:
+		mCurrentAnimate = end_Ani;
 		mCurrentAction = mCurrentAnimate->get();
 		break;
 	case SonicState::DIE:
