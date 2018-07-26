@@ -4,6 +4,7 @@
 SonicEndState::SonicEndState(SonicData * playerData)
 {
 	this->mPlayerData = playerData;
+	this->mPlayerData->player->scene_over = true;
 }
 
 SonicState::StateAction SonicEndState::GetState()

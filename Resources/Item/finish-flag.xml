@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Animations>
+  <Animation name="1" imagePath="Item/finish-flag.png" width="800" height="600">
+    <sprite x="307" y="155" w="132" h="131" oX="307" oY="155" oW="541" oH="806" />
+    <sprite x="469" y="155" w="120" h="131" oX="469" oY="155" oW="541" oH="806" />
+    <sprite x="631" y="155" w="105" h="131" oX="631" oY="155" oW="541" oH="806" />
+    <sprite x="24" y="310" w="83" h="131" oX="24" oY="310" oW="541" oH="806" />
+    <sprite x="161" y="310" w="52" h="131" oX="161" oY="310" oW="541" oH="806" />
+    <sprite x="280" y="305" w="21" h="136" oX="280" oY="305" oW="541" oH="806" />
+    <sprite x="352" y="310" w="83" h="131" oX="352" oY="310" oW="541" oH="806" />
+    <sprite x="470" y="310" w="107" h="131" oX="470" oY="310" oW="541" oH="806" />
+    <sprite x="624" y="310" w="121" h="131" oX="624" oY="310" oW="541" oH="806" />
+    <sprite x="2" y="459" w="130" h="131" oX="2" oY="459" oW="541" oH="806" />
+    <sprite x="0" y="0" w="132" h="131" oX="0" oY="0" oW="541" oH="806" />
+    <sprite x="149" y="0" w="120" h="131" oX="149" oY="0" oW="541" oH="806" />
+    <sprite x="300" y="0" w="104" h="131" oX="300" oY="0" oW="541" oH="806" />
+    <sprite x="440" y="0" w="82" h="131" oX="440" oY="0" oW="541" oH="806" />
+    <sprite x="570" y="0" w="21" h="136" oX="570" oY="0" oW="541" oH="806" />
+    <sprite x="649" y="0" w="83" h="131" oX="649" oY="0" oW="541" oH="806" />
+    <sprite x="25" y="155" w="83" h="131" oX="25" oY="155" oW="541" oH="806" />
+    <sprite x="150" y="155" w="121" h="131" oX="150" oY="155" oW="541" oH="806" />
+    <sprite x="307" y="155" w="132" h="131" oX="307" oY="155" oW="541" oH="806" />
+  </Animation>
+</Animations>

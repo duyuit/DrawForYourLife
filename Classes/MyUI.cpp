@@ -276,7 +276,6 @@ MyUI::MyUI(Sonic * mSonic)
 				//mySonic->countCombo = 10;
 				//mySonic->mJustTap = BUTTON_TAG::BUTTON_LEFT;
 				mySonic->ActiveButton(BUTTON_TAG::BUTTON_LEFT);
-				mySonic->SetStateByTag(SonicState::END);
 			}
 			else if (keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW)
 			{

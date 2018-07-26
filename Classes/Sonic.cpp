@@ -2,6 +2,7 @@
 
 #include "TapButton.h"
 #include "MultipleButton.h"
+#include "FinishFlag.h"
 Sonic::Sonic()
 {
 	//Blue Sonic
@@ -186,8 +187,11 @@ void Sonic::update(float dt)
 	if(_roll_effect!=nullptr)
 	if (mCurrentState->GetState() != SonicState::ROLL && mCurrentState->GetState() != SonicState::ROLL_CHEST && _roll_effect->isVisible())
 		_roll_effect->setVisible(false);
-	/*if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL  && mCurrentState->GetState() != SonicState::StateAction::ROLL && mCurrentState->GetState() != SonicState::StateAction::DIE )
-		this->SetStateByTag(SonicState::StateAction::FALL);*/
+	if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL
+		&& mCurrentState->GetState() != SonicState::StateAction::ROLL
+		&& mCurrentState->GetState() != SonicState::StateAction::DIE
+		&& mCurrentState->GetState() != SonicState::StateAction::RUNSKIP)
+		this->SetStateByTag(SonicState::StateAction::FALL);
 	/*if (count_to_reset_just_tap == 40)
 	{
 		count_to_reset_just_tap = 0;
@@ -391,6 +395,15 @@ void Sonic::HandleCollision(Sprite * sprite)
 		this->SetStateByTag(SonicState::ROLL_CHEST);
 		return;
 	}
+	else if (sprite->getTag() == Define::FINISH)
+	{
+		auto flag = (FinishFlag*)sprite;
+		flag->RunAnimation();
+
+		isFinish = true;
+		this->SetStateByTag(SonicState::END);
+		return;
+	}
 	else if (sprite->getTag() == Define::DIELAND && mCurrentState->GetState() != SonicState::DIE)
 	{
 		this->SetStateByTag(SonicState::DIE);
@@ -414,6 +427,8 @@ void Sonic::HandleCollision(Sprite * sprite)
 		//Monster cant collision with Sonic 
 		sprite->getPhysicsBody()->setContactTestBitmask(0);	
 	}
+	
+	
 	mCurrentState->HandleCollision(sprite);
 }
 
@@ -573,12 +588,14 @@ void Sonic::SwapAllAni()
 	SwapAni(roll_chest_Ani, roll_chest_red_Ani);
 	SwapAni(stop_Ani, stop_red_Ani);
 	SwapAni(counter_Ani, counter_red_Ani);
+	SwapAni(end_Ani, end_red_Ani);
 	this->stopAllActions();
 	this->SetStateByTag(mCurrentState->GetState());
 }
 
 void Sonic::ActiveButton(BUTTON_TAG dir)
 {
+	if (mCurrentState->GetState() == SonicState::DIE) return;
 	mJustTap = dir;
 	if (mCurrentButton != nullptr)
 	{

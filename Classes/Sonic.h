@@ -38,11 +38,13 @@ public:
 	SonicState *mCurrentState;
 	SonicData *mData;
 	bool isInMultipleButton = false;
+	bool scene_over = false;
 
 	bool CheckLastFrame(); // Check current animate is last Frame?
 	void SetStateByTag(SonicState::StateAction action); //Set state by put type of State
 	void SetState(SonicState *action); //Set state by new State()
 
+	bool isFinish = false;
 	bool isLeft = false;   // Check Direction Sonic
 	Vec2 GetVelocity(); 
 	void HandleCollision(Sprite *sprite); //Use to handle collision with objects

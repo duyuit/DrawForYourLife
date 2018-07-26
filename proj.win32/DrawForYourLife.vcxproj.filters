@@ -125,6 +125,9 @@
     <ClCompile Include="..\Classes\SonicEndState.cpp">
       <Filter>Game\Sonic</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\FinishFlag.cpp">
+      <Filter>Game\Map Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -256,6 +259,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\SonicEndState.h">
       <Filter>Game\Sonic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\FinishFlag.h">
+      <Filter>Game\Map Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

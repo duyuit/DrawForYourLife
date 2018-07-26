@@ -233,14 +233,14 @@ void TapButton::DeleteNow(bool check)
 	isDelete = true;
 	if (check)
 	{
-	
+		isTrue = true;
 		this->runAction(RemoveSelf::create());
 		mTarget->countCombo++;
 		isCountCombo = true;
 	}
 	else
 	{
-		
+		isTrue = false;
 		//this->setScale(0.15);
 		if(_break_Ani!=nullptr)
 		this->runAction(Sequence::create(_break_Ani->get(), RemoveSelf::create(), nullptr));

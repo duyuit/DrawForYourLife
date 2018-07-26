@@ -118,9 +118,6 @@ void RingComboScore::SetColor()
 
 void RingComboScore::SetLabel()
 {
-	//Label count rings
-	_countRing->setString("X  " + std::to_string(_mySonic->ringCollected));
-
 	//Label combo
 	_xCombo->stopAllActions();
 	_xCombo->setVisible(true);
@@ -237,6 +234,9 @@ void RingComboScore::Evaluate()
 
 void RingComboScore::update(float dt)
 {
+	//Label count rings
+	_countRing->setString("X  " + std::to_string(_mySonic->ringCollected));
+
 	if (_prev_score != _mySonic->score)
 	{
 		_delta_score = _mySonic->score - _prev_score;
