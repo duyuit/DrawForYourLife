@@ -131,6 +131,9 @@
     <ClCompile Include="..\Classes\FinishLayer.cpp">
       <Filter>Game\GameComponent</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\SelectMap.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -268,6 +271,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\FinishLayer.h">
       <Filter>Game\GameComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SelectMap.h">
+      <Filter>Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

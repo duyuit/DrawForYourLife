@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "ui\CocosGUI.h"
 #include "TurtorialScene.h"
+#include "LevelMap.h"
 using namespace std;
 using namespace cocos2d;
 using namespace cocos2d::ui;

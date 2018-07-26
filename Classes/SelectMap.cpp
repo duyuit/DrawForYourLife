@@ -61,6 +61,7 @@ bool SelectMap::init()
 			_btn_map_1 = Button::create("Select_map/stone_background.png");
 			_btn_map_1->setAnchorPoint(Vec2(0.5f, 0.5f));
 			_btn_map_1->setPosition(Vec2(visibleSize.width/ 4, visibleSize.height / 2));
+			_btn_map_1->addTouchEventListener(CC_CALLBACK_2(SelectMap::load, this));
 			Text* label = Text::create("Stone", "fonts/hemi.ttf", 30);
 			label->setColor(Color3B::WHITE);
 			label->setPosition(Vec2(visibleSize.width/ 4, visibleSize.height*1.5/2));
@@ -83,6 +84,7 @@ bool SelectMap::init()
 			_btn_map_3 = Button::create("Select_map/desert_background.png");
 			_btn_map_3->setAnchorPoint(Vec2(0.5f, 0.5f));
 			_btn_map_3->setPosition(Vec2(visibleSize.width/ 4, visibleSize.height / 2));
+			_btn_map_3->addTouchEventListener(CC_CALLBACK_2(SelectMap::load, this));
 			Text* label = Text::create("Desert", "fonts/hemi.ttf", 30);
 			label->setColor(Color3B::WHITE);
 			label->setPosition(Vec2(visibleSize.width/ 4, visibleSize.height*1.5 / 2));
@@ -126,6 +128,6 @@ cocos2d::Scene * SelectMap::createScene()
 	return SelectMap::create();
 }
 void SelectMap::load(Ref* sender, ui::Widget::TouchEventType type) {
-	auto scene = TurtorialScene::createScene();
+	auto scene = LevelMap::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(1,scene));
 }
