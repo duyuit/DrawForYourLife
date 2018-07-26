@@ -206,6 +206,8 @@ FinishLayer::FinishLayer(Sonic* mSonic,Layer* cur_scene)
 		case ui::Widget::TouchEventType::ENDED:
 		{
 			//Code
+			auto scene = (LevelScene*)current_scene;
+			scene->NextScene();
 		}
 		break;
 		default:

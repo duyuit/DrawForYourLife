@@ -217,8 +217,7 @@ MyUI::MyUI(Sonic * mSonic)
 				board->setVisible(false);
 				layer->setVisible(false);
 
-				auto gameScene = LevelMap::createScene();
-				Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
+				
 			}
 				break;
 			default:
@@ -287,7 +286,7 @@ MyUI::MyUI(Sonic * mSonic)
 
 			if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW)
 			{
-				/*auto scene =(LevelScene*) current_scene;
+			/*	auto scene =(LevelScene*) current_scene;
 				scene->NextScene();*/
 
 
