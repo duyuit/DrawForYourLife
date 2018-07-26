@@ -16,8 +16,8 @@ public:
 	TurtorialScene();
 	~TurtorialScene();
 
-
-	virtual void  ReloadScene() override;
+	void NextScene() override;
+	void ReloadScene() override;
 	void Pause();
 	void Continue();
 	void update(float dt) override;

@@ -12,9 +12,22 @@ LoadScene::LoadScene()
 LoadScene::~LoadScene()
 {
 }
-cocos2d::Scene * LoadScene::createScene()
+Scene * LoadScene::createScene()
 {
-	return LoadScene::create();
+	auto scene= LoadScene::create();
+	//switch (name)
+	//{
+	//case Define::TUTO:
+	//	scene->nextScene = TurtorialScene::createScene();
+	//	break;
+	//case Define::LV1:
+	//	scene->nextScene = Level1Scene::createScene();
+	//	break;
+	//default:
+	//	break;
+	//}
+	return scene;
+
 }
 
 bool LoadScene::init()
@@ -54,19 +67,34 @@ bool LoadScene::init()
 	mouseBar->setPercentage(90);
 	border->addChild(mouseBar, 10);
 
-
-
-
-	auto actionMoveDone = CallFuncN::create(CC_CALLBACK_1(LoadScene::nextScene, this));
 	mouseBar->runAction(ProgressFromTo::create(1.0f, 0.0f, 100));
-	this->runAction(Sequence::create(DelayTime::create(2.0), actionMoveDone, NULL));
+
+	
+
+	scheduleOnce(CC_SCHEDULE_SELECTOR(LoadScene::updateStart), 0);
 	return true;
 }
 
-void LoadScene::nextScene(cocos2d::Node* sender)
+void LoadScene::NextScene()
 {
-	sceneLevelMap = TurtorialScene::createScene();
-	Director::getInstance()->replaceScene(TransitionFade::create(1, sceneLevelMap));
+	//Director::getInstance()->replaceScene(TransitionFade::create(1, TurtorialScene::createScene()));
+	switch ((SCENE_NAME) next_scene)
+	{
+	case Define::TUTO:
+		Director::getInstance()->replaceScene(TransitionFade::create(1, TurtorialScene::createScene()));
+		break;
+	case Define::LV1:
+		Director::getInstance()->replaceScene(TransitionFade::create(1, Level1Scene::createScene()));
+		break;
+	default:
+		break;
+	}
 
+}
+
+void LoadScene::updateStart(float dt)
+{
+	auto actionMoveDone = CallFuncN::create(CC_CALLBACK_0(LoadScene::NextScene, this));
+	this->runAction(Sequence::create(DelayTime::create(2.0), actionMoveDone, NULL));
 }
 

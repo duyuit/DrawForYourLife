@@ -31,6 +31,7 @@ public:
 	virtual void MyPause();
 	virtual void MyResume();
 	virtual void ReloadScene();
+	virtual void NextScene();
 	void SortButton();
 	void LoadSound();
 	void CreateParallaxNode(string path);

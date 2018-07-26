@@ -36,6 +36,10 @@ void LevelScene::ReloadScene()
 {
 }
 
+void LevelScene::NextScene()
+{
+}
+
 void LevelScene::SortButton()
 {
 	for (int i = 0; i < _listButton.size(); i++)

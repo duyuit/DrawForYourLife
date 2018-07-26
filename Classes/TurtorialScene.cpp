@@ -1,5 +1,6 @@
 ﻿#include "TurtorialScene.h"
-
+#include "Level1Scene.h"
+#include "LoadScene.h"
 cocos2d::Scene * TurtorialScene::createScene()
 {
 	auto scene = Scene::createWithPhysics();
@@ -40,6 +41,14 @@ TurtorialScene::~TurtorialScene()
 }
 
 
+
+void TurtorialScene::NextScene()
+{
+	auto scene =(LoadScene*) LoadScene::createScene();
+	scene->next_scene = (int)Define::LV1;
+
+	Director::getInstance()->replaceScene(scene);
+}
 
 void TurtorialScene::ReloadScene()
 {
