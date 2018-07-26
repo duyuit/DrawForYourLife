@@ -1,2 +1,2 @@
 # DrawForYourLife
-![Screenshot](screenshot.png)
+![Screenshot](2.png)
