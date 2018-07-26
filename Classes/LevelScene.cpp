@@ -307,7 +307,23 @@ void LevelScene::LoadMap(string path)
 			_listMultipleButton.pushBack(chest->_multiButton);
 		}
 
-	
+		//Load finish flag
+		TMXObjectGroup *objectGroup_finish = _tileMap->getObjectGroup("Finish");
+		for (int i = 0; i < objectGroup_finish->getObjects().size(); i++)
+		{
+
+			Value objectemp = objectGroup_finish->getObjects().at(i);
+
+			float wi_box = objectemp.asValueMap().at("width").asFloat();
+			float he_box = objectemp.asValueMap().at("height").asFloat();
+			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+
+			auto finish = new FinishFlag();
+
+			finish->setPosition(x_box, y_box);
+			this->addChild(finish, 1);
+		}
 
 		//// Process object layer 
 		//auto objectGroup = _tileMap->getObjectGroup("Land2");
@@ -366,18 +382,14 @@ void LevelScene::SetViewPointCenter(Point position, bool isFast)
 	Vec2 centerOfView = Vec2(winSize.width / 2, winSize.height / 2);
 	Vec2 viewPoint;
 
-	//if (_mSonic->getPositionX()<15600)
-		viewPoint = centerOfView - actualPosition + Vec2(-300, 0);
-	/*else
-	viewPoint = centerOfView - actualPosition;*/
 
+	viewPoint = centerOfView - actualPosition + Vec2(-300, 0);
 
 	auto currentCameraPosition = this->getPosition();
-	//	this->getScene()->getDefaultCamera()->setPosition(viewPoint);
-	//if (isFast)
-	if (_mSonic->mCurrentState->GetState() != SonicState::ROLL_CHEST) this->setPosition(viewPoint);
-	/*else
-		this->setPosition((viewPoint - currentCameraPosition)*_director->getDeltaTime() + currentCameraPosition);*/
+
+	if (_mSonic->mCurrentState->GetState() != SonicState::ROLL_CHEST) 
+		this->setPosition(viewPoint);
+	
 }
 
 bool LevelScene::onContactBegin(cocos2d::PhysicsContact & contact)
@@ -424,6 +436,9 @@ bool LevelScene::onContactBegin(cocos2d::PhysicsContact & contact)
 void LevelScene::update(float dt)
 {
 	RollBackground();
+	if (_mSonic->scene_over)
+		return;
+
 	if (_mSonic->getPosition().x < 0) _mSonic->setPosition(0, _mSonic->getPosition().y);
 	SetViewPointCenter(_mSonic->getPosition(), true);
 	CheckButton();

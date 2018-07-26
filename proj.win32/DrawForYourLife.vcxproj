@@ -154,6 +154,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\BonusChest.cpp" />
     <ClCompile Include="..\Classes\Coconut_Monkey.cpp" />
+    <ClCompile Include="..\Classes\FinishFlag.cpp" />
     <ClCompile Include="..\Classes\RingComboScore.cpp" />
     <ClCompile Include="..\Classes\FrogMonster.cpp" />
     <ClCompile Include="..\Classes\HoldLand.cpp" />
@@ -178,6 +179,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\SonicCounterState.cpp" />
     <ClCompile Include="..\Classes\SonicData.cpp" />
     <ClCompile Include="..\Classes\SonicDieState.cpp" />
+    <ClCompile Include="..\Classes\SonicEndState.cpp" />
     <ClCompile Include="..\Classes\SonicFallState.cpp" />
     <ClCompile Include="..\Classes\SonicHoldState.cpp" />
     <ClCompile Include="..\Classes\SonicHurtState.cpp" />
@@ -197,6 +199,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\BonusChest.h" />
     <ClInclude Include="..\Classes\Coconut_Monkey.h" />
+    <ClInclude Include="..\Classes\FinishFlag.h" />
     <ClInclude Include="..\Classes\RingComboScore.h" />
     <ClInclude Include="..\Classes\FrogMonster.h" />
     <ClInclude Include="..\Classes\GameDefine.h" />
@@ -223,6 +226,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\SonicCounterState.h" />
     <ClInclude Include="..\Classes\SonicData.h" />
     <ClInclude Include="..\Classes\SonicDieState.h" />
+    <ClInclude Include="..\Classes\SonicEndState.h" />
     <ClInclude Include="..\Classes\SonicFallState.h" />
     <ClInclude Include="..\Classes\SonicHoldState.h" />
     <ClInclude Include="..\Classes\SonicHurtState.h" />

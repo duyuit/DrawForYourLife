@@ -20,7 +20,8 @@ namespace Define {
 		DIELAND,
 		MUSHROOM,
 		CHEST,
-		COCONUT
+		COCONUT,
+		FINISH
 	};
 	enum BUTTON_TAG
 	{
