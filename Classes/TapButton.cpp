@@ -163,6 +163,8 @@ void TapButton::SetCanActive(bool is)
 	canActive = is;
 	if (isActive)
 	{
+		if (mTarget->mCurrentState->GetState() == SonicState::HURT) return; //Bug fix: When hurt monster
+
 		mTarget->mCurrentButton = this;
 		_border->setVisible(true);
 		auto func = CallFunc::create([this]()
@@ -194,6 +196,8 @@ void TapButton::Active()
 	isActive = true;
 	if (canActive)
 	{
+		if (mTarget->mCurrentState->GetState() == SonicState::HURT) return; //Bug fix: When hurt monster
+
 		mTarget->mCurrentButton = this;
 		auto func = CallFunc::create([this]()
 		{

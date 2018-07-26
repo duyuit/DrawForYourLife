@@ -12,20 +12,10 @@ public:
 	int count_tuto =0;
 	void LoadMap(string path) override;
 	Sprite* blackImage;
-
+	int count_to_change_position = 0;
 	TurtorialScene();
 	~TurtorialScene();
-	void Tutorial1();
 
-	void Tutorial2();
-	void Tutorial2_part1();
-
-	void Tutorial3();
-	void Tutorial3_part1();
-
-	void Tutorial4();
-	void ResetTutorial4();
-	void ResetTutorial5();
 
 	virtual void  ReloadScene() override;
 	void Pause();

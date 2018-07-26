@@ -21,9 +21,11 @@ public:
 
 	bool _istouch = false;
 	int count_to_reset_touch = 0;
+	int count_to_change_position = 0;
 
 	void DisableExcept(BUTTON_TAG tag);
 	void EnableAll();
+
 	MyUI(Sonic* mSonic);
 
 	void update(float dt);

@@ -43,7 +43,6 @@ void Monster::Init(Sonic * sonic)
 	_tapButton->_time_circle_shrink = 0.7;
 	_tapButton->_action = SonicState::ROLL;*/
 
-	_multiButton = new MultipleButton(Vec2(0, 0),_mSonic,(Layer*)_mSonic->getParent(),3,2);
 
 	//this->addChild(_multiButton,10);
 

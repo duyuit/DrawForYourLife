@@ -25,6 +25,7 @@ public:
 	Vector<Monster*> _listMonster;
 	SimpleAudioEngine* audio;
 	Vector<MultipleButton*> _listMultipleButton;
+	Vector<BonusChest*> _listBonus;
 	int _speedParallax = 1;
 
 	virtual void MyPause();

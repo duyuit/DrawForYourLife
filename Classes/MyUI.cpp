@@ -34,6 +34,8 @@ void MyUI::EnableAll()
 
 }
 
+
+
 MyUI::MyUI(Sonic * mSonic)
 {
 		mySonic = mSonic;
@@ -63,7 +65,7 @@ MyUI::MyUI(Sonic * mSonic)
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 			//	but->setOpacity(200);
-				
+			
 				mySonic->ActiveButton(BUTTON_TAG::BUTTON_LEFT);
 				SimpleAudioEngine::getInstance()->playEffect(Define::_music_button_effect_path);
 				break;
@@ -91,6 +93,7 @@ MyUI::MyUI(Sonic * mSonic)
 			case ui::Widget::TouchEventType::ENDED:
 					mySonic->ActiveButton(BUTTON_TAG::BUTTON_RIGHT);
 					SimpleAudioEngine::getInstance()->playEffect(Define::_music_button_effect_path); 
+					
 				//but->setOpacity(200);
 				break;
 			default:
@@ -259,8 +262,8 @@ MyUI::MyUI(Sonic * mSonic)
 			sprite->setPosition(touch->getLocation());
 			this->getParent()->addChild(sprite);
 			sprite->runAction(Sequence::create(touch_ani->get()->clone(), RemoveSelf::create(), nullptr));
+				_istouch = true;
 			
-			_istouch = true;
 		};
 
 		auto eventListener = EventListenerKeyboard::create();
@@ -287,12 +290,13 @@ MyUI::MyUI(Sonic * mSonic)
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, this);
 	//	this->autorelease();
+		this->scheduleUpdate();
 };
 
 void MyUI::update(float dt)
 {
 	count_to_reset_touch++;
-	if (count_to_reset_touch == 10)
+	if (count_to_reset_touch ==5)
 	{
 		count_to_reset_touch = 0;
 		_istouch = false;

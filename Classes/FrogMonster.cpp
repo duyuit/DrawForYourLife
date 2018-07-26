@@ -18,6 +18,9 @@ FrogMonster::FrogMonster(Sonic* sonic)
 
 	Monster::Init(sonic);
 	this->setScale(0.8);
+
+	_multiButton = new MultipleButton(Vec2(0, 0), _mSonic, (Layer*)_mSonic->getParent(), 2, 2);
+
 	//this->init();
 	//this->initWithSpriteFrame(idleFL.at(0));
 	//auto verti = PhysicsBody::createBox(this->getContentSize(), PhysicsMaterial(0.1f, 0.0f, 0.0f));
