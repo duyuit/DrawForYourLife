@@ -155,6 +155,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\BonusChest.cpp" />
     <ClCompile Include="..\Classes\Coconut_Monkey.cpp" />
     <ClCompile Include="..\Classes\FinishFlag.cpp" />
+    <ClCompile Include="..\Classes\FinishLayer.cpp" />
     <ClCompile Include="..\Classes\RingComboScore.cpp" />
     <ClCompile Include="..\Classes\FrogMonster.cpp" />
     <ClCompile Include="..\Classes\HoldLand.cpp" />
@@ -200,6 +201,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\BonusChest.h" />
     <ClInclude Include="..\Classes\Coconut_Monkey.h" />
     <ClInclude Include="..\Classes\FinishFlag.h" />
+    <ClInclude Include="..\Classes\FinishLayer.h" />
     <ClInclude Include="..\Classes\RingComboScore.h" />
     <ClInclude Include="..\Classes\FrogMonster.h" />
     <ClInclude Include="..\Classes\GameDefine.h" />
