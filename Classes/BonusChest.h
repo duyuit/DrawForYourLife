@@ -11,7 +11,7 @@ public:
 	BonusChest(Sonic * sonic);
 	RefPtr<Animate> *open_Ani;
 	MultipleButton* _multiButton;
-
+	bool _isDelete = false;
 	Sonic* _mSonic;
 	int _time_to_open = 0;
 	bool _isActive = false, _isCreateRing = true;

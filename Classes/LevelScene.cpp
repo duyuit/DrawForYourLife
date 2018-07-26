@@ -303,6 +303,7 @@ void LevelScene::LoadMap(string path)
 
 			BonusChest *chest = new BonusChest(_mSonic);
 			chest->setPosition(x_box, y_box);
+			_listBonus.pushBack(chest);
 			this->addChild(chest, 1);
 			_listMultipleButton.pushBack(chest->_multiButton);
 		}

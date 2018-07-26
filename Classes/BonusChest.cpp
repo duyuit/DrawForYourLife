@@ -30,6 +30,7 @@ BonusChest::BonusChest(Sonic * sonic)
 void BonusChest::Open()
 {
 	_isCreateRing = false;
+	_isDelete = true;
 	this->runAction(Sequence::create(open_Ani->get(), FadeOut::create(1), RemoveSelf::create(), nullptr));
 	//_mSonic->isActiveChest = false;
 	//_mSonic->SetStateByTag(SonicState::RUN_FAST);
