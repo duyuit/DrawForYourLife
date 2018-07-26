@@ -276,8 +276,10 @@ MyUI::MyUI(Sonic * mSonic)
 
 			if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW)
 			{
-				//mySonic->countCombo = 10;
-				//mySonic->mJustTap = BUTTON_TAG::BUTTON_LEFT;
+				/*auto scene =(LevelScene*) current_scene;
+				scene->NextScene();*/
+
+
 				mySonic->ActiveButton(BUTTON_TAG::BUTTON_LEFT);
 			}
 			else if (keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW)

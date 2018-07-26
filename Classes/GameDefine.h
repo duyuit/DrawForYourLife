@@ -23,6 +23,11 @@ namespace Define {
 		COCONUT,
 		FINISH
 	};
+	enum SCENE_NAME
+	{
+		TUTO,
+		LV1
+	};
 	enum BUTTON_TAG
 	{
 		NONE,

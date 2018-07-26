@@ -1,6 +1,6 @@
 ﻿#include "Level1Scene.h"
 
-
+#include "LoadScene.h"
 
 Level1Scene::Level1Scene()
 {
@@ -9,6 +9,14 @@ Level1Scene::Level1Scene()
 
 Level1Scene::~Level1Scene()
 {
+}
+
+void Level1Scene::NextScene()
+{
+	auto scene = (LoadScene*)LoadScene::createScene();
+	scene->next_scene = (int)Define::TUTO;
+
+	Director::getInstance()->replaceScene(scene);
 }
 
 void Level1Scene::LoadMap(string path)
