@@ -1,6 +1,14 @@
 #include "MyUI.h"
 #include "TestScene.h"
 #include "TurtorialScene.h"
+#include "LevelMap.h"
+//Start
+void MyUI::SetCurrentScene(Layer * scene)
+{
+	current_scene = scene;
+	finish->current_scene = scene;
+}
+//End
 
 void MyUI::DisableExcept(BUTTON_TAG tag)
 {
@@ -208,6 +216,8 @@ MyUI::MyUI(Sonic * mSonic)
 				_restart->setVisible(true);
 				board->setVisible(false);
 				layer->setVisible(false);
+
+				
 			}
 				break;
 			default:
@@ -276,7 +286,7 @@ MyUI::MyUI(Sonic * mSonic)
 
 			if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW)
 			{
-				/*auto scene =(LevelScene*) current_scene;
+			/*	auto scene =(LevelScene*) current_scene;
 				scene->NextScene();*/
 
 
@@ -303,4 +313,23 @@ void MyUI::update(float dt)
 		count_to_reset_touch = 0;
 		_istouch = false;
 	}
+
+	//Start
+	if (mySonic->isFinish)
+	{
+		count_to_finish++;
+		if (count_to_finish >= 150)
+		{
+			finish = new FinishLayer(mySonic, current_scene);
+			this->addChild(finish, 100);
+			_restart->setVisible(false);
+			layer = LayerColor::create();
+			layer->setColor(Color3B::BLACK);
+			layer->setOpacity(200);
+			this->addChild(layer);
+			layer->setVisible(true);
+			mySonic->isFinish = false;
+		}
+	}
+	//End
 }

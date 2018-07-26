@@ -101,6 +101,7 @@ bool MenuScene::init()
 	auto tittle = Sprite::create("Menu/tittle_game_2.png");
 	tittle->setAnchorPoint(Vec2(0.5f, 0.5f));
 	tittle->setScale(0.5*scaleX,0.5*scaleY);
+	tittle->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 10)), MoveBy::create(1, Vec2(0, -10)), nullptr)));
 	tittle->setPosition(Vec2(visibleSize.width / 3, 0.8 * visibleSize.height));
 	this->addChild(tittle, 2);
 
@@ -115,7 +116,7 @@ bool MenuScene::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{	
-			auto myScene = LoadScene::createScene();
+			auto myScene = SelectMap::createScene();
 			Director::getInstance()->replaceScene(TransitionFade::create(1, myScene));
 		}
 			break;

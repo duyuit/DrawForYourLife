@@ -99,7 +99,7 @@ void TurtorialScene::update(float dt)
 	{
 		count_tuto++;
 		Pause();
-		_diabox->UpdateString("Co dau ? kia, active khi toi gan nha");
+		_diabox->UpdateString("Look! There's a button.\nIt'll activate when you go close enough.");
 		_listButton.at(0)->time = 100;
 		_diabox->SetTapToContinue(true);
 	}
@@ -107,7 +107,7 @@ void TurtorialScene::update(float dt)
 	{
 		count_tuto++;
 		Pause();
-		_diabox->UpdateString("An trai hoac phai tuong ung mui ten,\nan cang som cang nhieu diem");
+		_diabox->UpdateString("Tap left or right to do actions. \nThe faster you tap, the more score you get.");
 		_diabox->SetTapToContinue(false);
 		_myui->DisableExcept(_listButton.at(0)->mTag);
 	}
@@ -121,7 +121,7 @@ void TurtorialScene::update(float dt)
 	if (count_tuto == 3 && _listMultipleButton.at(0)->getPositionX() - _mSonic->getPositionX()<=600)
 	{
 		Pause();
-		_diabox->UpdateString("Co con coc kia, bam du 2 nut lien tuc thi qua");
+		_diabox->UpdateString("Look! There's a frog.\nPress a sequence button to go through.");
 	
 		count_tuto++;
 	}
@@ -130,7 +130,7 @@ void TurtorialScene::update(float dt)
 	
 		Pause();
 		
-		_diabox->UpdateString("Active hop, tap lien tuc de get nhieu bonus hon");
+		_diabox->UpdateString("When you activate the chest, tap as fast as\nyou can to get more rings");
 	
 		count_tuto++;
 	}
@@ -185,7 +185,7 @@ bool TurtorialScene::init()
 	_mSonic->setPosition(1000, 200);
 
 	
-	blackImage = Sprite::create("TurtorialScene/black.png");
+	blackImage = Sprite::create("LevelScene/StoneMap/black.png");
 	blackImage->setColor(Color3B(0, 0, 0));
 	blackImage->setScale(20);
 	blackImage->setOpacity(100);
