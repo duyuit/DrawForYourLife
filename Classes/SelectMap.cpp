@@ -25,7 +25,7 @@ bool SelectMap::init()
 	background->setPosition(Vec2(visibleSize.width/3,visibleSize.height/2));
 	this->addChild(background, -1);
 
-	Text* label0 = Text::create("Select Area", "fonts/hemi.ttf", 50);
+	Text* label0 = Text::create("Select Area", "fonts/arial.ttf", 50);
 	label0->setColor(Color3B::WHITE);
 	label0->setPosition(Vec2(visibleSize.width / 3, visibleSize.height*1.7/2));
 	this->addChild(label0, 6);
@@ -62,7 +62,7 @@ bool SelectMap::init()
 			_btn_map_1->setAnchorPoint(Vec2(0.5f, 0.5f));
 			_btn_map_1->setPosition(Vec2(visibleSize.width/ 4, visibleSize.height / 2));
 			_btn_map_1->addTouchEventListener(CC_CALLBACK_2(SelectMap::load, this));
-			Text* label = Text::create("Stone", "fonts/hemi.ttf", 30);
+			Text* label = Text::create("Stone", "fonts/arial.ttf", 30);
 			label->setColor(Color3B::WHITE);
 			label->setPosition(Vec2(visibleSize.width/ 4, visibleSize.height*1.5/2));
 			layout->addChild(label, 2);
@@ -74,7 +74,7 @@ bool SelectMap::init()
 			_btn_map_2->setPosition(Vec2(visibleSize.width/ 4, visibleSize.height / 2));
 			_btn_map_2->addTouchEventListener(CC_CALLBACK_2(SelectMap::load, this));
 
-			Text* label = Text::create("Snow", "fonts/hemi.ttf", 30);
+			Text* label = Text::create("Snow", "fonts/arial.ttf", 30);
 			label->setColor(Color3B::WHITE);
 			label->setPosition(Vec2(visibleSize.width/ 4, visibleSize.height*1.5/2));
 			layout->addChild(label, 2);
@@ -85,7 +85,7 @@ bool SelectMap::init()
 			_btn_map_3->setAnchorPoint(Vec2(0.5f, 0.5f));
 			_btn_map_3->setPosition(Vec2(visibleSize.width/ 4, visibleSize.height / 2));
 			_btn_map_3->addTouchEventListener(CC_CALLBACK_2(SelectMap::load, this));
-			Text* label = Text::create("Desert", "fonts/hemi.ttf", 30);
+			Text* label = Text::create("Desert", "fonts/arial.ttf", 30);
 			label->setColor(Color3B::WHITE);
 			label->setPosition(Vec2(visibleSize.width/ 4, visibleSize.height*1.5 / 2));
 			layout->addChild(label, 2);

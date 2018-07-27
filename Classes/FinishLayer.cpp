@@ -63,8 +63,10 @@ FinishLayer::FinishLayer(Sonic* mSonic,Layer* cur_scene)
 		}
 
 	//////
-
+	float scaleX = visibleSize.width / visibleSize.width* 2;
+	float scaleY = visibleSize.height / visibleSize.width* 2;
 	boardScore = Sprite::create("Finish_Layer/score_board.png");
+	boardScore->setScale(scaleX, scaleY);
 	boardScore->setPosition(visibleSize.width / 2, visibleSize.height * 4 / 2);
 	boardScore->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(boardScore, 20);
@@ -83,79 +85,79 @@ FinishLayer::FinishLayer(Sonic* mSonic,Layer* cur_scene)
 	//boardScore->runAction(MoveTo::create(1.5f,Vec2(visibleSize.width / 2, visibleSize.height / 2)));
 	boardScore->runAction(Sequence::create(MoveTo::create(1.0f, Vec2(visibleSize.width / 2, visibleSize.height / 2)), start_jump_point, nullptr));
 
-	_result = Label::createWithTTF("RESULT", "fonts/hemi.TTF", 65);
+	_result = Label::createWithTTF("RESULT", "fonts/arial.ttf", 65);
 	_result->setColor(Color3B::WHITE);
 	_result->setPosition(boardScore->getContentSize().width / 2, boardScore->getContentSize().height*4.5 / 4);
 	boardScore->addChild(_result, 100);
 
-	_labelRing = Label::createWithTTF("Ring", "fonts/hemi.TTF", 40);
+	_labelRing = Label::createWithTTF("Ring", "fonts/arial.ttf", 40);
 	_labelRing->setColor(Color3B::YELLOW);
 	_labelRing->setPosition(boardScore->getContentSize().width / 8, boardScore->getContentSize().height*3.5 / 4);
 	_labelRing->setAnchorPoint(Vec2(0, 0.5f));
 	boardScore->addChild(_labelRing, 100);
 
-	_labelRingNum = Label::createWithTTF("", "fonts/hemi.TTF", 40);
+	_labelRingNum = Label::createWithTTF("", "fonts/arial.ttf", 40);
 	_labelRingNum->setColor(Color3B::YELLOW);
 	_labelRingNum->setPosition(boardScore->getContentSize().width * 6 / 8, boardScore->getContentSize().height * 3.5 / 4);
 	_labelRingNum->setAnchorPoint(Vec2(0.5f, 0.5f));
 	boardScore->addChild(_labelRingNum, 100);
 
-	_labelPerfect = Label::createWithTTF("Perfect", "fonts/hemi.TTF", 40);
+	_labelPerfect = Label::createWithTTF("Perfect", "fonts/arial.ttf", 40);
 	_labelPerfect->setColor(Color3B(255, 0, 128));
 	_labelPerfect->setPosition(boardScore->getContentSize().width / 8, boardScore->getContentSize().height * 3 / 4);
 	_labelPerfect->setAnchorPoint(Vec2(0, 0.5f));
 	boardScore->addChild(_labelPerfect, 100);
 
-	_labelPerfectNum = Label::createWithTTF("", "fonts/hemi.TTF", 40);
+	_labelPerfectNum = Label::createWithTTF("", "fonts/arial.ttf", 40);
 	_labelPerfectNum->setColor(Color3B(255, 0, 128));
 	_labelPerfectNum->setPosition(boardScore->getContentSize().width * 6 / 8, boardScore->getContentSize().height * 3 / 4);
 	_labelPerfectNum->setAnchorPoint(Vec2(0.5f, 0.5f));
 	boardScore->addChild(_labelPerfectNum, 100);
 
-	_labelBestcombo = Label::createWithTTF("Best Combo", "fonts/hemi.TTF", 40);
+	_labelBestcombo = Label::createWithTTF("Best Combo", "fonts/arial.ttf", 40);
 	_labelBestcombo->setColor(Color3B::ORANGE);
 	_labelBestcombo->setPosition(boardScore->getContentSize().width / 8, boardScore->getContentSize().height * 2.5 / 4);
 	_labelBestcombo->setAnchorPoint(Vec2(0, 0.5f));
 	boardScore->addChild(_labelBestcombo, 100);
 
-	_labelBestcomboNum = Label::createWithTTF("", "fonts/hemi.TTF", 40);
+	_labelBestcomboNum = Label::createWithTTF("", "fonts/arial.ttf", 40);
 	_labelBestcomboNum->setColor(Color3B::ORANGE);
 	_labelBestcomboNum->setPosition(boardScore->getContentSize().width * 6 / 8, boardScore->getContentSize().height * 2.5 / 4);
 	_labelBestcomboNum->setAnchorPoint(Vec2(0.5f, 0.5f));
 	boardScore->addChild(_labelBestcomboNum, 100);
 
-	_labelBonus = Label::createWithTTF("Bonus", "fonts/hemi.TTF", 40);
+	_labelBonus = Label::createWithTTF("Bonus", "fonts/arial.ttf", 40);
 	_labelBonus->setColor(Color3B::GREEN);
 	_labelBonus->setPosition(boardScore->getContentSize().width / 8, boardScore->getContentSize().height*2.0 / 4);
 	_labelBonus->setAnchorPoint(Vec2(0, 0.5f));
 	boardScore->addChild(_labelBonus, 100);
 
-	_labelBonusNum = Label::createWithTTF("", "fonts/hemi.TTF", 40);
+	_labelBonusNum = Label::createWithTTF("", "fonts/arial.ttf", 40);
 	_labelBonusNum->setColor(Color3B::GREEN);
 	_labelBonusNum->setPosition(boardScore->getContentSize().width * 6 / 8, boardScore->getContentSize().height * 2 / 4);
 	_labelBonusNum->setAnchorPoint(Vec2(0.5f, 0.5f));
 	boardScore->addChild(_labelBonusNum, 100);
 	///
 
-	_labelScore = Label::createWithTTF("Score", "fonts/hemi.TTF", 40);
+	_labelScore = Label::createWithTTF("Score", "fonts/arial.ttf", 40);
 	_labelScore->setColor(Color3B::GRAY);
 	_labelScore->setPosition(boardScore->getContentSize().width / 8, boardScore->getContentSize().height * 1.5 / 4);
 	_labelScore->setAnchorPoint(Vec2(0, 0.5f));
 	boardScore->addChild(_labelScore, 100);
 
-	_labelScoreNum = Label::createWithTTF("", "fonts/hemi.TTF", 40);
+	_labelScoreNum = Label::createWithTTF("", "fonts/arial.ttf", 40);
 	_labelScoreNum->setColor(Color3B::GRAY);
 	_labelScoreNum->setPosition(boardScore->getContentSize().width * 6 / 8, boardScore->getContentSize().height * 1.5 / 4);
 	_labelScoreNum->setAnchorPoint(Vec2(0.5f, 0.5f));
 	boardScore->addChild(_labelScoreNum, 100);
 
-	_labelTotal = Label::createWithTTF("Total Score", "fonts/hemi.TTF", 50);
+	_labelTotal = Label::createWithTTF("Total Score", "fonts/arial.ttf", 50);
 	_labelTotal->setColor(Color3B::RED);
 	_labelTotal->setPosition(boardScore->getContentSize().width / 8, boardScore->getContentSize().height * 1 / 4);
 	_labelTotal->setAnchorPoint(Vec2(0, 0.5f));
 	boardScore->addChild(_labelTotal, 100);
 
-	_labelTotalNum = Label::createWithTTF("", "fonts/hemi.TTF", 50);
+	_labelTotalNum = Label::createWithTTF("", "fonts/arial.ttf", 50);
 	_labelTotalNum->setColor(Color3B::RED);
 	_labelTotalNum->setPosition(boardScore->getContentSize().width * 6 / 8, boardScore->getContentSize().height * 1 / 4);
 	_labelTotalNum->setAnchorPoint(Vec2(0.5f, 0.5f));

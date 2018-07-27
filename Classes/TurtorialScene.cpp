@@ -10,7 +10,7 @@ cocos2d::Scene * TurtorialScene::createScene()
 
 	// optional: set debug draw
 //	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
-	scene->getPhysicsWorld()->step(1 / 60.0f);
+	//scene->getPhysicsWorld()->step(1 / 60.0f);
 
 
 
@@ -92,7 +92,7 @@ void TurtorialScene::update(float dt)
 	if (_isPause)
 		_mSonic->SetVelocityX(0);
 	if(_myui!=nullptr)
-	if (_myui->_istouch)
+	if (_myui->_istouch && _isPause)
 		Continue();
 
 	if (count_tuto == 0 && !_isPause && _listButton.at(0)->getPositionX() - _mSonic->getPositionX() <= 800)

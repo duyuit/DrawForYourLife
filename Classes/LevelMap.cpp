@@ -78,7 +78,7 @@ bool LevelMap::init()
 	board->addChild(gray_star_3, 2);
 
 	//Label level in Board Star
-	myLabel = Label::createWithTTF("", "fonts/hemi.ttf", 30);
+	myLabel = Label::createWithTTF("", "fonts/arial.ttf", 30);
 	myLabel->setAnchorPoint(Vec2(0.5f, 0.5f));
 	myLabel->setPosition(Vec2(delta_x * 3 - delta_x / 2, delta_y * 4 - delta_y / 2));
 	board->addChild(myLabel, 2);
@@ -120,14 +120,16 @@ bool LevelMap::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			if (currentLevel == 0) {
-				auto gameScene = TurtorialScene::createScene();
-				Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
+			auto gameScene =(LoadScene*) LoadScene::createScene();
+			gameScene->next_scene = (SCENE_NAME)currentLevel;
+			Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
+			/*if (currentLevel == 0) {
+				
 			}
 			if (currentLevel > 0) {
 				auto gameScene = Level1Scene::createScene();
 				Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
-			}
+			}*/
 		}
 		break;
 		default:
@@ -207,7 +209,7 @@ bool LevelMap::init()
 	});
 	this->addChild(button_level_0, 2);
 
-	_label_0 = Label::createWithTTF("0", "fonts/hemi.ttf", 30);
+	_label_0 = Label::createWithTTF("0", "fonts/arial.ttf", 30);
 	_label_0->setAnchorPoint(Vec2(0.5f, 0.5f));
 	_label_0->setPosition(Vec2(visibleSize.width / 1.51f, 0.505f*visibleSize.height));
 	_label_0->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
@@ -236,7 +238,7 @@ bool LevelMap::init()
 	});
 	this->addChild(button_level_1, 2);
 
-	_label_1 = Label::createWithTTF("1", "fonts/hemi.ttf", 30);
+	_label_1 = Label::createWithTTF("1", "fonts/arial.ttf", 30);
 	_label_1->setAnchorPoint(Vec2(0.5f, 0.5f));
 	_label_1->setPosition(Vec2(visibleSize.width / 1.88f, 0.585f*visibleSize.height));
 	_label_1->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
