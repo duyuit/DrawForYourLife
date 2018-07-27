@@ -61,6 +61,7 @@ bool SelectMap::init()
 			_btn_map_1 = Sprite::create("Select_map/stone_background.png");
 			_btn_map_1->setAnchorPoint(Vec2(0.5f, 0.5f));
 			_btn_map_1->setPosition(Vec2(visibleSize.width/ 4, visibleSize.height /3));
+			_btn_map_1->setScale(0.8, 0.8);
 			//_btn_map_1->addTouchEventListener(CC_CALLBACK_2(SelectMap::load, this));
 			Text* label = Text::create("Stone", "fonts/arial.ttf", 30);
 			label->setColor(Color3B::WHITE);
@@ -72,6 +73,7 @@ bool SelectMap::init()
 			_btn_map_2 = Sprite::create("Select_map/snow_background.png");
 			_btn_map_2->setAnchorPoint(Vec2(0.5f, 0.5f));
 			_btn_map_2->setPosition(Vec2(visibleSize.width/ 4, visibleSize.height / 3));
+			_btn_map_2->setScale(0.8, 0.8);
 			//_btn_map_2->addTouchEventListener(CC_CALLBACK_2(SelectMap::load, this));
 
 			Text* label = Text::create("Snow", "fonts/arial.ttf", 30);
@@ -84,6 +86,7 @@ bool SelectMap::init()
 			_btn_map_3 = Sprite::create("Select_map/desert_background.png");
 			_btn_map_3->setAnchorPoint(Vec2(0.5f, 0.5f));
 			_btn_map_3->setPosition(Vec2(visibleSize.width/ 4, visibleSize.height / 3));
+			_btn_map_3->setScale(0.8, 0.8);
 			//_btn_map_3->addTouchEventListener(CC_CALLBACK_2(SelectMap::load, this));
 			Text* label = Text::create("Desert", "fonts/arial.ttf", 30);
 			label->setColor(Color3B::WHITE);
