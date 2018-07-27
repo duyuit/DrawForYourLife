@@ -147,7 +147,7 @@ void LevelScene::LoadMap(string path)
 	//Add MAP
 	_tileMap = new TMXTiledMap();
 	_tileMap->initWithTMXFile(path);
-	//this->addChild(_tileMap);
+	this->addChild(_tileMap);
 
 	try
 	{

@@ -120,9 +120,11 @@ bool LevelMap::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			auto gameScene =(LoadScene*) LoadScene::createScene();
-			gameScene->next_scene = (SCENE_NAME)currentLevel;
-			Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
+			if (currentLevel < 2) {
+				auto gameScene = (LoadScene*)LoadScene::createScene();
+				gameScene->next_scene = (SCENE_NAME)currentLevel;
+				Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
+			}
 			/*if (currentLevel == 0) {				
 			}
 			if (currentLevel > 0) {
