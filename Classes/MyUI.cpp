@@ -138,7 +138,7 @@ MyUI::MyUI(Sonic * mSonic)
 		float numScale = 0.9;
 
 		//Label Board Star
-		auto myLabel = Label::createWithTTF("Pausing", "fonts/hemi.ttf", 30);
+		auto myLabel = Label::createWithTTF("Pausing", "fonts/arial.ttf", 30);
 		myLabel->setAnchorPoint(Vec2(0.5f, 0.5f));
 		myLabel->setPosition(Vec2(delta_x * 6 - delta_x * 2 / 2, delta_y * 2.5 - delta_y / 2));
 		board->addChild(myLabel, 2);
@@ -216,7 +216,7 @@ MyUI::MyUI(Sonic * mSonic)
 				_restart->setVisible(true);
 				board->setVisible(false);
 				layer->setVisible(false);
-
+				Director::getInstance()->replaceScene(LevelMap::createScene());
 				
 			}
 				break;
@@ -320,6 +320,7 @@ void MyUI::update(float dt)
 		count_to_finish++;
 		if (count_to_finish >= 150)
 		{
+			_combo->removeAllChildren();
 			finish = new FinishLayer(mySonic, current_scene);
 			this->addChild(finish, 100);
 			_restart->setVisible(false);

@@ -80,7 +80,7 @@ void LoadScene::NextScene()
 	//Director::getInstance()->replaceScene(TransitionFade::create(1, TurtorialScene::createScene()));
 	switch ((SCENE_NAME) next_scene)
 	{
-	case Define::TUTO:
+	case Define::LV0:
 		Director::getInstance()->replaceScene(TransitionFade::create(1, TurtorialScene::createScene()));
 		break;
 	case Define::LV1:
