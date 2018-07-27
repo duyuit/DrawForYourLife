@@ -147,7 +147,7 @@ void LevelScene::LoadMap(string path)
 	//Add MAP
 	_tileMap = new TMXTiledMap();
 	_tileMap->initWithTMXFile(path);
-	//this->addChild(_tileMap);
+	this->addChild(_tileMap);
 
 	try
 	{
@@ -464,7 +464,7 @@ void LevelScene::update(float dt)
 
 void LevelScene::updateStart(float dt)
 {
-	//this->getScene()->getPhysicsWorld()->setFixedUpdateRate(60);
+	this->getScene()->getPhysicsWorld()->setFixedUpdateRate(60);
 	_myui = new MyUI(_mSonic);
 
 	this->getScene()->addChild(_myui);
@@ -516,9 +516,8 @@ cocos2d::Scene * LevelScene::createScene()
 	scene->getPhysicsWorld()->setGravity(Vec2(0, -1000));
 
 	// optional: set debug draw
-	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
-//	scene->getPhysicsWorld()->step(1 / 60.0f);
-
+	//scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+	scene->getPhysicsWorld()->step(1 / 60.0f);
 
 
 	auto layer = LevelScene::create();

@@ -39,7 +39,7 @@ void MonkeyMonster::update(float dt)
 			isActive = true;
 			SetStateByTag(FIGHT);
 		}
-		if (_time_action == 100)
+		if (_time_action == 30)
 		{
 			_isLeft = !_isLeft;
 			SetStateByTag(RUN);

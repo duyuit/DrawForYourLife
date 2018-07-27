@@ -321,6 +321,7 @@ void MyUI::update(float dt)
 		if (count_to_finish >= 150)
 		{
 			_combo->removeAllChildren();
+			_combo->unscheduleUpdate();
 			finish = new FinishLayer(mySonic, current_scene);
 			this->addChild(finish, 100);
 			_restart->setVisible(false);
