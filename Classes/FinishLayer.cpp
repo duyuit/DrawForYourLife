@@ -63,8 +63,8 @@ FinishLayer::FinishLayer(Sonic* mSonic,Layer* cur_scene)
 		}
 
 	//////
-	float scaleX = visibleSize.width / visibleSize.width* 2;
-	float scaleY = visibleSize.height / visibleSize.width* 2;
+	float scaleX = 0.7;
+	float scaleY = 0.7;
 	boardScore = Sprite::create("Finish_Layer/score_board.png");
 	boardScore->setScale(scaleX, scaleY);
 	boardScore->setPosition(visibleSize.width / 2, visibleSize.height * 4 / 2);
@@ -195,7 +195,7 @@ FinishLayer::FinishLayer(Sonic* mSonic,Layer* cur_scene)
 
 	//Button cancel in Board Star
 	button_board_cancel = Button::create("Level_map/out.png");
-	//button_board_cancel->setScale(numScale*scaleX, numScale*scaleY);
+	button_board_cancel->setScale(scaleX*2, scaleY*2);
 	button_board_cancel->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_board_cancel->setPosition(Vec2(boardScore->getContentSize().width*4 / 6, -boardScore->getContentSize().height / 20));
 	boardScore->addChild(button_board_cancel, 6);
@@ -219,7 +219,7 @@ FinishLayer::FinishLayer(Sonic* mSonic,Layer* cur_scene)
 
 	//Button round in Board Star
 	button_board_round = Button::create("Level_map/round.png");
-	//button_board_round->setScale(numScale*scaleX, numScale*scaleY);
+	button_board_round->setScale(scaleX*2, scaleY*2);
 	button_board_round->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_board_round->setPosition(Vec2(boardScore-> getContentSize().width*2 / 6, -boardScore->getContentSize().height / 20));
 	boardScore->addChild(button_board_round, 6);

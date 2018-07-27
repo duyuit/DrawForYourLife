@@ -25,7 +25,7 @@ namespace Define {
 	};
 	enum SCENE_NAME
 	{
-		TUTO,
+		LV0,
 		LV1
 	};
 	enum BUTTON_TAG

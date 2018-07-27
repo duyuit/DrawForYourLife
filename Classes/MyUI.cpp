@@ -320,6 +320,7 @@ void MyUI::update(float dt)
 		count_to_finish++;
 		if (count_to_finish >= 150)
 		{
+			_combo->removeAllChildren();
 			finish = new FinishLayer(mySonic, current_scene);
 			this->addChild(finish, 100);
 			_restart->setVisible(false);

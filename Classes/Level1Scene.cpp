@@ -14,7 +14,7 @@ Level1Scene::~Level1Scene()
 void Level1Scene::NextScene()
 {
 	auto scene = (LoadScene*)LoadScene::createScene();
-	scene->next_scene = (int)Define::TUTO;
+	scene->next_scene = (int)Define::LV0;
 
 	Director::getInstance()->replaceScene(scene);
 }

@@ -20,9 +20,20 @@ public:
 	FinishLayer* finishLayer;
 	int currentLevel = 0;
 
+	Button* button_level_0;
+	Button* button_level_1;
+	Button* button_level_2;
+	Button* button_level_3;
+	Button* button_level_4;
+	Button* button_level_5;
+	Button* button_level_bonus;
+
+	bool isBoard = false;
+
 	Label*  _label_0;
 	Label* _label_1;
 
+	void update(float dt);
 	static cocos2d::Scene* createScene();
 	virtual bool init();
 	void nextScene(cocos2d::Node* sender);

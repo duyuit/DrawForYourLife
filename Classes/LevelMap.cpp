@@ -36,8 +36,8 @@ bool LevelMap::init()
 	this->addChild(loading, 1);
 
 	//visibleSzie level map
-	float scaleX = visibleSize.width / (loading->getContentSize().width * 2);
-	float scaleY = visibleSize.height / (loading->getContentSize().height * 2);
+	float scaleX = 0.85;
+	float scaleY = 0.85;
 
 	//Board Star
 	board = Sprite::create("Level_map/game_board.png");
@@ -52,7 +52,7 @@ bool LevelMap::init()
 	float delta_y = board->getContentSize().height / 5;
 
 	//Define number scale button in Board Star
-	float numScale = 0.9;
+	float numScale = 1.1;
 
 	//Gray Star
 	auto gray_star_1 = Sprite::create("Level_map/star_ready.png");
@@ -90,7 +90,7 @@ bool LevelMap::init()
 	auto button_board_round = Button::create("Level_map/round.png");
 	button_board_round->setScale(numScale*scaleX, numScale*scaleY);
 	button_board_round->setAnchorPoint(Vec2(0.5f, 0.5f));
-	button_board_round->setPosition(Vec2(delta_x * 3 / 2, delta_y));
+	button_board_round->setPosition(Vec2(delta_x * 2 / 2, delta_y*1.2));
 	board->addChild(button_board_round, 6);
 	button_board_round->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
 		switch (type)
@@ -109,9 +109,9 @@ bool LevelMap::init()
 
 	//Button play  in Board Star
 	auto button_board_play = Button::create("Level_map/play.png");
-	button_board_play->setScale((numScale*scaleX) / 2, (numScale*scaleY) / 2);
+	button_board_play->setScale((numScale*scaleX) /1.2, (numScale*scaleY) / 1.2);
 	button_board_play->setAnchorPoint(Vec2(0.5f, 0.5f));
-	button_board_play->setPosition(Vec2(delta_x * 5 / 2, delta_y));
+	button_board_play->setPosition(Vec2(delta_x * 5 / 2, delta_y*1.2));
 	board->addChild(button_board_play, 6);
 	button_board_play->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
 		switch (type)
@@ -123,8 +123,7 @@ bool LevelMap::init()
 			auto gameScene =(LoadScene*) LoadScene::createScene();
 			gameScene->next_scene = (SCENE_NAME)currentLevel;
 			Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
-			/*if (currentLevel == 0) {
-				
+			/*if (currentLevel == 0) {				
 			}
 			if (currentLevel > 0) {
 				auto gameScene = Level1Scene::createScene();
@@ -141,7 +140,7 @@ bool LevelMap::init()
 	auto button_board_cancel = Button::create("Level_map/out.png");
 	button_board_cancel->setScale(numScale*scaleX, numScale*scaleY);
 	button_board_cancel->setAnchorPoint(Vec2(0.5f, 0.5f));
-	button_board_cancel->setPosition(Vec2(delta_x * 7 / 2, delta_y));
+	button_board_cancel->setPosition(Vec2(delta_x * 8 / 2, delta_y*1.2));
 	board->addChild(button_board_cancel, 6);
 
 	button_board_cancel->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
@@ -152,6 +151,7 @@ bool LevelMap::init()
 		case ui::Widget::TouchEventType::ENDED:
 		{
 			board->setVisible(false);
+			isBoard = false;
 		}
 		break;
 		default:
@@ -186,7 +186,7 @@ bool LevelMap::init()
 
 
 	// Level 0 button
-	auto button_level_0 = Button::create("Level_map/level_btn_bluepurple_big.png");
+	 button_level_0 = Button::create("Level_map/level_btn_bluepurple_big.png");
 	button_level_0->setScale(levelScale * scaleX, levelScale * scaleY);
 	button_level_0->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_0->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
@@ -200,6 +200,7 @@ bool LevelMap::init()
 		{
 			setStar(0, 0);// pos 0 - 2 star
 			board->setVisible(true);
+			isBoard = true;
 
 		}
 		break;
@@ -216,7 +217,7 @@ bool LevelMap::init()
 	this->addChild(_label_0, 3);
 
 	// Level 1 button
-	auto button_level_1 = Button::create("Level_map/level_btn_bluepurple_big.png");
+	 button_level_1 = Button::create("Level_map/level_btn_bluepurple_big.png");
 	button_level_1->setScale(levelScale * scaleX, levelScale * scaleY);
 	button_level_1->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_1->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
@@ -230,6 +231,7 @@ bool LevelMap::init()
 		{
 			setStar(1, 0); // pos 1 - 1 star
 			board->setVisible(true);
+			isBoard = true;
 		}
 		break;
 		default:
@@ -245,7 +247,7 @@ bool LevelMap::init()
 	this->addChild(_label_1, 3);
 
 	// Level 2 button
-	auto button_level_2 = Button::create("Level_map/level_btn_bluepurple_big.png");
+	 button_level_2 = Button::create("Level_map/level_btn_bluepurple_big.png");
 	button_level_2->setScale(levelScale * scaleX, levelScale * scaleY);
 	button_level_2->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_2->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
@@ -259,6 +261,7 @@ bool LevelMap::init()
 		{
 			setStar(2, 0); // level 2 - 3 star
 			board->setVisible(true);
+			isBoard = true;
 		}
 		break;
 		default:
@@ -268,7 +271,7 @@ bool LevelMap::init()
 	this->addChild(button_level_2, 2);
 
 	// Level 3 button
-	auto button_level_3 = Button::create("Level_map/level_btn_bluepurple_big.png");
+	 button_level_3 = Button::create("Level_map/level_btn_bluepurple_big.png");
 	button_level_3->setScale(levelScale * scaleX, levelScale * scaleY);
 	button_level_3->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_3->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
@@ -282,6 +285,8 @@ bool LevelMap::init()
 		{
 			setStar(3, 0); // level 3 - 3 star
 			board->setVisible(true);
+			isBoard = true;
+
 		}
 		break;
 		default:
@@ -291,7 +296,7 @@ bool LevelMap::init()
 	this->addChild(button_level_3, 2);
 
 	// Level 4 button
-	auto button_level_4 = Button::create("Level_map/level_btn_bluepurple_big.png");
+	 button_level_4 = Button::create("Level_map/level_btn_bluepurple_big.png");
 	button_level_4->setScale(levelScale * scaleX, levelScale * scaleY);
 	button_level_4->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_4->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
@@ -305,6 +310,7 @@ bool LevelMap::init()
 		{
 			setStar(4, 0); // level 4 - 3 star
 			board->setVisible(true);
+			isBoard = true;
 		}
 		break;
 		default:
@@ -314,7 +320,7 @@ bool LevelMap::init()
 	this->addChild(button_level_4, 2);
 
 	// Level 5 button
-	auto button_level_5 = Button::create("Level_map/level_btn_bluepurple_big.png");
+	 button_level_5 = Button::create("Level_map/level_btn_bluepurple_big.png");
 	button_level_5->setScale(levelScale * scaleX, levelScale * scaleY);
 	button_level_5->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_5->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
@@ -328,6 +334,7 @@ bool LevelMap::init()
 		{
 			setStar(5, 0); // level 5 - 3 star
 			board->setVisible(true);
+			isBoard = true;
 		}
 		break;
 		default:
@@ -337,7 +344,7 @@ bool LevelMap::init()
 	this->addChild(button_level_5, 2);
 
 	// Level Bonus button
-	auto button_level_bonus = Button::create("Level_map/level_btn_bluepurple_big.png");
+	 button_level_bonus = Button::create("Level_map/level_btn_bluepurple_big.png");
 	button_level_bonus->setScale(levelScale * scaleX, levelScale * scaleY);
 	button_level_bonus->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_bonus->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
@@ -351,6 +358,7 @@ bool LevelMap::init()
 		{
 			setStar(6, 0); // level bonus - 3 star
 			board->setVisible(true);
+			isBoard = true;
 		}
 		break;
 		default:
@@ -359,6 +367,7 @@ bool LevelMap::init()
 	});
 
 	this->addChild(button_level_bonus, 2);
+	this->scheduleUpdate();
 	return true;
 }
 
@@ -392,6 +401,26 @@ void LevelMap::setStar(int level, int star) {
 	}
 	myLabel->setString(str);
 }
+void LevelMap::update(float dt) {
+	if (isBoard == true) {
+		button_level_0->setEnabled(false);
+		button_level_1->setEnabled(false);
+		button_level_2->setEnabled(false);
+		button_level_3->setEnabled(false);
+		button_level_4->setEnabled(false);
+		button_level_5->setEnabled(false);
+		button_level_bonus->setEnabled(false);
+	}
+	else {
+		button_level_0->setEnabled(true);
+		button_level_1->setEnabled(true);
+		button_level_2->setEnabled(true);
+		button_level_3->setEnabled(true);
+		button_level_4->setEnabled(true);
+		button_level_5->setEnabled(true);
+		button_level_bonus->setEnabled(true);
+	}
 
+}
 
 
