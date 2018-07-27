@@ -35,6 +35,7 @@ public:
 	void SortButton();
 	void LoadSound();
 	void CreateParallaxNode(string path);
+	void CreateTileLayer(string path);
 	void RollBackground();
 	void CheckButton();
 	virtual void LoadMap(string path);

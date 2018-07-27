@@ -79,7 +79,7 @@ void LevelScene::CreateParallaxNode(string path)
 		_galaxy->setAnchorPoint(Point(0, 0));
 		_galaxy->setScale(_director->getVisibleSize().width / _galaxy->getContentSize().width); //auto scale background fitting screen
 		_backgroundNode->addChild(_galaxy, -1, Point(0.1, 1), Point(0, 0));
-		this->addChild(_backgroundNode, -1);
+		this->addChild(_backgroundNode, -100);
 
 		_backgroundNode2 = InfiniteParallaxNode::create();
 
@@ -87,8 +87,21 @@ void LevelScene::CreateParallaxNode(string path)
 		_galaxy2->setAnchorPoint(Point(0, 0));
 		_galaxy2->setScale(_director->getVisibleSize().width / _galaxy->getContentSize().width); //auto scale background fitting screen
 		_backgroundNode2->addChild(_galaxy2, -1, Point(0.1, 1), Point(_galaxy2->getContentSize().width * _galaxy->getScale(), 0));
-		this->addChild(_backgroundNode2, -1);
+		this->addChild(_backgroundNode2, -100);
 	}
+}
+
+void LevelScene::CreateTileLayer(string path)
+{
+	Sprite* layer = Sprite::create(path + "1.png");
+	layer->setAnchorPoint(Vec2(0, 0));
+	layer->setPosition(0, 0);
+	this->addChild(layer, -1);
+
+	Sprite* layer2 = Sprite::create(path + "2.png");
+	layer2->setAnchorPoint(Vec2(0, 0));
+	layer2->setPosition(layer->getContentSize().width, 0);
+	this->addChild(layer2, -1);
 }
 
 void LevelScene::RollBackground()
