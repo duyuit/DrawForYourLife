@@ -118,6 +118,7 @@ bool Level1Scene::init()
 	LoadMap("LevelScene/StoneMap/lv1.tmx");
 	//CreateTileLayer("LevelScene/StoneMap/lv1_layer");
 	CreateParallaxNode("Map_stone/stone_bg3.png");
+
 	scheduleOnce(CC_SCHEDULE_SELECTOR(Level1Scene::updateStart), 0);
 	return true;
 }
@@ -130,7 +131,7 @@ cocos2d::Scene * Level1Scene::createScene()
 	scene->getPhysicsWorld()->setGravity(Vec2(0, -1000));
 
 	// optional: set debug draw
-//	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+	//scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
 	scene->getPhysicsWorld()->step(1 / 60.0f);
 
 

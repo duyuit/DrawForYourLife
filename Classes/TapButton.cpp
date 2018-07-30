@@ -10,7 +10,7 @@ TapButton::TapButton(Vec2 pos, Sonic* sprite, Layer* layer)
 	this->setPosition(pos);
 
 
-	this->setScale(0.3);
+
 
 	mTarget = sprite;
 	this->scheduleUpdate();
@@ -19,12 +19,13 @@ TapButton::TapButton(Vec2 pos, Sonic* sprite, Layer* layer)
 
 	_progressbar = Sprite::create("GameComponents/progress.png");
 	_progressbar->setAnchorPoint(Vec2(0.5, 0));
+	
 
 	_border = Sprite::create("GameComponents/border.png");
 	_border->setPosition(this->getContentSize()*0.3 + Size(0,150));
 	_border->setAnchorPoint(Vec2(0.5, 0));
 	_border->setVisible(false);
-	this->addChild(_border);
+	this->addChild(_border,3);
 
 	_label = Label::createWithTTF("", "fonts/INVASION2000.TTF", 130);
 	_label->setAnchorPoint(Vec2(0.5f, 0));
@@ -40,8 +41,10 @@ TapButton::TapButton(Vec2 pos, Sonic* sprite, Layer* layer)
 	mouseBar->setMidpoint(Vec2(0.0, 0.0));
 	mouseBar->setReverseDirection(true);
 	mouseBar->setPercentage(0);
-	this->addChild(mouseBar, 10);
+	this->addChild(mouseBar, 2);
 	mouseBar->setPosition(this->getContentSize()*0.3 + Size(0,150));
+
+	this->setScale(0.33);
 //	this->autorelease();
 }
 

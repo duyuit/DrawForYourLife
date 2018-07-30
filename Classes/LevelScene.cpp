@@ -401,13 +401,15 @@ void LevelScene::SetViewPointCenter(Point position, bool isFast)
 	Vec2 viewPoint;
 
 
+	//viewPoint = centerOfView - actualPosition + Vec2(-500, 0);
 	viewPoint = centerOfView - actualPosition + Vec2(-300, 0);
-
 	auto currentCameraPosition = this->getPosition();
 
-	if (_mSonic->mCurrentState->GetState() != SonicState::ROLL_CHEST) 
+	if (_mSonic->mCurrentState->GetState() != SonicState::ROLL_CHEST)
+	{
 		this->setPosition(viewPoint);
-	
+		//this->setPosition((viewPoint - currentCameraPosition)*Director::getInstance()->getDeltaTime() * 3 + currentCameraPosition);
+	}
 }
 
 bool LevelScene::onContactBegin(cocos2d::PhysicsContact & contact)
@@ -453,6 +455,12 @@ bool LevelScene::onContactBegin(cocos2d::PhysicsContact & contact)
 
 void LevelScene::update(float dt)
 {
+	for (int i = 0; i < 3; ++i)
+	{
+		this->getScene()->getPhysicsWorld()->step(1 / 60.0f);
+	}
+
+
 	RollBackground();
 	if (_mSonic->scene_over)
 		return;
@@ -502,6 +510,7 @@ bool LevelScene::init()
 	contactListener->onContactBegin = CC_CALLBACK_1(LevelScene::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 	//scheduleOnce(CC_SCHEDULE_SELECTOR(LevelScene::updateStart), 0);
+
 
 
 	this->scheduleUpdate();

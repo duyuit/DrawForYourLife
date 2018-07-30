@@ -53,6 +53,8 @@ Sonic::Sonic()
 	end_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(true, "end"), 0.05f)));
 	
 	
+	
+
 	auto verti = PhysicsBody::createCircle(75, PhysicsMaterial(0.1f, 0.0f, 0.0f));
 
 	verti->setCategoryBitmask(1);    // 0010
@@ -61,7 +63,7 @@ Sonic::Sonic()
 
 	verti->setRotationEnable(false);
 	verti->setDynamic(true);
-	
+
 	this->setPhysicsBody(verti);
 
 
@@ -70,7 +72,6 @@ Sonic::Sonic()
 	this->setAnchorPoint(Vec2(0.5f, 0));
 	verti->setPositionOffset(Vec2(117 / 4, 151 / 4));
 	this->setScale(0.5f);
-
 
 	this->mData = new SonicData();
 	this->mData->player = this;
