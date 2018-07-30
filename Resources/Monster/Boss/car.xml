@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Animations>
+  <Animation name="run" imagePath="Monster/Boss/car.png" width="440" height="348">
+    <sprite x="51" y="13" w="374" h="131" oX="51" oY="13" oW="389" oH="374" />
+    <sprite x="51" y="187" w="374" h="131" oX="51" oY="187" oW="389" oH="374" />
+  </Animation>
+</Animations>
