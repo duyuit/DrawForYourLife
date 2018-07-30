@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Animations>
+  <Animation name="run" imagePath="Monster/SwingShark2.png" width="404" height="900">
+    <sprite x="22" y="55" w="55" h="32" oX="22" oY="55" oW="76" oH="369" />
+    <sprite x="118" y="54" w="61" h="33" oX="118" oY="54" oW="76" oH="369" />
+    <sprite x="231" y="55" w="59" h="32" oX="231" oY="55" oW="76" oH="369" />
+    <sprite x="335" y="54" w="53" h="33" oX="335" oY="54" oW="76" oH="369" />
+  </Animation>
+  <Animation name="bite" imagePath="Monster/SwingShark2.png" width="404" height="900">
+    <sprite x="314" y="134" w="75" h="129" oX="314" oY="134" oW="735" oH="415" />
+    <sprite x="213" y="134" w="75" h="129" oX="213" oY="134" oW="735" oH="415" />
+    <sprite x="112" y="134" w="75" h="129" oX="112" oY="134" oW="735" oH="415" />
+    <sprite x="8" y="134" w="80" h="116" oX="8" oY="134" oW="735" oH="415" />
+    <sprite x="310" y="285" w="81" h="116" oX="310" oY="285" oW="735" oH="415" />
+    <sprite x="203" y="285" w="90" h="129" oX="203" oY="285" oW="735" oH="415" />
+    <sprite x="108" y="285" w="81" h="129" oX="108" oY="285" oW="735" oH="415" />
+    <sprite x="14" y="285" w="72" h="114" oX="14" oY="285" oW="735" oH="415" />
+    <sprite x="317" y="436" w="72" h="114" oX="317" oY="436" oW="735" oH="415" />
+    <sprite x="209" y="436" w="81" h="129" oX="209" oY="436" oW="735" oH="415" />
+    <sprite x="102" y="436" w="90" h="129" oX="102" oY="436" oW="735" oH="415" />
+    <sprite x="7" y="436" w="81" h="116" oX="7" oY="436" oW="735" oH="415" />
+    <sprite x="311" y="587" w="80" h="116" oX="311" oY="587" oW="735" oH="415" />
+    <sprite x="213" y="587" w="75" h="129" oX="213" oY="587" oW="735" oH="415" />
+    <sprite x="108" y="587" w="81" h="129" oX="108" oY="587" oW="735" oH="415" />
+    <sprite x="1" y="587" w="90" h="114" oX="1" oY="587" oW="735" oH="415" />
+    <sprite x="310" y="738" w="81" h="114" oX="310" oY="738" oW="735" oH="415" />
+    <sprite x="213" y="738" w="75" h="129" oX="213" oY="738" oW="735" oH="415" />
+  </Animation>
+</Animations>
