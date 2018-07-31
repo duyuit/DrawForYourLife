@@ -170,6 +170,8 @@ void MultipleButton::DeleteNow(bool check)
 	isDelete = true;
 	if (check)
 	{
+		CheckLabel(mouseBar->getPercentage(), true);
+
 		_mSonic->SetStateByTag(_action);
 
 		isTrue = true;
@@ -195,10 +197,11 @@ void MultipleButton::DeleteNow(bool check)
 		
 		_mSonic->countCombo += _button_count;
 		isCountCombo = true;
-		CheckLabel(mouseBar->getPercentage());
 	}
 	else
 	{
+		CheckLabel(100, false);
+
 		for (int i=0;i<_list_button_sprite.size();i++)
 		{
 			if (_list_button_tag.at(i) == 1)
@@ -230,24 +233,33 @@ MultipleButton::~MultipleButton()
 {
 }
 
-void MultipleButton::CheckLabel(float percen)
+void MultipleButton::CheckLabel(float percen, bool check)
 {
 	_label->setVisible(true);
 	_border->setVisible(false);
 	mouseBar->setVisible(false);
-	if (percen < 50)
+
+	if (check)
 	{
-		_label->setColor(Color3B(255, 0, 128));
-		_label->setString("Perfect!");
-		_mSonic->score += 300 * _button_count * _mSonic->scoreMul;
-		_mSonic->countPerfect++;
+		if (percen < 50)
+		{
+			_label->setColor(Color3B(255, 0, 128));
+			_label->setString("Perfect!");
+			_mSonic->score += 300 * _button_count * _mSonic->scoreMul;
+			_mSonic->countPerfect++;
+		}
+		else if (percen >= 50 && percen < 100)
+		{
+			_label->setColor(Color3B(0, 255, 255));
+			_label->setString("Great!");
+			_mSonic->score += 200 * _button_count * _mSonic->scoreMul;
+			_mSonic->countGreat++;
+		}
 	}
-	else if (percen >=50 && percen <100)
+	else 
 	{
-		_label->setColor(Color3B(0, 255, 255));
-		_label->setString("Great!");
-		_mSonic->score += 200 * _button_count * _mSonic->scoreMul;
-		_mSonic->countGreat++;
+		_label->setColor(Color3B(255, 0, 0));
+		_label->setString("Miss!");
 	}
 
 	_label->setScale(2);

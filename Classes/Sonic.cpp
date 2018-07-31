@@ -403,6 +403,12 @@ void Sonic::HandleCollision(Sprite * sprite)
 
 		isFinish = true;
 		this->SetStateByTag(SonicState::END);
+
+		//Play finish music effect
+		SimpleAudioEngine* audio = SimpleAudioEngine::getInstance();
+		audio->stopBackgroundMusic();
+		audio->playEffect(Define::_music_finish_level_path);
+
 		return;
 	}
 	else if (sprite->getTag() == Define::DIELAND && mCurrentState->GetState() != SonicState::DIE)

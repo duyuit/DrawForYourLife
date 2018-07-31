@@ -99,8 +99,8 @@ void TapButton::ActiveButton(BUTTON_TAG dir)
 	if (isDelete || isTrue) return;
 	if (dir == mTag)
 	{
+		CheckLabel(mouseBar->getPercentage(), true);
 		//DeleteNow(true);
-		CheckLabel(mouseBar->getPercentage());
 		isTrue = true;
 		SimpleAudioEngine::getInstance()->playEffect(Define::_music_combo_effect_path);
 		if (isLeft == 1)
@@ -120,34 +120,46 @@ void TapButton::ActiveButton(BUTTON_TAG dir)
 		if (this->getPositionX() - mTarget->getPositionX()>300)
 			mTarget->SetStateByTag(SonicState::RUNSKIP);
 	}
-	else 
+	else
+	{
+		CheckLabel(100, false);
 		DeleteNow(false);
+	}
 }
 
 TapButton::~TapButton()
 {
 }
 
-void TapButton::CheckLabel(float percen)
+void TapButton::CheckLabel(float percen, bool check)
 {
 	_label->setVisible(true);
 	_border->setVisible(false);
 	mouseBar->setVisible(false);
-	if (percen < 30)
+
+	if (check)
 	{
-		_label->setColor(Color3B(255, 0, 128));
-		_label->setString("Perfect!");
-		score = PERFECT;
-		mTarget->score += 300 * mTarget->scoreMul;
-		mTarget->countPerfect++;
+		if (percen < 30)
+		{
+			_label->setColor(Color3B(255, 0, 128));
+			_label->setString("Perfect!");
+			score = PERFECT;
+			mTarget->score += 300 * mTarget->scoreMul;
+			mTarget->countPerfect++;
+		}
+		else if (percen > 30 && percen < 100)
+		{
+			_label->setColor(Color3B(0, 255, 255));
+			_label->setString("Great!");
+			score = GREAT;
+			mTarget->score += 200 * mTarget->scoreMul;
+			mTarget->countGreat++;
+		}
 	}
-	else if (percen > 30 && percen <100)
+	else 
 	{
-		_label->setColor(Color3B(0,255,255));
-		_label->setString("Great!");
-		score = GREAT;
-		mTarget->score += 200 * mTarget->scoreMul;
-		mTarget->countGreat++;
+		_label->setColor(Color3B(255, 0, 0));
+		_label->setString("Miss!");
 	}
 	
 	_label->setScale(2);
@@ -265,8 +277,12 @@ void TapButton::update(float dt)
 
 
 	if (isDelete) return;
-	if (this->getPositionX() < mTarget->getPositionX() && !use_for_Hold) 
+	if (this->getPositionX() < mTarget->getPositionX() && !use_for_Hold)
+	{
+		CheckLabel(100, false);
 		DeleteNow(false);
+	}
+		
 	if (this->getPosition().x - mTarget->getPosition().x <= 600 && !isActive && !use_for_Hold)
 		this->Active();
 	if (isActive && canActive)

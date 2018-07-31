@@ -1,18 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Animations>
-  <Animation name="run" imagePath="Monster/SwingShark.png" width="320" height="300">
-    <sprite x="3" y="6" w="54" h="39" oX="3" oY="6" oW="50" oH="264" />
-    <sprite x="68" y="6" w="61" h="39" oX="68" oY="6" oW="50" oH="264" />
-    <sprite x="142" y="6" w="58" h="39" oX="142" oY="6" oW="50" oH="264" />
-    <sprite x="212" y="6" w="52" h="39" oX="212" oY="6" oW="50" oH="264" />
+  <Animation name="run" imagePath="Monster/SwingShark.png" width="404" height="700">
+    <sprite x="22" y="55" w="55" h="32" oX="22" oY="55" oW="76" oH="369" />
+    <sprite x="118" y="54" w="61" h="33" oX="118" oY="54" oW="76" oH="369" />
+    <sprite x="231" y="55" w="59" h="32" oX="231" oY="55" oW="76" oH="369" />
+    <sprite x="335" y="54" w="53" h="33" oX="335" oY="54" oW="76" oH="369" />
   </Animation>
-  <Animation name="bite" imagePath="Monster/SwingShark.png" width="320" height="300">
-    <sprite x="250" y="67" w="55" h="94" oX="250" oY="67" oW="168" oH="296" />
-    <sprite x="166" y="67" w="57" h="90" oX="166" oY="67" oW="168" oH="296" />
-    <sprite x="78" y="71" w="62" h="78" oX="78" oY="71" oW="168" oH="296" />
-    <sprite x="250" y="176" w="57" h="78" oX="250" oY="176" oW="168" oH="296" />
-    <sprite x="172" y="167" w="53" h="90" oX="172" oY="167" oW="168" oH="296" />
-    <sprite x="86" y="172" w="55" h="80" oX="86" oY="172" oW="168" oH="296" />
-    <sprite x="8" y="173" w="54" h="80" oX="8" oY="173" oW="168" oH="296" />
+  <Animation name="bite" imagePath="Monster/SwingShark.png" width="404" height="700">
+    <sprite x="287" y="127" w="56" h="96" oX="287" oY="127" oW="588" oH="310" />
+    <sprite x="212" y="127" w="56" h="96" oX="212" oY="127" oW="588" oH="310" />
+    <sprite x="137" y="127" w="56" h="96" oX="137" oY="127" oW="588" oH="310" />
+    <sprite x="60" y="127" w="59" h="86" oX="60" oY="127" oW="588" oH="310" />
+    <sprite x="284" y="239" w="61" h="86" oX="284" oY="239" oW="588" oH="310" />
+    <sprite x="204" y="239" w="68" h="96" oX="204" oY="239" oW="588" oH="310" />
+    <sprite x="134" y="239" w="61" h="96" oX="134" oY="239" oW="588" oH="310" />
+    <sprite x="64" y="239" w="54" h="85" oX="64" oY="239" oW="588" oH="310" />
+    <sprite x="289" y="351" w="54" h="85" oX="289" oY="351" oW="588" oH="310" />
+    <sprite x="209" y="351" w="61" h="97" oX="209" oY="351" oW="588" oH="310" />
+    <sprite x="129" y="351" w="68" h="97" oX="129" oY="351" oW="588" oH="310" />
+    <sprite x="59" y="351" w="61" h="86" oX="59" oY="351" oW="588" oH="310" />
+    <sprite x="284" y="463" w="60" h="86" oX="284" oY="463" oW="588" oH="310" />
+    <sprite x="212" y="463" w="56" h="97" oX="212" oY="463" oW="588" oH="310" />
+    <sprite x="134" y="463" w="61" h="97" oX="134" oY="463" oW="588" oH="310" />
+    <sprite x="54" y="463" w="68" h="85" oX="54" oY="463" oW="588" oH="310" />
+    <sprite x="284" y="575" w="61" h="85" oX="284" oY="575" oW="588" oH="310" />
+    <sprite x="212" y="575" w="56" h="97" oX="212" oY="575" oW="588" oH="310" />
   </Animation>
 </Animations>

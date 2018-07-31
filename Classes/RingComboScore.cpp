@@ -31,7 +31,7 @@ RingComboScore::RingComboScore(Sonic* mSonic) {
 	this->addChild(_xCombo2, 1);
 
 	//Add label: Cool - Good - Excellent - Perfect
-	_evaluate = Label::createWithTTF("", font, 48);
+	_evaluate = Label::createWithTTF("", font, 60);
 	_evaluate->setAnchorPoint(Vec2(0.5f, 0.5f));
 	_evaluate->setVisible(false);
 	_mySonic->addChild(_evaluate, 100);
@@ -103,18 +103,18 @@ void RingComboScore::SetColor()
 	}
 	else if (x >= 5 && x < 10)
 	{
-		_xCombo->setColor(Color3B(255, 255, 0));
-		_xCombo2->setColor(Color3B(255, 255, 0));
+		_xCombo->setColor(Color3B(0, 255, 255));
+		_xCombo2->setColor(Color3B(0, 255, 255));		
 	}
 	else if (x >= 10 && x < 15)
 	{
-		_xCombo->setColor(Color3B(255, 128, 0));
-		_xCombo2->setColor(Color3B(255, 128, 0));
+		_xCombo->setColor(Color3B(255, 255, 0));
+		_xCombo2->setColor(Color3B(255, 255, 0));
 	}
 	else if (x >= 15 && x < 20)
 	{
-		_xCombo->setColor(Color3B(102, 102, 255));
-		_xCombo2->setColor(Color3B(102, 102, 255));
+		_xCombo->setColor(Color3B(255, 128, 0));
+		_xCombo2->setColor(Color3B(255, 128, 0));
 	}
 	else if (x >= 20)
 	{
@@ -140,7 +140,7 @@ void RingComboScore::SetLabel()
 
 	_xCombo2->setString(std::to_string(_mySonic->countCombo));
 	_xCombo2->setPosition(Vec2(_director->getWinSize().width / 2, _director->getWinSize().height - 0.85 *_distance));
-	flame->setPosition(_xCombo->getPosition() + Vec2(0, -60));
+	flame->setPosition(_xCombo->getPosition() + Vec2(0, -55));
 
 	//Label score
 	_score->setString("Score: " + std::to_string(_mySonic->score));
@@ -209,9 +209,6 @@ void RingComboScore::CreateEffect()
 			RotateTo::create(0.05f, -6),
 			RotateTo::create(0.025f, 0), nullptr));
 
-	
-	
-
 	//Label plus score
 	_plusScore->runAction(FadeIn::create(0.1));
 	_plusScore->runAction(
@@ -235,7 +232,7 @@ void RingComboScore::Evaluate()
 			if (!isCool)
 			{
 				_mySonic->scoreMul = 1.5;
-				_evaluate->setColor(Color3B(255, 255, 0));
+				_evaluate->setColor(Color3B(0, 255, 255));
 				_evaluate->setString("Cool!!");
 				isCool = true;
 			}
@@ -246,7 +243,7 @@ void RingComboScore::Evaluate()
 			if (!isGood)
 			{
 				_mySonic->scoreMul = 2.0;
-				_evaluate->setColor(Color3B(255, 128, 0));
+				_evaluate->setColor(Color3B(255, 255, 0));
 				_evaluate->setString("Good!");
 				isGood = true;
 			}
@@ -257,7 +254,7 @@ void RingComboScore::Evaluate()
 			if (!isExcellent)
 			{
 				_mySonic->scoreMul = 2.5;
-				_evaluate->setColor(Color3B(102, 102, 255));
+				_evaluate->setColor(Color3B(255, 128, 0));
 				_evaluate->setString("Excellent!");
 				isExcellent = true;
 			}

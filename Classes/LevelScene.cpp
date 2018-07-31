@@ -61,12 +61,13 @@ void LevelScene::LoadSound()
 {
 	audio = SimpleAudioEngine::getInstance();
 	audio->preloadBackgroundMusic(Define::_music_lv1_background_path);
-	audio->playBackgroundMusic(Define::_music_lv1_background_path);
+	audio->playBackgroundMusic(Define::_music_lv1_background_path, true);
 	audio->preloadEffect(Define::_music_combo_effect_path);
 	audio->preloadEffect(Define::_music_eat_ring_efftect_path);
 	audio->preloadEffect(Define::_music_roll_effect_path);
 	audio->preloadEffect(Define::_music_jump_effect_path);
 	audio->preloadEffect(Define::_music_button_effect_path);
+	audio->preloadEffect(Define::_music_finish_level_path);
 }
 
 void LevelScene::CreateParallaxNode(string path)

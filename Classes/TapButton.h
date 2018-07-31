@@ -34,7 +34,7 @@ public:
 	bool isActive = false;
 	bool isTrue = false;
 	~TapButton();
-	void CheckLabel(float percen);
+	void CheckLabel(float percen, bool check);
 	void SetCanActive(bool is);
 	void Active();
 	void DeleteNow(bool check);

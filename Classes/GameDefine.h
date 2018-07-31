@@ -41,14 +41,14 @@ namespace Define {
 	static string button_right_grey_path = "Button/button_right_grey.png";
 	static string button_left_blue_path = "Button/button_left_blue.png";
 	static string button_right_blue_path = "Button/button_right_blue.png";
-	static string button_fail_path= "Button/button_fail.png";
-	static char* _music_lv1_background_path= "Music/lv1_background.mp3";
+	static string button_fail_path = "Button/button_fail.png";
+	static char* _music_lv1_background_path = "Music/lv1_background.mp3";
 	static char* _music_roll_effect_path= "Music/roll_effect.wav";
 	static char* _music_eat_ring_efftect_path = "Music/eat_ring_effect.wav";
 	static char* _music_jump_effect_path = "Music/sonic_jump_effect.mp3";
 	static char* _music_combo_effect_path = "Music/combo_effect.mp3";
 	static char* _music_button_effect_path = "Music/select_button.mp3";
-
+	static char* _music_finish_level_path = "Music/finish_level_background.mp3";
 
 
 
