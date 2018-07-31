@@ -401,15 +401,15 @@ void LevelScene::SetViewPointCenter(Point position, bool isFast)
 	Vec2 viewPoint;
 
 
-	//viewPoint = centerOfView - actualPosition + Vec2(-500, 0);
-	viewPoint = centerOfView - actualPosition + Vec2(-300, 0);
+	viewPoint = centerOfView - actualPosition + Vec2(-400, 0);
+	//viewPoint = centerOfView - actualPosition + Vec2(-300, 0);
 	auto currentCameraPosition = this->getPosition();
 
-	if (_mSonic->mCurrentState->GetState() != SonicState::ROLL_CHEST)
-	{
-		this->setPosition(viewPoint);
-		//this->setPosition((viewPoint - currentCameraPosition)*Director::getInstance()->getDeltaTime() * 3 + currentCameraPosition);
-	}
+	/*if (_mSonic->mCurrentState->GetState() != SonicState::ROLL_CHEST)
+	{*/
+		//this->setPosition(viewPoint);
+		this->setPosition((viewPoint - currentCameraPosition)*0.05 + currentCameraPosition);
+	//}
 }
 
 bool LevelScene::onContactBegin(cocos2d::PhysicsContact & contact)
@@ -455,10 +455,10 @@ bool LevelScene::onContactBegin(cocos2d::PhysicsContact & contact)
 
 void LevelScene::update(float dt)
 {
-	for (int i = 0; i < 3; ++i)
+	/*for (int i = 0; i < 3; ++i)
 	{
 		this->getScene()->getPhysicsWorld()->step(1 / 60.0f);
-	}
+	}*/
 
 
 	RollBackground();

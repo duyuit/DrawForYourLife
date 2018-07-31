@@ -11,25 +11,24 @@ MultipleButton::MultipleButton(Vec2 pos, Sonic* sonic, Layer* layer,int button_c
 	_mSonic = sonic;
 	
 	_progressbar =  Sprite::create("GameComponents/progress.png");
-	_progressbar->setAnchorPoint(Vec2(0, 0.5f));
-	_progressbar->setScale(0.3, 0.3);
+	_progressbar->setAnchorPoint(Vec2(0.5, 0));
 
-	_border=  Sprite::create("GameComponents/border.png");
-	_border->setPosition(0, 50);
-	_border->setAnchorPoint(Vec2(0, 0.5f));
-	_border->setScale(0.3, 0.3);
-	this->addChild(_border);
+
+	_border=  Sprite::create("GameComponents/border_multi.png");
+	_border->setAnchorPoint(Vec2(0.5, 0));
+	_border->setPosition(this->getContentSize()*0.3 + Size(0, 150));
+	this->addChild(_border,2);
 
 	
 
 	_break_left_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "blue_left_break"), 0.1f)));
 	_break_right_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "blue_right_break"), 0.1f)));
 	
-	_button_count = button_count;
+	_button_count = 3;
 	_time = time;
 
-	int pos_x=0;
-	int delta_x = _border->getContentSize().width*0.3/(_button_count-1);
+	int pos_x= -_border->getContentSize().width/2;
+	int delta_x = _border->getContentSize().width/(_button_count-1);
 
 	for (int i = 0; i < _button_count; i++)
 	{
@@ -45,23 +44,21 @@ MultipleButton::MultipleButton(Vec2 pos, Sonic* sonic, Layer* layer,int button_c
 		_list_button_sprite.pushBack(button);
 		_list_button_tag.push_back(a);
 
-
-		button->setScale(0.3);
-		button->setPosition(pos_x, 0);
+		button->setAnchorPoint(Vec2(0.5, 0));
+		button->setPosition(pos_x, -20);
 		pos_x +=delta_x;
 		this->addChild(button);
 
 	}
 	mouseBar = ProgressTimer::create(_progressbar);
-	mouseBar->setScale(0.3);
 	mouseBar->setType(ProgressTimerType::BAR);
-	mouseBar->setAnchorPoint(Vec2(0.0, 0.5));
+	mouseBar->setAnchorPoint(Vec2(0.5,0));
 	mouseBar->setBarChangeRate(Vec2(1, 0));
 	mouseBar->setMidpoint(Vec2(0.0, 0.0));
 	mouseBar->setReverseDirection(true);
 	mouseBar->setPercentage(0);
-	this->addChild(mouseBar, 10);
-	mouseBar->setPosition(0, 47);
+	this->addChild(mouseBar, 1);
+	mouseBar->setPosition(this->getContentSize()*0.3 + Size(0, 150));
 
 	this->scheduleUpdate();
 
@@ -72,8 +69,12 @@ MultipleButton::MultipleButton(Vec2 pos, Sonic* sonic, Layer* layer,int button_c
 	_label->enableOutline(Color4B::BLACK, 3);
 	_label->setAnchorPoint(Vec2(0.0, 0.5));
 	_label->setVisible(false);
-	_label->setPosition(0, 50);
+	_label->enableOutline(Color4B::BLACK, 5);
+	_label->setPosition(this->getContentSize()*0.3 + Size(0, 150));
 	this->addChild(_label, 2);
+	_action = SonicState::ROLL;
+
+	this->setScale(0.33);
 //	this->autorelease();
 }
 
@@ -132,6 +133,19 @@ void MultipleButton::ActiveButton(BUTTON_TAG dir)
 			_list_button_sprite.at(current_button)->initWithFile(Define::button_left_green_path);
 		else
 			_list_button_sprite.at(current_button)->initWithFile(Define::button_right_green_path);
+
+		_list_button_sprite.at(current_button)->setAnchorPoint(Vec2(0.5, 0));
+		_list_button_sprite.at(current_button)->runAction(Sequence::create(
+			MoveBy::create(0.1, Vec2(0, 75)),
+			MoveBy::create(0.1, Vec2(0, -75)),
+			MoveBy::create(0.1, Vec2(0, 50)),
+			MoveBy::create(0.1, Vec2(0, -50)),
+			MoveBy::create(0.05, Vec2(0, 25)),
+			MoveBy::create(0.05, Vec2(0, -25)),
+			MoveBy::create(0.05, Vec2(0, 10)),
+			MoveBy::create(0.05, Vec2(0, -10)),
+			nullptr
+		));
 		current_button++;
 		if (current_button == _list_button_tag.size())
 			DeleteNow(true);
@@ -150,26 +164,33 @@ void MultipleButton::Active()
 
 void MultipleButton::DeleteNow(bool check)
 {
+	mouseBar->stopAllActions();
 	_mSonic->mCurrentButton = nullptr;
 	_mSonic->isInMultipleButton = false;
 	isDelete = true;
 	if (check)
 	{
+		_mSonic->SetStateByTag(_action);
+
 		isTrue = true;
 		auto _green_line = Sprite::create("GameComponents/green_line.png");
 		_green_line->setPosition(0, 0);
-		_green_line->setAnchorPoint(Vec2(0, 0.5));
+		
+		_green_line->setAnchorPoint(Vec2(0.5, 0));
 
 		auto line= ProgressTimer::create(_green_line);
+		line->setScale(3);
 		line->setType(ProgressTimerType::BAR);
-		line->setAnchorPoint(Vec2(0.0, 0.5));
+		line->setAnchorPoint(Vec2(0.5,1));
+
 		line->setBarChangeRate(Vec2(1, 0));
 		line->setMidpoint(Vec2(0.0, 0.0));
 		line->setPercentage(0);
+		line->setPosition(0, _list_button_sprite.at(0)->getContentSize().height/2);
 		this->addChild(line,-1);
 
 		line->runAction(ProgressTo::create(0.3f, 100.0f));
-		_mSonic->SetStateByTag(SonicState::ROLL);
+	
 		this->runAction(Sequence::create(DelayTime::create(0.6f), RemoveSelf::create(), nullptr));
 		
 		_mSonic->countCombo += _button_count;
@@ -214,27 +235,21 @@ void MultipleButton::CheckLabel(float percen)
 	_label->setVisible(true);
 	_border->setVisible(false);
 	mouseBar->setVisible(false);
-	if (percen < 40)
+	if (percen < 50)
 	{
 		_label->setColor(Color3B(255, 0, 128));
 		_label->setString("Perfect!");
 		_mSonic->score += 300 * _button_count * _mSonic->scoreMul;
 		_mSonic->countPerfect++;
 	}
-	else if (percen > 40 && percen < 70)
+	else if (percen >=50 && percen <100)
 	{
 		_label->setColor(Color3B(0, 255, 255));
 		_label->setString("Great!");
 		_mSonic->score += 200 * _button_count * _mSonic->scoreMul;
 		_mSonic->countGreat++;
 	}
-	else
-	{
-		_label->setColor(Color3B(255, 128, 0));
-		_label->setString("Bad!");
-		_mSonic->score += 100 * _button_count * _mSonic->scoreMul;
-		_mSonic->countBad++;
-	}
+
 	_label->setScale(2);
 	auto shake = Repeat::create(
 		Sequence::create(
