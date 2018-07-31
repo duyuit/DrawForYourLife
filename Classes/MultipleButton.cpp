@@ -124,6 +124,7 @@ void MultipleButton::update(float dt)
 
 void MultipleButton::ActiveButton(BUTTON_TAG dir)
 {
+	if (_list_button_tag.size()>0)
 	if (_list_button_tag.at(current_button) != dir)
 		DeleteNow(false);
 	else

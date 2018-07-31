@@ -27,7 +27,15 @@ MonkeyMonster::~MonkeyMonster()
 
 void MonkeyMonster::update(float dt)
 {
+
+
 	if (isDelete) return;
+
+	if (this->getPositionX() - _mSonic->getPositionX() < 170 && _multiButton->isTrue)
+	{
+		isDelete = true;
+		_mSonic->SetStateByTag(SonicState::COUNTER);
+	}
 
 	_multiButton->setPosition(this->getPosition()+Vec2(-70,120));
 	_time_action++;
@@ -59,11 +67,7 @@ void MonkeyMonster::update(float dt)
 	default:
 		break;
 	}
-	if (this->getPositionX() - _mSonic->getPositionX() < 100 && _multiButton->isTrue)
-	{
-		isDelete = true;
-		_mSonic->SetStateByTag(SonicState::COUNTER);
-	}
+	
 	
 }
 
