@@ -246,6 +246,7 @@ void TapButton::Active()
 
 void TapButton::DeleteNow(bool check)
 {
+	if (isDelete) return;
 	mTarget->mCurrentButton = nullptr;
 	_border->runAction(RemoveSelf::create());
 	_progressbar->runAction(RemoveSelf::create());
@@ -263,7 +264,6 @@ void TapButton::DeleteNow(bool check)
 	else
 	{
 		isTrue = false;
-		//this->setScale(0.15);
 		if(_break_Ani!=nullptr)
 		this->runAction(Sequence::create(_break_Ani->get(), RemoveSelf::create(), nullptr));
 		if (!isCountCombo) mTarget->countCombo = 0;
@@ -312,7 +312,7 @@ void TapButton::update(float dt)
 			return;
 		}*/
 
-		if (isTrue &&  this->getPositionX() - mTarget->getPositionX() <= 10)
+		if (isTrue &&  this->getPositionX() - mTarget->getPositionX() < 10)
 		{
 			mTarget->SetVelocityX(0);
 			mTarget->SetStateByTag(_action);

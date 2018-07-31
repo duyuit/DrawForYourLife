@@ -1,6 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Animations>
-  <Animation name="run" imagePath="drill.png" width="483" height="342">
+  <Animation name="run" imagePath="Monster/Boss/drill.png" width="483" height="342">
     <sprite x="8" y="9" w="140" h="94" oX="8" oY="9" oW="346" oH="462" />
     <sprite x="169" y="9" w="140" h="94" oX="169" oY="9" oW="346" oH="462" />
     <sprite x="330" y="9" w="140" h="94" oX="330" oY="9" oW="346" oH="462" />

@@ -7,5 +7,6 @@ public:
 	~Coconut_Monkey();
 	Sprite* khi;
 	void ComeBack();
+	
 };
 

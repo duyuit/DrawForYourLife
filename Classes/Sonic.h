@@ -67,7 +67,7 @@ public:
 
 	void SwapAni(RefPtr<Animate> *&blue, RefPtr<Animate> *&red); //Swap red and blue Sonic
 	void SwapAllAni();
-
+	void DisableCurrentButton();
 	void ActiveButton(BUTTON_TAG dir);
 	BUTTON_TAG mJustTap = NONE;
 

@@ -164,6 +164,8 @@ void MultipleButton::Active()
 
 void MultipleButton::DeleteNow(bool check)
 {
+	if (isDelete) return;
+
 	mouseBar->stopAllActions();
 	_mSonic->mCurrentButton = nullptr;
 	_mSonic->isInMultipleButton = false;

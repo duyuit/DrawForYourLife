@@ -1,6 +1,7 @@
 #pragma once
 #include "LevelScene.h"
 #include "MonkeyMonster.h"
+#include "BossLv1.h"
 class Level1Scene:public LevelScene
 {
 public:

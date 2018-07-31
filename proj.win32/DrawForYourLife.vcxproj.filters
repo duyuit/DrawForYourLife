@@ -134,6 +134,15 @@
     <ClCompile Include="..\Classes\Coconut_Monkey.cpp">
       <Filter>Game\Monster</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\BossDrill.cpp">
+      <Filter>Game\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BossLv1.cpp">
+      <Filter>Game\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BossPlane.cpp">
+      <Filter>Game\Monster\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -275,6 +284,15 @@
     <ClInclude Include="..\Classes\Coconut_Monkey.h">
       <Filter>Game\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\BossDrill.h">
+      <Filter>Game\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BossLv1.h">
+      <Filter>Game\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BossPlane.h">
+      <Filter>Game\Monster\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
@@ -297,6 +315,9 @@
     </Filter>
     <Filter Include="Game\Scene">
       <UniqueIdentifier>{9b806f72-5d9c-4ff5-8546-892be3030db1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Monster\Boss">
+      <UniqueIdentifier>{1f142156-06d5-4715-a556-a9b2a9cede7d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

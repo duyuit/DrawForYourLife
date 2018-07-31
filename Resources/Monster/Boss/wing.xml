@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Animations>
+  <Animation name="turnoff" imagePath="Monster/Boss/wing.png" width="800" height="300">
+    <sprite x="15" y="68" w="376" h="36" oX="15" oY="68" oW="431" oH="1177" />
+    <sprite x="461" y="69" w="299" h="36" oX="461" oY="69" oW="431" oH="1177" />
+    <sprite x="76" y="151" w="249" h="36" oX="76" oY="151" oW="431" oH="1177" />
+    <sprite x="513" y="148" w="199" h="36" oX="513" oY="148" oW="431" oH="1177" />
+    <sprite x="353" y="240" w="99" h="36" oX="353" oY="240" oW="431" oH="1177" />
+    <sprite x="526" y="240" w="49" h="36" oX="526" oY="240" oW="431" oH="1177" />
+    <sprite x="646" y="238" w="37" h="36" oX="646" oY="238" oW="431" oH="1177" />
+  </Animation>
+
+  <Animation name="turnon" imagePath="Monster/Boss/wing.png" width="800" height="300">
+
+    <sprite x="646" y="238" w="37" h="36" oX="646" oY="238" oW="431" oH="1177" />
+   <sprite x="526" y="240" w="49" h="36" oX="526" oY="240" oW="431" oH="1177" />
+
+
+    <sprite x="353" y="240" w="99" h="36" oX="353" oY="240" oW="431" oH="1177" />
+
+    <sprite x="513" y="148" w="199" h="36" oX="513" oY="148" oW="431" oH="1177" />
+
+    <sprite x="76" y="151" w="249" h="36" oX="76" oY="151" oW="431" oH="1177" />
+
+    <sprite x="461" y="69" w="299" h="36" oX="461" oY="69" oW="431" oH="1177" />
+
+    <sprite x="15" y="68" w="376" h="36" oX="15" oY="68" oW="431" oH="1177" />
+ 
+  </Animation>
+
+
+  <Animation name="normal" imagePath="Monster/Boss/wing.png" width="800" height="400">
+    <sprite x="0" y="0" w="409" h="36" oX="0" oY="0" oW="562" oH="1230" />
+    <sprite x="421" y="1" w="200" h="35" oX="421" oY="1" oW="562" oH="1230" />
+    <sprite x="647" y="0" w="60" h="35" oX="647" oY="0" oW="562" oH="1230" />
+    <sprite x="15" y="339" w="196" h="35" oX="15" oY="339" oW="562" oH="1230" />
+  </Animation>
+
+</Animations>

@@ -38,10 +38,7 @@ void Monster::Init(Sonic * sonic)
 	this->setTag(LANDMONSTER);
 
 	_mSonic = sonic;
-	/*_tapButton = new TapButton(Vec2(0, 0), _mSonic, (Layer*)_mSonic->getParent());
-	_tapButton->isFirst = true;
-	_tapButton->_time_circle_shrink = 0.7;
-	_tapButton->_action = SonicState::ROLL;*/
+	
 
 
 	//this->addChild(_multiButton,10);
@@ -57,6 +54,14 @@ bool Monster::CheckLastFrame()
 	if (_currentAnimate->get()->getCurrentFrameIndex() == _currentAnimate->get()->getAnimation()->getFrames().size() - 1)
 		return true;
 	return false;
+}
+
+void Monster::disableButton()
+{
+	if (_tapButton != nullptr)
+		_tapButton->DeleteNow(false);
+	if (_multiButton != nullptr)
+		_multiButton->DeleteNow(false);
 }
 
 void Monster::HandleCollision(Sprite * sprite)

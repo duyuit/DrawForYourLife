@@ -22,6 +22,7 @@ void SonicHoldState::update()
 	if (count ==70)
 	{
 		mPlayerData->player->getPhysicsBody()->setGravityEnable(true);
+		mPlayerData->player->DisableCurrentButton();
 		mPlayerData->player->SetStateByTag(StateAction::FALL);
 		return;
 	}

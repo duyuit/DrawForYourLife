@@ -3,6 +3,8 @@
 #include "TapButton.h"
 #include "MultipleButton.h"
 #include "FinishFlag.h"
+#include "Monster.h"
+#include "Coconut_Monkey.h"
 Sonic::Sonic()
 {
 	//Blue Sonic
@@ -369,7 +371,7 @@ Vec2 Sonic::GetVelocity()
 
 void Sonic::HandleCollision(Sprite * sprite)
 {
-	
+
 	if (sprite->getTag() == Define::Ring)
 	{
 		ringCollected++;
@@ -416,10 +418,16 @@ void Sonic::HandleCollision(Sprite * sprite)
 		this->SetStateByTag(SonicState::DIE);
 		return;
 	}
+
 	//When Sonic hits enemy, push back and drop rings
-	else if ((sprite->getTag() == Define::LANDMONSTER || sprite->getTag() == Define::COCONUT) && mCurrentState->GetState() != SonicState::ROLL && mCurrentState->GetState() != SonicState::COUNTER)
+	else if ((sprite->getTag() == Define::LANDMONSTER || sprite->getTag() == Define::COCONUT) 
+		&& mCurrentState->GetState() != SonicState::ROLL &&mCurrentState->GetState() != SonicState::COUNTER)
 	{
 		this->SetStateByTag(SonicState::HURT);
+
+		//Bug fix: hurt but still can Active button
+		DisableCurrentButton();
+
 		this->runAction(Blink::create(3, 15));
 		if (ringCollected > 0)
 		{
@@ -597,6 +605,24 @@ void Sonic::SwapAllAni()
 	SwapAni(end_Ani, end_red_Ani);
 	this->stopAllActions();
 	this->SetStateByTag(mCurrentState->GetState());
+}
+
+void Sonic::DisableCurrentButton()
+{
+	if (mCurrentButton != nullptr)
+	{
+		if (isInMultipleButton)
+		{
+			MultipleButton* tap = (MultipleButton*)mCurrentButton;
+			tap->DeleteNow(false);
+		}
+		else
+		{
+			TapButton* tap = (TapButton*)mCurrentButton;
+			tap->DeleteNow(false);
+		}
+
+	}
 }
 
 void Sonic::ActiveButton(BUTTON_TAG dir)
