@@ -65,9 +65,8 @@ MultipleButton::MultipleButton(Vec2 pos, Sonic* sonic, Layer* layer,int button_c
 	this->setPosition(pos);
 	layer->addChild(this);
 
-	_label = Label::createWithTTF("", font, 50);
-	_label->enableOutline(Color4B::BLACK, 3);
-	_label->setAnchorPoint(Vec2(0.0, 0.5));
+	_label = Label::createWithTTF("", font, 130);
+	_label->setAnchorPoint(Vec2(0.5f, 0));
 	_label->setVisible(false);
 	_label->enableOutline(Color4B::BLACK, 5);
 	_label->setPosition(this->getContentSize()*0.3 + Size(0, 150));
@@ -125,6 +124,7 @@ void MultipleButton::update(float dt)
 
 void MultipleButton::ActiveButton(BUTTON_TAG dir)
 {
+	if (_list_button_tag.size()>0)
 	if (_list_button_tag.at(current_button) != dir)
 		DeleteNow(false);
 	else
