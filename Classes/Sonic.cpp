@@ -372,12 +372,12 @@ void Sonic::HandleCollision(Sprite * sprite)
 	
 	if (sprite->getTag() == Define::Ring)
 	{
+		ringCollected++;
+
 		MyParticle::CreateEatItem(sprite->getPosition(), (Layer*) this->getParent());
 		sprite->runAction(RemoveSelf::create());
 		//Play sound when eat rings
-		SimpleAudioEngine::getInstance()->playEffect(Define::_music_eat_ring_efftect_path);
-		
-		ringCollected++;
+		SimpleAudioEngine::getInstance()->playEffect(Define::_music_eat_ring_efftect_path);	
 	}
 	else if (sprite->getTag() == Define::MUSHROOM /*&& (mCurrentState->GetState()== SonicState::FALL || mCurrentState->GetState() == SonicState::ROLL)*/)
 	{
@@ -410,16 +410,15 @@ void Sonic::HandleCollision(Sprite * sprite)
 		this->SetStateByTag(SonicState::DIE);
 		return;
 	}
-	else if (sprite->getTag() == Define::COCONUT && mCurrentState->GetState() != SonicState::COUNTER) SetStateByTag(SonicState::HURT);
 	//When Sonic hits enemy, push back and drop rings
-	if (sprite->getTag() == Define::LANDMONSTER && mCurrentState->GetState() != SonicState::ROLL &&mCurrentState->GetState() != SonicState::COUNTER)
+	else if ((sprite->getTag() == Define::LANDMONSTER || sprite->getTag() == Define::COCONUT) && mCurrentState->GetState() != SonicState::ROLL && mCurrentState->GetState() != SonicState::COUNTER)
 	{
 		this->SetStateByTag(SonicState::HURT);
-		this->runAction(Blink::create(2, 10));
+		this->runAction(Blink::create(3, 15));
 		if (ringCollected > 0)
 		{
 			int t = ringCollected; //Temp variable
-			for (int i = 0; i < (int)(t / 2); i++)
+			for (int i = 0; i < (t / 2); i++)
 			{
 				runAction(CallFuncN::create(CC_CALLBACK_0(Sonic::DropRing, this)));
 				ringCollected--;
@@ -447,7 +446,7 @@ void Sonic::DropRing()
 {
 	auto ring = new SmallRing();
 	ring->setAnchorPoint(Vec2(0, 1));
-	ring->setPosition(this->getPosition());
+	ring->setPosition(this->getPosition() + Vec2(0, 50));
 	ring->getPhysicsBody()->setDynamic(true);
 	ring->getPhysicsBody()->setGravityEnable(true);
 
@@ -455,14 +454,14 @@ void Sonic::DropRing()
 	ring->getPhysicsBody()->setContactTestBitmask(0);
 
 	float x = RandomHelper::random_real(-1.0, 1.0);
-	float y = RandomHelper::random_real(0.0, 10.0);
+	float y = RandomHelper::random_real(1.0, 10.0);
 
 	ring->getPhysicsBody()->setVelocity(Vec2(0, 0));
 	ring->getPhysicsBody()->applyForce(Vec2(-3000000 * x, 800000 * y));
 	ring->SetAutoRemove(); 
-	ring->getPhysicsBody()->setContactTestBitmask(1);
 
 	this->getParent()->addChild(ring, 10);
+	//ring->getPhysicsBody()->setContactTestBitmask(1);	
 }
 
 void Sonic::updateStart(float dt)

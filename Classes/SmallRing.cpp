@@ -11,6 +11,7 @@ SmallRing::SmallRing()
 	this->setAnchorPoint(Vec2(0.5, 0.5));
 	
 	auto body = PhysicsBody::createBox(Size(50,50));
+	
 
 	//body->getShape(0)->setFriction(1.0f);                                    
 	body->getShape(0)->setDensity(0.05f);
@@ -26,6 +27,7 @@ SmallRing::SmallRing()
 	this->setPhysicsBody(body);
 	this->setTag(Define::Ring);
 
+	
 }
 
 
@@ -35,6 +37,16 @@ SmallRing::~SmallRing()
 
 void SmallRing::SetAutoRemove()
 {
-
 	this->runAction(Sequence::create(DelayTime::create(3), Blink::create(0.8, 5), RemoveSelf::create(), nullptr));
+	scheduleUpdate();
+}
+
+void SmallRing::update(float dt)
+{
+	_time_to_eat++;
+	if (_time_to_eat >= 60)
+	{
+		this->getPhysicsBody()->setContactTestBitmask(1);
+		unscheduleUpdate();
+	}
 }

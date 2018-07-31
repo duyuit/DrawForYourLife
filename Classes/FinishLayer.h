@@ -10,15 +10,15 @@ public:
 	FinishLayer(Sonic* mySonic, Layer* cur_scene);
 	~FinishLayer();
 	//Start Count
-	int countPerfect=0;
-	int countGreat=0;
-	int countBad=0;
-	int score=0;
-	int total=0;
-	int maxCombo=0;
-	int bonus=0;
-	int ring=0;
-	int numStar=0;
+	int countPerfect = 0;
+	int countGreat = 0;
+	int countBad = 0;
+	int score = 0;
+	int total = 0;
+	int maxCombo = 0;
+	int bonus = 0;
+	int ring = 0;
+	int numStar = 0;
 	Sprite* star1;
 	Sprite* star2;
 	Sprite* star3;
@@ -37,7 +37,7 @@ public:
 
 	Label* _labelPerfect;
 	Label* _labelPerfectNum;
-
+	string font = "fonts/hemi.ttf";
 
 
 	Label* _labelBestcombo;

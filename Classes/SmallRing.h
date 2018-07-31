@@ -8,7 +8,9 @@ class SmallRing:public Sprite
 public:
 	SmallRing();
 	~SmallRing();
+	int _time_to_eat = 0;
 	RefPtr<Animate>  *roll;
 	void SetAutoRemove();
+	void update(float dt);
 };
 

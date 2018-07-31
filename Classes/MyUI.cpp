@@ -226,7 +226,7 @@ MyUI::MyUI(Sonic * mSonic)
 		});
 
 		_restart = Button::create("Level_map/pause.png");
-		_restart->setPosition(_director->getWinSize() - _restart->getContentSize());
+		_restart->setPosition(Vec2(_director->getWinSize().width - _restart->getContentSize().width, _director->getWinSize().height - 0.5 * _restart->getContentSize().height));
 		_restart->setScale(0.8);
 		_restart->setAnchorPoint(Vec2(0.5, 0.5));
 		_restart->addTouchEventListener([this](Ref* sender, Widget::TouchEventType type) {
