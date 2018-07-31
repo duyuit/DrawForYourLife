@@ -65,8 +65,9 @@ MultipleButton::MultipleButton(Vec2 pos, Sonic* sonic, Layer* layer,int button_c
 	this->setPosition(pos);
 	layer->addChild(this);
 
-	_label = Label::createWithTTF("", "fonts/INVASION2000.TTF", 130);
-	_label->setAnchorPoint(Vec2(0.5f, 0));
+	_label = Label::createWithTTF("", font, 50);
+	_label->enableOutline(Color4B::BLACK, 3);
+	_label->setAnchorPoint(Vec2(0.0, 0.5));
 	_label->setVisible(false);
 	_label->enableOutline(Color4B::BLACK, 5);
 	_label->setPosition(this->getContentSize()*0.3 + Size(0, 150));

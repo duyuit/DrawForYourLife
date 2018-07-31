@@ -16,6 +16,7 @@ public:
 	bool canActive = false;
 	bool isTrue = false; 
 	int count_to_auto_play = 0;
+	string font = "fonts/hemi.ttf";
 
 	void update(float dt);
 	Sprite* _border;

@@ -21,6 +21,7 @@ public:
 	Button* btn_left;
 	PageView* _pageView;
 	int _currentPage;
+	string font = "fonts/hemi.ttf";
 
 	virtual bool init();
 	void nextPage(Ref* sender, ui::Widget::TouchEventType type);

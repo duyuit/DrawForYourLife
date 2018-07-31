@@ -22,7 +22,7 @@ bool LevelMap::init()
 
 
 	//background 
-	auto background = Sprite::create("Level_map/cloud.jpg");
+	auto background = Sprite::create("Level_map/galaxy.jpg");
 	background->setScale(visibleSize.width / (background->getContentSize().width), visibleSize.height / (background->getContentSize().height));
 	background->setAnchorPoint(Vec2(0.5, 0.5));
 	background->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
@@ -41,7 +41,7 @@ bool LevelMap::init()
 
 	//Board Star
 	board = Sprite::create("Level_map/game_board.png");
-	board->setScale(scaleX, scaleY);
+	board->setScale(visibleSize.width / (board->getContentSize().width * 3), visibleSize.width / (board->getContentSize().height * 3));
 	board->setAnchorPoint(Vec2(0.5f, 0.5f));
 	board->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
 	board->setVisible(false);
@@ -52,23 +52,21 @@ bool LevelMap::init()
 	float delta_y = board->getContentSize().height / 5;
 
 	//Define number scale button in Board Star
-	float numScale = 1.1;
-
 	//Gray Star
 	auto gray_star_1 = Sprite::create("Level_map/star_ready.png");
-	gray_star_1->setScale(scaleX, scaleY);
+	gray_star_1->setScale(visibleSize.width / (gray_star_1->getContentSize().width * 18), visibleSize.width / (gray_star_1->getContentSize().height * 18));
 	gray_star_1->setAnchorPoint(Vec2(0.5f, 0.5f));
 	gray_star_1->setPosition(Vec2(delta_x * 3 / 2, delta_y * 5 - delta_y / 2));
 	star_list.pushBack(gray_star_1);
 
 	auto gray_star_2 = Sprite::create("Level_map/star_ready.png");
-	gray_star_2->setScale(scaleX, scaleY);
+	gray_star_2->setScale(visibleSize.width / (gray_star_1->getContentSize().width * 18), visibleSize.width / (gray_star_1->getContentSize().height * 18));
 	gray_star_2->setAnchorPoint(Vec2(0.5f, 0.5f));
 	gray_star_2->setPosition(Vec2(delta_x * 5 / 2, delta_y * 5 - delta_y / 3));
 	star_list.pushBack(gray_star_2);
 
 	auto gray_star_3 = Sprite::create("Level_map/star_ready.png");
-	gray_star_3->setScale(scaleX, scaleY);
+	gray_star_3->setScale(visibleSize.width / (gray_star_1->getContentSize().width * 18), visibleSize.width / (gray_star_1->getContentSize().height * 18));
 	gray_star_3->setAnchorPoint(Vec2(0.5f, 0.5f));
 	gray_star_3->setPosition(Vec2(delta_x * 7 / 2, delta_y * 5 - delta_y / 2));
 	star_list.pushBack(gray_star_3);
@@ -78,17 +76,48 @@ bool LevelMap::init()
 	board->addChild(gray_star_3, 2);
 
 	//Label level in Board Star
-	myLabel = Label::createWithTTF("", "fonts/arial.ttf", 30);
+	myLabel = Label::createWithTTF("", font, 30);
 	myLabel->setAnchorPoint(Vec2(0.5f, 0.5f));
 	myLabel->setPosition(Vec2(delta_x * 3 - delta_x / 2, delta_y * 4 - delta_y / 2));
 	board->addChild(myLabel, 2);
 
-
-
+	//Button play  in Board Star
+	auto button_board_play = Button::create("Level_map/play.png");
+	button_board_play->setScale(visibleSize.width / (button_board_play->getContentSize().width * 12), visibleSize.height / (button_board_play->getContentSize().height * 10));
+	button_board_play->setAnchorPoint(Vec2(0.5f, 0.5f));
+	button_board_play->setPosition(Vec2(delta_x * 5 / 2, delta_y*1.2));
+	board->addChild(button_board_play, 6);
+	button_board_play->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+			break;
+		case ui::Widget::TouchEventType::ENDED:
+		{
+			if (currentLevel < 2) {
+				auto gameScene = (LoadScene*)LoadScene::createScene();
+				gameScene->next_scene = (SCENE_NAME)currentLevel;
+				Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
+			}
+			/*if (currentLevel == 0) {
+			}
+			if (currentLevel > 0) {
+			auto gameScene = Level1Scene::createScene();
+			Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
+			}*/
+		}
+		break;
+		default:
+			break;
+		}
+	});
+	//set number scale round, out
+	float numScaleX = visibleSize.width / (button_board_play->getContentSize().width * 8);
+	float numScaleY = visibleSize.height / (button_board_play->getContentSize().height * 8);
 
 	//Button round in Board Star
 	auto button_board_round = Button::create("Level_map/round.png");
-	button_board_round->setScale(numScale*scaleX, numScale*scaleY);
+	button_board_round->setScale(numScaleX, numScaleY);
 	button_board_round->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_board_round->setPosition(Vec2(delta_x * 2 / 2, delta_y*1.2));
 	board->addChild(button_board_round, 6);
@@ -107,40 +136,12 @@ bool LevelMap::init()
 		}
 	});
 
-	//Button play  in Board Star
-	auto button_board_play = Button::create("Level_map/play.png");
-	button_board_play->setScale((numScale*scaleX) /1.2, (numScale*scaleY) / 1.2);
-	button_board_play->setAnchorPoint(Vec2(0.5f, 0.5f));
-	button_board_play->setPosition(Vec2(delta_x * 5 / 2, delta_y*1.2));
-	board->addChild(button_board_play, 6);
-	button_board_play->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
-		switch (type)
-		{
-		case ui::Widget::TouchEventType::BEGAN:
-			break;
-		case ui::Widget::TouchEventType::ENDED:
-		{
-			if (currentLevel < 2) {
-				auto gameScene = (LoadScene*)LoadScene::createScene();
-				gameScene->next_scene = (SCENE_NAME)currentLevel;
-				Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
-			}
-			/*if (currentLevel == 0) {				
-			}
-			if (currentLevel > 0) {
-				auto gameScene = Level1Scene::createScene();
-				Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
-			}*/
-		}
-		break;
-		default:
-			break;
-		}
-	});
+
+
 
 	//Button cancel in Board Star
 	auto button_board_cancel = Button::create("Level_map/out.png");
-	button_board_cancel->setScale(numScale*scaleX, numScale*scaleY);
+	button_board_cancel->setScale(numScaleX, numScaleY);
 	button_board_cancel->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_board_cancel->setPosition(Vec2(delta_x * 8 / 2, delta_y*1.2));
 	board->addChild(button_board_cancel, 6);
@@ -162,13 +163,14 @@ bool LevelMap::init()
 	});
 
 	//Define number Scale button in Level Map
-	float levelScale = 1.5;
+	float levelScale = 0.7;
 
 
 	//button back
 	auto button_back = Button::create("Level_map/back.png");
+	button_back->setScale(visibleSize.width / (button_back->getContentSize().width * 6), visibleSize.width / (button_back->getContentSize().width * 6));
 	button_back->setAnchorPoint(Vec2(0.5f, 0.5f));
-	button_back->setPosition(Vec2(visibleSize.width / 20, 0.96*visibleSize.height));
+	button_back->setPosition(Vec2(visibleSize.width / 11, 0.96*visibleSize.height));
 	button_back->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
 		switch (type)
 		{
@@ -186,10 +188,9 @@ bool LevelMap::init()
 	});
 	this->addChild(button_back, 50);
 
-
 	// Level 0 button
-	 button_level_0 = Button::create("Level_map/level_btn_bluepurple_big.png");
-	button_level_0->setScale(levelScale * scaleX, levelScale * scaleY);
+	button_level_0 = Button::create("Level_map/btn_level.png");
+	button_level_0->setScale(visibleSize.width / (button_level_0->getContentSize().width * 23), visibleSize.height / (button_level_0->getContentSize().height * 18));
 	button_level_0->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_0->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
 	button_level_0->setPosition(Vec2(visibleSize.width / 1.5f, 0.5f*visibleSize.height));
@@ -212,15 +213,19 @@ bool LevelMap::init()
 	});
 	this->addChild(button_level_0, 2);
 
-	_label_0 = Label::createWithTTF("0", "fonts/arial.ttf", 30);
+
+	float levelScaleX = visibleSize.width / (button_level_0->getContentSize().width * 23);
+	float levelScaleY = visibleSize.height / (button_level_0->getContentSize().height * 18);
+
+	_label_0 = Label::createWithTTF("0", font, 30);
 	_label_0->setAnchorPoint(Vec2(0.5f, 0.5f));
-	_label_0->setPosition(Vec2(visibleSize.width / 1.51f, 0.505f*visibleSize.height));
+	_label_0->setPosition(Vec2(visibleSize.width / 1.505f, 0.505f*visibleSize.height));
 	_label_0->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
 	this->addChild(_label_0, 3);
 
 	// Level 1 button
-	 button_level_1 = Button::create("Level_map/level_btn_bluepurple_big.png");
-	button_level_1->setScale(levelScale * scaleX, levelScale * scaleY);
+	button_level_1 = Button::create("Level_map/btn_level.png");
+	button_level_1->setScale(levelScaleX, levelScaleY);
 	button_level_1->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_1->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
 	button_level_1->setPosition(Vec2(visibleSize.width / 1.87f, 0.58f*visibleSize.height));
@@ -242,15 +247,15 @@ bool LevelMap::init()
 	});
 	this->addChild(button_level_1, 2);
 
-	_label_1 = Label::createWithTTF("1", "fonts/arial.ttf", 30);
+	_label_1 = Label::createWithTTF("1", font, 30);
 	_label_1->setAnchorPoint(Vec2(0.5f, 0.5f));
 	_label_1->setPosition(Vec2(visibleSize.width / 1.88f, 0.585f*visibleSize.height));
 	_label_1->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
 	this->addChild(_label_1, 3);
 
 	// Level 2 button
-	 button_level_2 = Button::create("Level_map/level_btn_bluepurple_big.png");
-	button_level_2->setScale(levelScale * scaleX, levelScale * scaleY);
+	button_level_2 = Button::create("Level_map/btn_level.png");
+	button_level_2->setScale(levelScaleX, levelScaleY);
 	button_level_2->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_2->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
 	button_level_2->setPosition(Vec2(visibleSize.width / 2.55f, 0.6f*visibleSize.height));
@@ -273,8 +278,8 @@ bool LevelMap::init()
 	this->addChild(button_level_2, 2);
 
 	// Level 3 button
-	 button_level_3 = Button::create("Level_map/level_btn_bluepurple_big.png");
-	button_level_3->setScale(levelScale * scaleX, levelScale * scaleY);
+	button_level_3 = Button::create("Level_map/btn_level.png");
+	button_level_3->setScale(levelScaleX, levelScaleY);
 	button_level_3->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_3->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
 	button_level_3->setPosition(Vec2(visibleSize.width / 2.25f, 0.454f*visibleSize.height));
@@ -298,8 +303,8 @@ bool LevelMap::init()
 	this->addChild(button_level_3, 2);
 
 	// Level 4 button
-	 button_level_4 = Button::create("Level_map/level_btn_bluepurple_big.png");
-	button_level_4->setScale(levelScale * scaleX, levelScale * scaleY);
+	button_level_4 = Button::create("Level_map/btn_level.png");
+	button_level_4->setScale(levelScaleX, levelScaleY);
 	button_level_4->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_4->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
 	button_level_4->setPosition(Vec2(visibleSize.width / 2.0f, 0.357f*visibleSize.height));
@@ -322,8 +327,8 @@ bool LevelMap::init()
 	this->addChild(button_level_4, 2);
 
 	// Level 5 button
-	 button_level_5 = Button::create("Level_map/level_btn_bluepurple_big.png");
-	button_level_5->setScale(levelScale * scaleX, levelScale * scaleY);
+	button_level_5 = Button::create("Level_map/btn_level.png");
+	button_level_5->setScale(levelScaleX, levelScaleY);
 	button_level_5->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_5->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
 	button_level_5->setPosition(Vec2(visibleSize.width / 1.75f, 0.33f*visibleSize.height));
@@ -346,8 +351,8 @@ bool LevelMap::init()
 	this->addChild(button_level_5, 2);
 
 	// Level Bonus button
-	 button_level_bonus = Button::create("Level_map/level_btn_bluepurple_big.png");
-	button_level_bonus->setScale(levelScale * scaleX, levelScale * scaleY);
+	button_level_bonus = Button::create("Level_map/btn_level.png");
+	button_level_bonus->setScale(levelScaleX, levelScaleY);
 	button_level_bonus->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_bonus->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
 	button_level_bonus->setPosition(Vec2(visibleSize.width / 2.7f, 0.4*visibleSize.height));
@@ -367,6 +372,13 @@ bool LevelMap::init()
 			break;
 		}
 	});
+
+	button_level_2->setVisible(false);
+	button_level_3->setVisible(false);
+	button_level_4->setVisible(false);
+	button_level_5->setVisible(false);
+	button_level_bonus->setVisible(false);
+
 
 	this->addChild(button_level_bonus, 2);
 	this->scheduleUpdate();
