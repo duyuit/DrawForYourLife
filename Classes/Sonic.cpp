@@ -3,6 +3,8 @@
 #include "TapButton.h"
 #include "MultipleButton.h"
 #include "FinishFlag.h"
+#include "Monster.h"
+#include "Coconut_Monkey.h"
 Sonic::Sonic()
 {
 	//Blue Sonic
@@ -369,14 +371,14 @@ Vec2 Sonic::GetVelocity()
 
 void Sonic::HandleCollision(Sprite * sprite)
 {
-	
+
 	if (sprite->getTag() == Define::Ring)
 	{
 		MyParticle::CreateEatItem(sprite->getPosition(), (Layer*) this->getParent());
 		sprite->runAction(RemoveSelf::create());
 		//Play sound when eat rings
 		SimpleAudioEngine::getInstance()->playEffect(Define::_music_eat_ring_efftect_path);
-		
+
 		ringCollected++;
 	}
 	else if (sprite->getTag() == Define::MUSHROOM /*&& (mCurrentState->GetState()== SonicState::FALL || mCurrentState->GetState() == SonicState::ROLL)*/)
@@ -410,11 +412,25 @@ void Sonic::HandleCollision(Sprite * sprite)
 		this->SetStateByTag(SonicState::DIE);
 		return;
 	}
-	else if (sprite->getTag() == Define::COCONUT && mCurrentState->GetState() != SonicState::COUNTER) SetStateByTag(SonicState::HURT);
+	//else if (sprite->getTag() == Define::COCONUT && mCurrentState->GetState() != SonicState::COUNTER) SetStateByTag(SonicState::HURT);
 	//When Sonic hits enemy, push back and drop rings
-	if (sprite->getTag() == Define::LANDMONSTER && mCurrentState->GetState() != SonicState::ROLL &&mCurrentState->GetState() != SonicState::COUNTER)
+	if ((sprite->getTag() == Define::LANDMONSTER || sprite->getTag() == Define::COCONUT) 
+		&& mCurrentState->GetState() != SonicState::ROLL &&mCurrentState->GetState() != SonicState::COUNTER)
 	{
 		this->SetStateByTag(SonicState::HURT);
+
+		//Bug fix: hurt but still can Active button
+		if (sprite->getTag() == Define::LANDMONSTER)
+		{
+			auto mon = (Monster*)sprite;
+			mon->disableButton();
+		}
+		else
+		{
+			auto co = (Coconut_Monkey*)sprite;
+			co->disableButton();
+		}
+
 		this->runAction(Blink::create(2, 10));
 		if (ringCollected > 0)
 		{

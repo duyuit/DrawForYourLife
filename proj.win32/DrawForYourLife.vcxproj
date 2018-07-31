@@ -153,6 +153,9 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\BonusChest.cpp" />
+    <ClCompile Include="..\Classes\BossDrill.cpp" />
+    <ClCompile Include="..\Classes\BossLv1.cpp" />
+    <ClCompile Include="..\Classes\BossPlane.cpp" />
     <ClCompile Include="..\Classes\Coconut_Monkey.cpp" />
     <ClCompile Include="..\Classes\FinishFlag.cpp" />
     <ClCompile Include="..\Classes\FinishLayer.cpp" />
@@ -200,6 +203,9 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\BonusChest.h" />
+    <ClInclude Include="..\Classes\BossDrill.h" />
+    <ClInclude Include="..\Classes\BossLv1.h" />
+    <ClInclude Include="..\Classes\BossPlane.h" />
     <ClInclude Include="..\Classes\Coconut_Monkey.h" />
     <ClInclude Include="..\Classes\FinishFlag.h" />
     <ClInclude Include="..\Classes\FinishLayer.h" />

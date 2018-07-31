@@ -114,6 +114,7 @@ bool Level1Scene::init()
 {
 	LevelScene::init();
 
+	auto boss = new BossLv1(Vec2(1100, 300),(Layer*)this);
 
 	LoadMap("LevelScene/StoneMap/lv1.tmx");
 	//CreateTileLayer("LevelScene/StoneMap/lv1_layer");

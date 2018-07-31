@@ -36,3 +36,10 @@ void Coconut_Monkey::ComeBack()
 	this->runAction(Sequence::create(MoveTo::create(0.3,khi->getPosition()),destroy_monkey,RemoveSelf::create(),nullptr));
 
 }
+
+void Coconut_Monkey::disableButton()
+{
+	auto mon = (MonkeyMonster*)khi;
+	mon->disableButton();
+
+}
