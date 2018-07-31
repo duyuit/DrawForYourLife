@@ -2,7 +2,7 @@
 
 RingComboScore::RingComboScore(Sonic* mSonic) {
 	_mySonic = mSonic;
-
+	string font = "fonts/hemi.ttf";
 	//Add Sprite ring
 	_ringIcon = Sprite::create("Item/ring.png", Rect(200, 48, 64, 50));
 	_ringIcon->setPosition(Vec2(50, _director->getWinSize().height - _ringIcon->getContentSize().height));
@@ -12,33 +12,39 @@ RingComboScore::RingComboScore(Sonic* mSonic) {
 	_distance2 = _ringIcon->getContentSize().height;
 
 	//Add label count rings
-	_countRing = Label::createWithTTF("X  " + std::to_string(mSonic->ringCollected), "fonts/Marker Felt.ttf", 36);
+	_countRing = Label::createWithTTF("X  " + std::to_string(mSonic->ringCollected), font, 36);
 	_countRing->setAnchorPoint(Vec2(0, 0.5));
 	_countRing->setPosition(Vec2(100, _director->getWinSize().height - _distance2));
 	_countRing->enableOutline(Color4B::BLACK, 3);
 	this->addChild(_countRing, 1);
 
 	//Add label combo
-	_xCombo = Label::createWithTTF("", "fonts/PixelGameFont.ttf", 24);
+	_xCombo = Label::createWithTTF("", font, 32);
 	_xCombo->setAnchorPoint(Vec2(0.5f, 0.5f));
 	_xCombo->setVisible(false);
 	this->addChild(_xCombo, 1);
 
+	//Add label combo 2
+	_xCombo2 = Label::createWithTTF("", font, 32);
+	_xCombo2->setAnchorPoint(Vec2(0.5f, 0.5f));
+	_xCombo2->setVisible(false);
+	this->addChild(_xCombo2, 1);
+
 	//Add label: Cool - Good - Excellent - Perfect
-	_evaluate = Label::createWithTTF("", "fonts/INVASION2000.TTF", 48);
+	_evaluate = Label::createWithTTF("", font, 48);
 	_evaluate->setAnchorPoint(Vec2(0.5f, 0.5f));
 	_evaluate->setVisible(false);
 	_mySonic->addChild(_evaluate, 100);
 
 	//Add label score
-	_score = Label::createWithTTF("Score: " + std::to_string(_mySonic->score), "fonts/Marker Felt.ttf", 48);
+	_score = Label::createWithTTF("Score: " + std::to_string(_mySonic->score), font, 36);
 	_score->setAnchorPoint(Vec2(0.0f, 0.5f));
 	_score->setPosition(Vec2(_director->getWinSize().width - 7.5 * _distance2, _director->getWinSize().height - _distance2));
 	_score->enableOutline(Color4B::BLACK, 3);
 	this->addChild(_score, 1);
 
 	//Add label plus score
-	_plusScore = Label::createWithTTF("+ " + std::to_string(_mySonic->score), "fonts/Marker Felt.ttf", 24);
+	_plusScore = Label::createWithTTF("+ " + std::to_string(_mySonic->score), font, 24);
 	_plusScore->setAnchorPoint(Vec2(0.0f, 0.5f));
 	_plusScore->setPosition(_director->getWinSize().width - 4 * _distance2, _director->getWinSize().height - 2.2 * _distance2);
 	_plusScore->enableOutline(Color4B::BLACK, 3);
@@ -48,7 +54,7 @@ RingComboScore::RingComboScore(Sonic* mSonic) {
 	//Add flame effect
 	flame = Sprite::create();
 	flame->setAnchorPoint(Vec2(0.5, 0));
-	flame->setScale(1.2, 0.7);
+	flame->setScale(1.5, 0.875);
 	flame_FL = Define::loadAnim("Particle/flame_combo.xml", "1");
 	flame_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(flame_FL, 0.06f)));
 	flame_blue_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Particle/flame_combo_blue.xml", "1"), 0.06f)));
@@ -78,6 +84,8 @@ void RingComboScore::ResetCombo()
 	//Label combo
 	_xCombo->stopAllActions();
 	_xCombo->setVisible(false);
+	_xCombo2->stopAllActions();
+	_xCombo2->setVisible(false);
 
 	//Label: Cool - Good - Excellent - Perfect
 	_evaluate->stopAllActions();
@@ -92,28 +100,44 @@ void RingComboScore::SetColor()
 	if (x >= 0 && x < 5) {
 		_xCombo->setColor(Color3B(255, 255, 255));
 		_xCombo->setScale(1);
+
+		_xCombo2->setColor(Color3B(255, 255, 255));
+		_xCombo2->setScale(1);
 	}
 	else if (x >= 5 && x < 10)
 	{
 		_xCombo->setColor(Color3B(255, 255, 0));
 		_xCombo->setScale(1.05);
+
+		_xCombo2->setColor(Color3B(255, 255, 0));
+		_xCombo2->setScale(1.05);
 	}
 	else if (x >= 10 && x < 15)
 	{
 		_xCombo->setColor(Color3B(255, 128, 0));
 		_xCombo->setScale(1.1);
+
+		_xCombo2->setColor(Color3B(255, 128, 0));
+		_xCombo2->setScale(1.1);
 	}
 	else if (x >= 15 && x < 20)
 	{
 		_xCombo->setColor(Color3B(102, 102, 255));
-		_xCombo->setScale(1.2);
+		_xCombo->setScale(1.15);
+
+		_xCombo2->setColor(Color3B(102, 102, 255));
+		_xCombo2->setScale(1.15);
 	}
 	else if (x >= 20)
 	{
 		_xCombo->setColor(Color3B(255, 0, 0));
-		_xCombo->setScale(1.3);
+		_xCombo->setScale(1.2);
+
+		_xCombo2->setColor(Color3B(255, 0, 0));
+		_xCombo2->setScale(1.2);
 	}
 	_xCombo->enableOutline(Color4B::BLACK, 3);
+	_xCombo2->enableOutline(Color4B::BLACK, 3);
 }
 
 void RingComboScore::SetLabel()
@@ -122,10 +146,16 @@ void RingComboScore::SetLabel()
 	_xCombo->stopAllActions();
 	_xCombo->setVisible(true);
 
-	_xCombo->setString("X " + std::to_string(_mySonic->countCombo) + " COMBO");
-	_xCombo->setPosition(Vec2(110, _director->getWinSize().height - _distance));
-	_xCombo->setRotation(-15);
-	flame->setPosition(_xCombo->getPosition() + Vec2(0, -50));
+	_xCombo->setString("COMBO");
+	_xCombo->setPosition(Vec2(_director->getWinSize().width / 2, _director->getWinSize().height - 0.6 * _distance));
+
+	//Label combo 2
+	_xCombo2->stopAllActions();
+	_xCombo2->setVisible(true);
+
+	_xCombo2->setString(std::to_string(_mySonic->countCombo));
+	_xCombo2->setPosition(Vec2(_director->getWinSize().width / 2, _director->getWinSize().height - 0.9 *_distance));
+	flame->setPosition(_xCombo->getPosition() + Vec2(0, -60));
 
 	//Label score
 	_score->setString("Score: " + std::to_string(_mySonic->score));
@@ -155,9 +185,27 @@ void RingComboScore::CreateEffect()
 
 	_xCombo->runAction(
 		Sequence::create(
-			RotateTo::create(0.05f, -15 + 6),
-			RotateTo::create(0.05f, -15 - 6),
-			RotateTo::create(0.025f, -15), nullptr));
+			RotateTo::create(0.05f, 6),
+			RotateTo::create(0.05f, -6),
+			RotateTo::create(0.025f, 0), nullptr));
+
+	//Label combo 2
+	_xCombo2->runAction(FadeIn::create(0.1));
+
+	_xCombo2->runAction(
+		Repeat::create(
+			Sequence::create(
+				MoveBy::create(0.05f, Vec2(12, 0)),
+				MoveBy::create(0.05f, Vec2(-12, 0)),
+				MoveBy::create(0.012f, Vec2(0, 3)),
+				MoveBy::create(0.012f, Vec2(0, -3)),
+				nullptr), 2));
+
+	_xCombo2->runAction(
+		Sequence::create(
+			RotateTo::create(0.05f, 6),
+			RotateTo::create(0.05f, -6),
+			RotateTo::create(0.025f, 0), nullptr));
 
 	//Label plus score
 	_plusScore->runAction(FadeIn::create(0.1));
@@ -234,7 +282,8 @@ void RingComboScore::Evaluate()
 
 void RingComboScore::update(float dt)
 {
-	//Label count rings
+	//Label count 
+
 	_countRing->setString("X  " + std::to_string(_mySonic->ringCollected));
 
 	if (_prev_score != _mySonic->score)

@@ -27,7 +27,7 @@ TapButton::TapButton(Vec2 pos, Sonic* sprite, Layer* layer)
 	_border->setVisible(false);
 	this->addChild(_border,3);
 
-	_label = Label::createWithTTF("", "fonts/INVASION2000.TTF", 130);
+	_label = Label::createWithTTF("", font, 130);
 	_label->setAnchorPoint(Vec2(0.5f, 0));
 	_label->setVisible(false);
 	_label->enableOutline(Color4B::BLACK, 5);
@@ -71,7 +71,7 @@ TapButton::TapButton(Vec2 pos, Sonic * sprite, Layer * layer, bool isLeft)
 	_border->setVisible(false);
 	this->addChild(_border);
 
-	_label = Label::createWithTTF("", "fonts/INVASION2000.TTF", 130);
+	_label = Label::createWithTTF("", font, 130);
 	_label->setAnchorPoint(Vec2(0.5f, 0));
 	_label->setVisible(false);
 	_label->enableOutline(Color4B::BLACK, 5);

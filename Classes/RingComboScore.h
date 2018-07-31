@@ -11,6 +11,7 @@ using namespace ui;
 class RingComboScore : public Layer
 {
 public:
+
 	Sonic* _mySonic;
 	int _pre_combo = 0;
 	int _prev_score = 0;
@@ -20,7 +21,7 @@ public:
 	Sprite* _ringIcon;
 	Label* _countRing;
 
-	Label* _xCombo;
+	Label *_xCombo, *_xCombo2;
 	Label* _evaluate; //Label (Nice!, Good!, Excellent!, Perfect!)
 
 	Label* _score;

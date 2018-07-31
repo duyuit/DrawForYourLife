@@ -22,6 +22,7 @@ public:
 	ProgressTimer* mouseBar;
 	Sprite* _border;
 	Sprite* _progressbar;
+	string font = "fonts/hemi.ttf";
 
 	void ActiveButton(BUTTON_TAG dir);
 	RefPtr<Animate>  *_break_Ani=nullptr;
