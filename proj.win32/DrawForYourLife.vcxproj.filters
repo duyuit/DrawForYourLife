@@ -116,9 +116,6 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>Game\GameComponent</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Coconut_Monkey.cpp">
-      <Filter>Game\Monster</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\RingComboScore.cpp">
       <Filter>Game\GameComponent</Filter>
     </ClCompile>
@@ -133,6 +130,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\SelectMap.cpp">
       <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Coconut_Monkey.cpp">
+      <Filter>Game\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -257,9 +257,6 @@
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>Game\GameComponent</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Coconut_Monkey.h">
-      <Filter>Game\Monster</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\RingComboScore.h">
       <Filter>Game\GameComponent</Filter>
     </ClInclude>
@@ -274,6 +271,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\SelectMap.h">
       <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Coconut_Monkey.h">
+      <Filter>Game\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

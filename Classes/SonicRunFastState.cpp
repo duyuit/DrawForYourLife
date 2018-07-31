@@ -16,7 +16,7 @@ SonicRunFastState::~SonicRunFastState()
 
 void SonicRunFastState::update()
 {
-	//this->mPlayerData->player->SetVelocityX(340);
+	this->mPlayerData->player->SetVelocityX(340);
 	if (this->mPlayerData->player->GetVelocity().y < -5)
 		this->mPlayerData->player->SetStateByTag(SonicState::StateAction::FALL);
 }

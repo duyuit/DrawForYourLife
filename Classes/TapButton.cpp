@@ -107,6 +107,16 @@ void TapButton::ActiveButton(BUTTON_TAG dir)
 			this->initWithFile(Define::button_left_green_path);
 		else
 			this->initWithFile(Define::button_right_green_path);
+
+		this->runAction(Sequence::create(
+			MoveBy::create(0.05, Vec2(0, 25)),
+			MoveBy::create(0.05, Vec2(0, -25)),
+			MoveBy::create(0.05, Vec2(0, 10)),
+			MoveBy::create(0.05, Vec2(0, -10)),
+			nullptr
+		));
+
+
 		if (this->getPositionX() - mTarget->getPositionX()>300)
 			mTarget->SetStateByTag(SonicState::RUNSKIP);
 	}
@@ -131,7 +141,7 @@ void TapButton::CheckLabel(float percen)
 		mTarget->score += 300 * mTarget->scoreMul;
 		mTarget->countPerfect++;
 	}
-	else if (percen > 30 && percen < 70)
+	else if (percen > 30 && percen <100)
 	{
 		_label->setColor(Color3B(0,255,255));
 		_label->setString("Great!");
@@ -139,14 +149,7 @@ void TapButton::CheckLabel(float percen)
 		mTarget->score += 200 * mTarget->scoreMul;
 		mTarget->countGreat++;
 	}
-	else
-	{
-		_label->setColor(Color3B(255,128,0));
-		_label->setString("Bad!");
-		score = BAD;
-		mTarget->score += 100 * mTarget->scoreMul;
-		mTarget->countBad++;
-	}
+	
 	_label->setScale(2);
 	auto shake= Repeat::create(
 		Sequence::create(
