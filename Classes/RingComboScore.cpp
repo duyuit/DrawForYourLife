@@ -99,42 +99,27 @@ void RingComboScore::SetColor()
 	int x = _mySonic->countCombo;
 	if (x >= 0 && x < 5) {
 		_xCombo->setColor(Color3B(255, 255, 255));
-		_xCombo->setScale(1);
-
 		_xCombo2->setColor(Color3B(255, 255, 255));
-		_xCombo2->setScale(1);
 	}
 	else if (x >= 5 && x < 10)
 	{
 		_xCombo->setColor(Color3B(255, 255, 0));
-		_xCombo->setScale(1.05);
-
 		_xCombo2->setColor(Color3B(255, 255, 0));
-		_xCombo2->setScale(1.05);
 	}
 	else if (x >= 10 && x < 15)
 	{
 		_xCombo->setColor(Color3B(255, 128, 0));
-		_xCombo->setScale(1.1);
-
 		_xCombo2->setColor(Color3B(255, 128, 0));
-		_xCombo2->setScale(1.1);
 	}
 	else if (x >= 15 && x < 20)
 	{
 		_xCombo->setColor(Color3B(102, 102, 255));
-		_xCombo->setScale(1.15);
-
 		_xCombo2->setColor(Color3B(102, 102, 255));
-		_xCombo2->setScale(1.15);
 	}
 	else if (x >= 20)
 	{
 		_xCombo->setColor(Color3B(255, 0, 0));
-		_xCombo->setScale(1.2);
-
 		_xCombo2->setColor(Color3B(255, 0, 0));
-		_xCombo2->setScale(1.2);
 	}
 	_xCombo->enableOutline(Color4B::BLACK, 3);
 	_xCombo2->enableOutline(Color4B::BLACK, 3);
@@ -154,7 +139,7 @@ void RingComboScore::SetLabel()
 	_xCombo2->setVisible(true);
 
 	_xCombo2->setString(std::to_string(_mySonic->countCombo));
-	_xCombo2->setPosition(Vec2(_director->getWinSize().width / 2, _director->getWinSize().height - 0.9 *_distance));
+	_xCombo2->setPosition(Vec2(_director->getWinSize().width / 2, _director->getWinSize().height - 0.85 *_distance));
 	flame->setPosition(_xCombo->getPosition() + Vec2(0, -60));
 
 	//Label score
@@ -172,6 +157,15 @@ void RingComboScore::SetLabel()
 void RingComboScore::CreateEffect()
 {
 	//Label combo
+	_xCombo->setScale(2);
+	_xCombo->setOpacity(0);
+	_xCombo->runAction(Spawn::create(
+		ScaleTo::create(0.5, 1),
+		FadeTo::create(0.3,220),
+		nullptr
+	));
+
+
 	_xCombo->runAction(FadeIn::create(0.1));
 
 	_xCombo->runAction(
@@ -190,6 +184,14 @@ void RingComboScore::CreateEffect()
 			RotateTo::create(0.025f, 0), nullptr));
 
 	//Label combo 2
+	_xCombo2->setScale(3.5);
+	_xCombo2->setOpacity(0);
+
+	_xCombo2->runAction(Spawn::create(
+		ScaleTo::create(0.5, 1),
+		FadeIn::create(0.3),
+		nullptr
+	));
 	_xCombo2->runAction(FadeIn::create(0.1));
 
 	_xCombo2->runAction(
@@ -206,6 +208,9 @@ void RingComboScore::CreateEffect()
 			RotateTo::create(0.05f, 6),
 			RotateTo::create(0.05f, -6),
 			RotateTo::create(0.025f, 0), nullptr));
+
+	
+	
 
 	//Label plus score
 	_plusScore->runAction(FadeIn::create(0.1));
