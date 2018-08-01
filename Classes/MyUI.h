@@ -5,7 +5,6 @@
 #include "RingComboScore.h"
 #include "FinishLayer.h"
 #include "GameOverLayer.h"
-
 using namespace cocos2d;
 using namespace ui;
 
@@ -20,6 +19,7 @@ public:
 	RingComboScore* _combo;
 	Sprite* board;
 	LayerColor *layer = nullptr;
+
 
 	void SetCurrentScene(Layer* scene);
 	FinishLayer* finish = nullptr;

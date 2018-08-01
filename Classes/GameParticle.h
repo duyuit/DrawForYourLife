@@ -68,10 +68,7 @@ namespace MyParticle
 			wind->setPosition(pos+ Vec2(1500+ 100 * ran +100 *ran2,100*ran + 50*ran2));
 			wind->runAction(Sequence::create(MoveBy::create(1, Vec2(-2000, 0)), RemoveSelf::create(), nullptr));
 			layer->addChild(wind);
-		}
-
-
-		
+		}	
 	};
 
 	static void RunEffectStar(Vec2 pos, Layer* layer) {

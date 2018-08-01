@@ -1,8 +1,6 @@
 #include "RingComboScore.h"
 
-RingComboScore::RingComboScore(Sonic* mSonic)
-{
-	this->autorelease();
+RingComboScore::RingComboScore(Sonic* mSonic) {
 	_mySonic = mSonic;
 	string font = "fonts/hemi.ttf";
 	//Add Sprite ring

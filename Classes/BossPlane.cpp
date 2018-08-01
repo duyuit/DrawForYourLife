@@ -10,9 +10,14 @@ BossPlane::BossPlane()
 	back->setPosition(0, 0);
 
 	face = Sprite::create("Monster/Boss/eggman.png", Rect(51, 68, 129, 57));
-	face->setAnchorPoint(Vec2(0, 1));
-	face->setPosition(17,-14);
+	face->setAnchorPoint(Vec2(0, 0));
+	face->setPosition(17,-14- face->getContentSize().height);
+	face->setTag(Define::BOSS);
 
+	auto face_body = PhysicsBody::createBox(face->getContentSize()+Size(100,0));
+	face_body->setGravityEnable(false);
+	face_body->setDynamic(false);
+	face->setPhysicsBody(face_body);
 
 
 	front = Sprite::create("Monster/Boss/helicopter.png", Rect(20, 51, 151, 148));
@@ -27,16 +32,17 @@ BossPlane::BossPlane()
 	wing->setPosition(100, 0);
 
 
-	back_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/plane.xml","1"), 0.01f)));
-	normal_face = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/boss_face.xml", "normal"), 0.03f)));
-	angry_face = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/boss_face.xml", "angry"), 0.03f)));
-	die_face = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/boss_face.xml", "die"), 0.03f)));
+	back_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/plane.xml","1"), 0.09f)));
+	normal_face = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/boss_face.xml", "normal"), 0.09f)));
+	angry_face = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/boss_face.xml", "angry"), 0.09f)));
+	die_face = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/boss_face.xml", "die"), 0.09f)));
 	turn_off_wing= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/wing.xml", "turnoff"),0.3)));
 	normal_wing = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/wing.xml", "normal"), 0.06f)));
 	turn_on_wing = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/wing.xml", "turnon"),0.3f)));
 	wing->runAction(RepeatForever::create(normal_wing->get()));
 	
-	
+	back->runAction(RepeatForever::create(back_anim->get()));
+	face->runAction(RepeatForever::create(normal_face->get()));
 	this->addChild(back, -1);
 	this->addChild(face, 0);
 	this->addChild(front, 1);
@@ -85,4 +91,23 @@ void BossPlane::update(float dt)
 	//	ActiveWing(test);
 
 	//}
+}
+
+void BossPlane::Flip(bool isFlip)
+{
+	if (isFlip)
+	{
+		back->setAnchorPoint(Vec2(1, 1));
+		back->setPosition(back->getPosition() + Vec2(back->getContentSize().width,0));
+
+	}
+	else
+	{
+		back->setAnchorPoint(Vec2(0, 1));
+		back->setPosition(0,0);
+	}
+
+	face->setFlipX(isFlip);
+	back->setFlipX(isFlip);
+	front->setFlipX(isFlip);
 }

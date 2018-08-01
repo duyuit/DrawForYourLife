@@ -7,7 +7,6 @@
 #include "Coconut_Monkey.h"
 Sonic::Sonic()
 {
-	this->autorelease();
 	//Blue Sonic
 
 
@@ -33,7 +32,7 @@ Sonic::Sonic()
 	jump_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(jump_FL, 0.03f)));
 	roll_Ani=new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_FL, 0.03f)));
 	fall_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fall_FL, 0.01f)));
-	roll_sky_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(false, "roll_in_sky"), 0.03f)));;
+	roll_sky_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(false, "roll_boss"), 0.03f)));;
 	hurt_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(hurt_FL, 0.05f)));
 	run_skip_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(skip_FL, 0.05f)));
 	roll_chest_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_chest_FL, 0.03f)));
@@ -47,7 +46,7 @@ Sonic::Sonic()
 	jump_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(jump_red_FL, 0.03f)));
 	roll_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_red_FL, 0.03f)));
 	fall_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fall_red_FL, 0.01f)));
-	roll_sky_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(true, "roll_in_sky"), 0.03f)));;
+	roll_sky_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(true, "roll_boss"), 0.03f)));;
 	hurt_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(hurt_red_FL, 0.05f)));
 	run_skip_red_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(skip_red_FL, 0.05f)));
 	roll_chest_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_chest_red_FL, 0.03f)));
@@ -82,7 +81,7 @@ Sonic::Sonic()
 	mCurrentAnimate = run_fast_Ani;
 	mCurrentAction = mCurrentAnimate->get();
 
-	SetStateByTag(SonicState::StateAction::RUN_FAST);
+	SetStateByTag(SonicState::StateAction::ROLL_IN_SKY);
 	
 	this->setFlipX(true);
 	this->setTag(Define::Player);
@@ -99,7 +98,6 @@ Sonic::Sonic()
 Sonic::~Sonic()
 {
 }
-
 int count_to_reset_just_tap = 0;
 void Sonic::update(float dt)
 {
@@ -192,11 +190,11 @@ void Sonic::update(float dt)
 	if(_roll_effect!=nullptr)
 	if (mCurrentState->GetState() != SonicState::ROLL && mCurrentState->GetState() != SonicState::ROLL_CHEST && _roll_effect->isVisible())
 		_roll_effect->setVisible(false);
-	if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL
-		&& mCurrentState->GetState() != SonicState::StateAction::ROLL
-		&& mCurrentState->GetState() != SonicState::StateAction::DIE
-		&& mCurrentState->GetState() != SonicState::StateAction::RUNSKIP)
-		this->SetStateByTag(SonicState::StateAction::FALL);
+	//if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL
+	//	&& mCurrentState->GetState() != SonicState::StateAction::ROLL
+	//	&& mCurrentState->GetState() != SonicState::StateAction::DIE
+	//	&& mCurrentState->GetState() != SonicState::StateAction::RUNSKIP)
+	//	this->SetStateByTag(SonicState::StateAction::FALL);
 	/*if (count_to_reset_just_tap == 40)
 	{
 		count_to_reset_just_tap = 0;
@@ -248,7 +246,9 @@ void Sonic::SetStateByTag(SonicState::StateAction action)
 	if (isDelete) return;
 	switch (action)
 	{
-	
+	case SonicState::ROLL_IN_SKY:
+		this->SetState(new SonicRollSky(mData));
+		break;
 	case SonicState::RUN_FAST:
 		this->SetState(new SonicRunFastState(mData));
 		break;
@@ -301,6 +301,10 @@ void Sonic::SetState(SonicState * state)
 
 	switch (mCurrentState->GetState())
 	{
+	case SonicState::ROLL_IN_SKY:
+		mCurrentAnimate = roll_sky_Ani;
+		mCurrentAction = RepeatForever::create(mCurrentAnimate->get());
+		break;
 	
 	case SonicState::RUN_FAST:
 		mCurrentAnimate = run_fast_Ani;
@@ -444,7 +448,20 @@ void Sonic::HandleCollision(Sprite * sprite)
 		//Monster cant collision with Sonic 
 		sprite->getPhysicsBody()->setContactTestBitmask(0);	
 	}
-	
+	else if (sprite->getTag() == Define::DRILL)
+	{
+		this->SetStateByTag(SonicState::HURT);
+		this->runAction(Blink::create(3, 15));
+		if (ringCollected > 0)
+		{
+			int t = ringCollected; //Temp variable
+			for (int i = 0; i < (t / 2); i++)
+			{
+				runAction(CallFuncN::create(CC_CALLBACK_0(Sonic::DropRing, this)));
+				ringCollected--;
+			}
+		}
+	}
 	
 	mCurrentState->HandleCollision(sprite);
 }

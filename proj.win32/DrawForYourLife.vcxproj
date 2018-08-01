@@ -193,6 +193,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\SonicHurtState.cpp" />
     <ClCompile Include="..\Classes\SonicJumpState.cpp" />
     <ClCompile Include="..\Classes\SonicRollChestState.cpp" />
+    <ClCompile Include="..\Classes\SonicRollSky.cpp" />
     <ClCompile Include="..\Classes\SonicRollState.cpp" />
     <ClCompile Include="..\Classes\SonicRunFastState.cpp" />
     <ClCompile Include="..\Classes\SonicRunSkipState.cpp" />
@@ -248,6 +249,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\SonicHurtState.h" />
     <ClInclude Include="..\Classes\SonicJumpState.h" />
     <ClInclude Include="..\Classes\SonicRollChestState.h" />
+    <ClInclude Include="..\Classes\SonicRollSky.h" />
     <ClInclude Include="..\Classes\SonicRollState.h" />
     <ClInclude Include="..\Classes\SonicRunFastState.h" />
     <ClInclude Include="..\Classes\SonicRunSkipState.h" />

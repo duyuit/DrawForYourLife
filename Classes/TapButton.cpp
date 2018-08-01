@@ -153,7 +153,6 @@ void TapButton::CheckLabel(float percen, bool check)
 			score = PERFECT;
 			mTarget->score += 300 * mTarget->scoreMul;
 			mTarget->countPerfect++;
-
 			_label->runAction(Sequence::create(ScaleTo::create(0.3, 1), shake, nullptr));
 			MyParticle::RunEffectStar(this->getPosition(), (Layer*) this->getParent());
 		}
@@ -173,8 +172,6 @@ void TapButton::CheckLabel(float percen, bool check)
 		_label->setString("Miss!");
 		_label->runAction(Sequence::create(ScaleTo::create(0.3, 1), shake, nullptr));
 	}
-	
-
 }
 
 void TapButton::SetCanActive(bool is)

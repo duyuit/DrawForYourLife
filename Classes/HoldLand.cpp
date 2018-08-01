@@ -4,7 +4,6 @@
 
 HoldLand::HoldLand(Vec2 pos,Size size, bool isLeft, Sonic* sonic, Layer* layer)
 {
-	this->autorelease();
 	this->init();
 	//this->setVisible(false);
 

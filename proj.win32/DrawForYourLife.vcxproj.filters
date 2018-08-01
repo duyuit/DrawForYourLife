@@ -143,6 +143,9 @@
     <ClCompile Include="..\Classes\BossPlane.cpp">
       <Filter>Game\Monster\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\SonicRollSky.cpp">
+      <Filter>Game\Sonic</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\GameOverLayer.cpp">
       <Filter>Game\GameComponent</Filter>
     </ClCompile>
@@ -301,6 +304,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\BossPlane.h">
       <Filter>Game\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SonicRollSky.h">
+      <Filter>Game\Sonic</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameOverLayer.h">
       <Filter>Game\GameComponent</Filter>

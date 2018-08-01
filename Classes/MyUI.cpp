@@ -46,7 +46,6 @@ void MyUI::EnableAll()
 
 MyUI::MyUI(Sonic * mSonic)
 {
-		this->autorelease();
 		mySonic = mSonic;
 
 		_touch_guide = Sprite::create();
@@ -318,7 +317,7 @@ void MyUI::update(float dt)
 	if (mySonic->isFinish)
 	{
 		count_to_finish++;
-		if (count_to_finish >= 70)
+		if (count_to_finish >= 150)
 		{
 			_combo->removeAllChildren();
 			_combo->unscheduleUpdate();
