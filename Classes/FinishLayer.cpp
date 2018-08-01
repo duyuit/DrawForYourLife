@@ -2,12 +2,8 @@
 #include "LevelScene.h"
 Button* button_board_cancel;
 Button* button_board_round;
-//
-Button* button_board_next;
-//
 FinishLayer::FinishLayer(Sonic* mSonic, Layer* cur_scene)
 {
-	this->autorelease();
 	mySonic = mSonic;
 	current_scene = cur_scene;
 
@@ -56,13 +52,13 @@ FinishLayer::FinishLayer(Sonic* mSonic, Layer* cur_scene)
 	//
 	//total = score + bonus;
 
-	if (score >= 14000) {
+	if (score >= 15000) {
 		numStar = 3;
 	}
-	if (score >= 7000 && score < 14000) {
+	if (score >= 10000 && score < 15000) {
 		numStar = 2;
 	}
-	if (score > 0 && score < 7000) {
+	if (score > 0 && score < 10000) {
 		numStar = 1;
 	}
 
@@ -89,9 +85,8 @@ FinishLayer::FinishLayer(Sonic* mSonic, Layer* cur_scene)
 	//boardScore->runAction(MoveTo::create(1.5f,Vec2(visibleSize.width / 2, visibleSize.height / 2)));
 	boardScore->runAction(Sequence::create(MoveTo::create(1.0f, Vec2(visibleSize.width / 2, visibleSize.height / 2)), start_jump_point, nullptr));
 
-	_result = Label::createWithTTF("FINISH RESULT", font, 70);
+	_result = Label::createWithTTF("FINISH RESULT", font, 65);
 	_result->setColor(Color3B::WHITE);
-	_result->enableOutline(Color4B::BLACK, 5);
 	_result->setPosition(boardScore->getContentSize().width / 2, boardScore->getContentSize().height*4.5 / 4);
 	boardScore->addChild(_result, 100);
 
@@ -202,7 +197,7 @@ FinishLayer::FinishLayer(Sonic* mSonic, Layer* cur_scene)
 	button_board_cancel = Button::create("Level_map/out.png");
 	button_board_cancel->setScale(scaleX * 2, scaleY * 2);
 	button_board_cancel->setAnchorPoint(Vec2(0.5f, 0.5f));
-	button_board_cancel->setPosition(Vec2(boardScore->getContentSize().width * 5 / 6, -boardScore->getContentSize().height / 20));
+	button_board_cancel->setPosition(Vec2(boardScore->getContentSize().width * 4 / 6, -boardScore->getContentSize().height / 20));
 	boardScore->addChild(button_board_cancel, 6);
 
 	button_board_cancel->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
@@ -222,38 +217,11 @@ FinishLayer::FinishLayer(Sonic* mSonic, Layer* cur_scene)
 		}
 	});
 
-	//Start
-	//Button next in Board Star
-	button_board_next = Button::create("Level_map/next.png");
-	button_board_next->setScale(scaleX * 2, scaleY * 2);
-	button_board_next->setAnchorPoint(Vec2(0.5f, 0.5f));
-	button_board_next->setPosition(Vec2(boardScore->getContentSize().width * 3 / 6, -boardScore->getContentSize().height / 20));
-	boardScore->addChild(button_board_next, 6);
-	button_board_next->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
-		switch (type)
-		{
-		case ui::Widget::TouchEventType::BEGAN:
-			break;
-		case ui::Widget::TouchEventType::ENDED:
-		{
-			if (current_scene != nullptr)
-			{
-				auto scene = (LevelScene*)current_scene;
-				scene->ReloadScene();
-			}
-		}
-		break;
-		default:
-			break;
-		}
-	});
-	//End
-
 	//Button round in Board Star
 	button_board_round = Button::create("Level_map/round.png");
 	button_board_round->setScale(scaleX * 2, scaleY * 2);
 	button_board_round->setAnchorPoint(Vec2(0.5f, 0.5f));
-	button_board_round->setPosition(Vec2(boardScore->getContentSize().width / 6, -boardScore->getContentSize().height / 20));
+	button_board_round->setPosition(Vec2(boardScore->getContentSize().width * 2 / 6, -boardScore->getContentSize().height / 20));
 	boardScore->addChild(button_board_round, 6);
 	button_board_round->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
 		switch (type)
@@ -275,12 +243,8 @@ FinishLayer::FinishLayer(Sonic* mSonic, Layer* cur_scene)
 	});
 	button_board_cancel->setVisible(false);
 	button_board_round->setVisible(false);
-	//Start
-	button_board_next->setVisible(false);
-	button_board_next->setEnabled(false);
-	//End
-
 	this->scheduleUpdate();
+	//End Count Score
 }
 
 
@@ -345,7 +309,6 @@ void FinishLayer::update(float dt)
 		if (this->isJumpPoint) {
 			button_board_cancel->setVisible(true);
 			button_board_round->setVisible(true);
-			button_board_next->setVisible(true);
 		}
 		this->unscheduleUpdate();
 	}

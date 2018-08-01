@@ -22,7 +22,7 @@ bool LevelMap::init()
 
 
 	//background 
-	auto background = Sprite::create("Level_map/cloudy.png");
+	auto background = Sprite::create("Level_map/galaxy.jpg");
 	background->setScale(visibleSize.width / (background->getContentSize().width), visibleSize.height / (background->getContentSize().height));
 	background->setAnchorPoint(Vec2(0.5, 0.5));
 	background->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));

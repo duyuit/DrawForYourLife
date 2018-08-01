@@ -4,7 +4,6 @@
 #include "ui/CocosGUI.h"
 #include "RingComboScore.h"
 #include "FinishLayer.h"
-#include "GameOverLayer.h"
 
 using namespace cocos2d;
 using namespace ui;
@@ -21,17 +20,15 @@ public:
 	Sprite* board;
 	LayerColor *layer = nullptr;
 
+	//Start 
 	void SetCurrentScene(Layer* scene);
 	FinishLayer* finish = nullptr;
-
-	string font = "fonts/hemi.ttf";
-	GameOverLayer* gameover = nullptr;
+	//End
 
 	bool _istouch = false;
 	int count_to_reset_touch = 0;
 	int count_to_change_position = 0;
 	int count_to_finish = 0;
-	int count_to_gameover = 0;
 
 	void DisableExcept(BUTTON_TAG tag);
 	void EnableAll();

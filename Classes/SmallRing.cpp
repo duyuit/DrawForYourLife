@@ -4,7 +4,6 @@
 
 SmallRing::SmallRing()
 {
-	this->autorelease();
 	this->initWithFile("Item/ring.png",Rect(0,0,50,50));
 	this->setPosition(100, 100);
 	roll = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Item/ring.xml", "roll"), 0.1f)));

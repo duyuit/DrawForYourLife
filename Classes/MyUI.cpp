@@ -46,7 +46,6 @@ void MyUI::EnableAll()
 
 MyUI::MyUI(Sonic * mSonic)
 {
-		this->autorelease();
 		mySonic = mSonic;
 
 		_touch_guide = Sprite::create();
@@ -139,7 +138,7 @@ MyUI::MyUI(Sonic * mSonic)
 		float numScale = 0.9;
 
 		//Label Board Star
-		auto myLabel = Label::createWithTTF("Pause", font, 30);
+		auto myLabel = Label::createWithTTF("Pausing", "fonts/arial.ttf", 30);
 		myLabel->setAnchorPoint(Vec2(0.5f, 0.5f));
 		myLabel->setPosition(Vec2(delta_x * 6 - delta_x * 2 / 2, delta_y * 2.5 - delta_y / 2));
 		board->addChild(myLabel, 2);
@@ -315,10 +314,11 @@ void MyUI::update(float dt)
 		_istouch = false;
 	}
 
+	//Start
 	if (mySonic->isFinish)
 	{
 		count_to_finish++;
-		if (count_to_finish >= 70)
+		if (count_to_finish >= 150)
 		{
 			_combo->removeAllChildren();
 			_combo->unscheduleUpdate();
@@ -333,23 +333,5 @@ void MyUI::update(float dt)
 			mySonic->isFinish = false;
 		}
 	}
-
-	if (mySonic->isGameOver)
-	{
-		count_to_gameover++;
-		if (count_to_gameover >= 150)
-		{
-			_combo->removeAllChildren();
-			_combo->unscheduleUpdate();
-			gameover = new GameOverLayer(mySonic, current_scene);
-			this->addChild(gameover, 100);
-			_restart->setVisible(false);
-			layer = LayerColor::create();
-			layer->setColor(Color3B::BLACK);
-			layer->setOpacity(200);
-			this->addChild(layer);
-			layer->setVisible(true);
-			mySonic->isGameOver = false;
-		}
-	}
+	//End
 }

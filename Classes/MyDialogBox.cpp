@@ -4,7 +4,6 @@
 
 MyDialogBox::MyDialogBox()
 {
-	this->autorelease();
 	_box = Sprite::create("GameComponents/dialog_box.png",Rect(0,0,1049,201));
 	_box->setAnchorPoint(Vec2(0, 0));
 	Vector<SpriteFrame*> dog_FL;

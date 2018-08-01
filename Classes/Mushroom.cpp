@@ -4,7 +4,6 @@
 #include "GameDefine.h"
 Mushroom::Mushroom()
 {
-	this->autorelease();
 	this->initWithFile("Item/mushroom.png", Rect(235, 1249, 121, 64));
 	push_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Item/mushroom.xml","1"), 0.02f)));
 	this->setTag(Define::MUSHROOM);

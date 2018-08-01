@@ -14,6 +14,7 @@
 #include "SonicStopState.h"
 #include "SonicCounterState.h"
 #include "SonicEndState.h"
+#include "SonicRollSky.h"
 #include "GameDefine.h"
 #include "GameParticle.h"
 #include "SmallRing.h"
@@ -64,7 +65,6 @@ public:
 	int score = 0;
 	float scoreMul = 1.0; //Multiple the score
 	bool isRed = false;
-	bool isGameOver = false;
 
 	void SwapAni(RefPtr<Animate> *&blue, RefPtr<Animate> *&red); //Swap red and blue Sonic
 	void SwapAllAni();
