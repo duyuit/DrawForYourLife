@@ -1,18 +1,21 @@
-#include "LevelMap.h"
+#include "LevelMapDesert.h"
+#include "SelectMap.h"
 using namespace std;
 using namespace ui;
 
-cocos2d::Scene * LevelMap::createScene()
+cocos2d::Scene * LevelMapDesert::createScene()
 {
-	return LevelMap::create();
+	return LevelMapDesert::create();
 }
 
-LevelMap::LevelMap()
+LevelMapDesert::LevelMapDesert()
 {
 }
 
-bool LevelMap::init()
+bool LevelMapDesert::init()
 {
+	SelectMap* selectMap = new SelectMap();
+
 	if (!Scene::init())
 	{
 		return false;
@@ -29,7 +32,7 @@ bool LevelMap::init()
 	this->addChild(background, 0);
 
 	//level map
-	auto loading = Sprite::create("Level_map/level_map_snow1.png");
+	auto loading = Sprite::create("Level_map/Desert_map.png");
 	loading->setScale(visibleSize.width / (loading->getContentSize().width * 2), visibleSize.height / (loading->getContentSize().height * 2));
 	loading->setAnchorPoint(Vec2(0.5, 0.5));
 	loading->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
@@ -178,8 +181,10 @@ bool LevelMap::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
+			//
 			auto gameScene = SelectMap::createScene();
 			Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
+
 		}
 		break;
 		default:
@@ -193,7 +198,7 @@ bool LevelMap::init()
 	button_level_0->setScale(visibleSize.width / (button_level_0->getContentSize().width * 23), visibleSize.height / (button_level_0->getContentSize().height * 18));
 	button_level_0->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_0->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
-	button_level_0->setPosition(Vec2(visibleSize.width / 1.5f, 0.5f*visibleSize.height));
+	button_level_0->setPosition(Vec2(visibleSize.width / 2.75, 0.32*visibleSize.height));
 	button_level_0->addTouchEventListener([this](Ref* sender, Widget::TouchEventType type) {
 		switch (type)
 		{
@@ -217,9 +222,9 @@ bool LevelMap::init()
 	float levelScaleX = visibleSize.width / (button_level_0->getContentSize().width * 23);
 	float levelScaleY = visibleSize.height / (button_level_0->getContentSize().height * 18);
 
-	_label_0 = Label::createWithTTF("0", font, 30);
+	_label_0 = Label::createWithTTF("1", font, 30);
 	_label_0->setAnchorPoint(Vec2(0.5f, 0.5f));
-	_label_0->setPosition(Vec2(visibleSize.width / 1.505f, 0.505f*visibleSize.height));
+	_label_0->setPosition(Vec2(visibleSize.width / 2.755, 0.32*visibleSize.height));
 	_label_0->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
 	this->addChild(_label_0, 3);
 
@@ -228,7 +233,7 @@ bool LevelMap::init()
 	button_level_1->setScale(levelScaleX, levelScaleY);
 	button_level_1->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_1->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
-	button_level_1->setPosition(Vec2(visibleSize.width / 1.87f, 0.58f*visibleSize.height));
+	button_level_1->setPosition(Vec2(visibleSize.width / 2.755, 0.32*visibleSize.height));
 	button_level_1->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
 		switch (type)
 		{
@@ -247,8 +252,9 @@ bool LevelMap::init()
 	});
 	this->addChild(button_level_1, 2);
 
-	_label_1 = Label::createWithTTF("1", font, 30);
+	_label_1 = Label::createWithTTF("2", font, 30);
 	_label_1->setAnchorPoint(Vec2(0.5f, 0.5f));
+	_label_1->setVisible(false);
 	_label_1->setPosition(Vec2(visibleSize.width / 1.88f, 0.585f*visibleSize.height));
 	_label_1->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
 	this->addChild(_label_1, 3);
@@ -372,7 +378,7 @@ bool LevelMap::init()
 			break;
 		}
 	});
-
+	button_level_1->setVisible(false);
 	button_level_2->setVisible(false);
 	button_level_3->setVisible(false);
 	button_level_4->setVisible(false);
@@ -385,17 +391,17 @@ bool LevelMap::init()
 	return true;
 }
 
-void LevelMap::nextScene(cocos2d::Node* sender)
+void LevelMapDesert::nextScene(cocos2d::Node* sender)
 {
 	//auto gameScene = GamePlayScense::createScene();
 	//Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
 
 }
 
-LevelMap::~LevelMap()
+LevelMapDesert::~LevelMapDesert()
 {
 }
-void LevelMap::setStar(int level, int star) {
+void LevelMapDesert::setStar(int level, int star) {
 	currentLevel = level;
 	for (int i = 0; i < 3; i++)
 	{
@@ -415,7 +421,7 @@ void LevelMap::setStar(int level, int star) {
 	}
 	myLabel->setString(str);
 }
-void LevelMap::update(float dt) {
+void LevelMapDesert::update(float dt) {
 	if (isBoard == true) {
 		button_level_0->setEnabled(false);
 		button_level_1->setEnabled(false);

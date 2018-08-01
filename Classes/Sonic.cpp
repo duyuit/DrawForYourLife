@@ -7,6 +7,7 @@
 #include "Coconut_Monkey.h"
 Sonic::Sonic()
 {
+	this->autorelease();
 	//Blue Sonic
 
 
@@ -98,6 +99,7 @@ Sonic::Sonic()
 Sonic::~Sonic()
 {
 }
+
 int count_to_reset_just_tap = 0;
 void Sonic::update(float dt)
 {
@@ -356,7 +358,7 @@ void Sonic::SetState(SonicState * state)
 		{
 			this->isDelete = true;
 		});
-		mCurrentAction =  Sequence::create(JumpBy::create(1.5, Vec2(-200, -400), 200, 1), restart_scene, nullptr);
+		mCurrentAction =  Sequence::create(JumpBy::create(1.5, Vec2(-200, -400), 200, 1), nullptr);
 		break;
 
 	}
@@ -416,6 +418,7 @@ void Sonic::HandleCollision(Sprite * sprite)
 	else if (sprite->getTag() == Define::DIELAND && mCurrentState->GetState() != SonicState::DIE)
 	{
 		this->SetStateByTag(SonicState::DIE);
+		isGameOver = true;
 		return;
 	}
 

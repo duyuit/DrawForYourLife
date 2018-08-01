@@ -136,7 +136,14 @@ void TapButton::CheckLabel(float percen, bool check)
 	_label->setVisible(true);
 	_border->setVisible(false);
 	mouseBar->setVisible(false);
-
+	_label->setScale(2);
+	auto shake = Repeat::create(
+		Sequence::create(
+			MoveBy::create(0.08f, Vec2(20, 0)),
+			MoveBy::create(0.08f, Vec2(-20, 0)),
+			MoveBy::create(0.012f, Vec2(0, 10)),
+			MoveBy::create(0.012f, Vec2(0, -10)),
+			nullptr), 2);
 	if (check)
 	{
 		if (percen < 30)
@@ -146,6 +153,9 @@ void TapButton::CheckLabel(float percen, bool check)
 			score = PERFECT;
 			mTarget->score += 300 * mTarget->scoreMul;
 			mTarget->countPerfect++;
+
+			_label->runAction(Sequence::create(ScaleTo::create(0.3, 1), shake, nullptr));
+			MyParticle::RunEffectStar(this->getPosition(), (Layer*) this->getParent());
 		}
 		else if (percen > 30 && percen < 100)
 		{
@@ -154,24 +164,17 @@ void TapButton::CheckLabel(float percen, bool check)
 			score = GREAT;
 			mTarget->score += 200 * mTarget->scoreMul;
 			mTarget->countGreat++;
+			_label->runAction(Sequence::create(ScaleTo::create(0.3, 1), shake, nullptr));
 		}
 	}
 	else 
 	{
 		_label->setColor(Color3B(255, 0, 0));
 		_label->setString("Miss!");
+		_label->runAction(Sequence::create(ScaleTo::create(0.3, 1), shake, nullptr));
 	}
 	
-	_label->setScale(2);
-	auto shake= Repeat::create(
-		Sequence::create(
-			MoveBy::create(0.08f, Vec2(20, 0)),
-			MoveBy::create(0.08f, Vec2(-20, 0)),
-			MoveBy::create(0.012f, Vec2(0, 10)),
-			MoveBy::create(0.012f, Vec2(0, -10)),
-			nullptr), 2);
 
-	_label->runAction(Sequence::create(ScaleTo::create(0.3,1),shake,nullptr));
 }
 
 void TapButton::SetCanActive(bool is)

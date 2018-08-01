@@ -6,6 +6,7 @@ using namespace Define;
 
 Monster::Monster()
 {
+	this->autorelease();
 	Vector<SpriteFrame*> runFL = loadAnim("Monster/frog.xml", "run");
 	Vector<SpriteFrame*> dieFL = loadAnim("Monster/frog.xml", "die");
 	Vector<SpriteFrame*> idleFL = loadAnim("Monster/frog.xml", "idle");

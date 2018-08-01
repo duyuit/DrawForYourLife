@@ -4,6 +4,7 @@
 #include "MonkeyMonster.h"
 Coconut_Monkey::Coconut_Monkey()
 {
+	this->autorelease();
 	this->initWithFile("Monster/Coconut.png");
 	auto physic_body = PhysicsBody::createCircle(this->getContentSize().width / 2);
 	physic_body->setRotationEnable(true);
