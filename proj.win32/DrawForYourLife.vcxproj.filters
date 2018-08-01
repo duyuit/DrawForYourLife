@@ -143,6 +143,18 @@
     <ClCompile Include="..\Classes\BossPlane.cpp">
       <Filter>Game\Monster\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\SonicRollSky.cpp">
+      <Filter>Game\Sonic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameOverLayer.cpp">
+      <Filter>Game\GameComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LevelMapDesert.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LevelMapStone.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -292,6 +304,18 @@
     </ClInclude>
     <ClInclude Include="..\Classes\BossPlane.h">
       <Filter>Game\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SonicRollSky.h">
+      <Filter>Game\Sonic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameOverLayer.h">
+      <Filter>Game\GameComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LevelMapDesert.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LevelMapStone.h">
+      <Filter>Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

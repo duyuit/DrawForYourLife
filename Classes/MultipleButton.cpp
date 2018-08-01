@@ -240,30 +240,6 @@ void MultipleButton::CheckLabel(float percen, bool check)
 	_label->setVisible(true);
 	_border->setVisible(false);
 	mouseBar->setVisible(false);
-
-	if (check)
-	{
-		if (percen < 50)
-		{
-			_label->setColor(Color3B(255, 0, 128));
-			_label->setString("Perfect!");
-			_mSonic->score += 300 * _button_count * _mSonic->scoreMul;
-			_mSonic->countPerfect++;
-		}
-		else if (percen >= 50 && percen < 100)
-		{
-			_label->setColor(Color3B(0, 255, 255));
-			_label->setString("Great!");
-			_mSonic->score += 200 * _button_count * _mSonic->scoreMul;
-			_mSonic->countGreat++;
-		}
-	}
-	else 
-	{
-		_label->setColor(Color3B(255, 0, 0));
-		_label->setString("Miss!");
-	}
-
 	_label->setScale(2);
 	auto shake = Repeat::create(
 		Sequence::create(
@@ -272,6 +248,32 @@ void MultipleButton::CheckLabel(float percen, bool check)
 			MoveBy::create(0.012f, Vec2(0, 10)),
 			MoveBy::create(0.012f, Vec2(0, -10)),
 			nullptr), 2);
+	if (check)
+	{
+		if (percen < 50)
+		{
+			_label->setColor(Color3B(255, 0, 128));
+			_label->setString("Perfect!");
+			_mSonic->score += 300 * _button_count * _mSonic->scoreMul;
+			_mSonic->countPerfect++;
+			_label->runAction(Sequence::create(ScaleTo::create(0.3, 1), shake, nullptr));
+			MyParticle::RunEffectStar(this->getPosition(), (Layer*) this->getParent());
+		}
+		else if (percen >= 50 && percen < 100)
+		{
+			_label->setColor(Color3B(0, 255, 255));
+			_label->setString("Great!");
+			_mSonic->score += 200 * _button_count * _mSonic->scoreMul;
+			_mSonic->countGreat++;
+			_label->runAction(Sequence::create(ScaleTo::create(0.3, 1), shake, nullptr));
+		}
+	}
+	else 
+	{
+		_label->setColor(Color3B(255, 0, 0));
+		_label->setString("Miss!");
+		_label->runAction(Sequence::create(ScaleTo::create(0.3, 1), shake, nullptr));
+	}
 
-	_label->runAction(Sequence::create(ScaleTo::create(0.3, 1), shake, nullptr));
+	
 }
