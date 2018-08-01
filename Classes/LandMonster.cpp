@@ -4,7 +4,7 @@
 
 LandMonster::LandMonster()
 {
-
+	this->autorelease();
 
 	//move_ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/frog.xml","move"), 0.05f)));
 	////run_slow_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_slow_FL, 0.1f)));

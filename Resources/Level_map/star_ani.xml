@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Animations>
+  <Animation name="star_effect" imagePath="Level_map/star_effect.png" width="5000" height="1000">
+    <sprite x="188" y="606" w="157" h="58" oX="188" oY="606" oW="525" oH="4077" />
+    <sprite x="736" y="564" w="166" h="68" oX="736" oY="564" oW="525" oH="4077" />
+    <sprite x="1362" y="553" w="178" h="73" oX="1362" oY="553" oW="525" oH="4077" />
+    <sprite x="1997" y="526" w="198" h="84" oX="1997" oY="526" oW="525" oH="4077" />
+    <sprite x="2521" y="512" w="220" h="95" oX="2521" oY="512" oW="525" oH="4077" />
+    <sprite x="3079" y="486" w="265" h="127" oX="3079" oY="486" oW="525" oH="4077" />
+    <sprite x="3640" y="478" w="292" h="138" oX="3640" oY="478" oW="525" oH="4077" />
+    <sprite x="4190" y="462" w="320" h="131" oX="4190" oY="462" oW="525" oH="4077" />
+  </Animation>
+</Animations>

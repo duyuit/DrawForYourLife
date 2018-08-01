@@ -96,7 +96,7 @@ void Level1Scene::update(float dt)
 	if (_mSonic->isDelete)
 		Director::getInstance()->replaceScene(this->createScene());
 	LevelScene::update(dt);
-	
+
 }
 
 void Level1Scene::updateStart(float dt)
@@ -114,13 +114,7 @@ bool Level1Scene::init()
 {
 	LevelScene::init();
 
-	boss = new BossLv1(Vec2(1300, 317),(Layer*)this);
-	//boss->Flip();
-	this->addChild(boss);
-
-
-
-
+	auto boss = new BossLv1(Vec2(1100, 300),(Layer*)this);
 
 	LoadMap("LevelScene/StoneMap/lv1.tmx");
 	//CreateTileLayer("LevelScene/StoneMap/lv1_layer");

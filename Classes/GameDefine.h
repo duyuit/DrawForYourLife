@@ -21,9 +21,7 @@ namespace Define {
 		MUSHROOM,
 		CHEST,
 		COCONUT,
-		FINISH,
-		DRILL,
-		BOSS
+		FINISH
 	};
 	enum SCENE_NAME
 	{
