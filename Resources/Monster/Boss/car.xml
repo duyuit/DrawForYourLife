@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Animations>
-  <Animation name="run" imagePath="Monster/Boss/car.png" width="440" height="348">
-    <sprite x="0" y="0" w="434" h="184" oX="51" oY="13" oW="389" oH="374" />
-    <sprite x="0" y="184" w="434" h="184" oX="51" oY="187" oW="389" oH="374" />
+  <Animation name="run" imagePath="Monster/Boss/front_car.png" width="440" height="348">
+    <sprite x="0" y="0" w="374" h="184" oX="51" oY="13" oW="389" oH="374" />
+    <sprite x="0" y="184" w="374" h="184" oX="51" oY="187" oW="389" oH="374" />
   </Animation>
 </Animations>
