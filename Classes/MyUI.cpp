@@ -337,7 +337,7 @@ void MyUI::update(float dt)
 	if (mySonic->isGameOver)
 	{
 		count_to_gameover++;
-		if (count_to_gameover >= 150)
+		if (count_to_gameover >= 90)
 		{
 			_combo->removeAllChildren();
 			_combo->unscheduleUpdate();
