@@ -7,7 +7,6 @@ class Level1Scene:public LevelScene
 public:
 	Level1Scene();
 	~Level1Scene();
-	BossLv1 *boss;
 	void NextScene() override;
 	void LoadMap(string path) override;
 	virtual void  ReloadScene() override;

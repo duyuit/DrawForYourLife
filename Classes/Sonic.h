@@ -14,7 +14,6 @@
 #include "SonicStopState.h"
 #include "SonicCounterState.h"
 #include "SonicEndState.h"
-#include "SonicRollSky.h"
 #include "GameDefine.h"
 #include "GameParticle.h"
 #include "SmallRing.h"

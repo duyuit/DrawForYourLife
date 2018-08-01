@@ -80,6 +80,7 @@
  </objectgroup>
  <objectgroup name="DieLand">
   <object id="161" x="4142.2" y="1573.64" width="7818.42" height="30.303"/>
+  <object id="215" x="1752.17" y="1363.33" width="59.833" height="44"/>
   <object id="240" x="6269.7" y="1333.33" width="21.2121" height="69.697"/>
   <object id="241" x="6593.94" y="1209.09" width="12.1212" height="78.7879"/>
   <object id="242" x="6847.32" y="1108.43" width="7.55151" height="37.7576"/>

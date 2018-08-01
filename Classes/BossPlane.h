@@ -24,6 +24,5 @@ public:
 	void update(float dt);
 	int count_to_roll_wing = 0;
 	bool isOn = true;
-	void Flip(bool isFlip);
 };
 
