@@ -42,5 +42,24 @@
     <sprite x="202" y="507" w="105" h="44" oX="202" oY="507" oW="329" oH="438" />
     <sprite x="41" y="501" w="96" h="66" oX="41" oY="501" oW="329" oH="438" />
   </Animation>
+<Animation name="dust1" imagePath="Particle/particle.png" width="532" height="1000">
+    <sprite x="279" y="596" w="53" h="56" oX="279" oY="596" oW="451" oH="253" />
+    <sprite x="343" y="598" w="53" h="52" oX="343" oY="598" oW="451" oH="253" />
+    <sprite x="411" y="598" w="47" h="50" oX="411" oY="598" oW="451" oH="253" />
+    <sprite x="476" y="599" w="46" h="49" oX="476" oY="599" oW="451" oH="253" />
+    <sprite x="285" y="664" w="46" h="43" oX="285" oY="664" oW="451" oH="253" />
+    <sprite x="351" y="666" w="44" h="40" oX="351" oY="666" oW="451" oH="253" />
+    <sprite x="420" y="667" w="31" h="39" oX="420" oY="667" oW="451" oH="253" />
+  </Animation>
+  <Animation name="dust2" imagePath="Particle/particle.png" width="532" height="1000">
+    <sprite x="15" y="594" w="53" h="56" oX="15" oY="594" oW="721" oH="270" />
+    <sprite x="79" y="596" w="53" h="52" oX="79" oY="596" oW="721" oH="270" />
+    <sprite x="147" y="596" w="47" h="50" oX="147" oY="596" oW="721" oH="270" />
+    <sprite x="212" y="597" w="46" h="49" oX="212" oY="597" oW="721" oH="270" />
+    <sprite x="21" y="662" w="46" h="43" oX="21" oY="662" oW="721" oH="270" />
+    <sprite x="87" y="664" w="44" h="40" oX="87" oY="664" oW="721" oH="270" />
+    <sprite x="156" y="665" w="31" h="39" oX="156" oY="665" oW="721" oH="270" />
+    <sprite x="220" y="669" w="28" h="31" oX="220" oY="669" oW="721" oH="270" />
+  </Animation>
 
 </Animations>
