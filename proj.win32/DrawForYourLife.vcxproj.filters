@@ -155,6 +155,12 @@
     <ClCompile Include="..\Classes\LevelMapStone.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\SonicIdleState.cpp">
+      <Filter>Game\Sonic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BossScene.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -315,6 +321,12 @@
       <Filter>Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\LevelMapStone.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SonicIdleState.h">
+      <Filter>Game\Sonic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BossScene.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>

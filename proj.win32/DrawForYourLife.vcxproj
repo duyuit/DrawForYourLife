@@ -156,6 +156,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\BossDrill.cpp" />
     <ClCompile Include="..\Classes\BossLv1.cpp" />
     <ClCompile Include="..\Classes\BossPlane.cpp" />
+    <ClCompile Include="..\Classes\BossScene.cpp" />
     <ClCompile Include="..\Classes\Coconut_Monkey.cpp" />
     <ClCompile Include="..\Classes\FinishFlag.cpp" />
     <ClCompile Include="..\Classes\FinishLayer.cpp" />
@@ -191,6 +192,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\SonicFallState.cpp" />
     <ClCompile Include="..\Classes\SonicHoldState.cpp" />
     <ClCompile Include="..\Classes\SonicHurtState.cpp" />
+    <ClCompile Include="..\Classes\SonicIdleState.cpp" />
     <ClCompile Include="..\Classes\SonicJumpState.cpp" />
     <ClCompile Include="..\Classes\SonicRollChestState.cpp" />
     <ClCompile Include="..\Classes\SonicRollSky.cpp" />
@@ -210,6 +212,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\BossDrill.h" />
     <ClInclude Include="..\Classes\BossLv1.h" />
     <ClInclude Include="..\Classes\BossPlane.h" />
+    <ClInclude Include="..\Classes\BossScene.h" />
     <ClInclude Include="..\Classes\Coconut_Monkey.h" />
     <ClInclude Include="..\Classes\FinishFlag.h" />
     <ClInclude Include="..\Classes\FinishLayer.h" />
@@ -247,6 +250,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\SonicFallState.h" />
     <ClInclude Include="..\Classes\SonicHoldState.h" />
     <ClInclude Include="..\Classes\SonicHurtState.h" />
+    <ClInclude Include="..\Classes\SonicIdleState.h" />
     <ClInclude Include="..\Classes\SonicJumpState.h" />
     <ClInclude Include="..\Classes\SonicRollChestState.h" />
     <ClInclude Include="..\Classes\SonicRollSky.h" />

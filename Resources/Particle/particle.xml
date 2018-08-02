@@ -17,6 +17,16 @@
     <sprite x="117" y="75" w="38" h="41" oX="117" oY="75" oW="118" oH="161" />
   </Animation>
 
+  <Animation name="electric" imagePath="Particle/particle.png" width="1000" height="2000">
+    <sprite x="14" y="789" w="89" h="51" oX="14" oY="789" oW="929" oH="1204" />
+    <sprite x="143" y="744" w="138" h="135" oX="143" oY="744" oW="929" oH="1204" />
+    <sprite x="294" y="744" w="173" h="138" oX="294" oY="744" oW="929" oH="1204" />
+    <sprite x="26" y="917" w="248" h="139" oX="26" oY="917" oW="929" oH="1204" />
+    <sprite x="543" y="729" w="125" h="140" oX="543" oY="729" oW="929" oH="1204" />
+    <sprite x="731" y="729" w="115" h="137" oX="731" oY="729" oW="929" oH="1204" />
+    <sprite x="896" y="730" w="77" h="110" oX="896" oY="730" oW="929" oH="1204" />
+  </Animation>
+
   <Animation name="land_smoke" imagePath="Particle/particle.png" width="532" height="300">
     <sprite x="1" y="142" w="72" h="60" oX="1" oY="142" oW="212" oH="456" />
     <sprite x="95" y="141" w="75" h="54" oX="95" oY="141" oW="212" oH="456" />

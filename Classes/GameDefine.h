@@ -37,6 +37,9 @@ namespace Define {
 		BUTTON_RIGHT
 	
 	};
+	static float default_sonic_mass = 441;
+	static float boss_sonic_mass = 700;
+
 	static string button_left_green_path = "Button/button_left_green.png";
 	static string button_right_green_path = "Button/button_right_green.png";
 	static string button_left_grey_path = "Button/button_left_grey.png";

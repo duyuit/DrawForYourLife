@@ -15,6 +15,7 @@
 #include "SonicCounterState.h"
 #include "SonicEndState.h"
 #include "SonicRollSky.h"
+#include "SonicIdleState.h"
 #include "GameDefine.h"
 #include "GameParticle.h"
 #include "SmallRing.h"
@@ -67,6 +68,9 @@ public:
 	bool isRed = false;
 	bool isGameOver = false;
 
+	bool isFightingBoss = false;
+	Vec2 position_when_FightingBoss = Vec2(0, 0);
+
 	void SwapAni(RefPtr<Animate> *&blue, RefPtr<Animate> *&red); //Swap red and blue Sonic
 	void SwapAllAni();
 	void DisableCurrentButton();
@@ -89,6 +93,7 @@ private:
 	RefPtr<Animate>  *stop_Ani;
 	RefPtr<Animate>  *counter_Ani;
 	RefPtr<Animate>  *end_Ani;
+	RefPtr<Animate>  *idle_Ani;
 
 
 	RefPtr<Animate>  *run_fast_red_Ani;
@@ -102,7 +107,7 @@ private:
 	RefPtr<Animate>  *stop_red_Ani;
 	RefPtr<Animate>  *counter_red_Ani;
 	RefPtr<Animate>  *end_red_Ani;
-
+	RefPtr<Animate>  *idle_red_Ani;
 	Sprite* dust = nullptr;
 	Sprite* flame = nullptr;
 	MotionStreak* streak = nullptr;

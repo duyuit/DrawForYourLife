@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Animations>
+  <Animation name="idle" imagePath="Sonic/99072.png" width="2048" height="7000">
+    <sprite x="123" y="56" w="105" h="155" oX="123" oY="56" oW="-77" oH="374" />
+    <sprite x="263" y="51" w="105" h="155" oX="263" oY="51" oW="-77" oH="374" />
+    <sprite x="388" y="54" w="97" h="154" oX="388" oY="54" oW="-77" oH="374" />
+    <sprite x="263" y="51" w="105" h="155" oX="263" oY="51" oW="-77" oH="374" />
+  </Animation>
+
 <Animation name="end" imagePath="Sonic/99072.png" width="2048" height="7000">
     <sprite x="24" y="5405" w="185" h="127" oX="24" oY="5405" oW="6327" oH="2030" />
     <sprite x="280" y="5411" w="180" h="122" oX="280" oY="5411" oW="6327" oH="2030" />

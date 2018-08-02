@@ -1,6 +1,6 @@
 #include "BossDrill.h"
 
-
+#include "BossLv1.h"
 
 BossDrill::BossDrill()
 
@@ -31,6 +31,9 @@ BossDrill::BossDrill()
 	drill_body->setCollisionBitmask(0);
 	drill->setPhysicsBody(drill_body);
 
+
+
+
 	this->addChild(front_car);
 	this->addChild(back_car,-1);
 	this->addChild(drill);
@@ -39,6 +42,7 @@ BossDrill::BossDrill()
 
 
 	 chain1 = Sprite::create("Monster/Boss/chain.png");
+	 chain1->setTag(Define::land);
 	chain1->setAnchorPoint(Vec2(0, 0.5));
 	chain1->setPosition(Vec2(30, -45 - drill->getContentSize().height / 2));
 	 chain2 = Sprite::create("Monster/Boss/chain.png");
@@ -49,7 +53,14 @@ BossDrill::BossDrill()
 	chain3->setAnchorPoint(Vec2(0, 0.5));
 	chain3->setPosition(Vec2(30, -45 - drill->getContentSize().height / 2));
 
-
+	auto chain_body = PhysicsBody::createBox(Size(500 * 3, 38));
+	chain_body->setGravityEnable(false);
+	chain_body->setDynamic(false);
+	chain_body->setCategoryBitmask(2);
+	chain_body->setContactTestBitmask(1);
+	chain_body->setCollisionBitmask(1);
+	chain_body->setPositionOffset(Vec2(chain1->getContentSize().width/2+30,0));
+	chain1->setPhysicsBody(chain_body);
 
 	this->addChild(chain1,-1);
 	this->addChild(chain2,-1);
@@ -68,32 +79,45 @@ void BossDrill::update(float dt)
 	count_to_generate_dust++;
 	if (count_to_generate_dust == 20)
 	{
+		//AlmostBreak();
 		count_to_generate_dust = 0;
-		GenerateDust();
+		if (front_car->isFlipX())
+			MyParticle::CreateCarSmoke(this->getPosition() + Vec2(50, 0), this->getParent());
+		else
+			MyParticle::CreateCarSmoke(this->getPosition() + Vec2(front_car->getContentSize().width - 90, 5), this->getParent());
+
 	}
 }
 
-void BossDrill::GenerateDust()
+void BossDrill::AlmostBreak()
 {
-	auto dust = Sprite::create();
-	int a = RandomHelper::random_int(1, 2);
-	Animate* anim;
-	if(a==1)
-		anim = Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Particle/particle.xml", "dust1"), 0.05));
-	else
-		anim = Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Particle/particle.xml", "dust2"), 0.05));
-	dust->runAction(anim);
-	dust->runAction(Sequence::create(DelayTime::create(0.3), RemoveSelf::create(),NULL));
-	if(front_car->isFlipX())
-		dust->setPosition(this->getPosition()+Vec2(50,0));
-	else
-		dust->setPosition(this->getPosition() +Vec2(front_car->getContentSize().width-90,5));
-	this->getParent()->addChild(dust);
+	MyParticle::CreateElectric(Vec2(300,-20), this);
+	MyParticle::CreateElectric(Vec2(150,-50), this);
+	MyParticle::CreateCarSmoke(Vec2(150, -50), this);
+	MyParticle::CreateCarSmoke(Vec2(300, -100), this);
 }
+
+//void BossDrill::GenerateDust()
+//{
+//	auto dust = Sprite::create();
+//	int a = RandomHelper::random_int(1, 2);
+//	Animate* anim;
+//	if(a==1)
+//		anim = Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Particle/particle.xml", "dust1"), 0.05));
+//	else
+//		anim = Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Particle/particle.xml", "dust2"), 0.05));
+//	dust->runAction(anim);
+//	dust->runAction(Sequence::create(DelayTime::create(0.3), RemoveSelf::create(),NULL));
+//	if(front_car->isFlipX())
+//		dust->setPosition(this->getPosition()+Vec2(50,0));
+//	else
+//		dust->setPosition(this->getPosition() +Vec2(front_car->getContentSize().width-90,5));
+//	this->getParent()->addChild(dust);
+//}
 
 void BossDrill::Flip(bool isFlip)
 {
-
+	isLeft = isFlip;
 	front_car->setFlipX(isFlip);
 	back_car->setFlipX(isFlip);
 	drill->setFlipX(isFlip);
@@ -119,21 +143,28 @@ void BossDrill::FireDrill()
 {
 
 	int delta_posx = chain1->getContentSize().width;
-	float delta = 0.666666;
-	drill->runAction(MoveBy::create(2, Vec2(-delta_posx * 3 + 100, 0)));
+	float delta = 0.7666666;
+	drill->runAction(MoveBy::create(2.3, Vec2(-delta_posx * 3, 0)));
 	auto return_drill = CallFunc::create(CC_CALLBACK_0(BossDrill::ReturnDrill, this));
-	chain1->runAction(MoveBy::create(2, Vec2(-delta_posx * 3 + 100, 0)));
-	chain2->runAction(Sequence::create(DelayTime::create(delta), MoveBy::create(delta * 2, Vec2(-delta_posx * 2 + 100, 0)), NULL));
-	chain3->runAction(Sequence::create(DelayTime::create(delta * 2), MoveBy::create(delta, Vec2(-delta_posx + 100, 0)), return_drill, NULL));
+	chain1->runAction(MoveBy::create(2.3, Vec2(-delta_posx * 3, 0)));
+	chain2->runAction(Sequence::create(DelayTime::create(delta), MoveBy::create(delta * 2, Vec2(-delta_posx * 2 , 0)), NULL));
+	chain3->runAction(Sequence::create(DelayTime::create(delta * 2), MoveBy::create(delta, Vec2(-delta_posx , 0)), return_drill, NULL));
 
 }
 
 void BossDrill::ReturnDrill()
 {
+	if (parent != nullptr)
+	{
+		auto parent1 = (BossLv1*)parent;
+		parent1->SetState(BossLv1::GETBACKDRILL);
+
+	}
+
 	int delta_posx = chain1->getContentSize().width;
-	float delta = 0.666666;
-	drill->runAction(MoveBy::create(2, Vec2(delta_posx * 3-100, 0)));
-	chain1->runAction(MoveBy::create(2, Vec2(delta_posx *3 - 100,0)));
-	chain2->runAction(MoveBy::create(delta*2, Vec2(delta_posx * 2 - 100, 0)));
-	chain3->runAction(MoveBy::create(delta, Vec2(delta_posx - 100,0)));
+	float delta = 0.7666666;
+	drill->runAction(MoveBy::create(2.3, Vec2(delta_posx * 3, 0)));
+	chain1->runAction(MoveBy::create(2.3, Vec2(delta_posx *3 ,0)));
+	chain2->runAction(MoveBy::create(delta*2, Vec2(delta_posx * 2 , 0)));
+	chain3->runAction(MoveBy::create(delta, Vec2(delta_posx,0)));
 }

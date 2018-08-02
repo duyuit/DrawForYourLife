@@ -39,7 +39,7 @@ Sonic::Sonic()
 	stop_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(false, "stop"), 0.05f)));
 	counter_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(false, "counter"), 0.05f)));
 	end_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(false, "end"), 0.05f)));
-	
+	idle_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(false, "idle"), 0.1f)));
 	
 	//Red Sonic Ani
 	run_fast_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_fast_red_FL, 0.01f)));
@@ -52,7 +52,7 @@ Sonic::Sonic()
 	roll_chest_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(roll_chest_red_FL, 0.03f)));
 	stop_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(true, "stop"), 0.05f)));
 	counter_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(true, "counter"), 0.05f)));
-	end_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(true, "end"), 0.05f)));
+	end_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(true, "end"), 0.08f)));
 	
 	
 	
@@ -81,7 +81,7 @@ Sonic::Sonic()
 	mCurrentAnimate = run_fast_Ani;
 	mCurrentAction = mCurrentAnimate->get();
 
-	SetStateByTag(SonicState::StateAction::ROLL_IN_SKY);
+	SetStateByTag(SonicState::StateAction::FALL);
 	
 	this->setFlipX(true);
 	this->setTag(Define::Player);
@@ -190,16 +190,11 @@ void Sonic::update(float dt)
 	if(_roll_effect!=nullptr)
 	if (mCurrentState->GetState() != SonicState::ROLL && mCurrentState->GetState() != SonicState::ROLL_CHEST && _roll_effect->isVisible())
 		_roll_effect->setVisible(false);
-	//if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL
-	//	&& mCurrentState->GetState() != SonicState::StateAction::ROLL
-	//	&& mCurrentState->GetState() != SonicState::StateAction::DIE
-	//	&& mCurrentState->GetState() != SonicState::StateAction::RUNSKIP)
-	//	this->SetStateByTag(SonicState::StateAction::FALL);
-	/*if (count_to_reset_just_tap == 40)
-	{
-		count_to_reset_just_tap = 0;
-		mJustTap = NONE;
-	}*/
+	/*if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL
+		&& mCurrentState->GetState() != SonicState::StateAction::ROLL
+		&& mCurrentState->GetState() != SonicState::StateAction::DIE
+		&& mCurrentState->GetState() != SonicState::StateAction::RUNSKIP)
+		this->SetStateByTag(SonicState::StateAction::FALL);*/
 }
 
 void Sonic::handle_swipe(Vec2 start, Vec2 end)
@@ -246,6 +241,9 @@ void Sonic::SetStateByTag(SonicState::StateAction action)
 	if (isDelete) return;
 	switch (action)
 	{
+	case SonicState::IDLE:
+		this->SetState(new SonicIdleState(mData));
+		break;
 	case SonicState::ROLL_IN_SKY:
 		this->SetState(new SonicRollSky(mData));
 		break;
@@ -298,9 +296,16 @@ void Sonic::SetState(SonicState * state)
 	mCurrentState = state;
 
 	this->stopAction(mCurrentAction);
+	if (mCurrentState->GetState() != SonicState::HURT)
+		this->getPhysicsBody()->setContactTestBitmask(30);
 
 	switch (mCurrentState->GetState())
 	{
+	case SonicState::IDLE:
+		mCurrentAnimate = idle_Ani;
+		mCurrentAction = RepeatForever::create(mCurrentAnimate->get());
+		break;
+
 	case SonicState::ROLL_IN_SKY:
 		mCurrentAnimate = roll_sky_Ani;
 		mCurrentAction = RepeatForever::create(mCurrentAnimate->get());
@@ -329,10 +334,19 @@ void Sonic::SetState(SonicState * state)
 		return;
 		break;
 	case SonicState::HURT:
-		this->stopAllActions();
+		//this->stopAllActions();
+	{
+		auto func = CallFunc::create([this]()
+		{
+			this->setVisible(true);
+		});
+		this->getPhysicsBody()->setContactTestBitmask(14);
+		this->runAction(Sequence::create(Blink::create(3, 15), func, nullptr));
 		mCurrentAnimate = hurt_Ani;
 		mCurrentAction = mCurrentAnimate->get();
-		break; 
+		break;
+	}
+	
 	case SonicState::RUNSKIP:
 		mCurrentAnimate = run_skip_Ani;
 		mCurrentAction = RepeatForever::create(mCurrentAnimate->get());
@@ -435,7 +449,7 @@ void Sonic::HandleCollision(Sprite * sprite)
 		//Bug fix: hurt but still can Active button
 		DisableCurrentButton();
 
-		this->runAction(Blink::create(3, 15));
+		
 		if (ringCollected > 0)
 		{
 			int t = ringCollected; //Temp variable
@@ -451,7 +465,7 @@ void Sonic::HandleCollision(Sprite * sprite)
 	else if (sprite->getTag() == Define::DRILL)
 	{
 		this->SetStateByTag(SonicState::HURT);
-		this->runAction(Blink::create(3, 15));
+	
 		if (ringCollected > 0)
 		{
 			int t = ringCollected; //Temp variable
