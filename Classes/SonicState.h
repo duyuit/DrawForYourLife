@@ -7,6 +7,7 @@ class SonicState
 public:
 	enum StateAction
 	{
+		IDLE,
 		RUN_SLOW,
 		RUN_NORMAL,
 		RUN_FAST,

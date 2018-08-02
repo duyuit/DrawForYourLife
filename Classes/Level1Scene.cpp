@@ -114,11 +114,15 @@ bool Level1Scene::init()
 {
 	LevelScene::init();
 
-	//boss = new BossLv1(Vec2(1300, 317),(Layer*)this);
+	auto boss = new BossLv1(Vec2(1100, 317),_mSonic,(Layer*)this);
 	//boss->Flip();
-	//this->addChild(boss);
+	this->addChild(boss);
+	boss->SetState(BossLv1::RUN);
 
 
+
+	_mSonic->isFightingBoss = true;
+	_mSonic->position_when_FightingBoss = _mSonic->getPosition();
 
 
 

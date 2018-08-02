@@ -18,31 +18,32 @@ TapButton::TapButton(Vec2 pos, Sonic* sprite, Layer* layer)
 
 
 	_progressbar = Sprite::create("GameComponents/progress.png");
-	_progressbar->setAnchorPoint(Vec2(0.5, 0));
+	_progressbar->setAnchorPoint(Vec2(1, 0));
 	
 
 	_border = Sprite::create("GameComponents/border.png");
-	_border->setPosition(this->getContentSize()*0.3 + Size(0,150));
-	_border->setAnchorPoint(Vec2(0.5, 0));
+	_border->setPosition(this->getContentSize()*0.3 + Size(50,150));
+	_border->setAnchorPoint(Vec2(1, 0));
 	_border->setVisible(false);
+	
 	this->addChild(_border,3);
 
 	_label = Label::createWithTTF("", font, 130);
 	_label->setAnchorPoint(Vec2(0.5f, 0));
 	_label->setVisible(false);
 	_label->enableOutline(Color4B::BLACK, 5);
-	_label->setPosition(this->getContentSize()*0.3 + Size(0, 150));
+	_label->setPosition(this->getContentSize()*0.3 + Size(50, 150));
 	this->addChild(_label, 2);
 
 	mouseBar = ProgressTimer::create(_progressbar);
 	mouseBar->setType(ProgressTimerType::BAR);
-	mouseBar->setAnchorPoint(Vec2(0.5, 0));
+	mouseBar->setAnchorPoint(Vec2(1, 0));
 	mouseBar->setBarChangeRate(Vec2(1, 0));
 	mouseBar->setMidpoint(Vec2(0.0, 0.0));
 	mouseBar->setReverseDirection(true);
 	mouseBar->setPercentage(0);
 	this->addChild(mouseBar, 2);
-	mouseBar->setPosition(this->getContentSize()*0.3 + Size(0,150));
+	mouseBar->setPosition(this->getContentSize()*0.3 + Size(50,150));
 
 	this->setScale(0.33);
 //	this->autorelease();
@@ -100,7 +101,7 @@ void TapButton::ActiveButton(BUTTON_TAG dir)
 	if (dir == mTag)
 	{
 		CheckLabel(mouseBar->getPercentage(), true);
-		//DeleteNow(true);
+		
 		isTrue = true;
 		SimpleAudioEngine::getInstance()->playEffect(Define::_music_combo_effect_path);
 		if (isLeft == 1)
@@ -108,21 +109,25 @@ void TapButton::ActiveButton(BUTTON_TAG dir)
 		else
 			this->initWithFile(Define::button_right_green_path);
 
+		auto func = CallFunc::create([this]()
+		{
+			DeleteNow(true);
+		});
 		this->runAction(Sequence::create(
 			MoveBy::create(0.05, Vec2(0, 25)),
 			MoveBy::create(0.05, Vec2(0, -25)),
 			MoveBy::create(0.05, Vec2(0, 10)),
 			MoveBy::create(0.05, Vec2(0, -10)),
+			func,
 			nullptr
 		));
 
-
-		if (this->getPositionX() - mTarget->getPositionX()>300)
+		if (this->getPositionX() - mTarget->getPositionX()>300 && !mTarget->isFightingBoss)
 			mTarget->SetStateByTag(SonicState::RUNSKIP);
 	}
 	else
 	{
-		CheckLabel(100, false);
+		
 		DeleteNow(false);
 	}
 }
@@ -181,17 +186,14 @@ void TapButton::SetCanActive(bool is)
 	canActive = is;
 	if (isActive)
 	{
-		if (mTarget->mCurrentState->GetState() == SonicState::HURT) return; //Bug fix: When hurt monster
+		//if (mTarget->mCurrentState->GetState() == SonicState::HURT) return; //Bug fix: When hurt monster
 
 		mTarget->mCurrentButton = this;
 		_border->setVisible(true);
-		auto func = CallFunc::create([this]()
-		{
-			if (isDelete) return;
-			mouseBar->runAction(Spawn::create(Blink::create(0.7, 8),ProgressTo::create(0.3, 100.0f),nullptr));
-			
-		});
-		mouseBar->runAction(Sequence::create(ProgressTo::create(time, 83.0f), func, nullptr));
+
+		/*auto func = CallFunc::create(CC_CALLBACK_0(TapButton::DeleteNow, this, false));
+
+		mouseBar->runAction(Sequence::create(ProgressTo::create(time, 100), func, nullptr));*/
 		switch (mTag)
 		{
 		case BUTTON_RIGHT:
@@ -214,16 +216,15 @@ void TapButton::Active()
 	isActive = true;
 	if (canActive)
 	{
-		if (mTarget->mCurrentState->GetState() == SonicState::HURT) return; //Bug fix: When hurt monster
+	//	if (mTarget->mCurrentState->GetState() == SonicState::HURT) return; //Bug fix: When hurt monster
 
 		mTarget->mCurrentButton = this;
 		auto func = CallFunc::create([this]()
 		{
-			if (isDelete) return;
-			mouseBar->runAction(Spawn::create(Blink::create(0.7, 8), ProgressTo::create(0.3, 100.0f), nullptr));
-
+			if (isDelete || isTrue) return;
+			DeleteNow(false);
 		});
-		mouseBar->runAction(Sequence::create(ProgressTo::create(time, 83.0f), func, nullptr));
+		mouseBar->runAction(Sequence::create(ProgressTo::create(time, 100), func, nullptr));
 		_border->setVisible(true);
 		switch (mTag)
 		{
@@ -263,6 +264,7 @@ void TapButton::DeleteNow(bool check)
 	}
 	else
 	{
+		CheckLabel(100, false);
 		isTrue = false;
 		if(_break_Ani!=nullptr)
 		this->runAction(Sequence::create(_break_Ani->get(), RemoveSelf::create(), nullptr));
@@ -279,7 +281,7 @@ void TapButton::update(float dt)
 	if (isDelete) return;
 	if (this->getPositionX() < mTarget->getPositionX() && !use_for_Hold)
 	{
-		CheckLabel(100, false);
+		
 		DeleteNow(false);
 	}
 		

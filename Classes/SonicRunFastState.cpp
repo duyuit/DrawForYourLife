@@ -16,7 +16,25 @@ SonicRunFastState::~SonicRunFastState()
 
 void SonicRunFastState::update()
 {
-	this->mPlayerData->player->SetVelocityX(340);
+	if (mPlayerData->player->isFightingBoss)
+	{
+		if (mPlayerData->player->getPositionX() - mPlayerData->player->position_when_FightingBoss.x >= 10)
+		{
+			mPlayerData->player->isLeft = true;
+			this->mPlayerData->player->SetVelocityX(-340);
+		}else
+			if (-mPlayerData->player->getPositionX() + mPlayerData->player->position_when_FightingBoss.x >= 10)
+			{
+				mPlayerData->player->isLeft = false;
+				this->mPlayerData->player->SetVelocityX(340);
+			}
+			else
+			{
+				mPlayerData->player->SetStateByTag(SonicState::IDLE);
+				return;
+			}
+	}
+	//this->mPlayerData->player->SetVelocityX(0);
 	if (this->mPlayerData->player->GetVelocity().y < -5)
 		this->mPlayerData->player->SetStateByTag(SonicState::StateAction::FALL);
 }

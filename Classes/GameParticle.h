@@ -70,7 +70,28 @@ namespace MyParticle
 			layer->addChild(wind);
 		}	
 	};
-
+	static void CreateCarSmoke(Vec2 pos, Node* node)
+	{
+		auto dust = Sprite::create();
+		int a = RandomHelper::random_int(1, 2);
+		Animate* anim;
+		if (a == 1)
+			anim = Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Particle/particle.xml", "dust1"), 0.05));
+		else
+			anim = Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Particle/particle.xml", "dust2"), 0.05));
+		dust->runAction(anim);
+		dust->runAction(Sequence::create(DelayTime::create(0.3), RemoveSelf::create(), NULL));
+		dust->setPosition(pos);
+		node->addChild(dust);
+	}
+	static void CreateElectric(Vec2 pos, Node* node)
+	{
+		auto ele = Sprite::create();
+		ele->setPosition(pos);
+		ele->runAction(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Particle/particle.xml", "electric"), 0.05)));
+		ele->runAction(Sequence::create(DelayTime::create(0.3), RemoveSelf::create(), nullptr));
+		node->addChild(ele);
+	}
 	static void RunEffectStar(Vec2 pos, Layer* layer) {
 		/*ccBezierConfig  bezier5;
 		ccBezierConfig  bezier1;
