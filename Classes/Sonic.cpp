@@ -7,6 +7,10 @@
 #include "Coconut_Monkey.h"
 Sonic::Sonic()
 {
+	this->autorelease();
+	this->removeAllChildrenWithCleanup(true);
+	this->removeAllComponents();
+	this->removeFromParentAndCleanup(true);
 	//Blue Sonic
 
 
@@ -81,7 +85,7 @@ Sonic::Sonic()
 	mCurrentAnimate = run_fast_Ani;
 	mCurrentAction = mCurrentAnimate->get();
 
-	SetStateByTag(SonicState::StateAction::ROLL_IN_SKY);
+	SetStateByTag(SonicState::StateAction::RUN_FAST);
 	
 	this->setFlipX(true);
 	this->setTag(Define::Player);
@@ -101,6 +105,7 @@ Sonic::~Sonic()
 int count_to_reset_just_tap = 0;
 void Sonic::update(float dt)
 {
+	
 	if (isDelete)
 		return;
 	//Set effects combo for Sonic 
@@ -123,6 +128,10 @@ void Sonic::update(float dt)
 		{
 			if (!isRed)
 			{
+				_transform_red->setVisible(true);
+				_transform_red->runAction(Sequence::create(FadeIn::create(0.1), _transform_red_Ani->get(), FadeOut::create(0.1), nullptr));
+				//_transform_red->setVisible(false);
+				
 				SwapAllAni();
 				isRed = true;
 			}
@@ -358,11 +367,16 @@ void Sonic::SetState(SonicState * state)
 		this->stopAllActions();
 		this->getPhysicsBody()->removeFromWorld();
 		
-		auto restart_scene = CallFunc::create([this]()
+		/*auto restart_scene = CallFunc::create([this]()
 		{
 			this->isDelete = true;
+		});*/
+		auto over_scene = CallFunc::create([this]()
+		{
+			this->isGameOver = true;
 		});
-		mCurrentAction =  Sequence::create(JumpBy::create(1.5, Vec2(-200, -400), 200, 1), nullptr);
+
+		mCurrentAction =  Sequence::create(JumpBy::create(1.5, Vec2(-200, -600), 200, 1), over_scene, nullptr);
 		break;
 
 	}
@@ -422,7 +436,6 @@ void Sonic::HandleCollision(Sprite * sprite)
 	else if (sprite->getTag() == Define::DIELAND && mCurrentState->GetState() != SonicState::DIE)
 	{
 		this->SetStateByTag(SonicState::DIE);
-		isGameOver = true;
 		return;
 	}
 
@@ -435,7 +448,7 @@ void Sonic::HandleCollision(Sprite * sprite)
 		//Bug fix: hurt but still can Active button
 		DisableCurrentButton();
 
-		this->runAction(Blink::create(3, 15));
+		this->runAction(Sequence::create(DelayTime::create(1), Blink::create(3, 15), nullptr));
 		if (ringCollected > 0)
 		{
 			int t = ringCollected; //Temp variable
@@ -451,7 +464,7 @@ void Sonic::HandleCollision(Sprite * sprite)
 	else if (sprite->getTag() == Define::DRILL)
 	{
 		this->SetStateByTag(SonicState::HURT);
-		this->runAction(Blink::create(3, 15));
+		this->runAction(Blink::create(2, 10));
 		if (ringCollected > 0)
 		{
 			int t = ringCollected; //Temp variable
@@ -529,7 +542,7 @@ void Sonic::updateStart(float dt)
 	_roll_effect->setScale(4,3);
 	_roll_effect->setOpacity(150);
 	_roll_effect->setAnchorPoint(Vec2(1, 0.5));
-	RefPtr<Animate>  *roll_effect_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Sonic/dash.xml", "dash"), 0.01f)));;;;
+	RefPtr<Animate>  *roll_effect_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Sonic/dash.xml", "dash"), 0.01f)));
 	_roll_effect->runAction(RepeatForever::create(roll_effect_Ani->get()));
 
 	//_roll_circle->setPosition(60,80);
@@ -537,6 +550,26 @@ void Sonic::updateStart(float dt)
 	//this->addChild(_roll_circle);
 	this->addChild(_roll_effect);
 	_roll_effect->setVisible(false);
+
+	//Transform red effect
+	_transform_red = Sprite::create();
+	_transform_red->setScale(1, 1.6);
+	_transform_red->setAnchorPoint(Vec2(1, 0.5));
+	_transform_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Sonic/transform.xml", "1"), 0.025f)));
+	//_transform_red->runAction(RepeatForever::create(transform_red_Ani->get()));
+	_transform_red->setPosition(170, 80);
+	this->addChild(_transform_red);
+	_transform_red->setVisible(false);
+
+	//Transform blue effect
+	_transform_blue = Sprite::create();
+	_transform_blue->setScale(1.5, 1.5);
+	_transform_blue->setAnchorPoint(Vec2(0.5, 0.5));
+	_transform_blue_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Sonic/transform.xml", "2"), 0.05f)));
+	_transform_blue->runAction(RepeatForever::create(_transform_blue_Ani->get()));
+	_transform_blue->setPosition(60, 80);
+	this->addChild(_transform_blue);
+	_transform_blue->setVisible(false);
 
 	//MotionStreak
 	streak = MotionStreak::create(2, 3, 60, Color3B::RED, "Particle/streak.png");
@@ -610,7 +643,6 @@ void Sonic::SwapAni(RefPtr<Animate> *&blue, RefPtr<Animate> *&red)
 
 void Sonic::SwapAllAni()
 {
-	
 	SwapAni(run_fast_Ani, run_fast_red_Ani);
 
 	SwapAni(jump_Ani, jump_red_Ani);
@@ -623,8 +655,11 @@ void Sonic::SwapAllAni()
 	SwapAni(stop_Ani, stop_red_Ani);
 	SwapAni(counter_Ani, counter_red_Ani);
 	SwapAni(end_Ani, end_red_Ani);
-	this->stopAllActions();
+	
 	this->SetStateByTag(mCurrentState->GetState());
+
+	if (mCurrentState->GetState() == SonicState::JUMP)
+		this->getPhysicsBody()->applyForce(Vec2(0, -13500000)); //Fix jump so high when change to Red
 }
 
 void Sonic::DisableCurrentButton()

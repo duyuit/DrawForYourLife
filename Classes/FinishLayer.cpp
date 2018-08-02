@@ -7,6 +7,7 @@ Button* button_board_next;
 //
 FinishLayer::FinishLayer(Sonic* mSonic, Layer* cur_scene)
 {
+	this->autorelease();
 	mySonic = mSonic;
 	current_scene = cur_scene;
 

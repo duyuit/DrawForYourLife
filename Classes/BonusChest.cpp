@@ -1,6 +1,7 @@
 #include "BonusChest.h"
 BonusChest::BonusChest(Sonic * sonic)
 {
+	this->autorelease();
 	_mSonic = sonic;
 
 	this->initWithFile("Item/chest.png", Rect(11, 81, 126, 105));

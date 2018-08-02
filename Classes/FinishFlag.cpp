@@ -4,6 +4,7 @@
 
 FinishFlag::FinishFlag()
 {
+	this->autorelease();
 	this->initWithFile("Item/finish-flag.png", Rect(307, 155, 132, 131));
 	this->setPosition(100, 100);
 	end = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Item/finish-flag.xml", "1"), 0.035f)));

@@ -114,16 +114,16 @@ bool Level1Scene::init()
 {
 	LevelScene::init();
 
-	boss = new BossLv1(Vec2(1300, 317),(Layer*)this);
+	//boss = new BossLv1(Vec2(1300, 317),(Layer*)this);
 	//boss->Flip();
-	this->addChild(boss);
+	//this->addChild(boss);
 
 
 
 
 
 	LoadMap("LevelScene/StoneMap/lv1.tmx");
-	//CreateTileLayer("LevelScene/StoneMap/lv1_layer");
+	CreateTileLayer("LevelScene/StoneMap/lv1_layer");
 	CreateParallaxNode("Map_stone/stone_bg3.png");
 
 	scheduleOnce(CC_SCHEDULE_SELECTOR(Level1Scene::updateStart), 0);

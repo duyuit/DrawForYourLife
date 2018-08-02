@@ -8,6 +8,7 @@ MultipleButton::MultipleButton()
 
 MultipleButton::MultipleButton(Vec2 pos, Sonic* sonic, Layer* layer,int button_count, float time)
 {
+	this->autorelease();
 	_mSonic = sonic;
 	
 	_progressbar =  Sprite::create("GameComponents/progress.png");

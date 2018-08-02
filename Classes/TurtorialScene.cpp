@@ -170,7 +170,7 @@ bool TurtorialScene::init()
 	LevelScene::init();
 	
 	LoadMap("LevelScene/StoneMap/tutorial.tmx");
-	//CreateTileLayer("LevelScene/StoneMap/tutorial");
+	CreateTileLayer("LevelScene/StoneMap/tutorial");
 	CreateParallaxNode("Map_stone/stone_bg3.png");
 	_listBonus.at(0)->_multiButton->unscheduleUpdate();
 
