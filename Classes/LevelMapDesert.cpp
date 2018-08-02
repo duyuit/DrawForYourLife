@@ -100,6 +100,7 @@ bool LevelMapDesert::init()
 			if (currentLevel < 2) {
 				auto gameScene = (LoadScene*)LoadScene::createScene();
 				gameScene->next_scene = (SCENE_NAME)currentLevel;
+				gameScene->next_scene_area = (SCENE_NAME)currentArea;
 				Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
 			}
 			/*if (currentLevel == 0) {
@@ -206,7 +207,7 @@ bool LevelMapDesert::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			setStar(0, 0);// pos 0 - 2 star
+			setStar(1, 0);// pos 0 - 2 star
 			board->setVisible(true);
 			isBoard = true;
 
@@ -241,7 +242,7 @@ bool LevelMapDesert::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			setStar(1, 0); // pos 1 - 1 star
+			setStar(2, 0); // pos 1 - 1 star
 			board->setVisible(true);
 			isBoard = true;
 		}

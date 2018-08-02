@@ -19,6 +19,7 @@ public:
 	bool onContactBegin(cocos2d::PhysicsContact & contact);
 	virtual bool init();
 	static cocos2d::Scene* createScene();
+	static cocos2d::Scene* createSceneArea(SCENE_AREA next_scene_area);
 	CREATE_FUNC(Level1Scene);
 };
 

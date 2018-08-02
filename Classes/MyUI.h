@@ -20,7 +20,7 @@ public:
 	Sprite* board;
 	LayerColor *layer = nullptr;
 
-	//bool isPause=false;
+
 	void SetCurrentScene(Layer* scene);
 	FinishLayer* finish = nullptr;
 

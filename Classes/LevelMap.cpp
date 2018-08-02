@@ -97,6 +97,7 @@ bool LevelMap::init()
 			if (currentLevel < 2) {
 				auto gameScene = (LoadScene*)LoadScene::createScene();
 				gameScene->next_scene = (SCENE_NAME)currentLevel;
+				gameScene->next_scene_area = (SCENE_NAME)currentArea;
 				Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
 			}
 			/*if (currentLevel == 0) {

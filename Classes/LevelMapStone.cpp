@@ -97,6 +97,11 @@ bool LevelMapStone::init()
 			if (currentLevel < 2) {
 				auto gameScene = (LoadScene*)LoadScene::createScene();
 				gameScene->next_scene = (SCENE_NAME)currentLevel;
+				gameScene->next_scene_area = (SCENE_NAME)currentArea;
+				Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
+			}
+			if (currentLevel == 2) {
+				auto gameScene = BossScene::createScene();
 				Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
 			}
 			/*if (currentLevel == 0) {
@@ -201,7 +206,7 @@ bool LevelMapStone::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			setStar(0, 0);// pos 0 - 2 star
+			setStar(1, 0);// pos 0 - 2 star
 			board->setVisible(true);
 			isBoard = true;
 
@@ -228,7 +233,7 @@ bool LevelMapStone::init()
 	button_level_1->setScale(levelScaleX, levelScaleY);
 	button_level_1->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_1->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
-	button_level_1->setPosition(Vec2(visibleSize.width / 1.87f, 0.58f*visibleSize.height));
+	button_level_1->setPosition(Vec2(visibleSize.width / 2.5f, 0.49*visibleSize.height));
 	button_level_1->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
 		switch (type)
 		{
@@ -236,7 +241,7 @@ bool LevelMapStone::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			setStar(1, 0); // pos 1 - 1 star
+			setStar(2, 0); // pos 1 - 1 star
 			board->setVisible(true);
 			isBoard = true;
 		}
@@ -249,8 +254,8 @@ bool LevelMapStone::init()
 
 	_label_1 = Label::createWithTTF("2", font, 30);
 	_label_1->setAnchorPoint(Vec2(0.5f, 0.5f));
-	_label_1->setVisible(false);
-	_label_1->setPosition(Vec2(visibleSize.width / 1.88f, 0.585f*visibleSize.height));
+	//_label_1->setVisible(false);
+	_label_1->setPosition(button_level_1 -> getPosition());
 	_label_1->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
 	this->addChild(_label_1, 3);
 
@@ -267,7 +272,7 @@ bool LevelMapStone::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			setStar(2, 0); // level 2 - 3 star
+			setStar(3, 0); // level 2 - 3 star
 			board->setVisible(true);
 			isBoard = true;
 		}
@@ -277,6 +282,12 @@ bool LevelMapStone::init()
 		}
 	});
 	this->addChild(button_level_2, 2);
+	_label_2 = Label::createWithTTF("3", font, 30);
+	_label_2->setAnchorPoint(Vec2(0.5f, 0.5f));
+	_label_2->setVisible(false);
+	_label_2->setPosition(Vec2(visibleSize.width / 2.55f, 0.6f*visibleSize.height));
+	_label_2->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
+	this->addChild(_label_2, 3);
 
 	// Level 3 button
 	button_level_3 = Button::create("Level_map/btn_level.png");
@@ -291,7 +302,7 @@ bool LevelMapStone::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			setStar(3, 0); // level 3 - 3 star
+			setStar(4, 0); // level 3 - 3 star
 			board->setVisible(true);
 			isBoard = true;
 
@@ -316,7 +327,7 @@ bool LevelMapStone::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			setStar(4, 0); // level 4 - 3 star
+			setStar(5, 0); // level 4 - 3 star
 			board->setVisible(true);
 			isBoard = true;
 		}
@@ -340,7 +351,7 @@ bool LevelMapStone::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			setStar(5, 0); // level 5 - 3 star
+			setStar(6, 0); // level 5 - 3 star
 			board->setVisible(true);
 			isBoard = true;
 		}
@@ -364,7 +375,7 @@ bool LevelMapStone::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			setStar(6, 0); // level bonus - 3 star
+			setStar(7, 0); // level bonus - 3 star
 			board->setVisible(true);
 			isBoard = true;
 		}
@@ -373,7 +384,6 @@ bool LevelMapStone::init()
 			break;
 		}
 	});
-	button_level_1->setVisible(false);
 	button_level_2->setVisible(false);
 	button_level_3->setVisible(false);
 	button_level_4->setVisible(false);

@@ -1,5 +1,6 @@
 #include "FinishLayer.h"
 #include "LevelScene.h"
+#include "LevelMap.h"
 Button* button_board_cancel;
 Button* button_board_round;
 //
@@ -213,8 +214,7 @@ FinishLayer::FinishLayer(Sonic* mSonic, Layer* cur_scene)
 		case ui::Widget::TouchEventType::ENDED:
 		{
 			//Code
-			auto scene = (LevelScene*)current_scene;
-			scene->NextScene();
+			Director::getInstance()->replaceScene(LevelMap::createScene());
 		}
 		break;
 		default:
@@ -239,7 +239,7 @@ FinishLayer::FinishLayer(Sonic* mSonic, Layer* cur_scene)
 			if (current_scene != nullptr)
 			{
 				auto scene = (LevelScene*)current_scene;
-				scene->ReloadScene();
+				scene->NextScene();
 			}
 		}
 		break;
