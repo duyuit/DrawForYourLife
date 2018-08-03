@@ -197,7 +197,7 @@ bool LevelMap::init()
 	this->addChild(button_back, 50);
 
 	// Level 0 button
-	button_level_0 = Button::create("Level_map/btn_level_green.png");
+	button_level_0 = Button::create("Level_map/btn_level.png");
 	button_level_0->setScale(visibleSize.width / (button_level_0->getContentSize().width * 23), visibleSize.height / (button_level_0->getContentSize().height * 18));
 	button_level_0->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_0->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
