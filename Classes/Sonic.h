@@ -70,6 +70,7 @@ public:
 
 	bool isFightingBoss = false;
 	Vec2 position_when_FightingBoss = Vec2(0, 0);
+	Node* boss=nullptr;
 
 	void SwapAni(RefPtr<Animate> *&blue, RefPtr<Animate> *&red); //Swap red and blue Sonic
 	void SwapAllAni();

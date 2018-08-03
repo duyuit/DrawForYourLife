@@ -387,7 +387,9 @@ void LevelScene::LoadMap(string path)
 	catch (...) {};
 }
 
-void LevelScene::SetViewPointCenter(Point position, bool isFast)
+
+
+void LevelScene::SetViewPointCenter(Point position, Vec2 delta)
 {
 	if (_tileMap == nullptr) return;
 	Size winSize = _director->getWinSize();
@@ -402,8 +404,8 @@ void LevelScene::SetViewPointCenter(Point position, bool isFast)
 	Vec2 viewPoint;
 
 
-	viewPoint = centerOfView - actualPosition + Vec2(-200, 0);
-	//viewPoint = centerOfView - actualPosition + Vec2(-400, 0);
+	//viewPoint = centerOfView - actualPosition + Vec2(-200, 0);
+	viewPoint = centerOfView - actualPosition + delta;
 	auto currentCameraPosition = this->getPosition();
 
 	/*if (_mSonic->mCurrentState->GetState() != SonicState::ROLL_CHEST)
@@ -467,7 +469,7 @@ void LevelScene::update(float dt)
 		return;
 
 	if (_mSonic->getPosition().x < 0) _mSonic->setPosition(0, _mSonic->getPosition().y);
-	SetViewPointCenter(_mSonic->getPosition(), true);
+	SetViewPointCenter(_mSonic->getPosition());
 	CheckButton();
 }
 
@@ -499,7 +501,7 @@ bool LevelScene::init()
 	//Add Sonic
 	_mSonic = new Sonic();
 	_mSonic->setPosition(500, 200);
-	SetViewPointCenter(_mSonic->getPosition(), true);
+	SetViewPointCenter(_mSonic->getPosition());
 	this->addChild(_mSonic);
 
 	_mSonic->setZOrder(7);

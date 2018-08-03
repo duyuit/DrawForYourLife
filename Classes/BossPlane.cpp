@@ -16,6 +16,7 @@ BossPlane::BossPlane()
 
 	auto face_body = PhysicsBody::createBox(face->getContentSize()+Size(100,0));
 	face_body->setGravityEnable(false);
+	face_body->setContactTestBitmask(1);
 	face_body->setDynamic(false);
 	face->setPhysicsBody(face_body);
 

@@ -1,6 +1,14 @@
 #include "BossLv1.h"
 
 
+void BossLv1::GenerateButton()
+{
+	currentButton = new TapButton(this->getPosition() + Vec2(0, 300), _mSonic, (Layer*)this->getParent());
+	currentButton->time = 0.8;
+	currentButton->SetCanActive(true);
+	currentButton->_action = SonicState::ROLL_IN_SKY;
+}
+
 BossLv1::BossLv1(Vec2 pos , Sonic* sonic, Layer* layer)
 {
 	drill = new BossDrill();
@@ -31,6 +39,7 @@ BossLv1::BossLv1(Vec2 pos , Sonic* sonic, Layer* layer)
 	layer->addChild(drill,10);
 	layer->addChild(plane,9);
 	this->setPosition(pos);
+	_mSonic->boss = this;
 
 }
 
@@ -48,16 +57,14 @@ void BossLv1::SetState(STATE state)
 		break;
 	case BossLv1::RUN:
 	{
+		
 		drill->chain1->setVisible(false);
 		drill->chain2->setVisible(false);
 		drill->chain3->setVisible(false);
 
 		drill->chain1->getPhysicsBody()->setCollisionBitmask(0);
 
-		currentButton = new TapButton(this->getPosition() + Vec2(0, 300), _mSonic, (Layer*)this->getParent());
-		currentButton->time = 0.8;
-		currentButton->SetCanActive(true);
-		currentButton->_action = SonicState::ROLL_IN_SKY;
+		GenerateButton();
 		
 	
 			
@@ -78,10 +85,9 @@ void BossLv1::SetState(STATE state)
 		break;
 	case BossLv1::RUNBACK:
 	{
-		currentButton = new TapButton(this->getPosition() + Vec2(0, 300), _mSonic, (Layer*)this->getParent());
-		currentButton->time = 0.8;
-		currentButton->SetCanActive(true);
-		currentButton->_action = SonicState::ROLL_IN_SKY;
+	
+		GenerateButton();
+	
 		auto flip2 = CallFunc::create([this]() {
 			drill->Flip(true);
 			plane->Flip(true);
@@ -112,20 +118,14 @@ void BossLv1::SetState(STATE state)
 		drill->chain3->setVisible(true);
 
 		drill->chain1->getPhysicsBody()->setCollisionBitmask(1);
-		currentButton = new TapButton(this->getPosition()+Vec2(0,300), _mSonic, (Layer*)this->getParent());
-		currentButton->time = 0.8;
-		currentButton->SetCanActive(true);
-		currentButton->_action = SonicState::ROLL_IN_SKY;
+		GenerateButton();
 		drill->FireDrill(); 
 		}
 		break;	
 	case BossLv1::GETBACKDRILL:
 		{
 		delete currentButton;
-		currentButton = new TapButton(this->getPosition() + Vec2(0, 300), _mSonic, (Layer*)this->getParent());
-		currentButton->time = 0.6;
-		currentButton->SetCanActive(true);
-		currentButton->_action = SonicState::ROLL_IN_SKY;
+		GenerateButton();
 		}
 		break;
 	default:
@@ -180,12 +180,20 @@ void BossLv1::update(float dt)
 						_mSonic->getPhysicsBody()->applyImpulse(Vec2(0, 100000));
 						_mSonic->isLeft = true;
 						currentButton = nullptr;
+						maximum_hit = 1;
+				}else
+				if (_mSonic->mCurrentState->GetState() == SonicState::ROLL_IN_SKY && currentButton->isTrue)
+				{
+					
+						_mSonic->runAction(MoveTo::create(0.5, plane->getPosition()));
+						currentButton = nullptr;
+					
 				}
-
+				
 		}
 		else if (currentState == RUNBACK)
 		{
-			if (_mSonic->getPositionX() - currentDrillPosition < 500
+			if (_mSonic->getPositionX() - currentDrillPosition < 400
 				&& currentButton->isTrue
 				&& _mSonic->mCurrentState->GetState() != SonicState::ROLL_IN_SKY)
 			{
@@ -193,8 +201,14 @@ void BossLv1::update(float dt)
 				_mSonic->getPhysicsBody()->applyImpulse(Vec2(0, 100000));
 				_mSonic->isLeft = true;
 				currentButton = nullptr;
+				maximum_hit = 1;
 			}
-
+			else 
+			if (_mSonic->mCurrentState->GetState() == SonicState::ROLL_IN_SKY && currentButton->isTrue)
+			{
+				_mSonic->runAction(MoveTo::create(0.5, plane->getPosition()+Vec2(300,0)));
+				currentButton = nullptr;
+			}
 		}
 	}
 	if (drill->getPositionX() < _mSonic->getPositionX())
@@ -213,7 +227,7 @@ void BossLv1::update(float dt)
 		if (count_to_change_state == 60 *6)
 		{
 			count_to_change_state = 0;
-			SetState(FIGHT);
+			SetState(RUN);
 		}
 		break;
 	case BossLv1::RUN:

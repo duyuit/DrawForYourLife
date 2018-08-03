@@ -53,13 +53,13 @@ BossDrill::BossDrill()
 	chain3->setAnchorPoint(Vec2(0, 0.5));
 	chain3->setPosition(Vec2(30, -45 - drill->getContentSize().height / 2));
 
-	auto chain_body = PhysicsBody::createBox(Size(500 * 3, 38));
+	auto chain_body = PhysicsBody::createBox(Size(500 * 3, 25));
 	chain_body->setGravityEnable(false);
 	chain_body->setDynamic(false);
 	chain_body->setCategoryBitmask(2);
 	chain_body->setContactTestBitmask(1);
 	chain_body->setCollisionBitmask(1);
-	chain_body->setPositionOffset(Vec2(chain1->getContentSize().width/2+30,0));
+	chain_body->setPositionOffset(Vec2(chain1->getContentSize().width/2+30,-6));
 	chain1->setPhysicsBody(chain_body);
 
 	this->addChild(chain1,-1);

@@ -15,7 +15,7 @@ public:
 		GETBACKDRILL,
 
 	};
-
+	void GenerateButton();
 	BossLv1(Vec2 pos,Sonic* sonic, Layer* layer);
 	~BossLv1();
 
@@ -27,7 +27,7 @@ public:
 
 	STATE currentState = IDLE;
 	TapButton* currentButton = nullptr;
-	
+	int maximum_hit=0;
 	void SetState(STATE state);
 	void updateStart(float dt);
 	void update(float dt);
