@@ -76,7 +76,7 @@ MyUI::MyUI(Sonic * mSonic)
 			//	but->setOpacity(200);
 			
 				mySonic->ActiveButton(BUTTON_TAG::BUTTON_LEFT);
-				SimpleAudioEngine::getInstance()->playEffect(Define::_music_button_effect_path);
+				SimpleAudioEngine::getInstance()->playEffect(Define::_music_button_effect_path.c_str());
 				break;
 			default:
 				break;
@@ -101,7 +101,7 @@ MyUI::MyUI(Sonic * mSonic)
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 					mySonic->ActiveButton(BUTTON_TAG::BUTTON_RIGHT);
-					SimpleAudioEngine::getInstance()->playEffect(Define::_music_button_effect_path); 
+					SimpleAudioEngine::getInstance()->playEffect(Define::_music_button_effect_path.c_str());
 					
 				//but->setOpacity(200);
 				break;

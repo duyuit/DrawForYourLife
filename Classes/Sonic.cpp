@@ -202,7 +202,8 @@ void Sonic::update(float dt)
 	if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL
 		&& mCurrentState->GetState() != SonicState::StateAction::ROLL
 		&& mCurrentState->GetState() != SonicState::StateAction::DIE
-		&& mCurrentState->GetState() != SonicState::StateAction::RUNSKIP)
+		&& mCurrentState->GetState() != SonicState::StateAction::RUNSKIP
+		&& mCurrentState->GetState() != SonicState::StateAction::ROLL_IN_SKY)
 		this->SetStateByTag(SonicState::StateAction::FALL);
 }
 
@@ -413,7 +414,7 @@ void Sonic::HandleCollision(Sprite * sprite)
 		MyParticle::CreateEatItem(sprite->getPosition(), (Layer*) this->getParent());
 		sprite->runAction(RemoveSelf::create());
 		//Play sound when eat rings
-		SimpleAudioEngine::getInstance()->playEffect(Define::_music_eat_ring_efftect_path);	
+		SimpleAudioEngine::getInstance()->playEffect(Define::_music_eat_ring_efftect_path.c_str());
 	}
 	else if (sprite->getTag() == Define::MUSHROOM /*&& (mCurrentState->GetState()== SonicState::FALL || mCurrentState->GetState() == SonicState::ROLL)*/)
 	{
@@ -443,7 +444,7 @@ void Sonic::HandleCollision(Sprite * sprite)
 		//Play finish music effect
 		SimpleAudioEngine* audio = SimpleAudioEngine::getInstance();
 		audio->stopBackgroundMusic();
-		audio->playEffect(Define::_music_finish_level_path);
+		audio->playEffect(Define::_music_finish_level_path.c_str());
 
 		return;
 	}

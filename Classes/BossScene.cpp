@@ -75,7 +75,7 @@ cocos2d::Scene * BossScene::createScene()
 	scene->getPhysicsWorld()->setGravity(Vec2(0, -1000));
 
 	// optional: set debug draw
-	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+	//scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
 	scene->getPhysicsWorld()->step(1 / 60.0f);
 
 
@@ -93,7 +93,7 @@ void BossScene::update(float)
 		return;
 
 	if (_mSonic->getPosition().x < 0) _mSonic->setPosition(0, _mSonic->getPosition().y);
-	if (boss->currentState == BossLv1::RUNBACK)
+	if (boss->currentState == BossLv1::RUNBACK && boss->drill->getPositionX()<_mSonic->getPositionX())
 	{
 		SetViewPointCenter(_mSonic->getPosition(),Vec2(100,0) );
 	}

@@ -10,7 +10,7 @@ SonicRollState::SonicRollState(SonicData * playerData)
 	if (this->mPlayerData->player->isLeft)	this->mPlayerData->player->SetVelocityX(-500);
 	else
 		this->mPlayerData->player->SetVelocityX(500);
-	sound_effect= SimpleAudioEngine::getInstance()->playEffect(Define::_music_roll_effect_path);
+	sound_effect= SimpleAudioEngine::getInstance()->playEffect(Define::_music_roll_effect_path.c_str());
 	MyParticle::CreateWind(this->mPlayerData->player->getPosition(), (Layer*) this->mPlayerData->player->getParent());
 
 

@@ -62,11 +62,18 @@ BossPlane::~BossPlane()
 
 void BossPlane::ActiveWing(bool on)
 {
+
 	wing->stopAllActions();
 	if (on)
 	{
 	//	wing->runAction(MoveBy::create(1, Vec2(0, 50)));
+		Flip(false);
+
+		face->getPhysicsBody()->setContactTestBitmask(0);
+		face->getPhysicsBody()->setCollisionBitmask(0);
 		wing->runAction(turn_on_wing->get());
+		wing->runAction(MoveBy::create(0.5, Vec2(0, 50)));
+		wing->runAction(RepeatForever::create(normal_wing->get()));
 	}
 	else
 	{
@@ -94,12 +101,32 @@ void BossPlane::update(float dt)
 	//}
 }
 
+void BossPlane::Angry()
+{
+	//face->runAction(Sequence::create(angry_face->get(), DelayTime::create(1), normal_face->get()));
+	face->runAction(angry_face->get());
+}
+
+void BossPlane::Break()
+{
+	ActiveWing(true);
+
+	
+	auto action = Sequence::create(MoveBy::create(1, Vec2(0, 200)),DelayTime::create(1), MoveBy::create(3, Vec2(-1000, 500)),nullptr);
+	this->runAction(action);
+
+}
+
 void BossPlane::Flip(bool isFlip)
 {
+
 	if (isFlip)
 	{
 		back->setAnchorPoint(Vec2(1, 1));
 		back->setPosition(back->getPosition() + Vec2(back->getContentSize().width,0));
+	/*	front->setPosition(front->getPosition() + Vec2(front->getContentSize().width+20, 0));
+		wing->setPosition(wing->getPosition() + Vec2(wing->getContentSize().width-30, 0));
+		face->setPosition(face->getPosition() + Vec2(face->getContentSize().width-65, 0));*/
 
 	}
 	else

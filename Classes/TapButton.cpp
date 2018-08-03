@@ -103,7 +103,7 @@ void TapButton::ActiveButton(BUTTON_TAG dir)
 		CheckLabel(mouseBar->getPercentage(), true);
 		
 		isTrue = true;
-		SimpleAudioEngine::getInstance()->playEffect(Define::_music_combo_effect_path);
+		SimpleAudioEngine::getInstance()->playEffect(Define::_music_combo_effect_path.c_str());
 		if (isLeft == 1)
 			this->initWithFile(Define::button_left_green_path);
 		else

@@ -17,7 +17,7 @@ BossDrill::BossDrill()
 
 	drill_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/drill.xml", "run"), 0.02f)));
 	car_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/car.xml", "run"), 0.04f)));
-	
+	broken_car_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/car.xml", "run"), 0.04f)));
 	
 	back_car->setPosition(0, 0);
 	front_car->setPosition(back_car->getContentSize().width, 0);
@@ -95,6 +95,16 @@ void BossDrill::AlmostBreak()
 	MyParticle::CreateElectric(Vec2(150,-50), this);
 	MyParticle::CreateCarSmoke(Vec2(150, -50), this);
 	MyParticle::CreateCarSmoke(Vec2(300, -100), this);
+}
+
+void BossDrill::Break()
+{
+
+	back_car->setPosition(back_car->getPosition() + Vec2(0, -50));
+	back_car->initWithFile("Monster/Boss/broken_car.png");
+	back_car->setAnchorPoint(Vec2(0, 1));
+	front_car->setVisible(false);
+	drill->setVisible(false);
 }
 
 //void BossDrill::GenerateDust()

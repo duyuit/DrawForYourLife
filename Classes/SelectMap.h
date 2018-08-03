@@ -31,7 +31,7 @@ public:
 	virtual bool init();
 	void nextPage(Ref* sender, ui::Widget::TouchEventType type);
 	void backPage(Ref* sender, ui::Widget::TouchEventType type);
-	void SelectMap::load(Ref* sender, ui::Widget::TouchEventType type);
+	void load(Ref* sender, ui::Widget::TouchEventType type);
 	void update(float dt);
 	static cocos2d::Scene* createScene();
 	CREATE_FUNC(SelectMap);

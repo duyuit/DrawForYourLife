@@ -18,13 +18,17 @@ public:
 	void GenerateButton();
 	BossLv1(Vec2 pos,Sonic* sonic, Layer* layer);
 	~BossLv1();
-
+	int hp =1;
+	bool isAlmostBroke = false;
 	bool isLeft = false;
+	bool isDelete = false;
 	BossDrill* drill;
 	BossPlane* plane;
 	Sonic* _mSonic;
 	int count_to_change_state = 0;
 
+	void GetDame();
+	void Broke();
 	STATE currentState = IDLE;
 	TapButton* currentButton = nullptr;
 	int maximum_hit=0;

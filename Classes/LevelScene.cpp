@@ -72,14 +72,14 @@ void LevelScene::SortButton()
 void LevelScene::LoadSound()
 {
 	audio = SimpleAudioEngine::getInstance();
-	audio->preloadBackgroundMusic(Define::_music_lv1_background_path);
-	audio->playBackgroundMusic(Define::_music_lv1_background_path, true);
-	audio->preloadEffect(Define::_music_combo_effect_path);
-	audio->preloadEffect(Define::_music_eat_ring_efftect_path);
-	audio->preloadEffect(Define::_music_roll_effect_path);
-	audio->preloadEffect(Define::_music_jump_effect_path);
-	audio->preloadEffect(Define::_music_button_effect_path);
-	audio->preloadEffect(Define::_music_finish_level_path);
+	audio->preloadBackgroundMusic(Define::_music_lv1_background_path.c_str());
+	audio->playBackgroundMusic(Define::_music_lv1_background_path.c_str(), true);
+	audio->preloadEffect(Define::_music_combo_effect_path.c_str());
+	audio->preloadEffect(Define::_music_eat_ring_efftect_path.c_str());
+	audio->preloadEffect(Define::_music_roll_effect_path.c_str());
+	audio->preloadEffect(Define::_music_jump_effect_path.c_str());
+	audio->preloadEffect(Define::_music_button_effect_path.c_str());
+	audio->preloadEffect(Define::_music_finish_level_path.c_str());
 }
 
 void LevelScene::CreateParallaxNode(string path)
@@ -515,9 +515,9 @@ bool LevelScene::init()
 	_mSonic = new Sonic();
 	_mSonic->setPosition(500, 200);
 	SetViewPointCenter(_mSonic->getPosition());
-	this->addChild(_mSonic);
+	this->addChild(_mSonic,7);
 
-	_mSonic->setZOrder(7);
+
 
 	LoadSound();
 

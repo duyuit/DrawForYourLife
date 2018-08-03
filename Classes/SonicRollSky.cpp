@@ -30,11 +30,13 @@ void SonicRollSky::HandleCollision(Sprite * sprite)
 	}
 	if (sprite->getTag() == Define::BOSS)
 	{
+		auto boss = (BossLv1*)this->mPlayerData->player->boss;
+		boss->GetDame();
 		this->mPlayerData->player->getPhysicsBody()->applyImpulse(Vec2(0, 500000));
 	
-		auto boss = (BossLv1*)this->mPlayerData->player->boss;
 		if (boss->maximum_hit > 0)
 		{
+		
 			boss->GenerateButton();
 			boss->maximum_hit--;
 		}
