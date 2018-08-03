@@ -91,10 +91,21 @@ void BossDrill::update(float dt)
 
 void BossDrill::AlmostBreak()
 {
-	MyParticle::CreateElectric(Vec2(300,-20), this);
-	MyParticle::CreateElectric(Vec2(150,-50), this);
-	MyParticle::CreateCarSmoke(Vec2(150, -50), this);
-	MyParticle::CreateCarSmoke(Vec2(300, -100), this);
+	if (isLeft)
+	{
+		MyParticle::CreateElectric(Vec2(450, -20), this);
+		MyParticle::CreateElectric(Vec2(300, -50), this);
+		MyParticle::CreateCarSmoke(Vec2(300, -50), this);
+		MyParticle::CreateCarSmoke(Vec2(450, -100), this);
+	}
+	else
+	{
+		MyParticle::CreateElectric(Vec2(300, -20), this);
+		MyParticle::CreateElectric(Vec2(150, -50), this);
+		MyParticle::CreateCarSmoke(Vec2(150, -50), this);
+		MyParticle::CreateCarSmoke(Vec2(300, -100), this);
+	}
+
 }
 
 void BossDrill::Break()

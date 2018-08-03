@@ -59,10 +59,10 @@ void BossLv1::GetDame()
 		Broke();
 		return;
 	}
-	auto action = TintTo::create(0.2, Color3B::WHITE);
+	/*auto action = TintTo::create(0.2, Color3B::WHITE);
 	auto action2= TintTo::create(0.2, Color3B(255,255,255));
 	drill->runAction(Blink::create(1,5));
-	plane->runAction(Blink::create(1,5));
+	plane->runAction(Blink::create(1,5));*/
 	plane->Angry();
 	//drill->runAction(action);
 }
