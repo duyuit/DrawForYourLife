@@ -675,7 +675,7 @@ void Sonic::SwapAllAni()
 	
 	this->SetStateByTag(mCurrentState->GetState());
 
-	if (mCurrentState->GetState() == SonicState::JUMP)
+	if (mCurrentState->GetState() == SonicState::JUMP || mCurrentState->GetState() == SonicState::ROLL_IN_SKY)
 		this->getPhysicsBody()->applyForce(Vec2(0, -13500000)); //Fix jump so high when change to Red
 }
 

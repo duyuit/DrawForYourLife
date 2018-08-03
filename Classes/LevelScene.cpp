@@ -417,11 +417,8 @@ void LevelScene::SetViewPointCenter(Point position, Vec2 delta)
 
 
 	//viewPoint = centerOfView - actualPosition + Vec2(-200, 0);
-<<<<<<< HEAD
 	viewPoint = centerOfView - actualPosition + delta;
-=======
-	viewPoint = centerOfView - actualPosition + Vec2(-400, 0);
->>>>>>> 9391f773e3acdc3f37ab41b45878a2e9f41c2750
+
 	auto currentCameraPosition = this->getPosition();
 
 	/*if (_mSonic->mCurrentState->GetState() != SonicState::ROLL_CHEST)

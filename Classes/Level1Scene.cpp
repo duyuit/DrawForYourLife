@@ -118,15 +118,10 @@ bool Level1Scene::init()
 	//this->addChild(boss);
 	//boss->SetState(BossLv1::RUN);
 
-<<<<<<< HEAD
-
 
 	/*_mSonic->isFightingBoss = true;
 	_mSonic->position_when_FightingBoss = _mSonic->getPosition();*/
-=======
-	_mSonic->isFightingBoss = true;
-	_mSonic->position_when_FightingBoss = _mSonic->getPosition();
->>>>>>> 9391f773e3acdc3f37ab41b45878a2e9f41c2750
+
 
 	if (area == Define::DESERT) {
 		//Map Desert
