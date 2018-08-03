@@ -173,7 +173,7 @@ bool TurtorialScene::init()
 	CreateTileLayer("LevelScene/StoneMap/tutorial");
 	CreateParallaxNode("Map_stone/stone_bg3.png");
 	SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-	SimpleAudioEngine::getInstance()->playBackgroundMusic(Define::_music_stone_background_2_path);
+	SimpleAudioEngine::getInstance()->playBackgroundMusic(Define::_music_stone_background_2_path, true);
 	_listBonus.at(0)->_multiButton->unscheduleUpdate();
 
 

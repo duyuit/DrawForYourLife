@@ -31,8 +31,6 @@ bool BossScene::init()
 	
 	_tileMap = new TMXTiledMap();
 	_tileMap->initWithTMXFile("LevelScene/StoneMap/boss.tmx");
-	SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-	SimpleAudioEngine::getInstance()->playBackgroundMusic(Define::_music_boss_scene_background_path);
 	this->addChild(_tileMap);
 
 	TMXObjectGroup *objectGroup_land = _tileMap->getObjectGroup("Land");
@@ -64,7 +62,8 @@ bool BossScene::init()
 		this->addChild(edgeSp); // Add v�o Layer
 	}
 
-
+	SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+	SimpleAudioEngine::getInstance()->playBackgroundMusic(Define::_music_boss_scene_background_path, true);
 
 	scheduleOnce(CC_SCHEDULE_SELECTOR(BossScene::updateStart), 0);
 	return true;

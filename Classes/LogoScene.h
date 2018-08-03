@@ -10,7 +10,6 @@ class LogoScene : public cocos2d::Scene
 public:
 	LogoScene();
 	~LogoScene();
-
 	SimpleAudioEngine* audio = SimpleAudioEngine::getInstance();
 	void LoadSound();
 	static cocos2d::Scene* createScene();
