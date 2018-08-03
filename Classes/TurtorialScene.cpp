@@ -193,7 +193,7 @@ bool TurtorialScene::init()
 	blackImage->setOpacity(100);
 	this->addChild(blackImage, 6);
 	
-	SetViewPointCenter(_mSonic->getPosition(), true);
+	SetViewPointCenter(_mSonic->getPosition());
 	_mSonic->setZOrder(7);
 
 

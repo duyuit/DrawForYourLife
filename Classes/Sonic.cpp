@@ -202,7 +202,8 @@ void Sonic::update(float dt)
 	if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL
 		&& mCurrentState->GetState() != SonicState::StateAction::ROLL
 		&& mCurrentState->GetState() != SonicState::StateAction::DIE
-		&& mCurrentState->GetState() != SonicState::StateAction::RUNSKIP)
+		&& mCurrentState->GetState() != SonicState::StateAction::RUNSKIP
+		&& mCurrentState->GetState() != SonicState::StateAction::ROLL_IN_SKY)
 		this->SetStateByTag(SonicState::StateAction::FALL);
 }
 
@@ -413,7 +414,7 @@ void Sonic::HandleCollision(Sprite * sprite)
 		MyParticle::CreateEatItem(sprite->getPosition(), (Layer*) this->getParent());
 		sprite->runAction(RemoveSelf::create());
 		//Play sound when eat rings
-		SimpleAudioEngine::getInstance()->playEffect(Define::_music_eat_ring_efftect_path);	
+		SimpleAudioEngine::getInstance()->playEffect(Define::_music_eat_ring_efftect_path);
 	}
 	else if (sprite->getTag() == Define::MUSHROOM /*&& (mCurrentState->GetState()== SonicState::FALL || mCurrentState->GetState() == SonicState::ROLL)*/)
 	{
@@ -676,7 +677,7 @@ void Sonic::SwapAllAni()
 	
 	this->SetStateByTag(mCurrentState->GetState());
 
-	if (mCurrentState->GetState() == SonicState::JUMP)
+	if (mCurrentState->GetState() == SonicState::JUMP || mCurrentState->GetState() == SonicState::ROLL_IN_SKY)
 		this->getPhysicsBody()->applyForce(Vec2(0, -13500000)); //Fix jump so high when change to Red
 
 	if (mCurrentState->GetState() == SonicState::ROLL_IN_SKY)

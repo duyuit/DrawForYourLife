@@ -121,6 +121,7 @@ bool Level1Scene::init()
 	//_mSonic->isFightingBoss = true;
 	//_mSonic->position_when_FightingBoss = _mSonic->getPosition();
 
+
 	if (area == Define::DESERT) {
 		//Map Desert
 		LoadMap("Map_desert/desert_map.tmx");

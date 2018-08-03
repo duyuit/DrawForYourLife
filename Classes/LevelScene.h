@@ -38,7 +38,7 @@ public:
 	void RollBackground();
 	void CheckButton();
 	virtual void LoadMap(string path);
-	void SetViewPointCenter(Point position, bool isFast);
+	void SetViewPointCenter(Point position,Vec2 delta=Vec2(-400,0));
 	bool onContactBegin(cocos2d::PhysicsContact & contact);
 	void update(float dt);
 	virtual void updateStart(float dt);

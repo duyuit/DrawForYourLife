@@ -1,6 +1,5 @@
-#include "BossScene.h"
+﻿#include "BossScene.h"
 
-#include "BossLv1.h"
 
 BossScene::BossScene()
 {
@@ -15,7 +14,8 @@ bool BossScene::init()
 {
 	LevelScene::init();
 
-	auto boss = new BossLv1(Vec2(1100, 317), _mSonic, (Layer*)this);
+	_mSonic->setPosition(Vec2(900, 200));
+    boss = new BossLv1(Vec2(1500, 317), _mSonic, (Layer*)this);
 	//boss->Flip();
 	this->addChild(boss);
 	boss->SetState(BossLv1::IDLE);
@@ -27,11 +27,44 @@ bool BossScene::init()
 
 
 
-	LoadMap("LevelScene/StoneMap/lv1.tmx");
-	CreateTileLayer("LevelScene/StoneMap/lv1_layer");
 	CreateParallaxNode("Map_stone/stone_bg3.png");
+	
+	_tileMap = new TMXTiledMap();
+	_tileMap->initWithTMXFile("LevelScene/StoneMap/boss.tmx");
 	SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 	SimpleAudioEngine::getInstance()->playBackgroundMusic(Define::_music_boss_scene_background_path);
+	this->addChild(_tileMap);
+
+	TMXObjectGroup *objectGroup_land = _tileMap->getObjectGroup("Land");
+	for (int i = 0; i < objectGroup_land->getObjects().size(); i++)
+	{
+
+		Value objectemp = objectGroup_land->getObjects().at(i);
+
+		float wi_box = objectemp.asValueMap().at("width").asFloat();
+		float he_box = objectemp.asValueMap().at("height").asFloat();
+		float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+		float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+
+		auto edgeSp = Sprite::create();
+		edgeSp->setTag(Define::land);
+
+
+		auto boundBody = PhysicsBody::createBox(Size(wi_box, he_box), PhysicsMaterial(0.1f, 1.0f, 0.0f));
+		boundBody->setDynamic(false);
+
+
+		boundBody->setCategoryBitmask(2);
+		boundBody->setCollisionBitmask(25);
+		boundBody->setContactTestBitmask(1);
+
+		edgeSp->setPhysicsBody(boundBody);
+		edgeSp->setPosition(Vec2(x_box, y_box));
+
+		this->addChild(edgeSp); // Add v�o Layer
+	}
+
+
 
 	scheduleOnce(CC_SCHEDULE_SELECTOR(BossScene::updateStart), 0);
 	return true;
@@ -56,8 +89,28 @@ cocos2d::Scene * BossScene::createScene()
 	return scene;
 }
 
+void BossScene::update(float)
+{
+	RollBackground();
+	if (_mSonic->scene_over)
+		return;
+
+	if (_mSonic->getPosition().x < 0) _mSonic->setPosition(0, _mSonic->getPosition().y);
+	if (boss->currentState == BossLv1::RUNBACK && boss->drill->getPositionX()<_mSonic->getPositionX())
+	{
+		SetViewPointCenter(_mSonic->getPosition(),Vec2(100,0) );
+	}
+	else 	SetViewPointCenter(_mSonic->getPosition(), Vec2(-200, 0));
+
+
+}
+
 void BossScene::updateStart(float dt)
 {
 	LevelScene::updateStart(1);
 	_myui->current_scene = this;
+}
+void BossScene::ReloadScene()
+{
+	Director::getInstance()->replaceScene(this->createScene());
 }

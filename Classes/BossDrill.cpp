@@ -17,7 +17,7 @@ BossDrill::BossDrill()
 
 	drill_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/drill.xml", "run"), 0.02f)));
 	car_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/car.xml", "run"), 0.04f)));
-	
+	broken_car_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/car.xml", "run"), 0.04f)));
 	
 	back_car->setPosition(0, 0);
 	front_car->setPosition(back_car->getContentSize().width, 0);
@@ -53,13 +53,13 @@ BossDrill::BossDrill()
 	chain3->setAnchorPoint(Vec2(0, 0.5));
 	chain3->setPosition(Vec2(30, -45 - drill->getContentSize().height / 2));
 
-	auto chain_body = PhysicsBody::createBox(Size(500 * 3, 38));
+	auto chain_body = PhysicsBody::createBox(Size(500 * 3, 25));
 	chain_body->setGravityEnable(false);
 	chain_body->setDynamic(false);
 	chain_body->setCategoryBitmask(2);
 	chain_body->setContactTestBitmask(1);
 	chain_body->setCollisionBitmask(1);
-	chain_body->setPositionOffset(Vec2(chain1->getContentSize().width/2+30,0));
+	chain_body->setPositionOffset(Vec2(chain1->getContentSize().width/2+30,-6));
 	chain1->setPhysicsBody(chain_body);
 
 	this->addChild(chain1,-1);
@@ -95,6 +95,16 @@ void BossDrill::AlmostBreak()
 	MyParticle::CreateElectric(Vec2(150,-50), this);
 	MyParticle::CreateCarSmoke(Vec2(150, -50), this);
 	MyParticle::CreateCarSmoke(Vec2(300, -100), this);
+}
+
+void BossDrill::Break()
+{
+
+	back_car->setPosition(back_car->getPosition() + Vec2(0, -50));
+	back_car->initWithFile("Monster/Boss/broken_car.png");
+	back_car->setAnchorPoint(Vec2(0, 1));
+	front_car->setVisible(false);
+	drill->setVisible(false);
 }
 
 //void BossDrill::GenerateDust()
