@@ -26,6 +26,7 @@ bool BossScene::init()
 	_mSonic->position_when_FightingBoss = _mSonic->getPosition();
 
 
+
 	CreateParallaxNode("Map_stone/stone_bg3.png");
 	_tileMap = new TMXTiledMap();
 	_tileMap->initWithTMXFile("LevelScene/StoneMap/boss.tmx");

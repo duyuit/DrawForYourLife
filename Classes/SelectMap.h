@@ -15,6 +15,9 @@ class SelectMap : public cocos2d::Scene
 public:
 	SelectMap();
 	~SelectMap();
+	Text* label1;
+	Text* label2;
+	Text* label3;
 	Button* _btn_map_1;
 	Button* _btn_map_2;
 	Button* _btn_map_3;

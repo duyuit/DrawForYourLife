@@ -1,6 +1,6 @@
 #include "GameOverLayer.h"
 #include "LevelScene.h"
-
+#include "SelectMap.h"
 
 GameOverLayer::GameOverLayer(Sonic* mSonic, Layer* cur_scene)
 {
@@ -45,7 +45,6 @@ GameOverLayer::GameOverLayer(Sonic* mSonic, Layer* cur_scene)
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-
 			if (current_scene != nullptr)
 			{
 				auto scene = (LevelScene*)current_scene;
@@ -74,7 +73,7 @@ GameOverLayer::GameOverLayer(Sonic* mSonic, Layer* cur_scene)
 		case ui::Widget::TouchEventType::ENDED:
 		{
 			//setEnabledAll(true);
-			/*Director::getInstance()->replaceScene(LevelMap::createScene());*/
+			Director::getInstance()->replaceScene(SelectMap::createScene());
 
 		}
 		break;

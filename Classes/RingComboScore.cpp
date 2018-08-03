@@ -1,6 +1,8 @@
 #include "RingComboScore.h"
 
-RingComboScore::RingComboScore(Sonic* mSonic) {
+RingComboScore::RingComboScore(Sonic* mSonic) 
+{
+	this->autorelease();
 	_mySonic = mSonic;
 	string font = "fonts/hemi.ttf";
 	//Add Sprite ring
@@ -77,6 +79,8 @@ void RingComboScore::ResetCombo()
 	_mySonic->scoreMul = 1.0;
 	if (_mySonic->isRed)
 	{
+		_mySonic->_transform_blue->setVisible(true);
+		_mySonic->_transform_blue->runAction(Sequence::create(FadeIn::create(0.1), _mySonic->_transform_blue_Ani->get(), FadeOut::create(0.1), nullptr));
 		_mySonic->SwapAllAni();
 		_mySonic->isRed = false;
 	}

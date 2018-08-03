@@ -61,7 +61,7 @@
   <object id="419" x="13888" y="966" width="250" height="440"/>
  </objectgroup>
  <objectgroup name="Fish">
-  <object id="425" x="10418.9" y="1505.06"/>
+  <object id="425" x="10354.9" y="1505.06"/>
   <object id="426" x="11672" y="1506"/>
  </objectgroup>
  <objectgroup name="Land2"/>
@@ -76,7 +76,6 @@
  <objectgroup name="Monster">
   <object id="259" x="8544.67" y="1526.67"/>
   <object id="288" x="12645.5" y="1251.76"/>
-  <object id="354" x="5428" y="1362"/>
  </objectgroup>
  <objectgroup name="DieLand">
   <object id="161" x="4142.2" y="1573.64" width="7818.42" height="30.303"/>

@@ -46,6 +46,7 @@ void MyUI::EnableAll()
 
 MyUI::MyUI(Sonic * mSonic)
 {
+		this->autorelease();
 		mySonic = mSonic;
 
 		_touch_guide = Sprite::create();
@@ -183,6 +184,7 @@ MyUI::MyUI(Sonic * mSonic)
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 			{
+				/*isPause = false;*/
 				_restart->setVisible(true);
 				board->setVisible(false);
 				layer->setVisible(false);
@@ -241,6 +243,7 @@ MyUI::MyUI(Sonic * mSonic)
 				layer->setVisible(true);
 				if (current_scene != nullptr)
 				{
+					/*isPause = true;*/
 					auto scene = (LevelScene*)current_scene;
 					scene->MyPause();
 				}
@@ -317,13 +320,13 @@ void MyUI::update(float dt)
 	if (mySonic->isFinish)
 	{
 		count_to_finish++;
+		_restart->setVisible(false);
 		if (count_to_finish >= 150)
 		{
 			_combo->removeAllChildren();
 			_combo->unscheduleUpdate();
 			finish = new FinishLayer(mySonic, current_scene);
 			this->addChild(finish, 100);
-			_restart->setVisible(false);
 			layer = LayerColor::create();
 			layer->setColor(Color3B::BLACK);
 			layer->setOpacity(200);
@@ -335,14 +338,15 @@ void MyUI::update(float dt)
 
 	if (mySonic->isGameOver)
 	{
+		_restart->setVisible(false);
 		count_to_gameover++;
-		if (count_to_gameover >= 90)
+		if (count_to_gameover >= 60)
 		{
 			_combo->removeAllChildren();
 			_combo->unscheduleUpdate();
 			gameover = new GameOverLayer(mySonic, current_scene);
 			this->addChild(gameover, 100);
-			_restart->setVisible(false);
+
 			layer = LayerColor::create();
 			layer->setColor(Color3B::BLACK);
 			layer->setOpacity(200);

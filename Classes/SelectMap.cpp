@@ -24,7 +24,6 @@ bool SelectMap::init()
 	background->setAnchorPoint(Vec2(0.5f, 0.5f));
 	background->setPosition(Vec2(visibleSize.width / 3, visibleSize.height / 2));
 	this->addChild(background, -1);
-
 	Text* label0 = Text::create("Select Area", font, 50);
 	label0->setColor(Color3B::WHITE);
 	label0->setPosition(Vec2(visibleSize.width / 3, visibleSize.height*1.7 / 2));
@@ -33,46 +32,18 @@ bool SelectMap::init()
 	auto effect_background = ParticleSystemQuad::create("Select_map/background_effect.plist");
 	this->addChild(effect_background, 0);
 
-	//// Create the page view
-	//Size pageViewSize(visibleSize.width/2, visibleSize.height*1.9/3);
-	//Size pageSize(150, 150);
-	// _pageView = PageView::create();
-	// _pageView->setDirection(PageView::Direction::HORIZONTAL);
-	// _pageView->setContentSize(pageViewSize);
-	// _pageView->setBounceEnabled(true);
-	//Size backgroundSize = visibleSize/2;
-	//_pageView->setPosition(Vec2(visibleSize.width / 3, visibleSize.height / 2));
-	//_pageView->setAnchorPoint(Vec2(0.5f, 0.5f));
-	//_pageView->setItemsMargin(10);
-	//_pageView->removeAllItems();
-	//_pageView->setGlobalZOrder(200);
-
-	//string str;
-	//for (int i = 1; i <= 3; ++i)
-	//{
-	//	Layout* layout = Layout::create();
-	//	layout->setContentSize(pageSize);
-
-	//	Layout* layout1 = Layout::create();
-	//	layout1->setContentSize(pageSize);
-
-	//	Layout* layout2 = Layout::create();
-	//	layout2->setContentSize(pageSize);
-	//if (i == 1) {
+	//////
 	_btn_map_1 = Button::create("Select_map/stone_background.png");
 	_btn_map_1->setAnchorPoint(Vec2(0.5f, 0.5f));
 	_btn_map_1->setPosition(Vec2(visibleSize.width / 3, visibleSize.height / 2));
 	_btn_map_1->setScale(0.8, 0.8);
 	_btn_map_1->addTouchEventListener(CC_CALLBACK_2(SelectMap::load, this));
 	this->addChild(_btn_map_1, 1);
-	//_btn_map_1->addTouchEventListener(CC_CALLBACK_2(SelectMap::load, this));
-	/*		Text* label = Text::create("Stone", font, 30);
-	label->setColor(Color3B::WHITE);
-	label->setPosition(Vec2(visibleSize.width/ 4, visibleSize.height*1.8/3));
-	layout->addChild(label, 2);
-	layout->addChild(_btn_map_1);
-	}
-	if (i == 2) {*/
+	label1 = Text::create("Stone", font, 30);
+	label1->setColor(Color3B::WHITE);
+	label1->setPosition(Vec2(visibleSize.width / 3, visibleSize.height / 1.3));
+	this->addChild(label1, 2);
+
 	_btn_map_2 = Button::create("Select_map/snow_background.png");
 	_btn_map_2->setAnchorPoint(Vec2(0.5f, 0.5f));
 	_btn_map_2->setPosition(Vec2(visibleSize.width / 3, visibleSize.height / 2));
@@ -80,15 +51,12 @@ bool SelectMap::init()
 	_btn_map_2->addTouchEventListener(CC_CALLBACK_2(SelectMap::load, this));
 	_btn_map_2->setVisible(false);
 	this->addChild(_btn_map_2, 1);
-	//	//_btn_map_2->addTouchEventListener(CC_CALLBACK_2(SelectMap::load, this));
+	label2 = Text::create("Snow", font, 30);
+	label2->setColor(Color3B::WHITE);
+	label2->setPosition(Vec2(visibleSize.width / 3, visibleSize.height / 1.3));
+	this->addChild(label2, 2);
+	label1->setVisible(false);
 
-	//	Text* label = Text::create("Snow", font, 30);
-	//	label->setColor(Color3B::WHITE);
-	//	label->setPosition(Vec2(visibleSize.width/ 4, visibleSize.height*1.8/3));
-	//	layout->addChild(label, 2);
-	//	layout->addChild(_btn_map_2);
-	//}
-	//if (i == 3) {
 	_btn_map_3 = Button::create("Select_map/desert_background.png");
 	_btn_map_3->setAnchorPoint(Vec2(0.5f, 0.5f));
 	_btn_map_3->setPosition(Vec2(visibleSize.width / 3, visibleSize.height / 2));
@@ -96,26 +64,12 @@ bool SelectMap::init()
 	_btn_map_3->addTouchEventListener(CC_CALLBACK_2(SelectMap::load, this));
 	_btn_map_3->setVisible(false);
 	this->addChild(_btn_map_3, 1);
-	//_btn_map_3->addTouchEventListener(CC_CALLBACK_2(SelectMap::load, this));
-	//	Text* label = Text::create("Desert", font, 30);
-	//	label->setColor(Color3B::WHITE);
-	//	label->setPosition(Vec2(visibleSize.width/ 4, visibleSize.height*1.8/3));
-	//	layout->addChild(label, 2);
-	//	layout->addChild(_btn_map_3);
-	//}
+	label3 = Text::create("Desert", font, 30);
+	label3->setColor(Color3B::WHITE);
+	label3->setPosition(Vec2(visibleSize.width / 3, visibleSize.height / 1.3));
+	this->addChild(label3, 2);
+	label3->setVisible(false);
 
-	//	_pageView->addPage(layout);
-	//	str = to_string(i);
-	//}
-
-	//this->addChild(_pageView, 1);
-
-	//_btn_map = Button::create("Level_map/play.png");
-	//_btn_map->setAnchorPoint(Vec2(0.5f, 0.5f));
-	//_btn_map->setScale(0.8);
-	//_btn_map->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-	//_btn_map->addTouchEventListener(CC_CALLBACK_2(SelectMap::load, this));
-	//this->addChild(_btn_map,3);
 
 
 	btn_right = Button::create("Select_map/arrow_right_ready.png", "Select_map/arrow_right.png");
@@ -123,7 +77,6 @@ bool SelectMap::init()
 	btn_right->setAnchorPoint(Vec2(0.5f, 0.5f));
 	btn_right->setPosition(Vec2(visibleSize.width / (1.62), visibleSize.height / 2.2));
 	this->addChild(btn_right, 3);
-
 	btn_left = Button::create("Select_map/arrow_left_ready.png", "Select_map/arrow_left.png");
 	btn_left->addTouchEventListener(CC_CALLBACK_2(SelectMap::backPage, this));
 	btn_left->setAnchorPoint(Vec2(0.5f, 0.5f));
@@ -191,6 +144,9 @@ void SelectMap::update(float dt) {
 		_btn_map_3->setVisible(false);
 		_btn_map_1->setVisible(false);
 		_btn_map_2->setVisible(true);
+		label3->setVisible(false);
+		label1->setVisible(false);
+		label2->setVisible(true);
 		btn_left->setVisible(true);
 		btn_right->setVisible(true);
 	}
@@ -198,6 +154,9 @@ void SelectMap::update(float dt) {
 		_btn_map_2->setVisible(false);
 		_btn_map_3->setVisible(false);
 		_btn_map_1->setVisible(true);
+		label3->setVisible(false);
+		label2->setVisible(false);
+		label1->setVisible(true);
 		btn_right->setVisible(true);
 		btn_left->setVisible(false);
 	}
@@ -205,6 +164,9 @@ void SelectMap::update(float dt) {
 		_btn_map_1->setVisible(false);
 		_btn_map_2->setVisible(false);
 		_btn_map_3->setVisible(true);
+		label2->setVisible(false);
+		label1->setVisible(false);
+		label3->setVisible(true);
 		btn_left->setVisible(true);
 		btn_right->setVisible(false);
 	}

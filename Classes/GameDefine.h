@@ -30,6 +30,13 @@ namespace Define {
 		LV0,
 		LV1
 	};
+	enum SCENE_AREA
+	{
+		STONE,
+		SNOW,
+		DESERT
+
+	};
 	enum BUTTON_TAG
 	{
 		NONE,

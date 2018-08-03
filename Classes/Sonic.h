@@ -81,6 +81,11 @@ public:
 
 	Sprite* _roll_circle = nullptr;
 	Sprite* _roll_effect = nullptr;
+	Sprite* _transform_red = nullptr;
+	Sprite* _transform_blue = nullptr;
+	RefPtr<Animate>* _transform_red_Ani = nullptr;
+	RefPtr<Animate>* _transform_blue_Ani = nullptr;
+
 private:
 
 	RefPtr<Animate>  *run_fast_Ani;

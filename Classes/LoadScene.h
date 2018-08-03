@@ -13,8 +13,9 @@ public:
 	static cocos2d::Scene* createScene();
 	virtual bool init();
 	void NextScene();
-	int next_scene=0;
-	
+	int next_scene = 0;
+	int next_scene_area = 0;
+	string _area = "";
 	void updateStart(float dt);
 	CREATE_FUNC(LoadScene);
 };

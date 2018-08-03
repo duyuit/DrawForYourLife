@@ -19,7 +19,7 @@ public:
 
 	Sonic* _mSonic;
 	InfiniteParallaxNode *_backgroundNode, *_backgroundNode2;
-	CCTMXTiledMap * _tileMap=nullptr;
+	CCTMXTiledMap * _tileMap = nullptr;
 	MyUI* _myui = nullptr;
 	vector<TapButton*> _listButton;
 	Vector<Monster*> _listMonster;

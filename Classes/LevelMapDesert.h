@@ -19,6 +19,7 @@ public:
 	Vector<Sprite*> star_list;
 	FinishLayer* finishLayer;
 	int currentLevel = 0;
+	int currentArea = 2;
 	string font = "fonts/hemi.ttf";
 
 

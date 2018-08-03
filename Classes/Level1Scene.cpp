@@ -1,7 +1,6 @@
 ﻿#include "Level1Scene.h"
-
 #include "LoadScene.h"
-
+int area;
 Level1Scene::Level1Scene()
 {
 }
@@ -119,16 +118,35 @@ bool Level1Scene::init()
 	//this->addChild(boss);
 	//boss->SetState(BossLv1::RUN);
 
+<<<<<<< HEAD
 
 
 	/*_mSonic->isFightingBoss = true;
 	_mSonic->position_when_FightingBoss = _mSonic->getPosition();*/
+=======
+	_mSonic->isFightingBoss = true;
+	_mSonic->position_when_FightingBoss = _mSonic->getPosition();
+>>>>>>> 9391f773e3acdc3f37ab41b45878a2e9f41c2750
 
+	if (area == Define::DESERT) {
+		//Map Desert
+	}
+	if (area == Define::SNOW) {
+		//Map Snow
+		LoadMap("Map_snow/snowmap.tmx");
+		CreateTileLayer("Map_snow/snowmap");
+		CreateParallaxNode("Map_snow/background.png");
+	}
+	if (area == Define::STONE) {
+		//Map Stone
+		LoadMap("LevelScene/StoneMap/lv1.tmx");
+		CreateTileLayer("LevelScene/StoneMap/lv1_layer");
+		CreateParallaxNode("Map_stone/stone_bg3.png");
+	}
 
-
-	LoadMap("LevelScene/StoneMap/lv1.tmx");
-	//CreateTileLayer("LevelScene/StoneMap/lv1_layer");
-	CreateParallaxNode("Map_stone/stone_bg3.png");
+	/*LoadMap("LevelScene/StoneMap/lv1.tmx");
+	CreateTileLayer("LevelScene/StoneMap/lv1_layer");
+	CreateParallaxNode("Map_stone/stone_bg3.png");*/
 
 	scheduleOnce(CC_SCHEDULE_SELECTOR(Level1Scene::updateStart), 0);
 	return true;
@@ -136,6 +154,26 @@ bool Level1Scene::init()
 
 cocos2d::Scene * Level1Scene::createScene()
 {
+	auto scene = Scene::createWithPhysics();
+
+	// set gravity
+	scene->getPhysicsWorld()->setGravity(Vec2(0, -1000));
+
+	// optional: set debug draw
+	//scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+	scene->getPhysicsWorld()->step(1 / 60.0f);
+
+
+
+	auto layer = Level1Scene::create();
+	scene->addChild(layer);
+
+	return scene;
+}
+
+cocos2d::Scene * Level1Scene::createSceneArea(SCENE_AREA next_scene_area)
+{
+	area = (SCENE_AREA)next_scene_area;
 	auto scene = Scene::createWithPhysics();
 
 	// set gravity

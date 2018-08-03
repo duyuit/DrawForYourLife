@@ -14,7 +14,7 @@ LoadScene::~LoadScene()
 }
 Scene * LoadScene::createScene()
 {
-	auto scene= LoadScene::create();
+	auto scene = LoadScene::create();
 	//switch (name)
 	//{
 	//case Define::TUTO:
@@ -69,7 +69,7 @@ bool LoadScene::init()
 
 	mouseBar->runAction(ProgressFromTo::create(1.0f, 0.0f, 100));
 
-	
+
 
 	scheduleOnce(CC_SCHEDULE_SELECTOR(LoadScene::updateStart), 0);
 	return true;
@@ -78,16 +78,18 @@ bool LoadScene::init()
 void LoadScene::NextScene()
 {
 	//Director::getInstance()->replaceScene(TransitionFade::create(1, TurtorialScene::createScene()));
-	switch ((SCENE_NAME) next_scene)
-	{
-	case Define::LV0:
+
+	if ((SCENE_NAME)next_scene == Define::LV0) {
 		Director::getInstance()->replaceScene(TransitionFade::create(1, TurtorialScene::createScene()));
-		break;
-	case Define::LV1:
-		Director::getInstance()->replaceScene(TransitionFade::create(1, Level1Scene::createScene()));
-		break;
-	default:
-		break;
+	}
+	if ((SCENE_NAME)next_scene == Define::LV1 && (SCENE_AREA)next_scene_area == Define::DESERT) {
+		Director::getInstance()->replaceScene(TransitionFade::create(1, Level1Scene::createSceneArea(Define::DESERT)));
+	}
+	if ((SCENE_NAME)next_scene == Define::LV1 && (SCENE_AREA)next_scene_area == Define::SNOW) {
+		Director::getInstance()->replaceScene(TransitionFade::create(1, Level1Scene::createSceneArea(Define::SNOW)));
+	}
+	if ((SCENE_NAME)next_scene == Define::LV1 && (SCENE_AREA)next_scene_area == Define::STONE) {
+		Director::getInstance()->replaceScene(TransitionFade::create(1, Level1Scene::createSceneArea(Define::STONE)));
 	}
 
 }

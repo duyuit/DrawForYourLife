@@ -34,6 +34,18 @@ void LevelScene::MyResume()
 
 void LevelScene::ReloadScene()
 {
+	this->unscheduleUpdate();
+	_tileMap->release();
+	_tileMap->removeAllChildrenWithCleanup(true);
+	_tileMap->removeAllComponents();
+	_tileMap->removeFromParentAndCleanup(true);
+	this->removeAllChildrenWithCleanup(true);
+	this->getScene()->removeAllChildrenWithCleanup(true);
+	this->removeAllComponents();
+	this->removeFromParentAndCleanup(true);
+	TextureCache::getInstance()->purgeSharedTextureCache();
+	SpriteFrameCache::getInstance()->purgeSharedSpriteFrameCache();
+	cocos2d::AnimationCache::getInstance()->purgeSharedAnimationCache();
 }
 
 void LevelScene::NextScene()
@@ -148,7 +160,7 @@ void LevelScene::LoadMap(string path)
 	//Add MAP
 	_tileMap = new TMXTiledMap();
 	_tileMap->initWithTMXFile(path);
-	this->addChild(_tileMap);
+	//this->addChild(_tileMap);
 
 	try
 	{
@@ -179,7 +191,7 @@ void LevelScene::LoadMap(string path)
 			edgeSp->setPhysicsBody(boundBody);
 			edgeSp->setPosition(Vec2(x_box, y_box));
 
-			this->addChild(edgeSp); // Add v�o Layer
+			this->addChild(edgeSp); // Add to Layer
 		}
 
 		TMXObjectGroup *objectGroup_fish = _tileMap->getObjectGroup("Fish");
@@ -229,7 +241,7 @@ void LevelScene::LoadMap(string path)
 			edgeSp->setPhysicsBody(boundBody);
 			edgeSp->setPosition(Vec2(x_box, y_box));
 
-			this->addChild(edgeSp); // Add vao Layer
+			this->addChild(edgeSp); // Add to Layer
 		}
 
 		//Load Ring Position
@@ -396,7 +408,7 @@ void LevelScene::SetViewPointCenter(Point position, Vec2 delta)
 
 	int x = MAX(position.x, winSize.width / 2);
 	int y = MAX(position.y, winSize.height / 2);
-	x = MIN(x, (_tileMap->getMapSize().width * this->_tileMap->getTileSize().width) - winSize.width / 2);
+	x = MIN(x, (_tileMap->getMapSize().width * _tileMap->getTileSize().width) - winSize.width / 2);
 	y = MIN(y, (_tileMap->getMapSize().height * _tileMap->getTileSize().height) - winSize.height / 2);
 	Vec2 actualPosition = Vec2(x, y);
 
@@ -405,7 +417,11 @@ void LevelScene::SetViewPointCenter(Point position, Vec2 delta)
 
 
 	//viewPoint = centerOfView - actualPosition + Vec2(-200, 0);
+<<<<<<< HEAD
 	viewPoint = centerOfView - actualPosition + delta;
+=======
+	viewPoint = centerOfView - actualPosition + Vec2(-400, 0);
+>>>>>>> 9391f773e3acdc3f37ab41b45878a2e9f41c2750
 	auto currentCameraPosition = this->getPosition();
 
 	/*if (_mSonic->mCurrentState->GetState() != SonicState::ROLL_CHEST)
