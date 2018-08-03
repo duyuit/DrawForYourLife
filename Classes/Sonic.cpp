@@ -199,11 +199,11 @@ void Sonic::update(float dt)
 	if(_roll_effect!=nullptr)
 	if (mCurrentState->GetState() != SonicState::ROLL && mCurrentState->GetState() != SonicState::ROLL_CHEST && _roll_effect->isVisible())
 		_roll_effect->setVisible(false);
-	/*if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL
+	if (GetVelocity().y < -5 && mCurrentState->GetState() != SonicState::StateAction::FALL
 		&& mCurrentState->GetState() != SonicState::StateAction::ROLL
 		&& mCurrentState->GetState() != SonicState::StateAction::DIE
 		&& mCurrentState->GetState() != SonicState::StateAction::RUNSKIP)
-		this->SetStateByTag(SonicState::StateAction::FALL);*/
+		this->SetStateByTag(SonicState::StateAction::FALL);
 }
 
 void Sonic::handle_swipe(Vec2 start, Vec2 end)

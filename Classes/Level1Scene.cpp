@@ -126,7 +126,7 @@ bool Level1Scene::init()
 	}
 	if (area == Define::SNOW) {
 		//Map Snow
-		LoadMap("Map_snow/snowmap_update.tmx");
+		LoadMap("Map_snow/snowmap.tmx");
 		CreateTileLayer("Map_snow/snowmap");
 		CreateParallaxNode("Map_snow/background.png");
 	}
