@@ -85,10 +85,10 @@ bool LevelMapDesert::init()
 	board->addChild(myLabel, 2);
 
 	//Button play  in Board Star
-	auto button_board_play = Button::create("Level_map/play.png");
+	auto button_board_play = Button::create("Level_map/play2.png");
 	button_board_play->setScale(visibleSize.width / (button_board_play->getContentSize().width * 12), visibleSize.height / (button_board_play->getContentSize().height * 10));
 	button_board_play->setAnchorPoint(Vec2(0.5f, 0.5f));
-	button_board_play->setPosition(Vec2(delta_x * 5 / 2, delta_y*1.2));
+	button_board_play->setPosition(Vec2(delta_x * 3 / 2, delta_y*1.2));
 	board->addChild(button_board_play, 6);
 	button_board_play->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
 		switch (type)
@@ -97,6 +97,7 @@ bool LevelMapDesert::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
+			SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_1_path);
 			if (currentLevel < 2) {
 				auto gameScene = (LoadScene*)LoadScene::createScene();
 				gameScene->next_scene = (SCENE_NAME)currentLevel;
@@ -116,38 +117,42 @@ bool LevelMapDesert::init()
 		}
 	});
 	//set number scale round, out
-	float numScaleX = visibleSize.width / (button_board_play->getContentSize().width * 8);
-	float numScaleY = visibleSize.height / (button_board_play->getContentSize().height * 8);
+	float numScaleX = visibleSize.width / (button_board_play->getContentSize().width * 10);
+	float numScaleY = visibleSize.height / (button_board_play->getContentSize().height * 10);
 
 	//Button round in Board Star
-	auto button_board_round = Button::create("Level_map/round.png");
-	button_board_round->setScale(numScaleX, numScaleY);
-	button_board_round->setAnchorPoint(Vec2(0.5f, 0.5f));
-	button_board_round->setPosition(Vec2(delta_x * 2 / 2, delta_y*1.2));
-	board->addChild(button_board_round, 6);
-	button_board_round->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
-		switch (type)
-		{
-		case ui::Widget::TouchEventType::BEGAN:
-			break;
-		case ui::Widget::TouchEventType::ENDED:
-		{
+	//auto button_board_round = Button::create("Level_map/round.png");
+	//button_board_round->setScale(numScaleX, numScaleY);
+	//button_board_round->setAnchorPoint(Vec2(0.5f, 0.5f));
+	//button_board_round->setPosition(Vec2(delta_x * 2 / 2, delta_y*1.2));
+	//board->addChild(button_board_round, 6);
+	//button_board_round->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+	//	switch (type)
+	//	{
+	//	case ui::Widget::TouchEventType::BEGAN:
+	//		break;
+	//	case ui::Widget::TouchEventType::ENDED:
+	//	{
 
-		}
-		break;
-		default:
-			break;
-		}
-	});
+	//	}
+	//	break;
+	//	default:
+	//		break;
+	//	}
+	//});
 
-
+	Text* label0 = Text::create("Desert Land", font, 50);
+	label0->setColor(Color3B(241, 164, 46));
+	label0->setPosition(Vec2(visibleSize.width / 2, visibleSize.height*1.7 / 2));
+	label0->runAction(Sequence::create(FadeIn::create(2), FadeOut::create(2), NULL));
+	this->addChild(label0, 10);
 
 
 	//Button cancel in Board Star
 	auto button_board_cancel = Button::create("Level_map/out.png");
 	button_board_cancel->setScale(numScaleX, numScaleY);
 	button_board_cancel->setAnchorPoint(Vec2(0.5f, 0.5f));
-	button_board_cancel->setPosition(Vec2(delta_x * 8 / 2, delta_y*1.2));
+	button_board_cancel->setPosition(Vec2(delta_x * 7 / 2, delta_y*1.2));
 	board->addChild(button_board_cancel, 6);
 
 	button_board_cancel->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
@@ -157,6 +162,7 @@ bool LevelMapDesert::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
+			SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_1_path);
 			board->setVisible(false);
 			isBoard = false;
 		}
@@ -182,7 +188,7 @@ bool LevelMapDesert::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			//
+			SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_1_path);
 			auto gameScene = SelectMap::createScene();
 			Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
 
@@ -195,7 +201,7 @@ bool LevelMapDesert::init()
 	this->addChild(button_back, 50);
 
 	// Level 0 button
-	button_level_0 = Button::create("Level_map/btn_level.png");
+	button_level_0 = Button::create("Level_map/btn_level_orange.png");
 	button_level_0->setScale(visibleSize.width / (button_level_0->getContentSize().width * 23), visibleSize.height / (button_level_0->getContentSize().height * 18));
 	button_level_0->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_0->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
@@ -207,6 +213,7 @@ bool LevelMapDesert::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
+			SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_2_path);
 			setStar(1, 0);// pos 0 - 2 star
 			board->setVisible(true);
 			isBoard = true;
@@ -230,7 +237,7 @@ bool LevelMapDesert::init()
 	this->addChild(_label_0, 3);
 
 	// Level 1 button
-	button_level_1 = Button::create("Level_map/btn_level.png");
+	button_level_1 = Button::create("Level_map/btn_level_orange.png");
 	button_level_1->setScale(levelScaleX, levelScaleY);
 	button_level_1->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_1->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
@@ -242,6 +249,7 @@ bool LevelMapDesert::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
+			SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_2_path);
 			setStar(2, 0); // pos 1 - 1 star
 			board->setVisible(true);
 			isBoard = true;
@@ -261,7 +269,7 @@ bool LevelMapDesert::init()
 	this->addChild(_label_1, 3);
 
 	// Level 2 button
-	button_level_2 = Button::create("Level_map/btn_level.png");
+	button_level_2 = Button::create("Level_map/btn_level_orange.png");
 	button_level_2->setScale(levelScaleX, levelScaleY);
 	button_level_2->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_2->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
@@ -273,6 +281,7 @@ bool LevelMapDesert::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
+			SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_2_path);
 			setStar(2, 0); // level 2 - 3 star
 			board->setVisible(true);
 			isBoard = true;
@@ -285,7 +294,7 @@ bool LevelMapDesert::init()
 	this->addChild(button_level_2, 2);
 
 	// Level 3 button
-	button_level_3 = Button::create("Level_map/btn_level.png");
+	button_level_3 = Button::create("Level_map/btn_level_orange.png");
 	button_level_3->setScale(levelScaleX, levelScaleY);
 	button_level_3->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_3->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
@@ -297,6 +306,7 @@ bool LevelMapDesert::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
+			SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_2_path);
 			setStar(3, 0); // level 3 - 3 star
 			board->setVisible(true);
 			isBoard = true;
@@ -310,7 +320,7 @@ bool LevelMapDesert::init()
 	this->addChild(button_level_3, 2);
 
 	// Level 4 button
-	button_level_4 = Button::create("Level_map/btn_level.png");
+	button_level_4 = Button::create("Level_map/btn_level_orange.png");
 	button_level_4->setScale(levelScaleX, levelScaleY);
 	button_level_4->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_4->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
@@ -322,6 +332,7 @@ bool LevelMapDesert::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
+			SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_2_path);
 			setStar(4, 0); // level 4 - 3 star
 			board->setVisible(true);
 			isBoard = true;
@@ -334,7 +345,7 @@ bool LevelMapDesert::init()
 	this->addChild(button_level_4, 2);
 
 	// Level 5 button
-	button_level_5 = Button::create("Level_map/btn_level.png");
+	button_level_5 = Button::create("Level_map/btn_level_orange.png");
 	button_level_5->setScale(levelScaleX, levelScaleY);
 	button_level_5->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_5->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
@@ -346,6 +357,7 @@ bool LevelMapDesert::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
+			SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_2_path);
 			setStar(5, 0); // level 5 - 3 star
 			board->setVisible(true);
 			isBoard = true;
@@ -358,7 +370,7 @@ bool LevelMapDesert::init()
 	this->addChild(button_level_5, 2);
 
 	// Level Bonus button
-	button_level_bonus = Button::create("Level_map/btn_level.png");
+	button_level_bonus = Button::create("Level_map/btn_level_orange.png");
 	button_level_bonus->setScale(levelScaleX, levelScaleY);
 	button_level_bonus->setAnchorPoint(Vec2(0.5f, 0.5f));
 	button_level_bonus->runAction(RepeatForever::create(Sequence::create(MoveBy::create(1, Vec2(0, 7)), MoveBy::create(1, Vec2(0, -7)), nullptr)));
@@ -370,6 +382,7 @@ bool LevelMapDesert::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
+			SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_2_path);
 			setStar(6, 0); // level bonus - 3 star
 			board->setVisible(true);
 			isBoard = true;

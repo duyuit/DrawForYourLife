@@ -72,6 +72,8 @@ GameOverLayer::GameOverLayer(Sonic* mSonic, Layer* cur_scene)
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
+			SimpleAudioEngine::getInstance()->stopAllEffects();
+			SimpleAudioEngine::getInstance()->playBackgroundMusic(Define::_music_menu_scene_background_2_path);
 			//setEnabledAll(true);
 			Director::getInstance()->replaceScene(SelectMap::createScene());
 

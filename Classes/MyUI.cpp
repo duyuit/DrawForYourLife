@@ -214,6 +214,8 @@ MyUI::MyUI(Sonic * mSonic)
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 			{
+				SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+				SimpleAudioEngine::getInstance()->playBackgroundMusic(Define::_music_menu_scene_background_2_path);
 				//setEnabledAll(true);
 				_restart->setVisible(true);
 				board->setVisible(false);
@@ -342,6 +344,8 @@ void MyUI::update(float dt)
 		count_to_gameover++;
 		if (count_to_gameover >= 60)
 		{
+			SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+			SimpleAudioEngine::getInstance()->playEffect(Define::_music_game_over_effect_path);
 			_combo->removeAllChildren();
 			_combo->unscheduleUpdate();
 			gameover = new GameOverLayer(mySonic, current_scene);

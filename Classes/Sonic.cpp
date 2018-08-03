@@ -462,8 +462,9 @@ void Sonic::HandleCollision(Sprite * sprite)
 		//Bug fix: hurt but still can Active button
 		DisableCurrentButton();
 
-		this->runAction(Sequence::create(DelayTime::create(1), Blink::create(2, 10), nullptr));
-
+		//this->runAction(Sequence::create(DelayTime::create(1), Blink::create(2, 10), nullptr));
+		//this->runAction(Blink::create(2, 10));
+		SimpleAudioEngine::getInstance()->playEffect(Define::_music_drop_ring_effect_path);
 		if (ringCollected > 0)
 		{
 			int t = ringCollected; //Temp variable
@@ -481,7 +482,7 @@ void Sonic::HandleCollision(Sprite * sprite)
 		this->SetStateByTag(SonicState::HURT);
 		//this->runAction(Sequence::create(DelayTime::create(1), Blink::create(2, 10), nullptr));
 		this->runAction(Blink::create(1, 4));
-
+		SimpleAudioEngine::getInstance()->playEffect(Define::_music_drop_ring_effect_path);
 		if (ringCollected > 0)
 		{
 			int t = ringCollected; //Temp variable
@@ -677,6 +678,9 @@ void Sonic::SwapAllAni()
 
 	if (mCurrentState->GetState() == SonicState::JUMP)
 		this->getPhysicsBody()->applyForce(Vec2(0, -13500000)); //Fix jump so high when change to Red
+
+	if (mCurrentState->GetState() == SonicState::ROLL_IN_SKY)
+		this->getPhysicsBody()->applyForce(Vec2(0, -15500000));
 }
 
 void Sonic::DisableCurrentButton()

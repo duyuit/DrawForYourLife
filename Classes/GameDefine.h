@@ -54,6 +54,7 @@ namespace Define {
 	static string button_left_blue_path = "Button/button_left_blue.png";
 	static string button_right_blue_path = "Button/button_right_blue.png";
 	static string button_fail_path = "Button/button_fail.png";
+
 	static char* _music_lv1_background_path = "Music/lv1_background.mp3";
 	static char* _music_roll_effect_path= "Music/roll_effect.wav";
 	static char* _music_eat_ring_efftect_path = "Music/eat_ring_effect.wav";
@@ -62,7 +63,26 @@ namespace Define {
 	static char* _music_button_effect_path = "Music/select_button.mp3";
 	static char* _music_finish_level_path = "Music/finish_level_background.mp3";
 
+	static char* _music_stone_background_1_path = "Music/new/stone_background_1.mp3";
+	static char* _music_stone_background_2_path = "Music/new/stone_background_2.mp3";
 
+	static char* _music_snow_background_1_path = "Music/new/snow_background_1.mp3";
+	static char* _music_snow_background_2_path = "Music/new/snow_background_2.mp3";
+
+	static char* _music_desert_background_1_path = "Music/new/desert_background_1.mp3";
+	static char* _music_desert_background_2_path = "Music/new/desert_background_2.mp3";
+
+	static char* _music_boss_scene_background_path = "Music/new/boss_scene_background.mp3";
+	static char* _music_menu_scene_background_1_path = "Music/new/menu_scene_background_1.mp3";
+	static char* _music_menu_scene_background_2_path = "Music/new/menu_scene_background_2.mp3";
+
+	static char* _music_btn_arrow_effect_path = "Music/new/btn_arrow_effect.mp3";
+	static char* _music_btn_effect_1_path = "Music/new/btn_effect_1.mp3";
+	static char* _music_btn_effect_2_path = "Music/new/btn_effect_2.mp3";
+
+	static char* _music_drop_ring_effect_path = "Music/new/drop_ring_effect.mp3";
+	static char* _music_game_over_effect_path = "Music/new/game_over_effect.mp3";
+	static char* _music_boss_finish_effect_path = "Music/new/boss_finish_effect.mp3";
 
 	static float randomValueBetween(float min, float max)
 	{

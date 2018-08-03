@@ -33,7 +33,6 @@ public:
 	virtual void ReloadScene();
 	virtual void NextScene();
 	void SortButton();
-	void LoadSound();
 	void CreateParallaxNode(string path);
 	void CreateTileLayer(string path);
 	void RollBackground();

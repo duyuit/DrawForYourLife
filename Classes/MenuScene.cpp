@@ -116,8 +116,11 @@ bool MenuScene::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{	
+			SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_1_path);
+			SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+			SimpleAudioEngine::getInstance()->playBackgroundMusic(Define::_music_menu_scene_background_2_path);
 			auto myScene = SelectMap::createScene();
-			Director::getInstance()->replaceScene(TransitionFade::create(1, myScene));
+			Director::getInstance()->replaceScene(TransitionFade::create(1, myScene));		
 		}
 			break;
 		default:
@@ -137,7 +140,7 @@ bool MenuScene::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-
+			SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_1_path);
 		}
 		break;
 		default:

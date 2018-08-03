@@ -30,6 +30,8 @@ bool BossScene::init()
 	LoadMap("LevelScene/StoneMap/lv1.tmx");
 	CreateTileLayer("LevelScene/StoneMap/lv1_layer");
 	CreateParallaxNode("Map_stone/stone_bg3.png");
+	SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+	SimpleAudioEngine::getInstance()->playBackgroundMusic(Define::_music_boss_scene_background_path);
 
 	scheduleOnce(CC_SCHEDULE_SELECTOR(BossScene::updateStart), 0);
 	return true;

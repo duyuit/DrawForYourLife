@@ -113,28 +113,37 @@ bool Level1Scene::init()
 {
 	LevelScene::init();
 
-	auto boss = new BossLv1(Vec2(1100, 317),_mSonic,(Layer*)this);
-	//boss->Flip();
-	this->addChild(boss);
-	boss->SetState(BossLv1::RUN);
+	//auto boss = new BossLv1(Vec2(1100, 317),_mSonic,(Layer*)this);
+	////boss->Flip();
+	//this->addChild(boss);
+	//boss->SetState(BossLv1::RUN);
 
-	_mSonic->isFightingBoss = true;
-	_mSonic->position_when_FightingBoss = _mSonic->getPosition();
+	//_mSonic->isFightingBoss = true;
+	//_mSonic->position_when_FightingBoss = _mSonic->getPosition();
 
 	if (area == Define::DESERT) {
 		//Map Desert
+		LoadMap("Map_desert/desert_map.tmx");
+		CreateTileLayer("Map_desert/desert_map");
+		CreateParallaxNode("Map_desert/desert_bg.png");
+		SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+		SimpleAudioEngine::getInstance()->playBackgroundMusic(Define::_music_desert_background_1_path, true);
 	}
 	if (area == Define::SNOW) {
 		//Map Snow
 		LoadMap("Map_snow/snowmap.tmx");
 		CreateTileLayer("Map_snow/snowmap");
 		CreateParallaxNode("Map_snow/background.png");
+		SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+		SimpleAudioEngine::getInstance()->playBackgroundMusic(Define::_music_snow_background_1_path, true);
 	}
 	if (area == Define::STONE) {
 		//Map Stone
 		LoadMap("LevelScene/StoneMap/lv1.tmx");
 		CreateTileLayer("LevelScene/StoneMap/lv1_layer");
 		CreateParallaxNode("Map_stone/stone_bg3.png");
+		SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+		SimpleAudioEngine::getInstance()->playBackgroundMusic(Define::_music_stone_background_1_path, true);
 	}
 
 	/*LoadMap("LevelScene/StoneMap/lv1.tmx");

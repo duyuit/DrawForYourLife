@@ -18,7 +18,6 @@ bool SelectMap::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	visibleSize.width = visibleSize.width *1.5;
 
-
 	auto background = Sprite::create("Select_map/background.jpg");
 	background->setScale(visibleSize.width / (background->getContentSize().width), visibleSize.height / (background->getContentSize().height));
 	background->setAnchorPoint(Vec2(0.5f, 0.5f));
@@ -51,7 +50,7 @@ bool SelectMap::init()
 	_btn_map_2->addTouchEventListener(CC_CALLBACK_2(SelectMap::load, this));
 	_btn_map_2->setVisible(false);
 	this->addChild(_btn_map_2, 1);
-	label2 = Text::create("Snow", font, 30);
+	label2 = Text::create("Winter", font, 30);
 	label2->setColor(Color3B::WHITE);
 	label2->setPosition(Vec2(visibleSize.width / 3, visibleSize.height / 1.3));
 	this->addChild(label2, 2);
@@ -96,6 +95,7 @@ void SelectMap::nextPage(Ref* sender, ui::Widget::TouchEventType type) {
 	case cocos2d::ui::Widget::TouchEventType::BEGAN:
 		break;
 	case cocos2d::ui::Widget::TouchEventType::ENDED: {
+		SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_arrow_effect_path);
 		_currentPage++;
 	}
 													 break;
@@ -112,6 +112,7 @@ void SelectMap::backPage(Ref* sender, ui::Widget::TouchEventType type) {
 	case cocos2d::ui::Widget::TouchEventType::BEGAN:
 		break;
 	case cocos2d::ui::Widget::TouchEventType::ENDED: {
+		SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_arrow_effect_path);
 		_currentPage--;
 	}
 													 break;
@@ -126,6 +127,7 @@ cocos2d::Scene * SelectMap::createScene()
 	return SelectMap::create();
 }
 void SelectMap::load(Ref* sender, ui::Widget::TouchEventType type) {
+	SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_1_path);
 	if (_currentPage == 0) {
 		auto scene = LevelMapStone::createScene();
 		Director::getInstance()->replaceScene(TransitionFade::create(1, scene));
