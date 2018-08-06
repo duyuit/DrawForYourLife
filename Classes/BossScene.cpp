@@ -18,7 +18,14 @@ bool BossScene::init()
     boss = new BossLv1(Vec2(1500, 317), _mSonic, (Layer*)this);
 	//boss->Flip();
 	this->addChild(boss);
-	boss->SetState(BossLv1::IDLE);
+	boss->SetState(BossLv1::FIGHT);
+
+	blacklayer = LayerColor::create(Color4B::BLACK);
+	blacklayer->setScale(3);
+	blacklayer->setOpacity(100);
+
+	_mSonic->setZOrder(5);
+	this->addChild(blacklayer,3);
 
 
 
@@ -26,6 +33,12 @@ bool BossScene::init()
 	_mSonic->position_when_FightingBoss = _mSonic->getPosition();
 
 
+
+	test = ParticleSystemQuad::create("Particle/charge.plist");
+
+	test->setPosition(_mSonic->getPosition());
+	this->addChild(test,4);
+	
 
 	CreateParallaxNode("Map_stone/stone_bg3.png");
 	
@@ -90,6 +103,21 @@ cocos2d::Scene * BossScene::createScene()
 
 void BossScene::update(float)
 {
+	if (_mSonic->mCurrentState->GetState() == SonicState::CHAOS)
+	{
+		test->setVisible(true);
+		blacklayer->setVisible(true);
+		if (test != nullptr)
+			test->setPosition(_mSonic->getPosition());
+		if (blacklayer != nullptr)
+			blacklayer->setPosition(_mSonic->getPosition() + Vec2(-500, 0));
+	}
+	else
+	{
+		test->setVisible(false);
+		blacklayer->setVisible(false);
+	}
+	
 	RollBackground();
 	if (_mSonic->scene_over)
 		return;
@@ -108,9 +136,9 @@ void BossScene::updateStart(float dt)
 {
 	LevelScene::updateStart(1);
 	_myui->current_scene = this;
-	//blacklayer = LayerColor::create(Color4B::BLACK);
-	//blacklayer->setOpacity(100);
-	//this->getScene()->addChild(blacklayer);
+
+
+
 }
 void BossScene::ReloadScene()
 {

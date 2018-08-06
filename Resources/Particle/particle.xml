@@ -1,5 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Animations>
+
+  <Animation name="hit" imagePath="Particle/particle.png" width="1220" height="3095">
+    <sprite x="713" y="1800" w="88" h="100" oX="713" oY="1800" oW="2141" oH="1170" />
+    <sprite x="983" y="1772" w="159" h="162" oX="983" oY="1772" oW="2141" oH="1170" />
+    <sprite x="51" y="2122" w="160" h="162" oX="51" oY="2122" oW="2141" oH="1170" />
+    <sprite x="347" y="2110" w="182" h="182" oX="347" oY="2110" oW="2141" oH="1170" />
+    <sprite x="665" y="2108" w="176" h="175" oX="665" oY="2108" oW="2141" oH="1170" />
+    <sprite x="975" y="2119" w="178" h="164" oX="975" oY="2119" oW="2141" oH="1170" />
+    <sprite x="31" y="2453" w="193" h="195" oX="31" oY="2453" oW="2141" oH="1170" />
+    <sprite x="342" y="2453" w="193" h="195" oX="342" oY="2453" oW="2141" oH="1170" />
+    <sprite x="652" y="2454" w="186" h="183" oX="652" oY="2454" oW="2141" oH="1170" />
+    <sprite x="961" y="2453" w="163" h="185" oX="961" oY="2453" oW="2141" oH="1170" />
+    <sprite x="28" y="2802" w="196" h="185" oX="28" oY="2802" oW="2141" oH="1170" />
+    <sprite x="338" y="2800" w="199" h="187" oX="338" oY="2800" oW="2141" oH="1170" />
+    <sprite x="647" y="2799" w="139" h="188" oX="647" oY="2799" oW="2141" oH="1170" />
+    <sprite x="958" y="2798" w="138" h="190" oX="958" oY="2798" oW="2141" oH="1170" />
+  </Animation>
+
+  <Animation name="boom" imagePath="Particle/particle.png" width="1000" height="2000">
+    <sprite x="34" y="1087" w="117" h="116" oX="34" oY="1087" oW="1578" oH="509" />
+    <sprite x="171" y="1094" w="99" h="100" oX="171" oY="1094" oW="1578" oH="509" />
+    <sprite x="289" y="1093" w="115" h="114" oX="289" oY="1093" oW="1578" oH="509" />
+    <sprite x="416" y="1093" w="117" h="116" oX="416" oY="1093" oW="1578" oH="509" />
+    <sprite x="32" y="1219" w="119" h="118" oX="32" oY="1219" oW="1578" oH="509" />
+    <sprite x="161" y="1221" w="121" h="113" oX="161" oY="1221" oW="1578" oH="509" />
+    <sprite x="286" y="1215" w="123" h="122" oX="286" oY="1215" oW="1578" oH="509" />
+    <sprite x="413" y="1217" w="127" h="116" oX="413" oY="1217" oW="1578" oH="509" />
+    <sprite x="33" y="1341" w="119" h="122" oX="33" oY="1341" oW="1578" oH="509" />
+    <sprite x="162" y="1346" w="112" h="119" oX="162" oY="1346" oW="1578" oH="509" />
+    <sprite x="290" y="1344" w="112" h="117" oX="290" oY="1344" oW="1578" oH="509" />
+    <sprite x="419" y="1346" w="112" h="117" oX="419" oY="1346" oW="1578" oH="509" />
+    <sprite x="34" y="1480" w="113" h="109" oX="34" oY="1480" oW="1578" oH="509" />
+    <sprite x="159" y="1474" w="117" h="118" oX="159" oY="1474" oW="1578" oH="509" />
+    <sprite x="286" y="1474" w="117" h="116" oX="286" oY="1474" oW="1578" oH="509" />
+    <sprite x="415" y="1490" w="119" h="104" oX="415" oY="1490" oW="1578" oH="509" />
+  </Animation>
+
   <Animation name="eat_item" imagePath="Particle/particle.png" width="367" height="66">
     <sprite x="5" y="46" w="5" h="5" oX="5" oY="46" oW="-196" oH="302" />
     <sprite x="21" y="32" w="18" h="19" oX="21" oY="32" oW="-196" oH="302" />

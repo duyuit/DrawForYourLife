@@ -70,6 +70,28 @@ namespace MyParticle
 			layer->addChild(wind);
 		}	
 	};
+	static void CreateHit(Vec2 pos, Node* node)
+	{
+		auto boom = Sprite::create();
+		boom->setScale(1.5);
+		boom->setAnchorPoint(Vec2(0.5, 0.5));
+		boom->setPosition(pos);
+		auto animate = Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Particle/particle.xml", "hit"), 0.05));
+		boom->runAction(animate);
+		boom->runAction(Sequence::create(DelayTime::create(0.3), RemoveSelf::create(), NULL));
+		node->addChild(boom, 10);
+	}
+	static void CreateBoom(Vec2 pos, Node* node)
+	{
+		auto boom = Sprite::create();
+		boom->setScale(1.5);
+		boom->setAnchorPoint(Vec2(0.5, 0.5));
+		boom->setPosition(pos);
+		auto animate= Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Particle/particle.xml", "boom"), 0.05));
+		boom->runAction(animate->clone());
+		boom->runAction(Sequence::create(DelayTime::create(0.3), RemoveSelf::create(), NULL));
+		node->addChild(boom,10);
+	}
 	static void CreateCarSmoke(Vec2 pos, Node* node)
 	{
 		auto dust = Sprite::create();

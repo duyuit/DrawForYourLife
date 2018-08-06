@@ -7,6 +7,7 @@ class BossScene:public LevelScene
 public:
 	BossScene();
 	~BossScene();
+	ParticleSystemQuad* test=nullptr;
 	LayerColor* blacklayer;
 	BossLv1* boss;
 	virtual bool init();
