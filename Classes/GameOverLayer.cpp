@@ -45,6 +45,7 @@ GameOverLayer::GameOverLayer(Sonic* mSonic, Layer* cur_scene)
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
+			Define::_music_btn_effect_1 = experimental::AudioEngine::play2d(Define::_music_btn_effect_1_path, false, 1.0f);
 			if (current_scene != nullptr)
 			{
 				auto scene = (LevelScene*)current_scene;
@@ -71,9 +72,10 @@ GameOverLayer::GameOverLayer(Sonic* mSonic, Layer* cur_scene)
 		case ui::Widget::TouchEventType::BEGAN:
 			break;
 		case ui::Widget::TouchEventType::ENDED:
-		{
-			SimpleAudioEngine::getInstance()->stopAllEffects();
-			SimpleAudioEngine::getInstance()->playBackgroundMusic(Define::_music_menu_scene_background_2_path);
+		{		
+			experimental::AudioEngine::stopAll();
+			Define::_music_btn_effect_1 = experimental::AudioEngine::play2d(Define::_music_btn_effect_1_path, false, 1.0f);
+			Define::_music_menu_scene_background_2 = experimental::AudioEngine::play2d(Define::_music_menu_scene_background_2_path, true, 1.0f);
 			//setEnabledAll(true);
 			Director::getInstance()->replaceScene(SelectMap::createScene());
 

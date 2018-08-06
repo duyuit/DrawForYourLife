@@ -11,7 +11,7 @@ public:
 	int delta_x = -30; //2 Variable to Shake Camera when sonic is pausing
 	int count_tuto =0;
 	void LoadMap(string path) override;
-	Sprite* blackImage;
+	LayerColor* blacklayer;
 	int count_to_change_position = 0;
 	TurtorialScene();
 	~TurtorialScene();

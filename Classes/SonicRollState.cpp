@@ -10,10 +10,8 @@ SonicRollState::SonicRollState(SonicData * playerData)
 	if (this->mPlayerData->player->isLeft)	this->mPlayerData->player->SetVelocityX(-500);
 	else
 		this->mPlayerData->player->SetVelocityX(500);
-	sound_effect= SimpleAudioEngine::getInstance()->playEffect(Define::_music_roll_effect_path);
+	Define::_music_sonic_roll_effect = experimental::AudioEngine::play2d(Define::_music_sonic_roll_effect_path, false, 1.0f);
 	MyParticle::CreateWind(this->mPlayerData->player->getPosition(), (Layer*) this->mPlayerData->player->getParent());
-
-
 }
 
 SonicRollState::~SonicRollState()
@@ -30,7 +28,7 @@ void SonicRollState::update()
 	if (this->mPlayerData->player->CheckLastFrame())
 	{
 		this->mPlayerData->player->_roll_effect->setVisible(false);
-		SimpleAudioEngine::getInstance()->stopEffect(sound_effect);
+		experimental::AudioEngine::stop(Define::_music_sonic_roll_effect);
 		this->mPlayerData->player->SetStateByTag(StateAction::RUN_FAST);
 		return;
 	}

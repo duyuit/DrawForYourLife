@@ -16,13 +16,12 @@
 #include "SonicEndState.h"
 #include "SonicRollSky.h"
 #include "SonicIdleState.h"
+#include "SonicChaoState.h"
 #include "GameDefine.h"
 #include "GameParticle.h"
 #include "SmallRing.h"
 #include "Mushroom.h"
-#include <SimpleAudioEngine.h>
 #include <AudioEngine.h>
-using namespace CocosDenshion;
 
 using namespace cocos2d;
 using namespace Define;
@@ -67,6 +66,7 @@ public:
 	float scoreMul = 1.0; //Multiple the score
 	bool isRed = false;
 	bool isGameOver = false;
+	int sequencePerfect = 0;
 
 	bool isFightingBoss = false;
 	Vec2 position_when_FightingBoss = Vec2(0, 0);
@@ -100,7 +100,7 @@ private:
 	RefPtr<Animate>  *counter_Ani;
 	RefPtr<Animate>  *end_Ani;
 	RefPtr<Animate>  *idle_Ani;
-
+	RefPtr<Animate>  *chaos_Ani;
 
 	RefPtr<Animate>  *run_fast_red_Ani;
 	RefPtr<Animate>  *jump_red_Ani;

@@ -27,7 +27,13 @@ public:
 	Sonic* _mSonic;
 	int count_to_change_state = 0;
 
+	ProgressTimer* mouseBar;
+	Sprite* _border;
+	Sprite* _progressbar;
+
 	void GetDame();
+	
+	bool isSonicAttack = false;
 	void Broke();
 	STATE currentState = IDLE;
 	TapButton* currentButton = nullptr;

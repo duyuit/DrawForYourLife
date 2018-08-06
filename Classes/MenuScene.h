@@ -26,7 +26,6 @@
 #define __MenuScene_H__
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
-#include "SimpleAudioEngine.h"
 #include "LoadScene.h"
 
 using namespace std;

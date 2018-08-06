@@ -23,9 +23,7 @@
  ****************************************************************************/
 
 #include "MenuScene.h"
-#include "SimpleAudioEngine.h"
 
-using namespace CocosDenshion;
 USING_NS_CC;
 using namespace std;
 using namespace ui;
@@ -54,7 +52,6 @@ bool MenuScene::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto audio = SimpleAudioEngine::getInstance();
 	//audio->preloadBackgroundMusic("music.mp3");
 	//audio->playBackgroundMusic("music.mp3");
 	/*
@@ -84,7 +81,7 @@ bool MenuScene::init()
 	this->addChild(menu, 1);
 	*/
 	
-
+	Define::_music_menu_scene_background_1 = experimental::AudioEngine::play2d(Define::_music_menu_scene_background_1_path, false, 0.8f);
 	
 	auto background = Sprite::create("Menu/game_background.png");
 	background->setScale(visibleSize.width / background->getContentSize().width, visibleSize.height / background->getContentSize().height);
@@ -116,9 +113,10 @@ bool MenuScene::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{	
-			SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_1_path);
-			SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-			SimpleAudioEngine::getInstance()->playBackgroundMusic(Define::_music_menu_scene_background_2_path);
+			Define::_music_btn_effect_1 = experimental::AudioEngine::play2d(Define::_music_btn_effect_1_path, false, 1.0f);
+			experimental::AudioEngine::stop(Define::_music_menu_scene_background_1);
+			Define::_music_menu_scene_background_2 = experimental::AudioEngine::play2d(Define::_music_menu_scene_background_2_path, true, 1.0f);
+
 			auto myScene = SelectMap::createScene();
 			Director::getInstance()->replaceScene(TransitionFade::create(1, myScene));		
 		}
@@ -140,7 +138,6 @@ bool MenuScene::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_1_path);
 		}
 		break;
 		default:
