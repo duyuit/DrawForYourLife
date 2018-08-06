@@ -11,7 +11,7 @@ SonicJumpState::SonicJumpState(SonicData * playerData)
 		this->mPlayerData->player->SetVelocityX(-360);
 	else
 		this->mPlayerData->player->SetVelocityX(360);
-	SimpleAudioEngine::getInstance()->playEffect(Define::_music_jump_effect_path);
+	Define::_music_sonic_jump_effect = experimental::AudioEngine::play2d(Define::_music_sonic_jump_effect_path, false, 1.0f);
 }
 
 

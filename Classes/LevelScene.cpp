@@ -506,8 +506,6 @@ bool LevelScene::init()
 
 
 
-	//LoadSound();
-
 
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(LevelScene::onContactBegin, this);

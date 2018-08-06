@@ -103,7 +103,7 @@ void TapButton::ActiveButton(BUTTON_TAG dir)
 		CheckLabel(mouseBar->getPercentage(), true);
 		
 		isTrue = true;
-		SimpleAudioEngine::getInstance()->playEffect(Define::_music_combo_effect_path);
+		//Define::_music_btn_effect = experimental::AudioEngine::play2d(Define::_music_btn_effect_path, false, 1.0f);
 		if (isLeft == 1)
 			this->initWithFile(Define::button_left_green_path);
 		else
@@ -160,6 +160,15 @@ void TapButton::CheckLabel(float percen, bool check)
 			mTarget->countPerfect++;
 			_label->runAction(Sequence::create(ScaleTo::create(0.3, 1), shake, nullptr));
 			MyParticle::RunEffectStar(this->getPosition(), (Layer*) this->getParent());
+
+			//Play perfect sound
+			mTarget->sequencePerfect++;
+			if (mTarget->sequencePerfect == 1)
+				Define::_music_perfect_effect_1 = experimental::AudioEngine::play2d(Define::_music_perfect_effect_1_path, false, 1.0f);
+			else if (mTarget->sequencePerfect == 2)
+				Define::_music_perfect_effect_2 = experimental::AudioEngine::play2d(Define::_music_perfect_effect_2_path, false, 1.0f);
+			else if (mTarget->sequencePerfect >= 3)
+				Define::_music_perfect_effect_3 = experimental::AudioEngine::play2d(Define::_music_perfect_effect_3_path, false, 1.0f);
 		}
 		else if (percen > 30 && percen < 100)
 		{
@@ -169,6 +178,10 @@ void TapButton::CheckLabel(float percen, bool check)
 			mTarget->score += 200 * mTarget->scoreMul;
 			mTarget->countGreat++;
 			_label->runAction(Sequence::create(ScaleTo::create(0.3, 1), shake, nullptr));
+
+			//Play great sound
+			mTarget->sequencePerfect = 0;
+			Define::_music_great_effect = experimental::AudioEngine::play2d(Define::_music_great_effect_path, false, 1.0f);
 		}
 	}
 	else 
@@ -176,6 +189,10 @@ void TapButton::CheckLabel(float percen, bool check)
 		_label->setColor(Color3B(255, 0, 0));
 		_label->setString("Miss!");
 		_label->runAction(Sequence::create(ScaleTo::create(0.3, 1), shake, nullptr));
+
+		//Play miss sound
+		mTarget->sequencePerfect = 0;
+		Define::_music_miss_effect = experimental::AudioEngine::play2d(Define::_music_miss_effect_path, false, 1.0f);
 	}
 }
 

@@ -5,7 +5,7 @@ SonicRollChestState::SonicRollChestState(SonicData * playerData)
 {
 	this->mPlayerData = playerData;
 	this->mPlayerData->player->SetVelocityX(0);
-	sound_effect = SimpleAudioEngine::getInstance()->playEffect(Define::_music_roll_effect_path);
+	Define::_music_sonic_roll_effect = experimental::AudioEngine::play2d(Define::_music_sonic_roll_effect_path, false, 1.0f);
 	//MyParticle::CreateWind(this->mPlayerData->player->getPosition(), (Layer*) this->mPlayerData->player->getParent());
 }
 
