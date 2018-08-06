@@ -60,8 +60,8 @@ void TurtorialScene::Pause()
 	_isPause = true;
 	_diabox->setVisible(true);
 	_diabox->setPosition(_mSonic->getPositionX(), _director->getWinSize().height*3/4);
-	blackImage->setPosition(_mSonic->getPosition());
-	blackImage->setVisible(true);
+
+	blacklayer->setVisible(true);
 }
 
 void TurtorialScene::Continue()
@@ -75,7 +75,7 @@ void TurtorialScene::Continue()
 	_isPause = false;
 	_mSonic->SetVelocityX(340);
 	_diabox->setVisible(false);
-	blackImage->setVisible(false);
+	blacklayer->setVisible(false);
 }
 
 
@@ -158,7 +158,9 @@ void TurtorialScene::updateStart(float dt)
 {
 	LevelScene::updateStart(1);
 	_myui->current_scene = this;
-
+	blacklayer = LayerColor::create(Color4B::BLACK);
+	blacklayer->setOpacity(100);
+	this->getScene()->addChild(blacklayer);
 
 
 }
@@ -187,11 +189,7 @@ bool TurtorialScene::init()
 	_mSonic->setPosition(1000, 200);
 
 	
-	blackImage = Sprite::create("LevelScene/StoneMap/black.png");
-	blackImage->setColor(Color3B(0, 0, 0));
-	blackImage->setScale(20);
-	blackImage->setOpacity(100);
-	this->addChild(blackImage, 6);
+	
 	
 	SetViewPointCenter(_mSonic->getPosition());
 	_mSonic->setZOrder(7);

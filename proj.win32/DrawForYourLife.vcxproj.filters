@@ -161,6 +161,9 @@
     <ClCompile Include="..\Classes\BossScene.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\SonicChaoState.cpp">
+      <Filter>Game\Sonic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -328,6 +331,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\BossScene.h">
       <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SonicChaoState.h">
+      <Filter>Game\Sonic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

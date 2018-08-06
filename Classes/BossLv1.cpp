@@ -41,6 +41,29 @@ BossLv1::BossLv1(Vec2 pos , Sonic* sonic, Layer* layer)
 	this->setPosition(pos);
 	_mSonic->boss = this;
 
+
+
+	//_progressbar = Sprite::create("GameComponents/progress.png");
+	//_progressbar->setAnchorPoint(Vec2(1, 0));
+
+
+	//_border = Sprite::create("GameComponents/border.png");
+	//_border->setPosition(this->getContentSize()*0.3 + Size(50, 150));
+	//_border->setAnchorPoint(Vec2(1, 0));
+	//_border->setVisible(false);
+
+	//layer->addChild(_border, 3);
+
+
+	//mouseBar = ProgressTimer::create(_progressbar);
+	//mouseBar->setType(ProgressTimerType::BAR);
+	//mouseBar->setAnchorPoint(Vec2(1, 0));
+	//mouseBar->setBarChangeRate(Vec2(1, 0));
+	//mouseBar->setMidpoint(Vec2(0.0, 0.0));
+	//mouseBar->setReverseDirection(true);
+	//mouseBar->setPercentage(0);
+	//layer->addChild(mouseBar, 2);
+	
 }
 
 
@@ -52,6 +75,10 @@ void BossLv1::GetDame()
 {
 	if (isDelete) return;
 	hp--;
+	auto particle = ParticleSystemQuad::create("Particle/explosion.plist");
+	particle->setPosition(plane->getPosition());
+	plane->getParent()->addChild(particle, 4);
+
 	if (hp < 5)
 		isAlmostBroke = true;
 	if (hp == 0)
@@ -66,6 +93,8 @@ void BossLv1::GetDame()
 	plane->Angry();
 	//drill->runAction(action);
 }
+
+
 
 void BossLv1::Broke()
 {
@@ -166,6 +195,18 @@ void BossLv1::SetState(STATE state)
 
 void BossLv1::update(float dt)
 {
+	if (_mSonic->mCurrentState->GetState() == SonicState::CHAOS && _mSonic->CheckLastFrame() && isSonicAttack)
+	{
+		auto func = CallFunc::create([this]()
+		{
+			GetDame();
+			MyParticle::CreateBoom(_mSonic->getPosition(), _mSonic->getParent());
+			_mSonic->SetStateByTag(SonicState::FALL);
+			_mSonic->getPhysicsBody()->applyImpulse(Vec2(-300000, 150000));
+		});
+		_mSonic->runAction(Sequence::create(MoveTo::create(0.3, plane->getPosition()),func,nullptr));
+		isSonicAttack = false;
+	}
 	if (currentButton != nullptr)
 	{
 		//if(currentState==FIGHT || currentState == GETBACKDRILL)
@@ -185,8 +226,18 @@ void BossLv1::update(float dt)
 				currentButton->DeleteNow(true);
 				currentButton = nullptr;
 
-
-			}
+				GenerateButton();
+			}else
+				if (currentButton->isTrue	&&_mSonic->mCurrentState->GetState() == SonicState::ROLL_IN_SKY)
+				{
+					_mSonic->SetStateByTag(SonicState::CHAOS);
+					_mSonic->getPhysicsBody()->applyImpulse(Vec2(150000, 300000));
+					_mSonic->isLeft = true;
+					isSonicAttack = true;
+					currentButton->DeleteNow(true);
+					currentButton = nullptr;
+				}
+			
 		}
 		else if (currentState == GETBACKDRILL)
 		{
@@ -251,7 +302,7 @@ void BossLv1::update(float dt)
 			}
 		}
 	}
-	if (drill->getPositionX() < _mSonic->getPositionX())
+	if (drill->getPositionX() < _mSonic->getPositionX() && _mSonic->mCurrentState->GetState()== SonicState::IDLE)
 		_mSonic->isLeft = true;
 	else _mSonic->isLeft = false;
 	count_to_change_state++;
@@ -267,7 +318,7 @@ void BossLv1::update(float dt)
 		if (count_to_change_state == 60 *6)
 		{
 			count_to_change_state = 0;
-			SetState(RUN);
+			SetState(FIGHT);
 		}
 		break;
 	case BossLv1::RUN:
@@ -284,7 +335,7 @@ void BossLv1::update(float dt)
 		if (count_to_change_state == 60 *5)
 		{
 			count_to_change_state = 0;
-			SetState(RUN);
+			SetState(FIGHT);
 		}
 		break;
 	default:

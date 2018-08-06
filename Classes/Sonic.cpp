@@ -44,7 +44,7 @@ Sonic::Sonic()
 	counter_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(false, "counter"), 0.05f)));
 	end_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(false, "end"), 0.05f)));
 	idle_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(false, "idle"), 0.1f)));
-	
+	chaos_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(false, "chaos"), 0.03f)));
 	//Red Sonic Ani
 	run_fast_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_fast_red_FL, 0.01f)));
 	jump_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(jump_red_FL, 0.03f)));
@@ -203,7 +203,8 @@ void Sonic::update(float dt)
 		&& mCurrentState->GetState() != SonicState::StateAction::ROLL
 		&& mCurrentState->GetState() != SonicState::StateAction::DIE
 		&& mCurrentState->GetState() != SonicState::StateAction::RUNSKIP
-		&& mCurrentState->GetState() != SonicState::StateAction::ROLL_IN_SKY)
+		&& mCurrentState->GetState() != SonicState::StateAction::ROLL_IN_SKY
+		&& mCurrentState->GetState() != SonicState::StateAction::CHAOS)
 		this->SetStateByTag(SonicState::StateAction::FALL);
 }
 
@@ -251,6 +252,9 @@ void Sonic::SetStateByTag(SonicState::StateAction action)
 	if (isDelete) return;
 	switch (action)
 	{
+	case SonicState::CHAOS:
+		this->SetState(new SonicChaoState(mData));
+		break;
 	case SonicState::IDLE:
 		this->SetState(new SonicIdleState(mData));
 		break;
@@ -311,6 +315,10 @@ void Sonic::SetState(SonicState * state)
 
 	switch (mCurrentState->GetState())
 	{
+	case SonicState::CHAOS:
+		mCurrentAnimate = chaos_Ani;
+		mCurrentAction = mCurrentAnimate->get();
+		break;
 	case SonicState::IDLE:
 		mCurrentAnimate = idle_Ani;
 		mCurrentAction = RepeatForever::create(mCurrentAnimate->get());

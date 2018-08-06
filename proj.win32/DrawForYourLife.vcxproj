@@ -185,6 +185,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\ShieldMonster.cpp" />
     <ClCompile Include="..\Classes\SmallRing.cpp" />
     <ClCompile Include="..\Classes\Sonic.cpp" />
+    <ClCompile Include="..\Classes\SonicChaoState.cpp" />
     <ClCompile Include="..\Classes\SonicCounterState.cpp" />
     <ClCompile Include="..\Classes\SonicData.cpp" />
     <ClCompile Include="..\Classes\SonicDieState.cpp" />
@@ -243,6 +244,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\ShieldMonster.h" />
     <ClInclude Include="..\Classes\SmallRing.h" />
     <ClInclude Include="..\Classes\Sonic.h" />
+    <ClInclude Include="..\Classes\SonicChaoState.h" />
     <ClInclude Include="..\Classes\SonicCounterState.h" />
     <ClInclude Include="..\Classes\SonicData.h" />
     <ClInclude Include="..\Classes\SonicDieState.h" />

@@ -16,6 +16,7 @@
 #include "SonicEndState.h"
 #include "SonicRollSky.h"
 #include "SonicIdleState.h"
+#include "SonicChaoState.h"
 #include "GameDefine.h"
 #include "GameParticle.h"
 #include "SmallRing.h"
@@ -99,7 +100,7 @@ private:
 	RefPtr<Animate>  *counter_Ani;
 	RefPtr<Animate>  *end_Ani;
 	RefPtr<Animate>  *idle_Ani;
-
+	RefPtr<Animate>  *chaos_Ani;
 
 	RefPtr<Animate>  *run_fast_red_Ani;
 	RefPtr<Animate>  *jump_red_Ani;
