@@ -191,9 +191,13 @@ void TapButton::SetCanActive(bool is)
 		mTarget->mCurrentButton = this;
 		_border->setVisible(true);
 
-		auto func = CallFunc::create(CC_CALLBACK_0(TapButton::DeleteNow, this, false));
-
+		auto func = CallFunc::create([this]()
+		{
+			if (isDelete || isTrue) return;
+			DeleteNow(false);
+		});
 		mouseBar->runAction(Sequence::create(ProgressTo::create(time, 100), func, nullptr));
+
 		switch (mTag)
 		{
 		case BUTTON_RIGHT:

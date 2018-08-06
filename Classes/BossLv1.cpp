@@ -185,8 +185,16 @@ void BossLv1::update(float dt)
 				currentButton->DeleteNow(true);
 				currentButton = nullptr;
 
-
-			}
+				GenerateButton();
+			}else
+				if (currentButton->isTrue	&&_mSonic->mCurrentState->GetState() == SonicState::ROLL_IN_SKY)
+				{
+					_mSonic->SetStateByTag(SonicState::ROLL_IN_SKY);
+					_mSonic->isLeft = true;
+					currentButton->DeleteNow(true);
+					currentButton = nullptr;
+				}
+			
 		}
 		else if (currentState == GETBACKDRILL)
 		{

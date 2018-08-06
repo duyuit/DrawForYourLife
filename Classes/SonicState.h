@@ -22,7 +22,8 @@ public:
 		ROLL_CHEST,
 		STOP,
 		COUNTER,
-		END
+		END,
+		CHAOS
 	};
 	SonicState();
 	~SonicState();

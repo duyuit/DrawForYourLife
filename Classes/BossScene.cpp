@@ -108,6 +108,9 @@ void BossScene::updateStart(float dt)
 {
 	LevelScene::updateStart(1);
 	_myui->current_scene = this;
+	//blacklayer = LayerColor::create(Color4B::BLACK);
+	//blacklayer->setOpacity(100);
+	//this->getScene()->addChild(blacklayer);
 }
 void BossScene::ReloadScene()
 {

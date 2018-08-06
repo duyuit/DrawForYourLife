@@ -7,7 +7,7 @@ class BossScene:public LevelScene
 public:
 	BossScene();
 	~BossScene();
-
+	LayerColor* blacklayer;
 	BossLv1* boss;
 	virtual bool init();
 	static cocos2d::Scene* createScene();

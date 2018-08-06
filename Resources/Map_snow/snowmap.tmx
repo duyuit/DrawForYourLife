@@ -6,7 +6,7 @@
  <tileset firstgid="976" name="pic" tilewidth="64" tileheight="64" tilecount="975" columns="39">
   <image source="pic.png" width="2500" height="1621"/>
  </tileset>
- <tileset firstgid="1951" name="desert_ground_full" tilewidth="32" tileheight="32" tilecount="784" columns="28">
+ <tileset firstgid="1951" name="desert_ground_full" tilewidth="32" tileheight="32" tilecount="0" columns="28">
   <image source="../../../Project/TestMap/Resources/Map_desert/desert_ground_full.png" width="900" height="900"/>
  </tileset>
  <layer name="block" width="500" height="50">
@@ -102,11 +102,11 @@
  <objectgroup name="Chest">
   <object id="547" x="19178" y="3072"/>
  </objectgroup>
- <objectgroup name="Monkey" visible="0">
+ <objectgroup name="Monkey">
   <object id="543" x="14617" y="2364.67"/>
  </objectgroup>
- <objectgroup name="HoldLandRight" visible="0"/>
- <objectgroup name="HoldLandLeft" visible="0"/>
+ <objectgroup name="HoldLandRight"/>
+ <objectgroup name="HoldLandLeft"/>
  <objectgroup name="DieLand">
   <object id="521" x="2054" y="3172" width="438" height="20"/>
   <object id="522" x="3840" y="3042" width="38" height="162"/>
@@ -140,7 +140,6 @@
   <object id="72" x="16319.9" y="2236.36"/>
   <object id="73" x="16769.6" y="2267.64"/>
   <object id="74" x="17198" y="2236.36"/>
-  <object id="546" x="7500" y="3690.91"/>
  </objectgroup>
  <objectgroup name="Ring" visible="0">
   <object id="76" x="2024.24" y="2960.61"/>
