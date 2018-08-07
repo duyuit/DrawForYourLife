@@ -23,7 +23,6 @@ public:
 	MyUI* _myui = nullptr;
 	vector<TapButton*> _listButton;
 	Vector<Monster*> _listMonster;
-	SimpleAudioEngine* audio;
 	Vector<MultipleButton*> _listMultipleButton;
 	Vector<BonusChest*> _listBonus;
 	int _speedParallax = 1;

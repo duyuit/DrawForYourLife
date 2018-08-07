@@ -95,7 +95,7 @@ void SelectMap::nextPage(Ref* sender, ui::Widget::TouchEventType type) {
 	case cocos2d::ui::Widget::TouchEventType::BEGAN:
 		break;
 	case cocos2d::ui::Widget::TouchEventType::ENDED: {
-		SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_arrow_effect_path);
+		Define::_music_btn_arrow_effect = experimental::AudioEngine::play2d(Define::_music_btn_arrow_effect_path, false, 1.0f);
 		_currentPage++;
 	}
 													 break;
@@ -112,7 +112,7 @@ void SelectMap::backPage(Ref* sender, ui::Widget::TouchEventType type) {
 	case cocos2d::ui::Widget::TouchEventType::BEGAN:
 		break;
 	case cocos2d::ui::Widget::TouchEventType::ENDED: {
-		SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_arrow_effect_path);
+		Define::_music_btn_arrow_effect = experimental::AudioEngine::play2d(Define::_music_btn_arrow_effect_path, false, 1.0f);
 		_currentPage--;
 	}
 													 break;
@@ -127,7 +127,7 @@ cocos2d::Scene * SelectMap::createScene()
 	return SelectMap::create();
 }
 void SelectMap::load(Ref* sender, ui::Widget::TouchEventType type) {
-	SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_1_path);
+	Define::_music_btn_effect_1 = experimental::AudioEngine::play2d(Define::_music_btn_effect_1_path, false, 1.0f);
 	if (_currentPage == 0) {
 		auto scene = LevelMapStone::createScene();
 		Director::getInstance()->replaceScene(TransitionFade::create(1, scene));

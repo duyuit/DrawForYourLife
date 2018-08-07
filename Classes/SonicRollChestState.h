@@ -9,7 +9,6 @@ public:
 	void handle_swipe(Define::SWIPE_DIRECTION direct);
 	virtual SonicState::StateAction GetState();
 	void HandleCollision(Sprite* sprite);
-	int sound_effect = 0;
 	int _time_action = 0;
 };
 

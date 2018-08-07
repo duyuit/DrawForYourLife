@@ -424,7 +424,7 @@ void Sonic::HandleCollision(Sprite * sprite)
 		MyParticle::CreateEatItem(sprite->getPosition(), (Layer*) this->getParent());
 		sprite->runAction(RemoveSelf::create());
 		//Play sound when eat rings
-		SimpleAudioEngine::getInstance()->playEffect(Define::_music_eat_ring_efftect_path);
+		Define::_music_eat_ring_effect = experimental::AudioEngine::play2d(Define::_music_eat_ring_effect_path, false, 0.8f);
 	}
 	else if (sprite->getTag() == Define::MUSHROOM /*&& (mCurrentState->GetState()== SonicState::FALL || mCurrentState->GetState() == SonicState::ROLL)*/)
 	{
@@ -452,10 +452,8 @@ void Sonic::HandleCollision(Sprite * sprite)
 		this->SetStateByTag(SonicState::END);
 
 		//Play finish music effect
-		SimpleAudioEngine* audio = SimpleAudioEngine::getInstance();
-		audio->stopBackgroundMusic();
-		audio->playEffect(Define::_music_finish_level_path);
-
+		experimental::AudioEngine::stopAll();
+		Define::_music_finish_level_effect = experimental::AudioEngine::play2d(Define::_music_finish_level_effect_path, false, 1.0f);		
 		return;
 	}
 	else if (sprite->getTag() == Define::DIELAND && mCurrentState->GetState() != SonicState::DIE)
@@ -475,9 +473,11 @@ void Sonic::HandleCollision(Sprite * sprite)
 
 		//this->runAction(Sequence::create(DelayTime::create(1), Blink::create(2, 10), nullptr));
 		//this->runAction(Blink::create(2, 10));
-		SimpleAudioEngine::getInstance()->playEffect(Define::_music_drop_ring_effect_path);
+		
 		if (ringCollected > 0)
 		{
+			Define::_music_drop_ring_effect = experimental::AudioEngine::play2d(Define::_music_drop_ring_effect_path);
+
 			int t = ringCollected; //Temp variable
 			for (int i = 0; i < (t / 2); i++)
 			{
@@ -493,9 +493,11 @@ void Sonic::HandleCollision(Sprite * sprite)
 		this->SetStateByTag(SonicState::HURT);
 		//this->runAction(Sequence::create(DelayTime::create(1), Blink::create(2, 10), nullptr));
 		this->runAction(Blink::create(1, 4));
-		SimpleAudioEngine::getInstance()->playEffect(Define::_music_drop_ring_effect_path);
+		
 		if (ringCollected > 0)
 		{
+			Define::_music_drop_ring_effect = experimental::AudioEngine::play2d(Define::_music_drop_ring_effect_path);
+
 			int t = ringCollected; //Temp variable
 			for (int i = 0; i < (t / 2); i++)
 			{
@@ -582,11 +584,11 @@ void Sonic::updateStart(float dt)
 
 	//Transform red effect
 	_transform_red = Sprite::create();
-	_transform_red->setScale(1, 1.6);
+	_transform_red->setScale(1, 1.8);
 	_transform_red->setAnchorPoint(Vec2(1, 0.5));
 	_transform_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Sonic/transform.xml", "1"), 0.025f)));
-	//_transform_red->runAction(RepeatForever::create(transform_red_Ani->get()));
-	_transform_red->setPosition(170, 80);
+	_transform_red->runAction(RepeatForever::create(_transform_red_Ani->get()));
+	_transform_red->setPosition(170, 70);
 	this->addChild(_transform_red);
 	_transform_red->setVisible(false);
 

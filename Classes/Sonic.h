@@ -21,9 +21,7 @@
 #include "GameParticle.h"
 #include "SmallRing.h"
 #include "Mushroom.h"
-#include <SimpleAudioEngine.h>
 #include <AudioEngine.h>
-using namespace CocosDenshion;
 
 using namespace cocos2d;
 using namespace Define;
@@ -68,6 +66,7 @@ public:
 	float scoreMul = 1.0; //Multiple the score
 	bool isRed = false;
 	bool isGameOver = false;
+	int sequencePerfect = 0;
 
 	bool isFightingBoss = false;
 	Vec2 position_when_FightingBoss = Vec2(0, 0);

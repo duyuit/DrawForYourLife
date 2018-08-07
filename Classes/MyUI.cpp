@@ -76,7 +76,7 @@ MyUI::MyUI(Sonic * mSonic)
 			//	but->setOpacity(200);
 			
 				mySonic->ActiveButton(BUTTON_TAG::BUTTON_LEFT);
-				SimpleAudioEngine::getInstance()->playEffect(Define::_music_button_effect_path);
+				Define::_music_tap_button_effect = experimental::AudioEngine::play2d(Define::_music_tap_button_effect_path, false, 1.0f);
 				break;
 			default:
 				break;
@@ -101,7 +101,7 @@ MyUI::MyUI(Sonic * mSonic)
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 					mySonic->ActiveButton(BUTTON_TAG::BUTTON_RIGHT);
-					SimpleAudioEngine::getInstance()->playEffect(Define::_music_button_effect_path);
+					Define::_music_tap_button_effect = experimental::AudioEngine::play2d(Define::_music_tap_button_effect_path, false, 1.0f);
 					
 				//but->setOpacity(200);
 				break;
@@ -157,6 +157,7 @@ MyUI::MyUI(Sonic * mSonic)
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 			{
+				Define::_music_btn_effect_1 = experimental::AudioEngine::play2d(Define::_music_btn_effect_1_path, false, 1.0f);
 				_restart->setVisible(true);
 				board->setVisible(false);
 				if (current_scene != nullptr)
@@ -184,6 +185,8 @@ MyUI::MyUI(Sonic * mSonic)
 				break;
 			case ui::Widget::TouchEventType::ENDED:
 			{
+				experimental::AudioEngine::resumeAll();
+				Define::_music_btn_effect_1 = experimental::AudioEngine::play2d(Define::_music_btn_effect_1_path, false, 1.0f);
 				/*isPause = false;*/
 				_restart->setVisible(true);
 				board->setVisible(false);
@@ -213,9 +216,10 @@ MyUI::MyUI(Sonic * mSonic)
 			case ui::Widget::TouchEventType::BEGAN:
 				break;
 			case ui::Widget::TouchEventType::ENDED:
-			{
-				SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-				SimpleAudioEngine::getInstance()->playBackgroundMusic(Define::_music_menu_scene_background_2_path);
+			{		
+				experimental::AudioEngine::stopAll();
+				Define::_music_btn_effect_1 = experimental::AudioEngine::play2d(Define::_music_btn_effect_1_path, false, 1.0f);
+				Define::_music_menu_scene_background_2 = experimental::AudioEngine::play2d(Define::_music_menu_scene_background_2_path, true, 1.0f);
 				//setEnabledAll(true);
 				_restart->setVisible(true);
 				board->setVisible(false);
@@ -239,7 +243,10 @@ MyUI::MyUI(Sonic * mSonic)
 			{
 			case ui::Widget::TouchEventType::BEGAN:
 				break;
-			case ui::Widget::TouchEventType::ENDED: {
+			case ui::Widget::TouchEventType::ENDED: 
+			{
+				experimental::AudioEngine::pauseAll();
+				Define::_music_btn_effect_1 = experimental::AudioEngine::play2d(Define::_music_btn_effect_1_path, false, 1.0f);
 				_restart->setVisible(false);
 				board->setVisible(true);
 				layer->setVisible(true);
@@ -344,8 +351,9 @@ void MyUI::update(float dt)
 		count_to_gameover++;
 		if (count_to_gameover >= 60)
 		{
-			SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-			SimpleAudioEngine::getInstance()->playEffect(Define::_music_game_over_effect_path);
+			experimental::AudioEngine::stopAll();
+			Define::_music_game_over_effect_1 = experimental::AudioEngine::play2d(Define::_music_game_over_effect_1_path, false, 1.0f);
+
 			_combo->removeAllChildren();
 			_combo->unscheduleUpdate();
 			gameover = new GameOverLayer(mySonic, current_scene);

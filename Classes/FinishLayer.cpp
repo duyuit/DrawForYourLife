@@ -213,7 +213,9 @@ FinishLayer::FinishLayer(Sonic* mSonic, Layer* cur_scene)
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			//Code
+			experimental::AudioEngine::stopAll();
+			Define::_music_btn_effect_1 = experimental::AudioEngine::play2d(Define::_music_btn_effect_1_path, false, 1.0f);
+			Define::_music_menu_scene_background_2 = experimental::AudioEngine::play2d(Define::_music_menu_scene_background_2_path, true, 1.0f);
 			Director::getInstance()->replaceScene(LevelMap::createScene());
 		}
 		break;
@@ -236,6 +238,7 @@ FinishLayer::FinishLayer(Sonic* mSonic, Layer* cur_scene)
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
+			Define::_music_btn_effect_1 = experimental::AudioEngine::play2d(Define::_music_btn_effect_1_path, false, 1.0f);
 			if (current_scene != nullptr)
 			{
 				auto scene = (LevelScene*)current_scene;
@@ -262,6 +265,7 @@ FinishLayer::FinishLayer(Sonic* mSonic, Layer* cur_scene)
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
+			Define::_music_btn_effect_1 = experimental::AudioEngine::play2d(Define::_music_btn_effect_1_path, false, 1.0f);
 			if (current_scene != nullptr)
 			{
 				auto scene = (LevelScene*)current_scene;

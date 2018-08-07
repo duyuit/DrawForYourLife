@@ -94,7 +94,7 @@ bool LevelMapStone::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_1_path);
+			Define::_music_btn_effect_1 = experimental::AudioEngine::play2d(Define::_music_btn_effect_1_path, false, 1.0f);
 			if (currentLevel < 2) {
 				auto gameScene = (LoadScene*)LoadScene::createScene();
 				gameScene->next_scene = (SCENE_NAME)currentLevel;
@@ -163,7 +163,7 @@ bool LevelMapStone::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_1_path);
+			Define::_music_btn_effect_1 = experimental::AudioEngine::play2d(Define::_music_btn_effect_1_path, false, 1.0f);
 			board->setVisible(false);
 			isBoard = false;
 		}
@@ -189,7 +189,7 @@ bool LevelMapStone::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_1_path);
+			Define::_music_btn_effect_1 = experimental::AudioEngine::play2d(Define::_music_btn_effect_1_path, false, 1.0f);
 			auto gameScene = SelectMap::createScene();
 			Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
 		}
@@ -213,7 +213,7 @@ bool LevelMapStone::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_2_path);
+			Define::_music_btn_effect_2 = experimental::AudioEngine::play2d(Define::_music_btn_effect_2_path, false, 1.0f);
 			setStar(0, 0);// pos 0 - 2 star
 			board->setVisible(true);
 			isBoard = true;
@@ -249,7 +249,7 @@ bool LevelMapStone::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_2_path);
+			Define::_music_btn_effect_2 = experimental::AudioEngine::play2d(Define::_music_btn_effect_2_path, false, 1.0f);
 			setStar(1, 0); // pos 1 - 1 star
 			board->setVisible(true);
 			isBoard = true;
@@ -281,7 +281,7 @@ bool LevelMapStone::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_2_path);
+			Define::_music_btn_effect_2 = experimental::AudioEngine::play2d(Define::_music_btn_effect_2_path, false, 1.0f);
 			setStar(2, 0); // level 2 - 3 star
 			board->setVisible(true);
 			isBoard = true;
@@ -312,7 +312,7 @@ bool LevelMapStone::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_2_path);
+			Define::_music_btn_effect_2 = experimental::AudioEngine::play2d(Define::_music_btn_effect_2_path, false, 1.0f);
 			setStar(3, 0); // level 3 - 3 star
 			board->setVisible(true);
 			isBoard = true;
@@ -338,7 +338,7 @@ bool LevelMapStone::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_2_path);
+			Define::_music_btn_effect_2 = experimental::AudioEngine::play2d(Define::_music_btn_effect_2_path, false, 1.0f);
 			setStar(5, 0); // level 4 - 3 star
 			board->setVisible(true);
 			isBoard = true;
@@ -363,7 +363,7 @@ bool LevelMapStone::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_2_path);
+			Define::_music_btn_effect_2 = experimental::AudioEngine::play2d(Define::_music_btn_effect_2_path, false, 1.0f);
 			setStar(6, 0); // level 5 - 3 star
 			board->setVisible(true);
 			isBoard = true;
@@ -388,7 +388,7 @@ bool LevelMapStone::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			SimpleAudioEngine::getInstance()->playEffect(Define::_music_btn_effect_2_path);
+			Define::_music_btn_effect_2 = experimental::AudioEngine::play2d(Define::_music_btn_effect_2_path, false, 1.0f);
 			setStar(7, 0); // level bonus - 3 star
 			board->setVisible(true);
 			isBoard = true;

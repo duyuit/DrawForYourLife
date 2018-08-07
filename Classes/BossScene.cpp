@@ -85,8 +85,8 @@ bool BossScene::init()
 		this->addChild(edgeSp); // Add v�o Layer
 	}
 
-	SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-	SimpleAudioEngine::getInstance()->playBackgroundMusic(Define::_music_boss_scene_background_path, true);
+	experimental::AudioEngine::stopAll();
+	Define::_music_boss_scene_background = experimental::AudioEngine::play2d(Define::_music_boss_scene_background_path, true, 0.8f);
 
 	scheduleOnce(CC_SCHEDULE_SELECTOR(BossScene::updateStart), 0);
 	return true;

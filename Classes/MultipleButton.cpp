@@ -148,6 +148,7 @@ void MultipleButton::ActiveButton(BUTTON_TAG dir)
 			nullptr
 		));
 		current_button++;
+		Define::_music_btn_effect = experimental::AudioEngine::play2d(Define::_music_btn_effect_path, false, 1.0f);
 		if (current_button == _list_button_tag.size())
 			DeleteNow(true);
 	}
@@ -260,6 +261,15 @@ void MultipleButton::CheckLabel(float percen, bool check)
 			score = PERFECT;
 			_label->runAction(Sequence::create(ScaleTo::create(0.3, 1), shake, nullptr));
 			MyParticle::RunEffectStar(this->getPosition(), (Layer*) this->getParent());
+
+			//Play perfect sound
+			_mSonic->sequencePerfect++;
+			if (_mSonic->sequencePerfect == 1)
+				Define::_music_perfect_effect_1 = experimental::AudioEngine::play2d(Define::_music_perfect_effect_1_path, false, 1.0f);
+			else if (_mSonic->sequencePerfect == 2)
+				Define::_music_perfect_effect_2 = experimental::AudioEngine::play2d(Define::_music_perfect_effect_2_path, false, 1.0f);
+			else if (_mSonic->sequencePerfect >= 3)
+				Define::_music_perfect_effect_3 = experimental::AudioEngine::play2d(Define::_music_perfect_effect_3_path, false, 1.0f);
 		}
 		else if (percen >= 50 && percen < 100)
 		{
@@ -269,6 +279,10 @@ void MultipleButton::CheckLabel(float percen, bool check)
 			_mSonic->countGreat++;
 			score = GREAT;
 			_label->runAction(Sequence::create(ScaleTo::create(0.3, 1), shake, nullptr));
+
+			//Play great sound
+			_mSonic->sequencePerfect = 0;
+			Define::_music_great_effect = experimental::AudioEngine::play2d(Define::_music_great_effect_path, false, 1.0f);
 		}
 	}
 	else 
@@ -276,7 +290,9 @@ void MultipleButton::CheckLabel(float percen, bool check)
 		_label->setColor(Color3B(255, 0, 0));
 		_label->setString("Miss!");
 		_label->runAction(Sequence::create(ScaleTo::create(0.3, 1), shake, nullptr));
-	}
 
-	
+		//Play miss sound
+		_mSonic->sequencePerfect = 0;
+		Define::_music_miss_effect = experimental::AudioEngine::play2d(Define::_music_miss_effect_path, false, 1.0f);
+	}	
 }
