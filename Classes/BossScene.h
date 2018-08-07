@@ -10,6 +10,15 @@ public:
 	ParticleSystemQuad* test=nullptr;
 	LayerColor* blacklayer;
 	BossLv1* boss;
+	Sprite* boss_avatar = nullptr;
+	ProgressTimer *mouseBar;
+
+
+
+	RefPtr<Animate> * normal_anim;
+
+	RefPtr<Animate> * angry_anim;
+
 	virtual bool init();
 
 	void update(float) override;

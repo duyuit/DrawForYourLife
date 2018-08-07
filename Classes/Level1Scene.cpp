@@ -156,7 +156,6 @@ bool Level1Scene::init()
 		
 		auto scene = BossScene::createScene();		
 		Director::getInstance()->replaceScene(scene);
-		_mSonic->chooseMusic = BOSS_MUSIC;
 	}
 	/*LoadMap("LevelScene/StoneMap/lv1.tmx");
 	CreateTileLayer("LevelScene/StoneMap/lv1_layer");

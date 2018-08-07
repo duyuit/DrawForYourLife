@@ -258,6 +258,7 @@ void MultipleButton::CheckLabel(float percen, bool check)
 			_label->setString("Perfect!");
 			_mSonic->score += 300 * _button_count * _mSonic->scoreMul;
 			_mSonic->countPerfect++;
+			score = PERFECT;
 			_label->runAction(Sequence::create(ScaleTo::create(0.3, 1), shake, nullptr));
 			MyParticle::RunEffectStar(this->getPosition(), (Layer*) this->getParent());
 
@@ -276,6 +277,7 @@ void MultipleButton::CheckLabel(float percen, bool check)
 			_label->setString("Great!");
 			_mSonic->score += 200 * _button_count * _mSonic->scoreMul;
 			_mSonic->countGreat++;
+			score = GREAT;
 			_label->runAction(Sequence::create(ScaleTo::create(0.3, 1), shake, nullptr));
 
 			//Play great sound

@@ -18,7 +18,7 @@ bool BossScene::init()
     boss = new BossLv1(Vec2(1500, 317), _mSonic, (Layer*)this);
 	//boss->Flip();
 	this->addChild(boss);
-	boss->SetState(BossLv1::FIGHT);
+	boss->SetState(BossLv1::IDLE);
 
 	blacklayer = LayerColor::create(Color4B::BLACK);
 	blacklayer->setScale(3);
@@ -38,12 +38,14 @@ bool BossScene::init()
 
 	test->setPosition(_mSonic->getPosition());
 	this->addChild(test,4);
-	
 
 	_tileMap = new TMXTiledMap();
 	_tileMap->initWithTMXFile("LevelScene/StoneMap/boss.tmx");
 	this->addChild(_tileMap);
 	CreateParallaxNode("Map_stone/stone_bg3.png");
+
+
+
 
 	TMXObjectGroup *objectGroup_land = _tileMap->getObjectGroup("Land");
 	for (int i = 0; i < objectGroup_land->getObjects().size(); i++)
@@ -74,8 +76,7 @@ bool BossScene::init()
 		this->addChild(edgeSp); // Add v�o Layer
 	}
 
-	experimental::AudioEngine::stopAll();
-	Define::_music_boss_scene_background = experimental::AudioEngine::play2d(Define::_music_boss_scene_background_path, true, 0.8f);
+	_mSonic->chooseMusic = BOSS_MUSIC;
 
 	scheduleOnce(CC_SCHEDULE_SELECTOR(BossScene::updateStart), 0);
 	return true;
@@ -116,9 +117,13 @@ void BossScene::update(float)
 		test->setVisible(false);
 		blacklayer->setVisible(false);
 	}
-	
-	/*RollBackground();*/
 
+	if (boss->isCrazy)
+	{
+		//test->setVisible(tru);
+		blacklayer->setVisible(true);
+	}
+	//RollBackground();
 	if (_mSonic->scene_over)
 		return;
 
@@ -138,6 +143,38 @@ void BossScene::updateStart(float dt)
 	_myui->current_scene = this;
 	_myui->setCurrentLevelMap((SCENE_LEVELMAP)area);
 	_myui->setCurrentLevel((SCENE_NAME)level);
+
+	auto _progressbar = Sprite::create("GameComponents/progressbar2.png");
+	_progressbar->setAnchorPoint(Vec2(0.5, 0.5));
+
+
+	auto _border = Sprite::create("GameComponents/border2.png");
+
+	_border->setAnchorPoint(Vec2(0.5, 0.5));
+	_border->setPosition(_border->getContentSize() / 2);
+	this->getScene()->addChild(_border, 0);
+
+
+	mouseBar = ProgressTimer::create(_progressbar);
+	mouseBar->setType(ProgressTimerType::RADIAL);
+	mouseBar->setAnchorPoint(Vec2(0.5, 0.5));
+	//	mouseBar->setReverseDirection(true);
+	mouseBar->setPercentage(60);
+
+
+	mouseBar->setPosition(_border->getContentSize() / 2);
+	boss->mouseBar = mouseBar;
+	//	mouseBar->setColor(Color3B::WHITE);
+	this->getScene()->addChild(mouseBar, 2);
+
+	boss_avatar = Sprite::create();
+	boss_avatar->setAnchorPoint(Vec2(0, 0));
+	boss_avatar->setPosition(10, _border->getContentSize().height / 2 - 30);
+	this->getScene()->addChild(boss_avatar, 1);
+
+	normal_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/boss_face.xml", "angry_avatar"), 0.05)));
+	angry_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/boss_face.xml", "normal_avatar"), 0.05)));
+	boss_avatar->runAction(RepeatForever::create(normal_anim->get()));
 }
 cocos2d::Scene * BossScene::createSceneArea(SCENE_AREA next_scene_area, SCENE_NAME levelScene)
 {
@@ -153,12 +190,13 @@ cocos2d::Scene * BossScene::createSceneArea(SCENE_AREA next_scene_area, SCENE_NA
 	//scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
 	scene->getPhysicsWorld()->step(1 / 60.0f);
 
-
-
 	auto layer = BossScene::create();
 	scene->addChild(layer);
 
 	return scene;
+
+	
+
 }
 void BossScene::ReloadScene()
 {

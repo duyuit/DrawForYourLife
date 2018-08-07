@@ -1,7 +1,7 @@
 #pragma once
 #include "BossDrill.h"
 #include "BossPlane.h"
-
+#include "MultipleButton.h"
 #include "TapButton.h"
 class BossLv1:public Node
 {
@@ -27,16 +27,20 @@ public:
 	Sonic* _mSonic;
 	int count_to_change_state = 0;
 
-	ProgressTimer* mouseBar;
-	Sprite* _border;
-	Sprite* _progressbar;
 
+	ProgressTimer *mouseBar;
 	void GetDame();
-	
+
+	bool isCrazy = true;
 	bool isSonicAttack = false;
+
+	void ResetButton();
 	void Broke();
 	STATE currentState = IDLE;
 	TapButton* currentButton = nullptr;
+	MultipleButton* current_multiButton = nullptr;
+
+	void AddPercent(TYPE_SCORE score);
 	int maximum_hit=0;
 	void SetState(STATE state);
 	void updateStart(float dt);

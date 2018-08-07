@@ -95,6 +95,8 @@ Sonic::Sonic()
 	this->scheduleUpdate();
 
 	SwapAllAni();//Bug fix:Hao super Lag when Sonic change to red
+
+	
 	//autorelease();
 }
 
@@ -485,7 +487,7 @@ void Sonic::HandleCollision(Sprite * sprite)
 
 	//When Sonic hits enemy, push back and drop rings
 	else if ((sprite->getTag() == Define::LANDMONSTER || sprite->getTag() == Define::COCONUT) 
-		&& mCurrentState->GetState() != SonicState::ROLL &&mCurrentState->GetState() != SonicState::COUNTER)
+		&& mCurrentState->GetState() != SonicState::ROLL &&mCurrentState->GetState() != SonicState::COUNTER && mCurrentState->GetState() != SonicState::HURT)
 	{
 		this->SetStateByTag(SonicState::HURT);
 
@@ -509,7 +511,7 @@ void Sonic::HandleCollision(Sprite * sprite)
 		//Monster cant collision with Sonic 
 		sprite->getPhysicsBody()->setContactTestBitmask(0);	
 	}
-	else if (sprite->getTag() == Define::DRILL)
+	else if (sprite->getTag() == Define::DRILL && mCurrentState->GetState()!=SonicState::HURT)
 	{
 		this->SetStateByTag(SonicState::HURT);
 		//this->runAction(Sequence::create(DelayTime::create(1), Blink::create(2, 10), nullptr));

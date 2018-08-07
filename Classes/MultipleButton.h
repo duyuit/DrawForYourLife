@@ -3,6 +3,7 @@
 #include "Sonic.h"
 #include "GameDefine.h"
 #include <vector>
+#include "TapButton.h"
 using namespace cocos2d;
 class MultipleButton:public Node 
 {
@@ -17,7 +18,7 @@ public:
 	bool isTrue = false; 
 	int count_to_auto_play = 0;
 	string font = "fonts/hemi.ttf";
-
+	TYPE_SCORE score;
 	void update(float dt);
 	Sprite* _border;
 	Sprite* _progressbar;
