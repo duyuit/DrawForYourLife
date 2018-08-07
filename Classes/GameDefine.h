@@ -28,13 +28,21 @@ namespace Define {
 	enum SCENE_NAME
 	{
 		LV0,
-		LV1
+		LV1,
+		LV2
 	};
 	enum SCENE_AREA
 	{
 		STONE,
 		SNOW,
 		DESERT
+
+	};
+	enum SCENE_LEVELMAP
+	{
+		MAP_STONE,
+		MAP_SNOW,
+		MAP_DESERT
 
 	};
 	enum BUTTON_TAG
@@ -44,11 +52,23 @@ namespace Define {
 		BUTTON_RIGHT
 	
 	};
+	enum MUSIC_BG
+	{
+		TUTORIAL_MUSIC,
+		STONE_1_MUSIC,
+		STONE_2_MUSIC,
+		SNOW_1_MUSIC,
+		SNOW_2_MUSIC,
+		DESERT_1_MUSIC,
+		DESERT_2_MUSIC,
+		BOSS_MUSIC
+	};
+
 	static float default_sonic_mass = 441;
 	static float boss_sonic_mass = 700;
 
 	static int area;
-
+	static int level = 0;
 	static string button_left_green_path = "Button/button_left_green.png";
 	static string button_right_green_path = "Button/button_right_green.png";
 	static string button_left_grey_path = "Button/button_left_grey.png";
@@ -111,8 +131,8 @@ namespace Define {
 	static char* _music_voice_end_lose_path = "Music/Voice/voice_end_lose.mp3";
 	static char* _music_voice_end_win_path = "Music/Voice/voice_end_win.mp3";
 	static char* _music_voice_miss_path = "Music/Voice/voice_miss.mp3";
-	static char* _music_voice_start_1_path = "Music/Voice/voice_start_1.mp3";
-	static char* _music_voice_start_2_path = "Music/Voice/voice_start_2.mp3";
+	static char* _music_voice_start_1_path = "Music/Voice/voice_start_21.mp3";
+	static char* _music_voice_start_2_path = "Music/Voice/voice_start_1.mp3";
 
 	static float randomValueBetween(float min, float max)
 	{

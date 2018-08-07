@@ -12,7 +12,16 @@ LevelScene::~LevelScene()
 
 
 }
-
+void LevelScene::MyReadyPause()
+{
+	// Pause everthing
+	Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(0);
+}
+void LevelScene::MyReadyResume()
+{
+	// Pause everthing
+	Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1);
+}
 void LevelScene::MyPause()
 {
 	// Pause everthing
@@ -282,7 +291,13 @@ void LevelScene::LoadMap(string path)
 			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
 			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
 
-			Monster *mon = new FrogMonster(_mSonic);
+			Monster *mon = nullptr;
+			if (area_1 == Define::MAP_SNOW) {
+				mon = new YetiMonster(_mSonic);
+			}
+			else {
+				mon = new FrogMonster(_mSonic);
+			}
 			mon->setPosition(x_box, y_box);
 			_listMonster.pushBack(mon);
 			_listMultipleButton.pushBack(mon->_multiButton);
@@ -462,8 +477,6 @@ void LevelScene::update(float dt)
 	{
 		this->getScene()->getPhysicsWorld()->step(1 / 60.0f);
 	}*/
-
-
 	RollBackground();
 	if (_mSonic->scene_over)
 		return;
@@ -534,4 +547,8 @@ cocos2d::Scene * LevelScene::createScene()
 	scene->addChild(layer);
 
 	return scene;
+}
+void LevelScene::setCurrentArea(SCENE_LEVELMAP sceneLevel)
+{
+	area_1 = sceneLevel;
 }

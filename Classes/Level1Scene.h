@@ -8,7 +8,6 @@ public:
 	Level1Scene();
 	~Level1Scene();
 
-
 	void NextScene() override;
 	void LoadMap(string path) override;
 	virtual void  ReloadScene() override;
@@ -19,7 +18,8 @@ public:
 	bool onContactBegin(cocos2d::PhysicsContact & contact);
 	virtual bool init();
 	static cocos2d::Scene* createScene();
-	static cocos2d::Scene* createSceneArea(SCENE_AREA next_scene_area);
+	static cocos2d::Scene* createSceneArea(SCENE_AREA next_scene_area, SCENE_NAME levelScene);
+
 	CREATE_FUNC(Level1Scene);
 };
 

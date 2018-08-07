@@ -39,7 +39,21 @@ bool LoadScene::init()
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto loading = Sprite::create("Menu/sonic_loading.png");
+	srand(time(NULL));
+	int random = rand() % 3 + 1;
+	if ((SCENE_NAME)next_scene != Define::LV2) {
+		if (random == 1) {
+			loading = Sprite::create("Menu/loading_bg_1.png");
+		}
+		if (random == 2) {
+			loading = Sprite::create("Menu/loading_bg_2.png");
+		}
+		if (random == 3) {
+			loading = Sprite::create("Menu/loading_bg_3.png");
+		}
+	}
+
+
 	loading->setScale(visibleSize.width / loading->getContentSize().width, visibleSize.height / loading->getContentSize().height);
 	loading->setAnchorPoint(Vec2(0.5, 0.5));
 	loading->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
@@ -70,7 +84,7 @@ bool LoadScene::init()
 	mouseBar->runAction(ProgressFromTo::create(1.0f, 0.0f, 100));
 
 
-
+	this->scheduleUpdate();
 	scheduleOnce(CC_SCHEDULE_SELECTOR(LoadScene::updateStart), 0);
 	return true;
 }
@@ -80,16 +94,19 @@ void LoadScene::NextScene()
 	//Director::getInstance()->replaceScene(TransitionFade::create(1, TurtorialScene::createScene()));
 
 	if ((SCENE_NAME)next_scene == Define::LV0) {
-		Director::getInstance()->replaceScene(TransitionFade::create(1, TurtorialScene::createScene()));
+		Director::getInstance()->replaceScene(TransitionFade::create(1, TurtorialScene::createSceneArea(Define::STONE, Define::LV0)));
 	}
 	if ((SCENE_NAME)next_scene == Define::LV1 && (SCENE_AREA)next_scene_area == Define::DESERT) {
-		Director::getInstance()->replaceScene(TransitionFade::create(1, Level1Scene::createSceneArea(Define::DESERT)));
+		Director::getInstance()->replaceScene(TransitionFade::create(1, Level1Scene::createSceneArea(Define::DESERT, Define::LV1)));
 	}
 	if ((SCENE_NAME)next_scene == Define::LV1 && (SCENE_AREA)next_scene_area == Define::SNOW) {
-		Director::getInstance()->replaceScene(TransitionFade::create(1, Level1Scene::createSceneArea(Define::SNOW)));
+		Director::getInstance()->replaceScene(TransitionFade::create(1, Level1Scene::createSceneArea(Define::SNOW, Define::LV1)));
 	}
 	if ((SCENE_NAME)next_scene == Define::LV1 && (SCENE_AREA)next_scene_area == Define::STONE) {
-		Director::getInstance()->replaceScene(TransitionFade::create(1, Level1Scene::createSceneArea(Define::STONE)));
+		Director::getInstance()->replaceScene(TransitionFade::create(1, Level1Scene::createSceneArea(Define::STONE, Define::LV1)));
+	}
+	if ((SCENE_NAME)next_scene == Define::LV2 && (SCENE_AREA)next_scene_area == Define::STONE) {
+		Director::getInstance()->replaceScene(TransitionFade::create(1, BossScene::createSceneArea(Define::STONE, Define::LV2)));
 	}
 
 }
@@ -98,5 +115,9 @@ void LoadScene::updateStart(float dt)
 {
 	auto actionMoveDone = CallFuncN::create(CC_CALLBACK_0(LoadScene::NextScene, this));
 	this->runAction(Sequence::create(DelayTime::create(2.0), actionMoveDone, NULL));
+}
+void LoadScene::update(float dt)
+{
+
 }
 

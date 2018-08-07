@@ -40,11 +40,10 @@ bool BossScene::init()
 	this->addChild(test,4);
 	
 
-	CreateParallaxNode("Map_stone/stone_bg3.png");
-	
 	_tileMap = new TMXTiledMap();
 	_tileMap->initWithTMXFile("LevelScene/StoneMap/boss.tmx");
 	this->addChild(_tileMap);
+	CreateParallaxNode("Map_stone/stone_bg3.png");
 
 	TMXObjectGroup *objectGroup_land = _tileMap->getObjectGroup("Land");
 	for (int i = 0; i < objectGroup_land->getObjects().size(); i++)
@@ -118,7 +117,8 @@ void BossScene::update(float)
 		blacklayer->setVisible(false);
 	}
 	
-	RollBackground();
+	/*RollBackground();*/
+
 	if (_mSonic->scene_over)
 		return;
 
@@ -136,9 +136,29 @@ void BossScene::updateStart(float dt)
 {
 	LevelScene::updateStart(1);
 	_myui->current_scene = this;
+	_myui->setCurrentLevelMap((SCENE_LEVELMAP)area);
+	_myui->setCurrentLevel((SCENE_NAME)level);
+}
+cocos2d::Scene * BossScene::createSceneArea(SCENE_AREA next_scene_area, SCENE_NAME levelScene)
+{
+	area = (SCENE_AREA)next_scene_area;
+	level = (SCENE_NAME)levelScene;
+
+	auto scene = Scene::createWithPhysics();
+
+	// set gravity
+	scene->getPhysicsWorld()->setGravity(Vec2(0, -1000));
+
+	// optional: set debug draw
+	//scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+	scene->getPhysicsWorld()->step(1 / 60.0f);
 
 
 
+	auto layer = BossScene::create();
+	scene->addChild(layer);
+
+	return scene;
 }
 void BossScene::ReloadScene()
 {

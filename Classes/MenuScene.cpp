@@ -127,30 +127,11 @@ bool MenuScene::init()
 	});
 	this->addChild(button_play,1);
 
-	auto button_option = Button::create("Menu/btn_option.png");
+	auto button_option = Button::create("Menu/btn_quit.png");
 	button_option->setScale(0.3 * scaleX, 0.3 * scaleY);
 	button_option->setAnchorPoint(Vec2(0.5, 0.5));
 	button_option->setPosition(Vec2(visibleSize.width / 3, (0.5 * visibleSize.height) - (visibleSize.height / 6 )));
 	button_option->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
-		switch (type)
-		{
-		case ui::Widget::TouchEventType::BEGAN:
-			break;
-		case ui::Widget::TouchEventType::ENDED:
-		{
-		}
-		break;
-		default:
-			break;
-		}
-	});
-	this->addChild(button_option, 1);
-
-	auto button_quit = Button::create("Menu/btn_quit.png");
-	button_quit->setScale(0.3 * scaleX, 0.3 * scaleY);
-	button_quit->setAnchorPoint(Vec2(0.5, 0.5));
-	button_quit->setPosition(Vec2(visibleSize.width / 3, (0.5 * visibleSize.height) - (visibleSize.height / 3 )));
-	button_quit->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
 		switch (type)
 		{
 		case ui::Widget::TouchEventType::BEGAN:
@@ -167,7 +148,30 @@ bool MenuScene::init()
 			break;
 		}
 	});
-	this->addChild(button_quit, 1);
+	this->addChild(button_option, 1);
+
+	//auto button_quit = Button::create("Menu/btn_quit.png");
+	//button_quit->setScale(0.3 * scaleX, 0.3 * scaleY);
+	//button_quit->setAnchorPoint(Vec2(0.5, 0.5));
+	//button_quit->setPosition(Vec2(visibleSize.width / 3, (0.5 * visibleSize.height) - (visibleSize.height / 3 )));
+	//button_quit->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+	//	switch (type)
+	//	{
+	//	case ui::Widget::TouchEventType::BEGAN:
+	//		break;
+	//	case ui::Widget::TouchEventType::ENDED:
+	//	{
+	//		Director::getInstance()->end();
+	//		#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	//					exit(0);
+	//		#endif
+	//	}
+	//	break;
+	//	default:
+	//		break;
+	//	}
+	//});
+	//this->addChild(button_quit, 1);
 
 	return true;
 }

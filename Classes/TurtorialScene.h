@@ -11,7 +11,7 @@ public:
 	int delta_x = -30; //2 Variable to Shake Camera when sonic is pausing
 	int count_tuto =0;
 	void LoadMap(string path) override;
-	LayerColor* blacklayer;
+	LayerColor* blacklayer = nullptr;
 	int count_to_change_position = 0;
 	TurtorialScene();
 	~TurtorialScene();
@@ -25,6 +25,7 @@ public:
 //	bool onContactBegin(cocos2d::PhysicsContact & contact);
 	virtual bool init();
 	static cocos2d::Scene* createScene();
+	static cocos2d::Scene* createSceneArea(SCENE_AREA next_scene_area, SCENE_NAME levelScene);
 	CREATE_FUNC(TurtorialScene);
 };
 

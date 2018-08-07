@@ -94,11 +94,12 @@ bool LevelMap::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
+			experimental::AudioEngine::stopAll();
 			Define::_music_btn_effect_1 = experimental::AudioEngine::play2d(Define::_music_btn_effect_1_path, false, 1.0f);
 			if (currentLevel < 2) {
 				auto gameScene = (LoadScene*)LoadScene::createScene();
 				gameScene->next_scene = (SCENE_NAME)currentLevel;
-				gameScene->next_scene_area = (SCENE_NAME)currentArea;
+				gameScene->next_scene_area = (SCENE_AREA)currentArea;
 				Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
 			}
 			/*if (currentLevel == 0) {

@@ -66,7 +66,10 @@ public:
 	float scoreMul = 1.0; //Multiple the score
 	bool isRed = false;
 	bool isGameOver = false;
+	bool isCollision = false;
 	int sequencePerfect = 0;
+	bool isTurnOnMusic = false;
+	MUSIC_BG chooseMusic;
 
 	bool isFightingBoss = false;
 	Vec2 position_when_FightingBoss = Vec2(0, 0);

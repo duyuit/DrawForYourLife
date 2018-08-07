@@ -237,7 +237,7 @@ void RingComboScore::Evaluate()
 			{
 				_mySonic->scoreMul = 1.5;
 				_evaluate->setColor(Color3B(0, 255, 255));
-				_evaluate->setString("Cool!!");
+				//_evaluate->setString("Cool!!");
 				isCool = true;
 			}
 			else _evaluate->setString("");
@@ -248,7 +248,7 @@ void RingComboScore::Evaluate()
 			{
 				_mySonic->scoreMul = 2.0;
 				_evaluate->setColor(Color3B(255, 255, 0));
-				_evaluate->setString("Good!");
+				//_evaluate->setString("Good!");
 				isGood = true;
 			}
 			else _evaluate->setString("");
@@ -259,7 +259,7 @@ void RingComboScore::Evaluate()
 			{
 				_mySonic->scoreMul = 2.5;
 				_evaluate->setColor(Color3B(255, 128, 0));
-				_evaluate->setString("Excellent!");
+				//_evaluate->setString("Excellent!");
 				isExcellent = true;
 			}
 			else _evaluate->setString("");
@@ -270,7 +270,7 @@ void RingComboScore::Evaluate()
 			{
 				_mySonic->scoreMul = 3.0;
 				_evaluate->setColor(Color3B(255, 0, 0));
-				_evaluate->setString("Perfect!");
+				//_evaluate->setString("Perfect!");
 				isPerfect = true;
 			}
 			else _evaluate->setString("");
@@ -309,7 +309,7 @@ void RingComboScore::update(float dt)
 		{
 			UpdateCombo();
 
-			if (combo < 5) flame->setVisible(false);
+			if (combo <= 5) flame->setVisible(false);
 			else flame->setVisible(true);
 			if (combo > 5 && combo <= 10 && _pre_combo <= 5)
 			{

@@ -241,8 +241,20 @@ FinishLayer::FinishLayer(Sonic* mSonic, Layer* cur_scene)
 			Define::_music_btn_effect_1 = experimental::AudioEngine::play2d(Define::_music_btn_effect_1_path, false, 1.0f);
 			if (current_scene != nullptr)
 			{
-				auto scene = (LevelScene*)current_scene;
-				scene->NextScene();
+				if (current_level == Define::LV0)
+				{
+					auto gameScene = (LoadScene*)LoadScene::createScene();
+					gameScene->next_scene = Define::LV1;
+					gameScene->next_scene_area = (SCENE_AREA)current_area;
+					Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
+				}
+				if (current_level == 1 && current_area == Define::STONE)
+				{
+					auto gameScene = (LoadScene*)LoadScene::createScene();
+					gameScene->next_scene = Define::LV2;
+					gameScene->next_scene_area = (SCENE_NAME)current_area;
+					Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
+				}
 			}
 		}
 		break;
@@ -277,12 +289,15 @@ FinishLayer::FinishLayer(Sonic* mSonic, Layer* cur_scene)
 			break;
 		}
 	});
+	if (area == Define::SNOW && area == Define::DESERT) {
+		button_board_next->setEnabled(false);
+	}
+	if (area == Define::STONE && level > Define::LV2) {
+		button_board_next->setEnabled(false);
+	}
+	button_board_next->setVisible(false);
 	button_board_cancel->setVisible(false);
 	button_board_round->setVisible(false);
-	//Start
-	button_board_next->setVisible(false);
-	button_board_next->setEnabled(false);
-	//End
 
 	this->scheduleUpdate();
 }

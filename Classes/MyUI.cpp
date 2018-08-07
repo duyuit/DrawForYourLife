@@ -3,10 +3,21 @@
 #include "TurtorialScene.h"
 #include "LevelMap.h"
 //Start
+
 void MyUI::SetCurrentScene(Layer * scene)
 {
 	current_scene = scene;
 	finish->current_scene = scene;
+}
+void MyUI::setCurrentLevelMap(SCENE_LEVELMAP sceneLevel)
+{
+	currentLevelMap = sceneLevel;
+	currentArea = sceneLevel;
+}
+void MyUI::setCurrentLevel(SCENE_NAME level)
+{
+	currentLevel = level;
+	int abc = 0;
 }
 //End
 
@@ -48,7 +59,27 @@ MyUI::MyUI(Sonic * mSonic)
 {
 		this->autorelease();
 		mySonic = mSonic;
+		//Starting
+		labelStart = Label::createWithTTF("", font, 50);
+		labelStart->setString("Ready"); 
+		labelStart->enableOutline(Color4B::BLACK, 3);
+		labelStart->setPosition(_director->getWinSize().width /2 , _director->getWinSize().height/2);
+		labelStart->setAnchorPoint(Vec2(0.5f,0.5f));
+		this->addChild(labelStart,10);
 
+		layer_1 = LayerColor::create();
+		layer_1->setColor(Color3B::BLACK);
+		layer_1->setOpacity(210);
+		this->addChild(layer_1,9);
+
+		layer = LayerColor::create();
+		layer->setColor(Color3B::BLACK);
+		layer->setOpacity(200);
+		layer->setVisible(false);
+		this->addChild(layer);
+
+		//scene->MyReadyPause();
+		//End
 		_touch_guide = Sprite::create();
 		auto animation = Animation::createWithSpriteFrames(Define::loadAnim("GameComponents/touch.xml", "1"), 0.03f);
 		_touch_guide->runAction(RepeatForever::create(Animate::create(animation)));
@@ -60,6 +91,7 @@ MyUI::MyUI(Sonic * mSonic)
 		_button_left = Button::create(Define::button_left_grey_path);
 		float delta_scale_x = (_director->getWinSize().width / 3)/_button_left->getContentSize().width;
 		float delta_scale_y= _director->getWinSize().height / _button_left->getContentSize().height;
+
 		_button_left->setScale(delta_scale_x, delta_scale_y);
 		_button_left->setOpacity(0);
 		_button_left->setPosition(Vec2(_button_left->getContentSize().width*delta_scale_x/2, 0));
@@ -125,12 +157,6 @@ MyUI::MyUI(Sonic * mSonic)
 		board->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
 		board->setVisible(false);
 		this->addChild(board, 5);
-
-		layer = LayerColor::create();
-		layer->setColor(Color3B::BLACK);
-		layer->setOpacity(200);
-		this->addChild(layer);
-		layer->setVisible(false);
 
 		//Define delta x size board
 		float delta_x = board->getContentSize().width / 10;
@@ -224,7 +250,15 @@ MyUI::MyUI(Sonic * mSonic)
 				_restart->setVisible(true);
 				board->setVisible(false);
 				layer->setVisible(false);
-				Director::getInstance()->replaceScene(LevelMap::createScene());
+				if (currentLevelMap == Define::MAP_STONE) {
+					Director::getInstance()->replaceScene(LevelMapStone::createScene());
+				}
+				if (currentLevelMap == Define::MAP_SNOW) {
+					Director::getInstance()->replaceScene(LevelMap::createScene());
+				}
+				if (currentLevelMap == Define::MAP_DESERT) {
+					Director::getInstance()->replaceScene(LevelMapDesert::createScene());
+				}
 				
 			}
 				break;
@@ -252,7 +286,6 @@ MyUI::MyUI(Sonic * mSonic)
 				layer->setVisible(true);
 				if (current_scene != nullptr)
 				{
-					/*isPause = true;*/
 					auto scene = (LevelScene*)current_scene;
 					scene->MyPause();
 				}
@@ -319,6 +352,69 @@ MyUI::MyUI(Sonic * mSonic)
 
 void MyUI::update(float dt)
 {
+
+	if (mySonic->isCollision == true && currentLevel != Define::LV0 && currentLevel != Define::LV2) {
+		if (isCallPause == false) {
+			auto scene = (LevelScene*)current_scene;
+			scene->MyReadyPause();
+			isCallPause = true;
+			_restart->setVisible(false);
+		}
+		if (isDone == false) {
+			if (isReady == true) {
+				count_ready++;
+				if (count_ready == 90) {
+					//AlrightNow voice
+					if (isTurnOnMusic1 == false) {
+						experimental::AudioEngine::play2d(Define::_music_voice_start_1_path, false, 1.0f);
+						isTurnOnMusic1 = true;
+					}
+					isReady = false;
+					isStart = true;
+					labelStart->setString("Start");
+				}
+			}
+			if (isStart == true) {
+				count_start++;
+				if (count_start == 90) {
+					//ComeOn voice
+					if (isTurnOnMusic2 == false) {
+						experimental::AudioEngine::play2d(Define::_music_voice_start_2_path, false, 1.0f);
+						isTurnOnMusic2 = true;
+					}
+					isStart = false;
+					isCount = true;
+					labelStart->setString("3");
+				}
+			}
+			if (isCount == true) {
+				count_number++;
+			}
+			if (count_number == 45) {
+				labelStart->setString("2");
+			}
+			if (count_number == 90) {
+				labelStart->setString("1");
+			}
+			if (count_number == 135) {
+				isCount = false;
+				isDone = true;
+				labelStart->setVisible(false);
+				layer_1->setOpacity(0);
+				layer_1->setVisible(false);
+				this->removeChild(layer_1);
+				mySonic->isCollision = false;
+				auto scene = (LevelScene*)current_scene;
+				scene->MyReadyResume();
+				_restart->setVisible(true);
+			}
+		}
+	}
+	if (currentLevel == Define::LV0 || currentLevel == Define::LV2) {
+		labelStart->setVisible(false);
+		layer_1->setOpacity(0);
+		layer_1->setVisible(false);
+	}
 	count_to_reset_touch++;
 	if (count_to_reset_touch ==5)
 	{
@@ -335,6 +431,8 @@ void MyUI::update(float dt)
 			_combo->removeAllChildren();
 			_combo->unscheduleUpdate();
 			finish = new FinishLayer(mySonic, current_scene);
+			finish->current_area = currentArea;
+			finish->current_level = currentLevel;
 			this->addChild(finish, 100);
 			layer = LayerColor::create();
 			layer->setColor(Color3B::BLACK);
@@ -356,7 +454,7 @@ void MyUI::update(float dt)
 
 			_combo->removeAllChildren();
 			_combo->unscheduleUpdate();
-			gameover = new GameOverLayer(mySonic, current_scene);
+			gameover = new GameOverLayer(mySonic, current_scene,currentLevelMap);
 			this->addChild(gameover, 100);
 
 			layer = LayerColor::create();

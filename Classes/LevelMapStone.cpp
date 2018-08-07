@@ -94,6 +94,7 @@ bool LevelMapStone::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
+			experimental::AudioEngine::stopAll();
 			Define::_music_btn_effect_1 = experimental::AudioEngine::play2d(Define::_music_btn_effect_1_path, false, 1.0f);
 			if (currentLevel < 2) {
 				auto gameScene = (LoadScene*)LoadScene::createScene();
@@ -102,7 +103,10 @@ bool LevelMapStone::init()
 				Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
 			}
 			if (currentLevel == 2) {
-				auto gameScene = BossScene::createScene();
+		/*		auto gameScene = BossScene::createScene();*/
+				auto gameScene = (LoadScene*)LoadScene::createScene();
+				gameScene->next_scene = (SCENE_NAME)currentLevel;
+				gameScene->next_scene_area = (SCENE_NAME)currentArea;
 				Director::getInstance()->replaceScene(TransitionFade::create(1, gameScene));
 			}
 			/*if (currentLevel == 0) {
@@ -430,7 +434,7 @@ void LevelMapStone::setStar(int level, int star) {
 			star_list.at(i)->initWithFile("Level_map/star_ready.png");
 	}
 
-	_levelState = level;
+	_levelState = level+1;
 	string str = "";
 	if (_levelState != 6) {
 		str = "Level " + std::to_string(_levelState) + "\nStar " + std::to_string(star);

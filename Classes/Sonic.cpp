@@ -414,8 +414,31 @@ Vec2 Sonic::GetVelocity()
 
 void Sonic::HandleCollision(Sprite * sprite)
 {
-
-	if (sprite->getTag() == Define::Ring)
+	if (sprite->getTag() == Define::land)
+	{
+		isCollision = true;
+		if (!isTurnOnMusic)
+		{
+			if (chooseMusic == BOSS_MUSIC)
+				Define::_music_boss_scene_background = experimental::AudioEngine::play2d(Define::_music_boss_scene_background_path, true, 0.8f);
+			if (chooseMusic == TUTORIAL_MUSIC)
+				Define::_music_stone_background_2 = experimental::AudioEngine::play2d(Define::_music_stone_background_2_path, true, 0.8f);
+			if (chooseMusic == STONE_1_MUSIC)
+				Define::_music_stone_background_1 = experimental::AudioEngine::play2d(Define::_music_stone_background_1_path, true, 0.8f);
+			if (chooseMusic == STONE_2_MUSIC)
+				Define::_music_stone_background_2 = experimental::AudioEngine::play2d(Define::_music_stone_background_2_path, true, 0.8f);
+			if (chooseMusic == SNOW_1_MUSIC)
+				Define::_music_snow_background_1 = experimental::AudioEngine::play2d(Define::_music_snow_background_1_path, true, 0.8f);
+			if (chooseMusic == SNOW_2_MUSIC)
+				Define::_music_snow_background_2 = experimental::AudioEngine::play2d(Define::_music_snow_background_2_path, true, 0.8f);
+			if (chooseMusic == DESERT_1_MUSIC)
+				Define::_music_desert_background_1 = experimental::AudioEngine::play2d(Define::_music_desert_background_1_path, true, 0.8f);
+			if (chooseMusic == DESERT_2_MUSIC)
+				Define::_music_desert_background_2 = experimental::AudioEngine::play2d(Define::_music_desert_background_2_path, true, 0.8f);
+			isTurnOnMusic = true;
+		}
+	}
+	else if (sprite->getTag() == Define::Ring)
 	{
 		ringCollected++;
 
@@ -672,6 +695,9 @@ void Sonic::SwapAni(RefPtr<Animate> *&blue, RefPtr<Animate> *&red)
 
 void Sonic::SwapAllAni()
 {
+	if (mCurrentState->GetState() == SonicState::ROLL)
+		this->SetStateByTag(SonicState::ROLL);
+
 	SwapAni(run_fast_Ani, run_fast_red_Ani);
 
 	SwapAni(jump_Ani, jump_red_Ani);

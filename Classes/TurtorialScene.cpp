@@ -19,7 +19,26 @@ cocos2d::Scene * TurtorialScene::createScene()
 
 	return scene;
 }
+cocos2d::Scene * TurtorialScene::createSceneArea(SCENE_AREA next_scene_area, SCENE_NAME levelScene)
+{
+	area = (SCENE_AREA)next_scene_area;
+	level = (SCENE_NAME)levelScene;
+	auto scene = Scene::createWithPhysics();
 
+	// set gravity
+	scene->getPhysicsWorld()->setGravity(Vec2(0, -1000));
+
+	// optional: set debug draw
+	//	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+	scene->getPhysicsWorld()->step(1 / 60.0f);
+
+
+
+	auto layer = TurtorialScene::create();
+	scene->addChild(layer);
+
+	return scene;
+}
 
 void TurtorialScene::LoadMap(string path)
 {
@@ -61,7 +80,7 @@ void TurtorialScene::Pause()
 	_diabox->setVisible(true);
 	_diabox->setPosition(_mSonic->getPositionX(), _director->getWinSize().height*3/4);
 
-	blacklayer->setVisible(true);
+	if (blacklayer!= nullptr) blacklayer->setVisible(true);
 }
 
 void TurtorialScene::Continue()
@@ -75,7 +94,7 @@ void TurtorialScene::Continue()
 	_isPause = false;
 	_mSonic->SetVelocityX(340);
 	_diabox->setVisible(false);
-	blacklayer->setVisible(false);
+	if (blacklayer != nullptr) blacklayer->setVisible(false);
 }
 
 
@@ -158,6 +177,8 @@ void TurtorialScene::updateStart(float dt)
 {
 	LevelScene::updateStart(1);
 	_myui->current_scene = this;
+	_myui->setCurrentLevelMap((SCENE_LEVELMAP)area);
+	_myui->setCurrentLevel((SCENE_NAME)level);
 	blacklayer = LayerColor::create(Color4B::BLACK);
 	blacklayer->setOpacity(100);
 	this->getScene()->addChild(blacklayer);
@@ -174,8 +195,6 @@ bool TurtorialScene::init()
 	LoadMap("LevelScene/StoneMap/tutorial.tmx");
 	CreateTileLayer("LevelScene/StoneMap/tutorial");
 	CreateParallaxNode("Map_stone/stone_bg3.png");
-	experimental::AudioEngine::stopAll();
-	Define::_music_stone_background_2 = experimental::AudioEngine::play2d(Define::_music_stone_background_2_path, true, 0.8f);
 	_listBonus.at(0)->_multiButton->unscheduleUpdate();
 
 
@@ -194,7 +213,7 @@ bool TurtorialScene::init()
 	SetViewPointCenter(_mSonic->getPosition());
 	_mSonic->setZOrder(7);
 
-
+	_mSonic->chooseMusic = STONE_2_MUSIC;
 	
 	//Listener
 	{

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Animations>
+  <Animation name="idle" imagePath="Monster/pic_yeti.png" width="1681" height="1173">
+    <sprite x="7" y="5" w="109" h="151" oX="7" oY="5" oW="-236" oH="473" />
+    <sprite x="127" y="6" w="109" h="150" oX="127" oY="6" oW="-236" oH="473" />
+    <sprite x="249" y="5" w="109" h="151" oX="249" oY="5" oW="-236" oH="473" />
+    <sprite x="371" y="6" w="109" h="150" oX="371" oY="6" oW="-236" oH="473" />
+  </Animation>
+  <Animation name="run" imagePath="Monster/pic_yeti.png" width="1681" height="1173">
+    <sprite x="6" y="182" w="104" h="151" oX="6" oY="182" oW="308" oH="464" />
+    <sprite x="124" y="185" w="111" h="148" oX="124" oY="185" oW="308" oH="464" />
+    <sprite x="254" y="183" w="103" h="150" oX="254" oY="183" oW="308" oH="464" />
+    <sprite x="374" y="184" w="120" h="149" oX="374" oY="184" oW="308" oH="464" />
+  </Animation>
+  <Animation name="die" imagePath="Monster/pic_yeti.png" width="1681" height="1173">
+    <sprite x="6" y="352" w="121" h="190" oX="6" oY="352" oW="1310" oH="1267" />
+    <sprite x="8" y="998" w="109" h="161" oX="8" oY="998" oW="1310" oH="1267" />
+    <sprite x="134" y="991" w="133" h="168" oX="134" oY="991" oW="1310" oH="1267" />
+    <sprite x="287" y="996" w="156" h="163" oX="287" oY="996" oW="1310" oH="1267" />
+    <sprite x="473" y="1003" w="230" h="156" oX="473" oY="1003" oW="1310" oH="1267" />
+    <sprite x="726" y="1020" w="229" h="139" oX="726" oY="1020" oW="1310" oH="1267" />
+    <sprite x="982" y="1097" w="169" h="62" oX="982" oY="1097" oW="1310" oH="1267" />
+    <sprite x="1176" y="1097" w="169" h="62" oX="1176" oY="1097" oW="1310" oH="1267" />
+  </Animation>
+ <Animation name="fight" imagePath="Monster/pic_yeti.png" width="1681" height="1173">
+  </Animation>
+</Animations>

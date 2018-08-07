@@ -205,6 +205,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\TapButton.cpp" />
     <ClCompile Include="..\Classes\TestScene.cpp" />
     <ClCompile Include="..\Classes\TurtorialScene.cpp" />
+    <ClCompile Include="..\Classes\YetiMonster.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -264,6 +265,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\TapButton.h" />
     <ClInclude Include="..\Classes\TestScene.h" />
     <ClInclude Include="..\Classes\TurtorialScene.h" />
+    <ClInclude Include="..\Classes\YetiMonster.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

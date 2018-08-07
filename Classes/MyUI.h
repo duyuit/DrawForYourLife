@@ -19,7 +19,11 @@ public:
 	RingComboScore* _combo;
 	Sprite* board;
 	LayerColor *layer = nullptr;
-
+	LayerColor *layer_1 = nullptr;
+	SCENE_LEVELMAP currentLevelMap;
+	SCENE_LEVELMAP currentArea;
+	SCENE_NAME currentLevel;
+	Label* labelStart;
 
 	void SetCurrentScene(Layer* scene);
 	FinishLayer* finish = nullptr;
@@ -33,6 +37,19 @@ public:
 	int count_to_finish = 0;
 	int count_to_gameover = 0;
 
+	int count_ready = 0;
+	int count_start = 0;
+	int count_number = 0;
+	bool isReady = true;
+	bool isStart = false;
+	bool isCount = false;
+	bool isDone = false;
+	bool isTurnOnMusic1 = false;
+	bool isTurnOnMusic2 = false;
+	bool isCallPause = false;
+
+	void setCurrentLevelMap(SCENE_LEVELMAP sceneLevel);
+	void setCurrentLevel(SCENE_NAME level);
 	void DisableExcept(BUTTON_TAG tag);
 	void EnableAll();
 

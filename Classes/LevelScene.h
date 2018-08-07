@@ -10,6 +10,7 @@
 #include "MyDialogBox.h"
 #include "MultipleButton.h"
 #include "HoldLand.h"
+#include "YetiMonster.h"
 using namespace cocos2d;
 class LevelScene : public cocos2d::Layer
 {
@@ -26,7 +27,10 @@ public:
 	Vector<MultipleButton*> _listMultipleButton;
 	Vector<BonusChest*> _listBonus;
 	int _speedParallax = 1;
+	SCENE_LEVELMAP area_1;
 
+	void MyReadyPause();
+	void MyReadyResume();
 	virtual void MyPause();
 	virtual void MyResume();
 	virtual void ReloadScene();
@@ -41,6 +45,7 @@ public:
 	bool onContactBegin(cocos2d::PhysicsContact & contact);
 	void update(float dt);
 	virtual void updateStart(float dt);
+	void setCurrentArea(SCENE_LEVELMAP sceneLevel);
 
 	virtual bool init();
 	static cocos2d::Scene* createScene();

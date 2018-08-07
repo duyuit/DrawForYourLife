@@ -1,5 +1,6 @@
 ﻿#include "Level1Scene.h"
 #include "LoadScene.h"
+#include "BossScene.h"
 //int area;
 Level1Scene::Level1Scene()
 {
@@ -102,6 +103,8 @@ void Level1Scene::updateStart(float dt)
 {
 	LevelScene::updateStart(1);
 	_myui->current_scene = this;
+	_myui->setCurrentLevelMap((SCENE_LEVELMAP)area);
+	_myui->setCurrentLevel((SCENE_NAME)level);
 }
 
 bool Level1Scene::onContactBegin(cocos2d::PhysicsContact & contact)
@@ -112,7 +115,7 @@ bool Level1Scene::onContactBegin(cocos2d::PhysicsContact & contact)
 bool Level1Scene::init()
 {
 	LevelScene::init();
-
+	LevelScene::setCurrentArea((SCENE_LEVELMAP)area);
 	//auto boss = new BossLv1(Vec2(1100, 317),_mSonic,(Layer*)this);
 	////boss->Flip();
 	//this->addChild(boss);
@@ -121,30 +124,40 @@ bool Level1Scene::init()
 	//_mSonic->isFightingBoss = true;
 	//_mSonic->position_when_FightingBoss = _mSonic->getPosition();
 
-	experimental::AudioEngine::stopAll();
-
-	if (area == Define::DESERT) {
+	if (area == Define::DESERT && level == Define::LV1) {
 		//Map Desert
 		LoadMap("Map_desert/desert_map.tmx");
 		CreateTileLayer("Map_desert/desert_map");
 		CreateParallaxNode("Map_desert/desert_bg.png");	
-		Define::_music_desert_background_1 = experimental::AudioEngine::play2d(Define::_music_desert_background_1_path, true, 0.8f);
+		_mSonic->chooseMusic = DESERT_1_MUSIC;
 	}
-	if (area == Define::SNOW) {
+	if (area == Define::SNOW && level == Define::LV1) {
 		//Map Snow
 		LoadMap("Map_snow/snowmap.tmx");
 		CreateTileLayer("Map_snow/snowmap");
 		CreateParallaxNode("Map_snow/background.png");
-		Define::_music_snow_background_1 = experimental::AudioEngine::play2d(Define::_music_snow_background_1_path, true, 0.8f);
+		_mSonic->chooseMusic = SNOW_1_MUSIC;
 	}
-	if (area == Define::STONE) {
+	if (area == Define::STONE && level == Define::LV1) {
 		//Map Stone
 		LoadMap("LevelScene/StoneMap/lv1.tmx");
 		CreateTileLayer("LevelScene/StoneMap/lv1_layer");
 		CreateParallaxNode("Map_stone/stone_bg3.png");
-		Define::_music_stone_background_1 = experimental::AudioEngine::play2d(Define::_music_stone_background_1_path, true, 0.8f);
+		_mSonic->chooseMusic = STONE_1_MUSIC;
 	}
-
+	if (area == Define::STONE && level == Define::LV2) {
+		//Map Stone
+		// currentLevelMap = Define::MAP_STONE;
+		//LoadMap("LevelScene/StoneMap/lv1.tmx");
+		///*LoadMap("Map_snow/snowmap.tmx");*/
+		//CreateTileLayer("LevelScene/StoneMap/lv1_layer");
+		//CreateParallaxNode("Map_stone/stone_bg3.png");
+		/* Director::getInstance()->replaceScene(B);*/
+		
+		auto scene = BossScene::createScene();		
+		Director::getInstance()->replaceScene(scene);
+		_mSonic->chooseMusic = BOSS_MUSIC;
+	}
 	/*LoadMap("LevelScene/StoneMap/lv1.tmx");
 	CreateTileLayer("LevelScene/StoneMap/lv1_layer");
 	CreateParallaxNode("Map_stone/stone_bg3.png");*/
@@ -172,9 +185,12 @@ cocos2d::Scene * Level1Scene::createScene()
 	return scene;
 }
 
-cocos2d::Scene * Level1Scene::createSceneArea(SCENE_AREA next_scene_area)
+cocos2d::Scene * Level1Scene::createSceneArea(SCENE_AREA next_scene_area, SCENE_NAME levelScene)
 {
+	//Set Area and Level
 	area = (SCENE_AREA)next_scene_area;
+	level = (SCENE_NAME)levelScene;
+
 	auto scene = Scene::createWithPhysics();
 
 	// set gravity

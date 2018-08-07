@@ -97,6 +97,7 @@ bool LevelMapDesert::init()
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
+			experimental::AudioEngine::stopAll();
 			Define::_music_btn_effect_1 = experimental::AudioEngine::play2d(Define::_music_btn_effect_1_path, false, 1.0f);
 			if (currentLevel < 2) {
 				auto gameScene = (LoadScene*)LoadScene::createScene();

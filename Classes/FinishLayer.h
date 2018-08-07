@@ -25,7 +25,8 @@ public:
 
 	LayerColor *layer = nullptr;
 	Layer *current_scene = nullptr;
-
+	SCENE_NAME current_level;
+	SCENE_LEVELMAP current_area;
 	Sonic* mySonic;
 
 	Sprite* boardScore;

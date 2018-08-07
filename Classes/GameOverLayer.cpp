@@ -2,12 +2,13 @@
 #include "LevelScene.h"
 #include "SelectMap.h"
 
-GameOverLayer::GameOverLayer(Sonic* mSonic, Layer* cur_scene)
+GameOverLayer::GameOverLayer(Sonic* mSonic, Layer* cur_scene,SCENE_LEVELMAP cur_levelmap)
 {
 	this->autorelease();
 	mySonic = mSonic;
+	MyUI* myUI = new MyUI();
 	current_scene = cur_scene;
-
+	currentLevelMap = cur_levelmap;
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
@@ -45,6 +46,7 @@ GameOverLayer::GameOverLayer(Sonic* mSonic, Layer* cur_scene)
 			break;
 		case ui::Widget::TouchEventType::ENDED:
 		{
+			experimental::AudioEngine::stopAll();
 			Define::_music_btn_effect_1 = experimental::AudioEngine::play2d(Define::_music_btn_effect_1_path, false, 1.0f);
 			if (current_scene != nullptr)
 			{
@@ -77,7 +79,15 @@ GameOverLayer::GameOverLayer(Sonic* mSonic, Layer* cur_scene)
 			Define::_music_btn_effect_1 = experimental::AudioEngine::play2d(Define::_music_btn_effect_1_path, false, 1.0f);
 			Define::_music_menu_scene_background_2 = experimental::AudioEngine::play2d(Define::_music_menu_scene_background_2_path, true, 1.0f);
 			//setEnabledAll(true);
-			Director::getInstance()->replaceScene(SelectMap::createScene());
+			if (currentLevelMap == Define::MAP_STONE) {
+				Director::getInstance()->replaceScene(LevelMapStone::createScene());
+			}
+			if (currentLevelMap == Define::MAP_SNOW) {
+				Director::getInstance()->replaceScene(LevelMap::createScene());
+			}
+			if (currentLevelMap == Define::MAP_DESERT) {
+				Director::getInstance()->replaceScene(LevelMapDesert::createScene());
+			}
 
 		}
 		break;

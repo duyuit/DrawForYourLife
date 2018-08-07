@@ -164,6 +164,9 @@
     <ClCompile Include="..\Classes\SonicChaoState.cpp">
       <Filter>Game\Sonic</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\YetiMonster.cpp">
+      <Filter>Game\Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -334,6 +337,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\SonicChaoState.h">
       <Filter>Game\Sonic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\YetiMonster.h">
+      <Filter>Game\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
