@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Animations>
+  <Animation name="1" imagePath="Particle/boss_jet.png" width="512" height="640">
+    <sprite x="24" y="23" w="78" h="78" oX="24" oY="23" oW="441" oH="549" />
+    <sprite x="129" y="4" w="116" h="118" oX="129" oY="4" oW="441" oH="549" />
+    <sprite x="267" y="8" w="112" h="112" oX="267" oY="8" oW="441" oH="549" />
+    <sprite x="407" y="23" w="82" h="82" oX="407" oY="23" oW="441" oH="549" />
+    <sprite x="23" y="148" w="83" h="89" oX="23" oY="148" oW="441" oH="549" />
+    <sprite x="145" y="143" w="95" h="96" oX="145" oY="143" oW="441" oH="549" />
+    <sprite x="267" y="136" w="105" h="111" oX="267" oY="136" oW="441" oH="549" />
+    <sprite x="389" y="134" w="116" h="114" oX="389" oY="134" oW="441" oH="549" />
+    <sprite x="4" y="258" w="125" h="118" oX="4" oY="258" oW="441" oH="549" />
+    <sprite x="136" y="256" w="114" h="131" oX="136" oY="256" oW="441" oH="549" />
+    <sprite x="260" y="258" w="117" h="123" oX="260" oY="258" oW="441" oH="549" />
+    <sprite x="386" y="260" w="121" h="119" oX="386" oY="260" oW="441" oH="549" />
+    <sprite x="10" y="388" w="118" h="133" oX="10" oY="388" oW="441" oH="549" />
+    <sprite x="136" y="390" w="122" h="117" oX="136" oY="390" oW="441" oH="549" />
+    <sprite x="269" y="388" w="111" h="120" oX="269" oY="388" oW="441" oH="549" />
+    <sprite x="398" y="388" w="110" h="108" oX="398" oY="388" oW="441" oH="549" />
+  </Animation>
+</Animations>

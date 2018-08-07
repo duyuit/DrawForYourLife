@@ -18,6 +18,8 @@ BossDrill::BossDrill()
 	drill_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/drill.xml", "run"), 0.02f)));
 	car_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/car.xml", "run"), 0.04f)));
 	broken_car_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/car.xml", "run"), 0.04f)));
+	drill_crazy_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/drill.xml", "crazy_drill"), 0.01f)));
+	
 	
 	back_car->setPosition(0, 0);
 	front_car->setPosition(back_car->getContentSize().width, 0);
@@ -33,7 +35,7 @@ BossDrill::BossDrill()
 
 
 
-
+	
 	this->addChild(front_car);
 	this->addChild(back_car,-1);
 	this->addChild(drill);
@@ -157,7 +159,7 @@ void BossDrill::Flip(bool isFlip)
 void BossDrill::ActiveDrill()
 {
 	front_car->runAction(RepeatForever::create(car_anim->get()));
-	drill->runAction(RepeatForever::create(drill_anim->get()));
+	drill->runAction(RepeatForever::create(drill_crazy_anim->get()));
 }
 
 void BossDrill::FireDrill()
@@ -171,6 +173,20 @@ void BossDrill::FireDrill()
 	chain2->runAction(Sequence::create(DelayTime::create(delta), MoveBy::create(delta * 2, Vec2(-delta_posx * 2 , 0)), NULL));
 	chain3->runAction(Sequence::create(DelayTime::create(delta * 2), MoveBy::create(delta, Vec2(-delta_posx , 0)), return_drill, NULL));
 
+}
+
+void BossDrill::FireDrillCrazy()
+{
+	int delta_posx = chain1->getContentSize().width;
+	float delta = 0.1666666;
+
+	drill->runAction(RepeatForever::create(drill_crazy_anim->get()));
+
+	drill->runAction(MoveBy::create(0.5, Vec2(-delta_posx * 3, 0)));
+	auto return_drill = CallFunc::create(CC_CALLBACK_0(BossDrill::ReturnDrillCrazy, this));
+	chain1->runAction(MoveBy::create(0.5, Vec2(-delta_posx * 3, 0)));
+	chain2->runAction(Sequence::create(DelayTime::create(delta), MoveBy::create(delta * 2, Vec2(-delta_posx * 2, 0)), NULL));
+	chain3->runAction(Sequence::create(DelayTime::create(delta * 2), MoveBy::create(delta, Vec2(-delta_posx, 0)), return_drill, NULL));
 }
 
 void BossDrill::ReturnDrill()
@@ -188,4 +204,21 @@ void BossDrill::ReturnDrill()
 	chain1->runAction(MoveBy::create(2.3, Vec2(delta_posx *3 ,0)));
 	chain2->runAction(MoveBy::create(delta*2, Vec2(delta_posx * 2 , 0)));
 	chain3->runAction(MoveBy::create(delta, Vec2(delta_posx,0)));
+}
+
+void BossDrill::ReturnDrillCrazy()
+{
+	if (parent != nullptr)
+	{
+		auto parent1 = (BossLv1*)parent;
+		parent1->SetState(BossLv1::GETBACKDRILL);
+
+	}
+
+	int delta_posx = chain1->getContentSize().width;
+	float delta = 0.1666666;
+	drill->runAction(MoveBy::create(0.5, Vec2(delta_posx * 3, 0)));
+	chain1->runAction(MoveBy::create(0.5, Vec2(delta_posx * 3, 0)));
+	chain2->runAction(MoveBy::create(delta * 2, Vec2(delta_posx * 2, 0)));
+	chain3->runAction(MoveBy::create(delta, Vec2(delta_posx, 0)));
 }

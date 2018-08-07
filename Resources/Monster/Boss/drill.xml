@@ -10,4 +10,16 @@
     <sprite x="8" y="237" w="140" h="94" oX="8" oY="237" oW="346" oH="462" />
     <sprite x="169" y="237" w="140" h="94" oX="169" oY="237" oW="346" oH="462" />
   </Animation>
+
+  <Animation name="crazy_drill" imagePath="Monster/Boss/drill.png" width="483" height="700">
+    <sprite x="7" y="359" w="152" h="109" oX="7" oY="359" oW="708" oH="480" />
+    <sprite x="168" y="359" w="140" h="113" oX="168" oY="359" oW="708" oH="480" />
+    <sprite x="327" y="359" w="150" h="104" oX="327" oY="359" oW="708" oH="480" />
+    <sprite x="7" y="473" w="140" h="105" oX="7" oY="473" oW="708" oH="480" />
+    <sprite x="168" y="482" w="140" h="94" oX="168" oY="482" oW="708" oH="480" />
+    <sprite x="329" y="471" w="140" h="111" oX="329" oY="471" oW="708" oH="480" />
+    <sprite x="7" y="586" w="140" h="113" oX="7" oY="586" oW="708" oH="480" />
+    <sprite x="168" y="582" w="140" h="112" oX="168" oY="582" oW="708" oH="480" />
+  </Animation>
+
 </Animations>

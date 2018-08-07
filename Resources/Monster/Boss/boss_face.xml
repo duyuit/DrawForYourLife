@@ -29,4 +29,20 @@
     <sprite x="499" y="851" w="135" h="65" oX="499" oY="851" oW="686" oH="823" />
     <sprite x="725" y="852" w="134" h="64" oX="725" oY="852" oW="686" oH="823" />
   </Animation>
+
+  <Animation name="normal_avatar" imagePath="Monster/Boss/eggman.png" width="904" height="1056">
+    <sprite x="47" y="839" w="135" h="77" oX="47" oY="839" oW="919" oH="813" />
+    <sprite x="273" y="853" w="135" h="63" oX="273" oY="853" oW="919" oH="813" />
+    <sprite x="499" y="851" w="135" h="65" oX="499" oY="851" oW="919" oH="813" />
+    <sprite x="725" y="852" w="134" h="64" oX="725" oY="852" oW="919" oH="813" />
+  </Animation>
+  <Animation name="angry_avatar" imagePath="Monster/Boss/eggman.png" width="904" height="1056">
+    <sprite x="722" y="193" w="138" h="63" oX="722" oY="193" oW="514" oH="816" />
+    <sprite x="44" y="326" w="138" h="62" oX="44" oY="326" oW="514" oH="816" />
+    <sprite x="270" y="327" w="139" h="61" oX="270" oY="327" oW="514" oH="816" />
+    <sprite x="495" y="328" w="140" h="60" oX="495" oY="328" oW="514" oH="816" />
+    <sprite x="722" y="327" w="139" h="61" oX="722" oY="327" oW="514" oH="816" />
+    <sprite x="44" y="458" w="138" h="62" oX="44" oY="458" oW="514" oH="816" />
+  </Animation>
+
 </Animations>

@@ -1,12 +1,26 @@
 #include "BossLv1.h"
 
+#include "BossScene.h"
 
 void BossLv1::GenerateButton()
 {
-	currentButton = new TapButton(this->getPosition() + Vec2(0, 300), _mSonic, (Layer*)this->getParent());
-	currentButton->time = 0.8;
-	currentButton->SetCanActive(true);
-	currentButton->_action = SonicState::ROLL_IN_SKY;
+	if (isCrazy)
+	{
+	
+		current_multiButton = new MultipleButton(Vec2(_mSonic->getPosition().x + 300, 350), _mSonic, (Layer*)this->getParent(), 3, 2.5);
+		current_multiButton->_action = SonicState::ROLL_IN_SKY;
+		current_multiButton->canActive = true;
+		current_multiButton->setZOrder(5);
+	}
+	else
+	{
+		
+		currentButton = new TapButton(Vec2(_mSonic->getPosition().x + 300, 350), _mSonic, (Layer*)this->getParent());
+		currentButton->time = 0.8;
+		currentButton->SetCanActive(true);
+		currentButton->_action = SonicState::ROLL_IN_SKY;
+	}
+
 }
 
 BossLv1::BossLv1(Vec2 pos , Sonic* sonic, Layer* layer)
@@ -43,26 +57,10 @@ BossLv1::BossLv1(Vec2 pos , Sonic* sonic, Layer* layer)
 
 
 
-	//_progressbar = Sprite::create("GameComponents/progress.png");
-	//_progressbar->setAnchorPoint(Vec2(1, 0));
+	
 
 
-	//_border = Sprite::create("GameComponents/border.png");
-	//_border->setPosition(this->getContentSize()*0.3 + Size(50, 150));
-	//_border->setAnchorPoint(Vec2(1, 0));
-	//_border->setVisible(false);
 
-	//layer->addChild(_border, 3);
-
-
-	//mouseBar = ProgressTimer::create(_progressbar);
-	//mouseBar->setType(ProgressTimerType::BAR);
-	//mouseBar->setAnchorPoint(Vec2(1, 0));
-	//mouseBar->setBarChangeRate(Vec2(1, 0));
-	//mouseBar->setMidpoint(Vec2(0.0, 0.0));
-	//mouseBar->setReverseDirection(true);
-	//mouseBar->setPercentage(0);
-	//layer->addChild(mouseBar, 2);
 	
 }
 
@@ -96,6 +94,12 @@ void BossLv1::GetDame()
 
 
 
+void BossLv1::ResetButton()
+{
+	currentButton->DeleteNow(true);
+	currentButton = nullptr;
+}
+
 void BossLv1::Broke()
 {
 	isDelete = true;
@@ -103,6 +107,35 @@ void BossLv1::Broke()
 	drill->stopAllActions();
 	plane->stopAllActions();
 	plane->Break();
+}
+
+void BossLv1::AddPercent(TYPE_SCORE score)
+{
+
+	float per = mouseBar->getPercentage();
+	
+	switch (score)
+	{
+	case PERFECT:
+		if (per + 30 > 100)
+		{
+			mouseBar->runAction(ProgressFromTo::create(0.5, per, 100));
+			isCrazy = true;
+		}
+		else 	mouseBar->runAction(ProgressFromTo::create(0.5, per, per +40));
+
+		break;
+	case GREAT:
+		if (per + 20 > 100)
+		{
+			mouseBar->runAction(ProgressFromTo::create(0.5, per, 100));
+			isCrazy = true;
+		}
+		else 	mouseBar->runAction(ProgressFromTo::create(0.5, per, per + 20));
+		break;
+	default:
+		break;
+	}
 }
 
 void BossLv1::SetState(STATE state)
@@ -114,24 +147,66 @@ void BossLv1::SetState(STATE state)
 		drill->chain1->getPhysicsBody()->setCollisionBitmask(0);
 		break;
 	case BossLv1::RUN:
-	{
-		
+	{	
+		GenerateButton();
+
 		drill->chain1->setVisible(false);
 		drill->chain2->setVisible(false);
 		drill->chain3->setVisible(false);
 		drill->chain1->getPhysicsBody()->setContactTestBitmask(0);
 		drill->chain1->getPhysicsBody()->setCollisionBitmask(0);
 
-		GenerateButton();
+		if (isCrazy)
+		{
+
+			drill->runAction(Sequence::create(JumpBy::create(2, Vec2(-500, 500),300,1 ),
+				JumpBy::create(0.2, Vec2(-100,-500), 0, 1),
+				MoveBy::create(0.1, Vec2(0, -15)),
+				MoveBy::create(0.1, Vec2(0, 15)),
+				MoveBy::create(0.05, Vec2(0, 10)),
+				MoveBy::create(0.05, Vec2(0, -10)),
+				MoveBy::create(0.05, Vec2(0, 5)),
+				MoveBy::create(0.05, Vec2(0, -5)),
+					nullptr));
+			plane->runAction(Sequence::create(JumpBy::create(2, Vec2(-500, 500), 300, 1),
+				JumpBy::create(0.2, Vec2(-100,-500),0, 1),
+				MoveBy::create(0.1, Vec2(0, -15)),
+				MoveBy::create(0.1, Vec2(0, 15)),
+				MoveBy::create(0.05, Vec2(0, 10)),
+				MoveBy::create(0.05, Vec2(0, -10)),
+				MoveBy::create(0.05, Vec2(0, 5)),
+				MoveBy::create(0.05, Vec2(0, -5)),
+				nullptr));
+
+			auto jet1 = Sprite::create();
+			auto jet2 = Sprite::create();
+			auto jet_anim = Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Particle/boss_jet.xml", "1"), 0.03));
 		
+			jet1->runAction(RepeatForever::create(jet_anim->clone()));
+			jet2->runAction(RepeatForever::create(jet_anim->clone()));
+			jet1->runAction(Sequence::create(DelayTime::create(0.5), RemoveSelf::create(), nullptr));
+			jet2->runAction(Sequence::create(DelayTime::create(0.5), RemoveSelf::create(), nullptr));
+
+			jet1->setPosition(drill->getPosition() + Vec2(0, -100));
+			jet2->setPosition(drill->getPosition() + Vec2(200, -100));
+
+			drill->getParent()->addChild(jet1);
+			drill->getParent()->addChild(jet2);
+		}
+		else
+		{
+		
+
 	
-			
-		
+
+
+
+
 			auto flip = CallFunc::create([this]() {
 				drill->Flip(true);
 				plane->Flip(true);
 			});
-		
+
 			drill->runAction(Sequence::create(
 				MoveBy::create(4, Vec2(-1500, 0)),
 				flip,
@@ -139,6 +214,8 @@ void BossLv1::SetState(STATE state)
 			plane->runAction(Sequence::create(
 				MoveBy::create(4, Vec2(-1500, 0)),
 				NULL));
+		}
+	
 	}
 		break;
 	case BossLv1::RUNBACK:
@@ -169,21 +246,33 @@ void BossLv1::SetState(STATE state)
 		break;
 
 	case BossLv1::FIGHT:
-		{	
-
 		drill->chain1->setVisible(true);
 		drill->chain2->setVisible(true);
 		drill->chain3->setVisible(true);
-
 		drill->chain1->getPhysicsBody()->setCollisionBitmask(1);
 		drill->chain1->getPhysicsBody()->setContactTestBitmask(1);
 		GenerateButton();
+		if (isCrazy)
+		{
+
+			
+			auto func = CallFunc::create([this]()
+			{
+				drill->FireDrillCrazy();
+			});
+			drill->runAction(Sequence::create(DelayTime::create(2), func, nullptr));
+	
+		}else
+		{	
+
+		
 		drill->FireDrill(); 
 		}
 		break;	
 	case BossLv1::GETBACKDRILL:
 		{
-		delete currentButton;
+	//	delete currentButton;
+		if(!isSonicAttack)
 		GenerateButton();
 		}
 		break;
@@ -207,9 +296,52 @@ void BossLv1::update(float dt)
 		_mSonic->runAction(Sequence::create(MoveTo::create(0.3, plane->getPosition()),func,nullptr));
 		isSonicAttack = false;
 	}
+	if (isCrazy)
+	{
+		if (current_multiButton != nullptr)
+		{
+			float currentDrillPosition = drill->getPositionX() + drill->drill->getPositionX();
+
+			if (currentState == FIGHT)
+			{
+				if (current_multiButton->isTrue)
+				{
+					mouseBar->runAction(ProgressTo::create(1, 0));
+					_mSonic->SetStateByTag(SonicState::CHAOS);
+					isCrazy = false;
+					_mSonic->getPhysicsBody()->applyImpulse(Vec2(150000, 300000));
+					_mSonic->isLeft = true;
+					isSonicAttack = true;
+					current_multiButton->DeleteNow(true);
+					current_multiButton = nullptr;
+				}
+				else
+				{
+					if (current_multiButton->isDelete)
+					{
+						mouseBar->runAction(ProgressTo::create(1, 0));
+						isCrazy = false;
+						current_multiButton = nullptr;
+					}
+				}
+
+			}
+			else if (currentState == RUN)
+			{
+				if (current_multiButton->isTrue)
+				{
+					_mSonic->SetStateByTag(SonicState::ROLL_IN_SKY);
+					/*plane->stopAllActions();
+					drill->stopAllActions();*/
+					_mSonic->getPhysicsBody()->applyForce(Vec2(8000000, 15500000));
+					current_multiButton = nullptr;
+				}
+			}
+		}
+	}else
 	if (currentButton != nullptr)
 	{
-		//if(currentState==FIGHT || currentState == GETBACKDRILL)
+		
 		currentButton->setPosition(_mSonic->getPosition().x+300,350);
 
 		float currentDrillPosition = drill->getPositionX() + drill->drill->getPositionX();
@@ -222,20 +354,21 @@ void BossLv1::update(float dt)
 			{
 
 				_mSonic->SetStateByTag(SonicState::ROLL_IN_SKY);
+				_mSonic->getPhysicsBody()->applyForce(Vec2(0, 15500000));
 				_mSonic->isLeft = true;
-				currentButton->DeleteNow(true);
-				currentButton = nullptr;
+				ResetButton();
 
-				GenerateButton();
+				//GenerateButton();
 			}else
 				if (currentButton->isTrue	&&_mSonic->mCurrentState->GetState() == SonicState::ROLL_IN_SKY)
 				{
-					_mSonic->SetStateByTag(SonicState::CHAOS);
-					_mSonic->getPhysicsBody()->applyImpulse(Vec2(150000, 300000));
-					_mSonic->isLeft = true;
-					isSonicAttack = true;
-					currentButton->DeleteNow(true);
-					currentButton = nullptr;
+			
+					_mSonic->SetStateByTag(SonicState::ROLL_IN_SKY);
+
+				//	isSonicAttack = true;
+					_mSonic->getPhysicsBody()->applyForce(Vec2(0, 15500000));
+					AddPercent(currentButton->score);
+					ResetButton();
 				}
 			
 		}
@@ -247,9 +380,11 @@ void BossLv1::update(float dt)
 			{
 
 				_mSonic->SetStateByTag(SonicState::ROLL_IN_SKY);
+				_mSonic->getPhysicsBody()->applyForce(Vec2(0, 15500000));
 				_mSonic->isLeft = false;
-				currentButton->DeleteNow(true);
-				currentButton = nullptr;
+			
+				AddPercent(currentButton->score);
+				ResetButton();
 
 			}
 		}
@@ -260,10 +395,12 @@ void BossLv1::update(float dt)
 					&& _mSonic->mCurrentState->GetState() != SonicState::ROLL_IN_SKY)
 				{
 						_mSonic->SetStateByTag(SonicState::ROLL_IN_SKY);
+						_mSonic->getPhysicsBody()->applyForce(Vec2(0, 15500000));
 						_mSonic->getPhysicsBody()->applyImpulse(Vec2(0, 100000));
 						_mSonic->isLeft = true;
-						currentButton->DeleteNow(true);
-						currentButton = nullptr;
+					
+						AddPercent(currentButton->score);
+						ResetButton();
 			
 						maximum_hit = 1;
 				}else
@@ -271,8 +408,9 @@ void BossLv1::update(float dt)
 				{
 					
 						_mSonic->runAction(MoveTo::create(0.3, plane->getPosition()));
-						currentButton->DeleteNow(true);
-						currentButton = nullptr;
+						
+						AddPercent(currentButton->score);
+						ResetButton();
 		
 					
 				}
@@ -287,8 +425,9 @@ void BossLv1::update(float dt)
 				_mSonic->SetStateByTag(SonicState::ROLL_IN_SKY);
 				_mSonic->getPhysicsBody()->applyImpulse(Vec2(0, 100000));
 				_mSonic->isLeft = true;
-				currentButton->DeleteNow(true);
-				currentButton = nullptr;
+			
+				AddPercent(currentButton->score);
+				ResetButton();
 				maximum_hit = 1;
 			
 			}
@@ -296,12 +435,14 @@ void BossLv1::update(float dt)
 			if (_mSonic->mCurrentState->GetState() == SonicState::ROLL_IN_SKY && currentButton->isTrue)
 			{
 				_mSonic->runAction(MoveTo::create(0.5, plane->getPosition()+Vec2(300,0)));
-				currentButton->DeleteNow(true);
-				currentButton = nullptr;
+			
+				AddPercent(currentButton->score);
+				ResetButton();
 
 			}
 		}
 	}
+
 	if (drill->getPositionX() < _mSonic->getPositionX() && _mSonic->mCurrentState->GetState()== SonicState::IDLE)
 		_mSonic->isLeft = true;
 	else _mSonic->isLeft = false;
@@ -318,7 +459,7 @@ void BossLv1::update(float dt)
 		if (count_to_change_state == 60 *6)
 		{
 			count_to_change_state = 0;
-			SetState(FIGHT);
+			SetState(RUN);
 		}
 		break;
 	case BossLv1::RUN:
@@ -332,6 +473,7 @@ void BossLv1::update(float dt)
 	
 		break;
 	case BossLv1::GETBACKDRILL:
+		
 		if (count_to_change_state == 60 *5)
 		{
 			count_to_change_state = 0;

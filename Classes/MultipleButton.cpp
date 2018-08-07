@@ -25,7 +25,7 @@ MultipleButton::MultipleButton(Vec2 pos, Sonic* sonic, Layer* layer,int button_c
 	_break_left_Ani= new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "blue_left_break"), 0.1f)));
 	_break_right_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(loadAnim("Button/button_break.xml", "blue_right_break"), 0.1f)));
 	
-	_button_count = 3;
+	_button_count = button_count;
 	_time = time;
 
 	int pos_x= -_border->getContentSize().width/2;
@@ -257,6 +257,7 @@ void MultipleButton::CheckLabel(float percen, bool check)
 			_label->setString("Perfect!");
 			_mSonic->score += 300 * _button_count * _mSonic->scoreMul;
 			_mSonic->countPerfect++;
+			score = PERFECT;
 			_label->runAction(Sequence::create(ScaleTo::create(0.3, 1), shake, nullptr));
 			MyParticle::RunEffectStar(this->getPosition(), (Layer*) this->getParent());
 		}
@@ -266,6 +267,7 @@ void MultipleButton::CheckLabel(float percen, bool check)
 			_label->setString("Great!");
 			_mSonic->score += 200 * _button_count * _mSonic->scoreMul;
 			_mSonic->countGreat++;
+			score = GREAT;
 			_label->runAction(Sequence::create(ScaleTo::create(0.3, 1), shake, nullptr));
 		}
 	}
