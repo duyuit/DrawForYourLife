@@ -109,16 +109,15 @@ void TapButton::ActiveButton(BUTTON_TAG dir)
 		else
 			this->initWithFile(Define::button_right_green_path);
 
-		auto func = CallFunc::create([this]()
-		{
-		//	DeleteNow(true);
-		});
+		//auto func = CallFunc::create([this]()
+		//{
+		////	DeleteNow(true);
+		//});
 		this->runAction(Sequence::create(
 			MoveBy::create(0.05, Vec2(0, 25)),
 			MoveBy::create(0.05, Vec2(0, -25)),
 			MoveBy::create(0.05, Vec2(0, 10)),
 			MoveBy::create(0.05, Vec2(0, -10)),
-			func,
 			nullptr
 		));
 

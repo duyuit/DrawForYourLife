@@ -122,7 +122,7 @@ void BossScene::update(float)
 
 	if (boss->isCrazy)
 	{
-		//test->setVisible(tru);
+		
 		
 		danger->setVisible(true);
 		blacklayer->setVisible(true);
@@ -131,7 +131,7 @@ void BossScene::update(float)
 		if(danger!=nullptr)
 		danger->setVisible(false);
 	}
-	//RollBackground();
+
 	if (_mSonic->scene_over)
 		return;
 
