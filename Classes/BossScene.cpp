@@ -117,21 +117,29 @@ void BossScene::update(float)
 	else
 	{
 		test->setVisible(false);
+		if(!boss->isCrazy)
 		blacklayer->setVisible(false);
 	}
-
-	if (boss->isCrazy)
+	if (boss->isCrazy != last_crazy)
 	{
-		
-		
-		danger->setVisible(true);
-		blacklayer->setVisible(true);
-	}
-	else {
-		if(danger!=nullptr)
-		danger->setVisible(false);
-	}
+		if (boss->isCrazy)
+		{
 
+			sonic_avatar->stopAllActions();
+			sonic_avatar->runAction(RepeatForever::create(super_anim->get()));
+			danger->setVisible(true);
+			blacklayer->setVisible(true);
+		}
+		else {
+			if (danger != nullptr)
+				danger->setVisible(false);
+
+			sonic_avatar->stopAllActions();
+			sonic_avatar->runAction(RepeatForever::create(normal_anim->get()));
+		}
+
+	}
+	
 	if (_mSonic->scene_over)
 		return;
 
@@ -141,7 +149,7 @@ void BossScene::update(float)
 		SetViewPointCenter(_mSonic->getPosition(),Vec2(100,0) );
 	}
 	else 	SetViewPointCenter(_mSonic->getPosition(), Vec2(-200, 0));
-
+	last_crazy = boss->isCrazy;
 
 }
 
@@ -160,6 +168,7 @@ void BossScene::updateStart(float dt)
 	danger->setPosition(_director->getWinSize().width / 2, _director->getWinSize().height - 200);
 	auto se = Sequence::create(FadeOut::create(0.5), FadeIn::create(0.5), nullptr);
 	danger->runAction(RepeatForever::create(se));
+	danger->setVisible(false);
 	this->getScene()->addChild(danger);
 
 	auto _progressbar = Sprite::create("GameComponents/progressbar2.png");
@@ -185,14 +194,14 @@ void BossScene::updateStart(float dt)
 	//	mouseBar->setColor(Color3B::WHITE);
 	this->getScene()->addChild(mouseBar, 2);
 
-	boss_avatar = Sprite::create();
-	boss_avatar->setAnchorPoint(Vec2(0, 0));
-	boss_avatar->setPosition(10, _border->getContentSize().height / 2 - 30);
-	this->getScene()->addChild(boss_avatar, 1);
+	sonic_avatar = Sprite::create();
+	sonic_avatar->setAnchorPoint(Vec2(0, 0));
+	sonic_avatar->setPosition(30, _border->getContentSize().height / 2 - 40);
+	this->getScene()->addChild(sonic_avatar, 3);
 
-	normal_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/boss_face.xml", "angry_avatar"), 0.05)));
-	angry_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/boss_face.xml", "normal_avatar"), 0.05)));
-	boss_avatar->runAction(RepeatForever::create(normal_anim->get()));
+	normal_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Sonic/super_sonic_avatar.xml", "normal"), 0.05)));
+	super_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Sonic/super_sonic_avatar.xml", "super"), 0.05)));
+	sonic_avatar->runAction(RepeatForever::create(normal_anim->get()));
 }
 cocos2d::Scene * BossScene::createSceneArea(SCENE_AREA next_scene_area, SCENE_NAME levelScene)
 {

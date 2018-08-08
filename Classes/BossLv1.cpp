@@ -130,7 +130,6 @@ void BossLv1::AddPercent(TYPE_SCORE score)
 {
 
 	float per = mouseBar->getPercentage();
-	
 	switch (score)
 	{
 	case PERFECT:

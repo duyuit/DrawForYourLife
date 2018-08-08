@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Animations>
+  <Animation name="super" imagePath="Sonic/super_sonic_avatar.png" width="1280" height="560">
+    <sprite x="61" y="27" w="112" h="115" oX="61" oY="27" oW="352" oH="1154" />
+    <sprite x="312" y="23" w="108" h="119" oX="312" oY="23" oW="352" oH="1154" />
+    <sprite x="569" y="20" w="113" h="122" oX="569" oY="20" oW="352" oH="1154" />
+    <sprite x="832" y="37" w="101" h="105" oX="832" oY="37" oW="352" oH="1154" />
+    <sprite x="1094" y="33" w="95" h="109" oX="1094" oY="33" oW="352" oH="1154" />
+    <sprite x="66" y="309" w="99" h="112" oX="66" oY="309" oW="352" oH="1154" />
+    <sprite x="310" y="313" w="110" h="112" oX="310" oY="313" oW="352" oH="1154" />
+    <sprite x="567" y="310" w="109" h="113" oX="567" oY="310" oW="352" oH="1154" />
+  </Animation>
+  <Animation name="normal" imagePath="Sonic/super_sonic_avatar.png" width="1409" height="700">
+    <sprite x="59" y="492" w="98" h="93" oX="59" oY="492" oW="530" oH="1334" />
+    <sprite x="306" y="492" w="98" h="92" oX="306" oY="492" oW="530" oH="1334" />
+    <sprite x="554" y="492" w="97" h="91" oX="554" oY="492" oW="530" oH="1334" />
+    <sprite x="801" y="492" w="98" h="92" oX="801" oY="492" oW="530" oH="1334" />
+    <sprite x="1048" y="491" w="98" h="96" oX="1048" oY="491" oW="530" oH="1334" />
+    <sprite x="1295" y="492" w="98" h="91" oX="1295" oY="492" oW="530" oH="1334" />
+  </Animation>
+
+</Animations>

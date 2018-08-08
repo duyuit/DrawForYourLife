@@ -10,14 +10,14 @@ public:
 	ParticleSystemQuad* test=nullptr;
 	LayerColor* blacklayer;
 	BossLv1* boss;
-	Sprite* boss_avatar = nullptr;
+	Sprite* sonic_avatar = nullptr;
 	ProgressTimer *mouseBar;
 	Sprite* danger=nullptr;
-
+	bool last_crazy = false;
 
 	RefPtr<Animate> * normal_anim;
 
-	RefPtr<Animate> * angry_anim;
+	RefPtr<Animate> * super_anim;
 
 	virtual bool init();
 
