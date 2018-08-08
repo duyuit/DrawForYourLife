@@ -100,7 +100,7 @@ void Monster::update(float dt)
 		}
 		break;
 	case DIE:
-		if (_time_action ==100)
+		if (_time_action == 100)
 		{
 			MyParticle::CreateLandSmoke(this->getPosition(),(Layer*) this->getParent());
 			this->runAction(RemoveSelf::create());
@@ -116,8 +116,6 @@ void Monster::update(float dt)
 
 void Monster::SetStateByTag(MONSTERSTATE state)
 {
-	
-
 	this->stopAllActions();
 	_currentState = state;
 	_time_action = 0;

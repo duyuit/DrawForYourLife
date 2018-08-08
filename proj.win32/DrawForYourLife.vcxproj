@@ -151,6 +151,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Classes\AnubisMonster.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\BonusChest.cpp" />
     <ClCompile Include="..\Classes\BossDrill.cpp" />
@@ -163,6 +164,8 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\GameOverLayer.cpp" />
     <ClCompile Include="..\Classes\LevelMapDesert.cpp" />
     <ClCompile Include="..\Classes\LevelMapStone.cpp" />
+    <ClCompile Include="..\Classes\LizardMonster.cpp" />
+    <ClCompile Include="..\Classes\Pyramid_Anubis.cpp" />
     <ClCompile Include="..\Classes\RingComboScore.cpp" />
     <ClCompile Include="..\Classes\FrogMonster.cpp" />
     <ClCompile Include="..\Classes\HoldLand.cpp" />
@@ -180,10 +183,12 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Mushroom.cpp" />
     <ClCompile Include="..\Classes\MyDialogBox.cpp" />
     <ClCompile Include="..\Classes\MyUI.cpp" />
+    <ClCompile Include="..\Classes\SandRatMonster.cpp" />
     <ClCompile Include="..\Classes\SelectMap.cpp" />
     <ClCompile Include="..\Classes\SharkMonster.cpp" />
     <ClCompile Include="..\Classes\ShieldMonster.cpp" />
     <ClCompile Include="..\Classes\SmallRing.cpp" />
+    <ClCompile Include="..\Classes\SnakeMonster.cpp" />
     <ClCompile Include="..\Classes\Sonic.cpp" />
     <ClCompile Include="..\Classes\SonicChaoState.cpp" />
     <ClCompile Include="..\Classes\SonicCounterState.cpp" />
@@ -209,6 +214,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Classes\AnubisMonster.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\BonusChest.h" />
     <ClInclude Include="..\Classes\BossDrill.h" />
@@ -221,6 +227,8 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\GameOverLayer.h" />
     <ClInclude Include="..\Classes\LevelMapDesert.h" />
     <ClInclude Include="..\Classes\LevelMapStone.h" />
+    <ClInclude Include="..\Classes\LizardMonster.h" />
+    <ClInclude Include="..\Classes\Pyramid_Anubis.h" />
     <ClInclude Include="..\Classes\RingComboScore.h" />
     <ClInclude Include="..\Classes\FrogMonster.h" />
     <ClInclude Include="..\Classes\GameDefine.h" />
@@ -240,10 +248,12 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Mushroom.h" />
     <ClInclude Include="..\Classes\MyDialogBox.h" />
     <ClInclude Include="..\Classes\MyUI.h" />
+    <ClInclude Include="..\Classes\SandRatMonster.h" />
     <ClInclude Include="..\Classes\SelectMap.h" />
     <ClInclude Include="..\Classes\SharkMonster.h" />
     <ClInclude Include="..\Classes\ShieldMonster.h" />
     <ClInclude Include="..\Classes\SmallRing.h" />
+    <ClInclude Include="..\Classes\SnakeMonster.h" />
     <ClInclude Include="..\Classes\Sonic.h" />
     <ClInclude Include="..\Classes\SonicChaoState.h" />
     <ClInclude Include="..\Classes\SonicCounterState.h" />

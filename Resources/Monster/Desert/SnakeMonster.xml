@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Animations>
+  <Animation name="idle" imagePath="Monster/Desert/Python.png" width="1515" height="1125">
+    <sprite x="8" y="8" w="134" h="96" oX="8" oY="8" oW="118" oH="1421" />
+    <sprite x="150" y="9" w="135" h="95" oX="150" oY="9" oW="118" oH="1421" />
+    <sprite x="290" y="10" w="136" h="94" oX="290" oY="10" oW="118" oH="1421" />
+    <sprite x="430" y="10" w="136" h="94" oX="430" oY="10" oW="118" oH="1421" />
+    <sprite x="571" y="10" w="137" h="94" oX="571" oY="10" oW="118" oH="1421" />
+    <sprite x="711" y="10" w="142" h="94" oX="711" oY="10" oW="118" oH="1421" />
+    <sprite x="859" y="10" w="143" h="94" oX="859" oY="10" oW="118" oH="1421" />
+    <sprite x="1008" y="10" w="140" h="94" oX="1008" oY="10" oW="118" oH="1421" />
+    <sprite x="1154" y="9" w="135" h="95" oX="1154" oY="9" oW="118" oH="1421" />
+    <sprite x="1295" y="10" w="135" h="95" oX="1295" oY="10" oW="118" oH="1421" />
+  </Animation>
+  <Animation name="run" imagePath="Monster/Desert/Python.png" width="1515" height="1125">
+    <sprite x="1295" y="10" w="135" h="95" oX="1295" oY="10" oW="265" oH="1418" />
+    <sprite x="5" y="156" w="130" h="98" oX="5" oY="156" oW="265" oH="1418" />
+    <sprite x="146" y="156" w="132" h="98" oX="146" oY="156" oW="265" oH="1418" />
+    <sprite x="284" y="156" w="134" h="98" oX="284" oY="156" oW="265" oH="1418" />
+    <sprite x="424" y="156" w="136" h="98" oX="424" oY="156" oW="265" oH="1418" />
+    <sprite x="565" y="156" w="134" h="98" oX="565" oY="156" oW="265" oH="1418" />
+    <sprite x="705" y="156" w="132" h="98" oX="705" oY="156" oW="265" oH="1418" />
+  </Animation>
+  <Animation name="fight" imagePath="Monster/Desert/Python.png" width="1515" height="1125">
+    <sprite x="8" y="307" w="267" h="78" oX="8" oY="307" oW="481" oH="1675" />
+    <sprite x="295" y="313" w="270" h="72" oX="295" oY="313" oW="481" oH="1675" />
+    <sprite x="599" y="313" w="271" h="71" oX="599" oY="313" oW="481" oH="1675" />
+    <sprite x="898" y="312" w="223" h="73" oX="898" oY="312" oW="481" oH="1675" />
+    <sprite x="1144" y="304" w="178" h="81" oX="1144" oY="304" oW="481" oH="1675" />
+    <sprite x="1357" y="289" w="148" h="96" oX="1357" oY="289" oW="481" oH="1675" />
+  </Animation>
+  <Animation name="fight2" imagePath="Monster/Desert/Python.png" width="1515" height="1125">
+    <sprite x="159" y="558" w="157" h="164" oX="159" oY="558" oW="606" oH="1343" />
+    <sprite x="328" y="572" w="149" h="150" oX="328" oY="572" oW="606" oH="1343" />
+    <sprite x="487" y="579" w="178" h="143" oX="487" oY="579" oW="606" oH="1343" />
+    <sprite x="675" y="579" w="178" h="143" oX="675" oY="579" oW="606" oH="1343" />
+    <sprite x="863" y="580" w="148" h="142" oX="863" oY="580" oW="606" oH="1343" />
+    <sprite x="1028" y="581" w="146" h="141" oX="1028" oY="581" oW="606" oH="1343" />
+    <sprite x="1184" y="583" w="150" h="139" oX="1184" oY="583" oW="606" oH="1343" />
+    <sprite x="1342" y="589" w="151" h="133" oX="1342" oY="589" oW="606" oH="1343" />
+  </Animation>
+  <Animation name="die" imagePath="Monster/Desert/Python.png" width="1515" height="1125">
+    <sprite x="10" y="903" w="142" h="113" oX="10" oY="903" oW="1132" oH="1399" />
+    <sprite x="161" y="920" w="148" h="96" oX="161" oY="920" oW="1132" oH="1399" />
+    <sprite x="322" y="935" w="178" h="81" oX="322" oY="935" oW="1132" oH="1399" />
+    <sprite x="508" y="973" w="187" h="43" oX="508" oY="973" oW="1132" oH="1399" />
+    <sprite x="705" y="976" w="187" h="40" oX="705" oY="976" oW="1132" oH="1399" />
+    <sprite x="899" y="977" w="187" h="40" oX="899" oY="977" oW="1132" oH="1399" />
+    <sprite x="1094" y="978" w="187" h="40" oX="1094" oY="978" oW="1132" oH="1399" />
+    <sprite x="1289" y="978" w="187" h="40" oX="1289" oY="978" oW="1132" oH="1399" />
+  </Animation>
+</Animations>

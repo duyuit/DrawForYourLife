@@ -422,21 +422,21 @@ void Sonic::HandleCollision(Sprite * sprite)
 		if (!isTurnOnMusic)
 		{
 			if (chooseMusic == BOSS_MUSIC)
-				Define::_music_boss_scene_background = experimental::AudioEngine::play2d(Define::_music_boss_scene_background_path, true, 0.8f);
+				Define::_music_boss_scene_background = experimental::AudioEngine::play2d(Define::_music_boss_scene_background_path, true, 0.6f);
 			if (chooseMusic == TUTORIAL_MUSIC)
-				Define::_music_stone_background_2 = experimental::AudioEngine::play2d(Define::_music_stone_background_2_path, true, 0.8f);
+				Define::_music_stone_background_2 = experimental::AudioEngine::play2d(Define::_music_stone_background_2_path, true, 0.6f);
 			if (chooseMusic == STONE_1_MUSIC)
-				Define::_music_stone_background_1 = experimental::AudioEngine::play2d(Define::_music_stone_background_1_path, true, 0.8f);
+				Define::_music_stone_background_1 = experimental::AudioEngine::play2d(Define::_music_stone_background_1_path, true, 0.6f);
 			if (chooseMusic == STONE_2_MUSIC)
-				Define::_music_stone_background_2 = experimental::AudioEngine::play2d(Define::_music_stone_background_2_path, true, 0.8f);
+				Define::_music_stone_background_2 = experimental::AudioEngine::play2d(Define::_music_stone_background_2_path, true, 0.6f);
 			if (chooseMusic == SNOW_1_MUSIC)
-				Define::_music_snow_background_1 = experimental::AudioEngine::play2d(Define::_music_snow_background_1_path, true, 0.8f);
+				Define::_music_snow_background_1 = experimental::AudioEngine::play2d(Define::_music_snow_background_1_path, true, 0.6f);
 			if (chooseMusic == SNOW_2_MUSIC)
-				Define::_music_snow_background_2 = experimental::AudioEngine::play2d(Define::_music_snow_background_2_path, true, 0.8f);
+				Define::_music_snow_background_2 = experimental::AudioEngine::play2d(Define::_music_snow_background_2_path, true, 0.6f);
 			if (chooseMusic == DESERT_1_MUSIC)
-				Define::_music_desert_background_1 = experimental::AudioEngine::play2d(Define::_music_desert_background_1_path, true, 0.8f);
+				Define::_music_desert_background_1 = experimental::AudioEngine::play2d(Define::_music_desert_background_1_path, true, 0.6f);
 			if (chooseMusic == DESERT_2_MUSIC)
-				Define::_music_desert_background_2 = experimental::AudioEngine::play2d(Define::_music_desert_background_2_path, true, 0.8f);
+				Define::_music_desert_background_2 = experimental::AudioEngine::play2d(Define::_music_desert_background_2_path, true, 0.6f);
 			isTurnOnMusic = true;
 		}
 	}
@@ -460,6 +460,41 @@ void Sonic::HandleCollision(Sprite * sprite)
 			SetVelocityX(-200);
 		else
 			SetVelocityX(200);
+	}
+	else if (sprite->getTag() == Define::SANDRAT)
+	{
+		if (mCurrentState->GetState() == SonicState::RUN_FAST || mCurrentState->GetState() == SonicState::RUNSKIP)
+		{
+			this->SetStateByTag(SonicState::HURT);
+			DisableCurrentButton();
+
+			//this->runAction(Sequence::create(DelayTime::create(1), Blink::create(2, 10), nullptr));
+			//this->runAction(Blink::create(2, 10));
+
+			if (ringCollected > 0)
+			{
+				Define::_music_drop_ring_effect = experimental::AudioEngine::play2d(Define::_music_drop_ring_effect_path, false, 0.8f);
+
+				int t = ringCollected; //Temp variable
+				for (int i = 0; i < (t / 2); i++)
+				{
+					runAction(CallFuncN::create(CC_CALLBACK_0(Sonic::DropRing, this)));
+					ringCollected--;
+				}
+			}
+			//Monster cant collision with Sonic 
+			sprite->getPhysicsBody()->setContactTestBitmask(0);
+		}
+		else if (mCurrentState->GetState() == SonicState::FALL)
+		{
+			this->SetVelocity(0, 0);
+			this->getPhysicsBody()->applyImpulse(Vec2(0, 60000));
+			this->SetStateByTag(SonicState::JUMP);
+			if (isLeft)
+				SetVelocityX(-300);
+			else
+				SetVelocityX(300);
+		}
 	}
 	else if (sprite->getTag() == Define::CHEST && mCurrentState->GetState() == SonicState::ROLL)
 	{
@@ -486,8 +521,8 @@ void Sonic::HandleCollision(Sprite * sprite)
 	}
 
 	//When Sonic hits enemy, push back and drop rings
-	else if ((sprite->getTag() == Define::LANDMONSTER || sprite->getTag() == Define::COCONUT) 
-		&& mCurrentState->GetState() != SonicState::ROLL &&mCurrentState->GetState() != SonicState::COUNTER && mCurrentState->GetState() != SonicState::HURT)
+	else if ((sprite->getTag() == Define::LANDMONSTER || sprite->getTag() == Define::COCONUT || sprite->getTag() == Define::PYRAMID) 
+		&& mCurrentState->GetState() != SonicState::ROLL && mCurrentState->GetState() != SonicState::COUNTER && mCurrentState->GetState() != SonicState::HURT)
 	{
 		this->SetStateByTag(SonicState::HURT);
 
@@ -499,7 +534,7 @@ void Sonic::HandleCollision(Sprite * sprite)
 		
 		if (ringCollected > 0)
 		{
-			Define::_music_drop_ring_effect = experimental::AudioEngine::play2d(Define::_music_drop_ring_effect_path);
+			Define::_music_drop_ring_effect = experimental::AudioEngine::play2d(Define::_music_drop_ring_effect_path, false, 0.8f);
 
 			int t = ringCollected; //Temp variable
 			for (int i = 0; i < (t / 2); i++)
@@ -519,7 +554,7 @@ void Sonic::HandleCollision(Sprite * sprite)
 		
 		if (ringCollected > 0)
 		{
-			Define::_music_drop_ring_effect = experimental::AudioEngine::play2d(Define::_music_drop_ring_effect_path);
+			Define::_music_drop_ring_effect = experimental::AudioEngine::play2d(Define::_music_drop_ring_effect_path, false, 0.8f);
 
 			int t = ringCollected; //Temp variable
 			for (int i = 0; i < (t / 2); i++)

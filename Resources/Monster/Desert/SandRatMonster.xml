@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Animations>
+  <Animation name="idle" imagePath="Monster/Desert/Sand Rat.png" width="976" height="458">
+    <sprite x="449" y="104" w="86" h="74" oX="449" oY="104" oW="261" oH="854" />
+    <sprite x="555" y="103" w="95" h="75" oX="555" oY="103" oW="261" oH="854" />
+    <sprite x="660" y="123" w="99" h="55" oX="660" oY="123" oW="261" oH="854" />
+    <sprite x="779" y="137" w="91" h="41" oX="779" oY="137" oW="261" oH="854" />
+    <sprite x="7" y="199" w="80" h="46" oX="7" oY="199" oW="261" oH="854" />
+    <sprite x="120" y="201" w="85" h="44" oX="120" oY="201" oW="261" oH="854" />
+    <sprite x="229" y="202" w="88" h="44" oX="229" oY="202" oW="261" oH="854" />
+    <sprite x="338" y="202" w="82" h="44" oX="338" oY="202" oW="261" oH="854" />
+    <sprite x="448" y="198" w="80" h="47" oX="448" oY="198" oW="261" oH="854" />
+    <sprite x="562" y="198" w="85" h="47" oX="562" oY="198" oW="261" oH="854" />
+    <sprite x="669" y="203" w="88" h="42" oX="669" oY="203" oW="261" oH="854" />
+    <sprite x="782" y="201" w="82" h="44" oX="782" oY="201" oW="261" oH="854" />
+  </Animation>
+  <Animation name="run" imagePath="Monster/Desert/Sand Rat.png" width="976" height="458">
+    <sprite x="443" y="45" w="87" h="47" oX="443" oY="45" oW="183" oH="852" />
+    <sprite x="554" y="44" w="99" h="48" oX="554" oY="44" oW="183" oH="852" />
+    <sprite x="666" y="28" w="95" h="64" oX="666" oY="28" oW="183" oH="852" />
+    <sprite x="777" y="12" w="88" h="80" oX="777" oY="12" oW="183" oH="852" />
+    <sprite x="11" y="99" w="87" h="79" oX="11" oY="99" oW="183" oH="852" />
+    <sprite x="117" y="107" w="89" h="71" oX="117" oY="107" oW="183" oH="852" />
+    <sprite x="225" y="104" w="86" h="74" oX="225" oY="104" oW="183" oH="852" />
+    <sprite x="342" y="104" w="86" h="74" oX="342" oY="104" oW="183" oH="852" />
+    <sprite x="449" y="104" w="86" h="74" oX="449" oY="104" oW="183" oH="852" />
+  </Animation>
+  <Animation name="die" imagePath="Monster/Desert/Sand Rat.png" width="976" height="458">
+    <sprite x="9" y="259" w="86" h="85" oX="9" oY="259" oW="433" oH="849" />
+    <sprite x="10" y="356" w="86" h="85" oX="10" oY="356" oW="433" oH="849" />
+    <sprite x="119" y="351" w="87" h="91" oX="119" oY="351" oW="433" oH="849" />
+    <sprite x="229" y="347" w="87" h="95" oX="229" oY="347" oW="433" oH="849" />
+    <sprite x="337" y="344" w="90" h="97" oX="337" oY="344" oW="433" oH="849" />
+    <sprite x="442" y="344" w="92" h="97" oX="442" oY="344" oW="433" oH="849" />
+    <sprite x="553" y="346" w="93" h="95" oX="553" oY="346" oW="433" oH="849" />
+    <sprite x="664" y="349" w="94" h="92" oX="664" oY="349" oW="433" oH="849" />
+    <sprite x="776" y="353" w="95" h="88" oX="776" oY="353" oW="433" oH="849" />
+  </Animation>
+  <Animation name="fight" imagePath="Monster/Desert/Sand Rat.png" width="976" height="458" />
+</Animations>

@@ -122,17 +122,11 @@
     <ClCompile Include="..\Classes\SonicEndState.cpp">
       <Filter>Game\Sonic</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\FinishFlag.cpp">
-      <Filter>Game\Map Object</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\FinishLayer.cpp">
       <Filter>Game\GameComponent</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\SelectMap.cpp">
       <Filter>Game\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Coconut_Monkey.cpp">
-      <Filter>Game\Monster</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\BossDrill.cpp">
       <Filter>Game\Monster\Boss</Filter>
@@ -166,6 +160,27 @@
     </ClCompile>
     <ClCompile Include="..\Classes\YetiMonster.cpp">
       <Filter>Game\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Coconut_Monkey.cpp">
+      <Filter>Game\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\FinishFlag.cpp">
+      <Filter>Game\Map Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LizardMonster.cpp">
+      <Filter>Game\Monster\Desert</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SandRatMonster.cpp">
+      <Filter>Game\Monster\Desert</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SnakeMonster.cpp">
+      <Filter>Game\Monster\Desert</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pyramid_Anubis.cpp">
+      <Filter>Game\Monster\Desert</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AnubisMonster.cpp">
+      <Filter>Game\Monster\Desert</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -341,6 +356,21 @@
     <ClInclude Include="..\Classes\YetiMonster.h">
       <Filter>Game\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\LizardMonster.h">
+      <Filter>Game\Monster\Desert</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SandRatMonster.h">
+      <Filter>Game\Monster\Desert</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SnakeMonster.h">
+      <Filter>Game\Monster\Desert</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Pyramid_Anubis.h">
+      <Filter>Game\Monster\Desert</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AnubisMonster.h">
+      <Filter>Game\Monster\Desert</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
@@ -366,6 +396,9 @@
     </Filter>
     <Filter Include="Game\Monster\Boss">
       <UniqueIdentifier>{1f142156-06d5-4715-a556-a9b2a9cede7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Monster\Desert">
+      <UniqueIdentifier>{87bbe9c8-21a9-4904-8913-9067acbb18f6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Animations>
+  <Animation name="idle" imagePath="Monster/Desert/Yellow Lizard.png" width="1046" height="339">
+    <sprite x="10" y="11" w="148" h="60" oX="10" oY="11" oW="107" oH="948" />
+    <sprite x="10" y="11" w="148" h="60" oX="10" oY="11" oW="107" oH="948" />
+    <sprite x="171" y="11" w="148" h="60" oX="171" oY="11" oW="107" oH="948" />
+    <sprite x="332" y="11" w="148" h="60" oX="332" oY="11" oW="107" oH="948" />
+    <sprite x="492" y="12" w="148" h="59" oX="492" oY="12" oW="107" oH="948" />
+    <sprite x="651" y="11" w="148" h="60" oX="651" oY="11" oW="107" oH="948" />
+    <sprite x="810" y="12" w="148" h="59" oX="810" oY="12" oW="107" oH="948" />
+    <sprite x="10" y="11" w="148" h="60" oX="10" oY="11" oW="107" oH="948" />
+  </Animation>
+  <Animation name="run" imagePath="Monster/Desert/Yellow Lizard.png" width="1046" height="339">
+    <sprite x="10" y="93" w="148" h="58" oX="10" oY="93" oW="186" oH="625" />
+    <sprite x="10" y="93" w="148" h="58" oX="10" oY="93" oW="186" oH="625" />
+    <sprite x="170" y="90" w="147" h="61" oX="170" oY="90" oW="186" oH="625" />
+    <sprite x="328" y="92" w="148" h="59" oX="328" oY="92" oW="186" oH="625" />
+    <sprite x="486" y="90" w="147" h="61" oX="486" oY="90" oW="186" oH="625" />
+    <sprite x="10" y="93" w="148" h="58" oX="10" oY="93" oW="186" oH="625" />
+    <sprite x="10" y="93" w="148" h="58" oX="10" oY="93" oW="186" oH="625" />
+  </Animation>
+  <Animation name="die" imagePath="Monster/Desert/Yellow Lizard.png" width="1046" height="339">
+    <sprite x="14" y="260" w="147" h="70" oX="14" oY="260" oW="407" oH="994" />
+    <sprite x="14" y="260" w="147" h="70" oX="14" oY="260" oW="407" oH="994" />
+    <sprite x="174" y="269" w="156" h="58" oX="174" oY="269" oW="407" oH="994" />
+    <sprite x="341" y="294" w="162" h="34" oX="341" oY="294" oW="407" oH="994" />
+    <sprite x="516" y="294" w="165" h="33" oX="516" oY="294" oW="407" oH="994" />
+    <sprite x="693" y="294" w="165" h="33" oX="693" oY="294" oW="407" oH="994" />
+    <sprite x="870" y="294" w="165" h="33" oX="870" oY="294" oW="407" oH="994" />
+  </Animation>
+  <Animation name="fight" imagePath="Monster/Desert/Yellow Lizard.png" width="1046" height="339" />
+</Animations>

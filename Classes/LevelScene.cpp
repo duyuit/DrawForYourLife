@@ -295,6 +295,9 @@ void LevelScene::LoadMap(string path)
 			if (area_1 == Define::MAP_SNOW) {
 				mon = new YetiMonster(_mSonic);
 			}
+			else if (area_1 == Define::MAP_DESERT) {
+				mon = new LizardMonster(_mSonic);
+			}
 			else {
 				mon = new FrogMonster(_mSonic);
 			}
@@ -316,9 +319,16 @@ void LevelScene::LoadMap(string path)
 			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
 			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
 
-			Mushroom *mush = new Mushroom();
-			mush->setPosition(x_box, y_box);
-			this->addChild(mush, 7);
+			if (area_1 == Define::MAP_DESERT) {
+				Monster *sandrat = new SandRatMonster(_mSonic, Vec2(x_box, y_box));
+				sandrat->setPosition(x_box, y_box);
+				this->addChild(sandrat, 7);
+			}
+			else {
+				Mushroom *mush = new Mushroom();
+				mush->setPosition(x_box, y_box);
+				this->addChild(mush, 7);
+			}		
 		}
 
 		//Load Chest
@@ -457,6 +467,19 @@ bool LevelScene::onContactBegin(cocos2d::PhysicsContact & contact)
 	if (tagA == Define::LANDMONSTER || tagB == Define::LANDMONSTER)
 	{
 		if (tagA == Define::LANDMONSTER)
+		{
+			Monster *monster = (Monster*)spriteA;
+			monster->HandleCollision(spriteB);
+		}
+		else
+		{
+			Monster *monster = (Monster*)spriteB;
+			monster->HandleCollision(spriteA);
+		}
+	}
+	if (tagA == Define::SANDRAT || tagB == Define::SANDRAT)
+	{
+		if (tagA == Define::SANDRAT)
 		{
 			Monster *monster = (Monster*)spriteA;
 			monster->HandleCollision(spriteB);

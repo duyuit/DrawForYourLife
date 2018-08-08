@@ -70,11 +70,42 @@ void Level1Scene::LoadMap(string path)
 		float he_box = objectemp.asValueMap().at("height").asFloat();
 		float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
 		float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
-		MonkeyMonster *mon = new MonkeyMonster(_mSonic, Vec2(x_box, y_box));
-		_listMultipleButton.pushBack(mon->_multiButton);
-		this->addChild(mon);
+		if (area_1 == Define::MAP_DESERT)
+		{
+			AnubisMonster *mon = new AnubisMonster(_mSonic, Vec2(x_box, y_box));
+			_listMultipleButton.pushBack(mon->_multiButton);
+			this->addChild(mon);
+		}		
+		else
+		{
+			MonkeyMonster *mon = new MonkeyMonster(_mSonic, Vec2(x_box, y_box));
+			_listMultipleButton.pushBack(mon->_multiButton);
+			this->addChild(mon);
+		}	
 	}
-	
+
+	if (area_1 == Define::MAP_DESERT)
+	{
+		//Load Snake position
+		TMXObjectGroup *objectGroup_monster = _tileMap->getObjectGroup("Snake");
+		for (int i = 0; i < objectGroup_monster->getObjects().size(); i++)
+		{
+
+			Value objectemp = objectGroup_monster->getObjects().at(i);
+
+			float wi_box = objectemp.asValueMap().at("width").asFloat();
+			float he_box = objectemp.asValueMap().at("height").asFloat();
+			float x_box = objectemp.asValueMap().at("x").asFloat() + wi_box / 2;
+			float y_box = objectemp.asValueMap().at("y").asFloat() + he_box / 2;
+
+			SnakeMonster *snake = new SnakeMonster(_mSonic);
+			snake->setPosition(x_box, y_box);
+			_listMonster.pushBack(snake);
+			_listMultipleButton.pushBack(snake->_multiButton);
+			this->addChild(snake, 7);
+		}
+	}
+
 	SortButton();
 }
 

@@ -19,8 +19,10 @@ namespace Define {
 		land,
 		DIELAND,
 		MUSHROOM,
+		SANDRAT,
 		CHEST,
 		COCONUT,
+		PYRAMID,
 		FINISH,
 		DRILL,
 		BOSS

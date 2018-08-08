@@ -6,7 +6,7 @@ enum TYPE_SCORE
 {
 	PERFECT,
 	GREAT,
-	BAD
+	MISS
 };
 class TapButton:public Sprite
 {

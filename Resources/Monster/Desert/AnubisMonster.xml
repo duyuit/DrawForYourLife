@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Animations>
+  <Animation name="idle" imagePath="Monster/Desert/Anubis.png" width="734" height="929">
+    <sprite x="7" y="7" w="84" h="96" oX="7" oY="7" oW="-374" oH="552" />
+    <sprite x="101" y="8" w="84" h="95" oX="101" oY="8" oW="-374" oH="552" />
+    <sprite x="195" y="9" w="84" h="94" oX="195" oY="9" oW="-374" oH="552" />
+    <sprite x="288" y="8" w="84" h="95" oX="288" oY="8" oW="-374" oH="552" />
+    <sprite x="382" y="7" w="84" h="96" oX="382" oY="7" oW="-374" oH="552" />
+    <sprite x="475" y="6" w="84" h="97" oX="475" oY="6" oW="-374" oH="552" />
+  </Animation>
+ <Animation name="fight" imagePath="Monster/Desert/Anubis.png" width="734" height="1500">
+    <sprite x="0" y="973" w="83" h="96" oX="0" oY="973" oW="1331" oH="706" />
+    <sprite x="113" y="973" w="80" h="96" oX="113" oY="973" oW="1331" oH="706" />
+    <sprite x="223" y="970" w="86" h="96" oX="223" oY="970" oW="1331" oH="706" />
+    <sprite x="341" y="968" w="83" h="96" oX="341" oY="968" oW="1331" oH="706" />
+    <sprite x="465" y="966" w="80" h="96" oX="465" oY="966" oW="1331" oH="706" />
+    <sprite x="581" y="960" w="80" h="101" oX="581" oY="960" oW="1331" oH="706" />
+    <sprite x="16" y="1107" w="80" h="102" oX="16" oY="1107" oW="1331" oH="706" />
+    <sprite x="142" y="1107" w="80" h="101" oX="142" oY="1107" oW="1331" oH="706" />
+    <sprite x="269" y="1104" w="80" h="102" oX="269" oY="1104" oW="1331" oH="706" />
+    <sprite x="388" y="1101" w="80" h="103" oX="388" oY="1101" oW="1331" oH="706" />
+    <sprite x="503" y="1095" w="82" h="106" oX="503" oY="1095" oW="1331" oH="706" />
+    <sprite x="620" y="1095" w="80" h="104" oX="620" oY="1095" oW="1331" oH="706" />
+    <sprite x="14" y="1238" w="83" h="106" oX="14" oY="1238" oW="1331" oH="706" />
+    <sprite x="140" y="1236" w="81" h="105" oX="140" oY="1236" oW="1331" oH="706" />
+    <sprite x="269" y="1237" w="80" h="103" oX="269" oY="1237" oW="1331" oH="706" />
+    <sprite x="391" y="1242" w="80" h="96" oX="391" oY="1242" oW="1331" oH="706" />
+    <sprite x="514" y="1235" w="80" h="96" oX="514" oY="1235" oW="1331" oH="706" />
+    <sprite x="623" y="1240" w="83" h="96" oX="623" oY="1240" oW="1331" oH="706" />
+  </Animation>
+  <Animation name="die" imagePath="Monster/Desert/Anubis.png" width="734" height="929">
+    <sprite x="13" y="565" w="89" h="93" oX="13" oY="565" oW="650" oH="659" />
+    <sprite x="113" y="565" w="89" h="93" oX="113" oY="565" oW="650" oH="659" />
+    <sprite x="214" y="569" w="85" h="89" oX="214" oY="569" oW="650" oH="659" />
+    <sprite x="311" y="563" w="80" h="95" oX="311" oY="563" oW="650" oH="659" />
+    <sprite x="403" y="570" w="76" h="88" oX="403" oY="570" oW="650" oH="659" />
+    <sprite x="490" y="557" w="73" h="101" oX="490" oY="557" oW="650" oH="659" />
+    <sprite x="576" y="566" w="74" h="92" oX="576" oY="566" oW="650" oH="659" />
+  </Animation>
+  <Animation name="die2" imagePath="Monster/Desert/Anubis.png" width="734" height="929">
+    <sprite x="12" y="686" w="89" h="93" oX="12" oY="686" oW="771" oH="690" />
+    <sprite x="112" y="678" w="94" h="101" oX="112" oY="678" oW="771" oH="690" />
+    <sprite x="217" y="684" w="86" h="95" oX="217" oY="684" oW="771" oH="690" />
+    <sprite x="313" y="685" w="91" h="94" oX="313" oY="685" oW="771" oH="690" />
+    <sprite x="416" y="687" w="76" h="92" oX="416" oY="687" oW="771" oH="690" />
+    <sprite x="504" y="690" w="88" h="89" oX="504" oY="690" oW="771" oH="690" />
+    <sprite x="605" y="669" w="73" h="110" oX="605" oY="669" oW="771" oH="690" />
+  </Animation>
+  <Animation name="die3" imagePath="Monster/Desert/Anubis.png" width="734" height="929">
+    <sprite x="11" y="829" w="89" h="93" oX="11" oY="829" oW="909" oH="726" />
+    <sprite x="112" y="821" w="94" h="101" oX="112" oY="821" oW="909" oH="726" />
+    <sprite x="217" y="796" w="86" h="126" oX="217" oY="796" oW="909" oH="726" />
+    <sprite x="315" y="795" w="108" h="127" oX="315" oY="795" oW="909" oH="726" />
+    <sprite x="436" y="811" w="94" h="111" oX="436" oY="811" oW="909" oH="726" />
+    <sprite x="544" y="807" w="89" h="115" oX="544" oY="807" oW="909" oH="726" />
+    <sprite x="645" y="805" w="83" h="117" oX="645" oY="805" oW="909" oH="726" />
+  </Animation>
+</Animations>

@@ -4,6 +4,7 @@
 #include "Sonic.h"
 
 #include "Coconut_Monkey.h"
+#include "Pyramid_Anubis.h"
 SonicCounterState::SonicCounterState(SonicData * playerData)
 {
 	this->mPlayerData = playerData;
@@ -37,5 +38,11 @@ void SonicCounterState::HandleCollision(Sprite * sprite)
 		//	sprite->setRotation(0);
 		/*sprite->setPosition(this->mPlayerData->player->getPosition() + Vec2(0, 100));
 		sprite->getPhysicsBody()->applyImpulse(Vec2(0, 500000));*/
+	}
+	if (sprite->getTag() == Define::PYRAMID)
+	{
+		sprite->getPhysicsBody()->removeFromWorld();
+		auto pyramid = (Pyramid_Anubis*)sprite;
+		pyramid->ComeBack();
 	}
 }
