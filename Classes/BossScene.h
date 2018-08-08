@@ -13,6 +13,7 @@ public:
 	Sprite* sonic_avatar = nullptr;
 	ProgressTimer *mouseBar;
 	Sprite* danger=nullptr;
+	Sprite* _border = nullptr;
 	bool last_crazy = false;
 
 	RefPtr<Animate> * normal_anim;

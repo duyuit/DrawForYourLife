@@ -129,6 +129,8 @@ void BossScene::update(float)
 			sonic_avatar->runAction(RepeatForever::create(super_anim->get()));
 			danger->setVisible(true);
 			blacklayer->setVisible(true);
+			mouseBar->setColor(Color3B::YELLOW);
+			_border->setColor(Color3B::YELLOW);
 		}
 		else {
 			if (danger != nullptr)
@@ -136,6 +138,8 @@ void BossScene::update(float)
 
 			sonic_avatar->stopAllActions();
 			sonic_avatar->runAction(RepeatForever::create(normal_anim->get()));
+			mouseBar->setColor(Color3B::WHITE);
+			_border->setColor(Color3B::WHITE);
 		}
 
 	}
@@ -175,7 +179,7 @@ void BossScene::updateStart(float dt)
 	_progressbar->setAnchorPoint(Vec2(0.5, 0.5));
 
 
-	auto _border = Sprite::create("GameComponents/border2.png");
+	 _border = Sprite::create("GameComponents/border2.png");
 
 	_border->setAnchorPoint(Vec2(0.5, 0.5));
 	_border->setPosition(_border->getContentSize() / 2);
@@ -191,6 +195,7 @@ void BossScene::updateStart(float dt)
 
 	mouseBar->setPosition(_border->getContentSize() / 2);
 	boss->mouseBar = mouseBar;
+
 	//	mouseBar->setColor(Color3B::WHITE);
 	this->getScene()->addChild(mouseBar, 2);
 

@@ -532,10 +532,12 @@ void Sonic::HandleCollision(Sprite * sprite)
 	else if (sprite->getTag() == Define::MISSLE)
 	{
 		if (mCurrentState->GetState() != SonicState::HURT && mCurrentState->GetState() != SonicState::ROLL_CHEST &&mCurrentState->GetState() != SonicState::FALL)
+		{
 			SetStateByTag(SonicState::HURT);
 
-		MyParticle::CreateBoom(sprite->getPosition(), sprite->getParent());
-		sprite->runAction(RemoveSelf::create());
+			MyParticle::CreateBoom(sprite->getPosition(), sprite->getParent());
+			sprite->runAction(RemoveSelf::create());
+		}
 	}
 	mCurrentState->HandleCollision(sprite);
 }
