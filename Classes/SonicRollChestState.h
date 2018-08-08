@@ -1,4 +1,5 @@
 #pragma once
+
 #include "SonicState.h"
 class SonicRollChestState: public SonicState
 {

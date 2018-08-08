@@ -112,7 +112,7 @@ namespace MyParticle
 		ele->setPosition(pos);
 		ele->runAction(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Particle/particle.xml", "electric"), 0.05)));
 		ele->runAction(Sequence::create(DelayTime::create(0.3), RemoveSelf::create(), nullptr));
-		node->addChild(ele);
+		node->addChild(ele,5);
 	}
 	static void RunEffectStar(Vec2 pos, Layer* layer) {
 		/*ccBezierConfig  bezier5;

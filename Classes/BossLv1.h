@@ -16,6 +16,7 @@ public:
 
 	};
 	void GenerateButton();
+	void GenerateMultiButton();
 	BossLv1(Vec2 pos,Sonic* sonic, Layer* layer);
 	~BossLv1();
 	int hp =11;
@@ -27,11 +28,10 @@ public:
 	Sonic* _mSonic;
 	int count_to_change_state = 0;
 
-
 	ProgressTimer *mouseBar;
 	void GetDame();
 
-	bool isCrazy = true;
+	bool isCrazy = false;
 	bool isSonicAttack = false;
 
 	void ResetButton();
@@ -40,6 +40,7 @@ public:
 	TapButton* currentButton = nullptr;
 	MultipleButton* current_multiButton = nullptr;
 
+	void ReturnPlane();
 	void AddPercent(TYPE_SCORE score);
 	int maximum_hit=0;
 	void SetState(STATE state);

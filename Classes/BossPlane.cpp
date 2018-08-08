@@ -1,7 +1,7 @@
 #include "BossPlane.h"
 
 
-
+#include "GameParticle.h"
 BossPlane::BossPlane()
 {
 
@@ -17,6 +17,8 @@ BossPlane::BossPlane()
 	auto face_body = PhysicsBody::createBox(face->getContentSize()+Size(100,0));
 	face_body->setGravityEnable(false);
 	face_body->setContactTestBitmask(1);
+	face_body->setCollisionBitmask(0);
+	face_body->setCategoryBitmask(2);
 	face_body->setDynamic(false);
 	face->setPhysicsBody(face_body);
 
@@ -69,8 +71,8 @@ void BossPlane::ActiveWing(bool on)
 	//	wing->runAction(MoveBy::create(1, Vec2(0, 50)));
 		Flip(false);
 
-		face->getPhysicsBody()->setContactTestBitmask(0);
-		face->getPhysicsBody()->setCollisionBitmask(0);
+	/*	face->getPhysicsBody()->setContactTestBitmask(0);
+		face->getPhysicsBody()->setCollisionBitmask(0);*/
 		wing->runAction(turn_on_wing->get());
 		wing->runAction(MoveBy::create(0.5, Vec2(0, 50)));
 		wing->runAction(RepeatForever::create(normal_wing->get()));
@@ -115,6 +117,113 @@ void BossPlane::Break()
 	auto action = Sequence::create(MoveBy::create(1, Vec2(0, 200)),DelayTime::create(1), MoveBy::create(3, Vec2(-1000, 500)),nullptr);
 	this->runAction(action);
 
+}
+
+void BossPlane::Fire()
+{
+	//auto missle1 = Sprite::create("Monster/Boss/missle.png",Rect(7,3,109,44));
+	//auto missle2 = Sprite::create("Monster/Boss/missle.png", Rect(7, 3, 109, 44));
+	//auto missle3= Sprite::create("Monster/Boss/missle.png", Rect(7, 3, 109, 44));
+	Animate* missle = Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/missle.xml", "1"), 0.05));
+	for (int i = 0; i < 3; i++)
+	{
+		auto missle1 = Sprite::create("Monster/Boss/missle.png", Rect(7, 3, 109, 44));
+		missle1->setFlipX(true);
+		missle1->runAction(RepeatForever::create(missle->clone()));
+		missle1->setTag(Define::MISSLE);
+		missle1->setAnchorPoint(Vec2(0.5, 0.5));
+
+		missle1->setRotation(-65);
+
+		auto phy1 = PhysicsBody::createBox(Size(75, 25));
+		phy1->setCategoryBitmask(8);
+		phy1->setContactTestBitmask(3);
+		phy1->setCollisionBitmask(0);
+		phy1->setDynamic(false);
+
+		missle1->setPhysicsBody(phy1);
+
+		
+
+	
+		auto func = CallFunc::create([this]()
+		{
+			auto particle = ParticleSystemQuad::create("Particle/explosion.plist");
+			particle->setPosition(this->getPosition());
+
+			this->getParent()->addChild(particle);
+		});
+		auto node = this->getParent();
+
+		auto createBoom = CallFunc::create([=]()
+		{
+			MyParticle::CreateBoom(missle1->getPosition(), node);
+		});
+
+		if (i == 0)
+		{
+			missle1->setPosition(this->getPosition() + Vec2(50, -20));
+			missle1->runAction(Sequence::create(func,MoveBy::create(0.6, Vec2(-270, -700)),createBoom,RemoveSelf::create(), nullptr));
+		
+		}
+		else if (i == 1) 
+		{
+			missle1->setPosition(this->getPosition() + Vec2(100, 20)); 
+			//particle->setPosition(this->getPosition() + Vec2(100, 20));
+			missle1->runAction(Sequence::create(DelayTime::create(0.3),func,MoveBy::create(0.8, Vec2(-270, -700)), createBoom, RemoveSelf::create(),nullptr));
+		}
+		else
+		{
+			missle1->setPosition(this->getPosition() + Vec2(150, -20));
+			//particle->setPosition(this->getPosition() + Vec2(150, -20));
+			missle1->runAction(Sequence::create(DelayTime::create(0.5), func, MoveBy::create(0.8, Vec2(-270, -700)), createBoom, RemoveSelf::create(), nullptr));
+		}
+		this->getParent()->addChild(missle1, 6);
+		
+		
+	}
+	//missle1->setFlipX(true);
+	//missle2->setFlipX(true);
+	//missle3->setFlipX(true);
+
+	//
+
+	//missle2->runAction(RepeatForever::create(missle->clone()));
+	//missle3->runAction(RepeatForever::create(missle->clone()));
+
+
+	//missle2->setTag(Define::MISSLE);
+	//missle3->setTag(Define::MISSLE);
+
+
+	//missle2->setAnchorPoint(Vec2(0.5, 0.5));
+	//missle3->setAnchorPoint(Vec2(0.5, 0.5));
+
+	//
+
+	//auto phy2 = PhysicsBody::createBox(Size(75, 25));
+	//phy2->setDynamic(false);
+	//phy2->setCategoryBitmask(16);
+	//phy2->setContactTestBitmask(3);
+	//phy2->setCollisionBitmask(0);
+
+	//auto phy3 = PhysicsBody::createBox(Size(75, 25));
+
+	//phy3->setCategoryBitmask(16);
+	//phy3->setContactTestBitmask(3);
+	//phy3->setCollisionBitmask(0);
+	//phy3->setDynamic(false);
+
+	//missle1->setPosition(this->getPosition());
+	//missle2->setPosition(this->getPosition()+Vec2(100,20));
+	//missle3->setPosition(this->getPosition() + Vec2(-100, -20));
+
+	//
+	//missle2->setPhysicsBody(phy2);
+	//missle3->setPhysicsBody(phy3);
+
+	//this->getParent()->addChild(missle2, 6);
+	//this->getParent()->addChild(missle3, 6);
 }
 
 void BossPlane::Flip(bool isFlip)

@@ -179,9 +179,12 @@ void TurtorialScene::updateStart(float dt)
 	_myui->current_scene = this;
 	_myui->setCurrentLevelMap((SCENE_LEVELMAP)area);
 	_myui->setCurrentLevel((SCENE_NAME)level);
+
+
 	blacklayer = LayerColor::create(Color4B::BLACK);
+	blacklayer->setScale(10);
 	blacklayer->setOpacity(100);
-	this->getScene()->addChild(blacklayer);
+	this->addChild(blacklayer,3);
 
 
 }

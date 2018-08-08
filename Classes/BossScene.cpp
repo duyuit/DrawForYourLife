@@ -76,7 +76,7 @@ bool BossScene::init()
 		this->addChild(edgeSp); // Add v�o Layer
 	}
 
-	_mSonic->chooseMusic = BOSS_MUSIC;
+	//_mSonic->chooseMusic = BOSS_MUSIC;
 
 	scheduleOnce(CC_SCHEDULE_SELECTOR(BossScene::updateStart), 0);
 	return true;
@@ -111,19 +111,39 @@ void BossScene::update(float)
 			test->setPosition(_mSonic->getPosition());
 		if (blacklayer != nullptr)
 			blacklayer->setPosition(_mSonic->getPosition() + Vec2(-500, 0));
+	
+
 	}
 	else
 	{
 		test->setVisible(false);
+		if(!boss->isCrazy)
 		blacklayer->setVisible(false);
 	}
-
-	if (boss->isCrazy)
+	if (boss->isCrazy != last_crazy)
 	{
-		//test->setVisible(tru);
-		blacklayer->setVisible(true);
+		if (boss->isCrazy)
+		{
+
+			sonic_avatar->stopAllActions();
+			sonic_avatar->runAction(RepeatForever::create(super_anim->get()));
+			danger->setVisible(true);
+			blacklayer->setVisible(true);
+			mouseBar->setColor(Color3B::YELLOW);
+			_border->setColor(Color3B::YELLOW);
+		}
+		else {
+			if (danger != nullptr)
+				danger->setVisible(false);
+
+			sonic_avatar->stopAllActions();
+			sonic_avatar->runAction(RepeatForever::create(normal_anim->get()));
+			mouseBar->setColor(Color3B::WHITE);
+			_border->setColor(Color3B::WHITE);
+		}
+
 	}
-	//RollBackground();
+	
 	if (_mSonic->scene_over)
 		return;
 
@@ -133,22 +153,33 @@ void BossScene::update(float)
 		SetViewPointCenter(_mSonic->getPosition(),Vec2(100,0) );
 	}
 	else 	SetViewPointCenter(_mSonic->getPosition(), Vec2(-200, 0));
-
+	last_crazy = boss->isCrazy;
 
 }
 
 void BossScene::updateStart(float dt)
 {
 	LevelScene::updateStart(1);
+	//auto scene = (Scene*)this->getParent();
+	//scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+
 	_myui->current_scene = this;
 	_myui->setCurrentLevelMap((SCENE_LEVELMAP)area);
 	_myui->setCurrentLevel((SCENE_NAME)level);
+
+
+	danger = Sprite::create("GameComponents/danger.png");
+	danger->setPosition(_director->getWinSize().width / 2, _director->getWinSize().height - 200);
+	auto se = Sequence::create(FadeOut::create(0.5), FadeIn::create(0.5), nullptr);
+	danger->runAction(RepeatForever::create(se));
+	danger->setVisible(false);
+	this->getScene()->addChild(danger);
 
 	auto _progressbar = Sprite::create("GameComponents/progressbar2.png");
 	_progressbar->setAnchorPoint(Vec2(0.5, 0.5));
 
 
-	auto _border = Sprite::create("GameComponents/border2.png");
+	 _border = Sprite::create("GameComponents/border2.png");
 
 	_border->setAnchorPoint(Vec2(0.5, 0.5));
 	_border->setPosition(_border->getContentSize() / 2);
@@ -159,22 +190,23 @@ void BossScene::updateStart(float dt)
 	mouseBar->setType(ProgressTimerType::RADIAL);
 	mouseBar->setAnchorPoint(Vec2(0.5, 0.5));
 	//	mouseBar->setReverseDirection(true);
-	mouseBar->setPercentage(60);
+	mouseBar->setPercentage(0);
 
 
 	mouseBar->setPosition(_border->getContentSize() / 2);
 	boss->mouseBar = mouseBar;
+
 	//	mouseBar->setColor(Color3B::WHITE);
 	this->getScene()->addChild(mouseBar, 2);
 
-	boss_avatar = Sprite::create();
-	boss_avatar->setAnchorPoint(Vec2(0, 0));
-	boss_avatar->setPosition(10, _border->getContentSize().height / 2 - 30);
-	this->getScene()->addChild(boss_avatar, 1);
+	sonic_avatar = Sprite::create();
+	sonic_avatar->setAnchorPoint(Vec2(0, 0));
+	sonic_avatar->setPosition(30, _border->getContentSize().height / 2 - 40);
+	this->getScene()->addChild(sonic_avatar, 3);
 
-	normal_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/boss_face.xml", "angry_avatar"), 0.05)));
-	angry_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Monster/Boss/boss_face.xml", "normal_avatar"), 0.05)));
-	boss_avatar->runAction(RepeatForever::create(normal_anim->get()));
+	normal_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Sonic/super_sonic_avatar.xml", "normal"), 0.05)));
+	super_anim = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(Define::loadAnim("Sonic/super_sonic_avatar.xml", "super"), 0.05)));
+	sonic_avatar->runAction(RepeatForever::create(normal_anim->get()));
 }
 cocos2d::Scene * BossScene::createSceneArea(SCENE_AREA next_scene_area, SCENE_NAME levelScene)
 {
@@ -187,7 +219,7 @@ cocos2d::Scene * BossScene::createSceneArea(SCENE_AREA next_scene_area, SCENE_NA
 	scene->getPhysicsWorld()->setGravity(Vec2(0, -1000));
 
 	// optional: set debug draw
-	//scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+//	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
 	scene->getPhysicsWorld()->step(1 / 60.0f);
 
 	auto layer = BossScene::create();

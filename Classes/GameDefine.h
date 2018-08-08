@@ -25,7 +25,8 @@ namespace Define {
 		PYRAMID,
 		FINISH,
 		DRILL,
-		BOSS
+		BOSS,
+		MISSLE
 	};
 	enum SCENE_NAME
 	{

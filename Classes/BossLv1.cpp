@@ -4,22 +4,23 @@
 
 void BossLv1::GenerateButton()
 {
-	if (isCrazy)
-	{
-	
-		current_multiButton = new MultipleButton(Vec2(_mSonic->getPosition().x + 300, 350), _mSonic, (Layer*)this->getParent(), 3, 2.5);
-		current_multiButton->_action = SonicState::ROLL_IN_SKY;
-		current_multiButton->canActive = true;
-		current_multiButton->setZOrder(5);
-	}
-	else
-	{
+
 		
 		currentButton = new TapButton(Vec2(_mSonic->getPosition().x + 300, 350), _mSonic, (Layer*)this->getParent());
 		currentButton->time = 0.8;
 		currentButton->SetCanActive(true);
 		currentButton->_action = SonicState::ROLL_IN_SKY;
-	}
+		currentButton->setZOrder(5);
+
+}
+
+void BossLv1::GenerateMultiButton()
+{
+
+	current_multiButton = new MultipleButton(Vec2(_mSonic->getPosition().x + 300, 350), _mSonic, (Layer*)this->getParent(), 3, 2.5);
+	current_multiButton->_action = SonicState::ROLL_IN_SKY;
+	current_multiButton->canActive = true;
+	current_multiButton->setZOrder(5);
 
 }
 
@@ -49,6 +50,9 @@ BossLv1::BossLv1(Vec2 pos , Sonic* sonic, Layer* layer)
 		DelayTime::create(0.3),
 		active_car,
 		nullptr));
+
+
+
 	this->scheduleUpdate();
 	layer->addChild(drill,6);
 	layer->addChild(plane,5);
@@ -109,15 +113,27 @@ void BossLv1::Broke()
 	plane->Break();
 }
 
+void BossLv1::ReturnPlane()
+{
+	//plane->stopAllActions();
+	auto func = CallFunc::create([this]()
+	{
+		isCrazy = false;
+		this->SetState(FIGHT);
+	});
+	plane->runAction(Sequence::create(MoveTo::create(2, drill->getPosition() + Vec2(110, 50)),func,NULL));
+	plane->ActiveWing(false);
+
+}
+
 void BossLv1::AddPercent(TYPE_SCORE score)
 {
 
 	float per = mouseBar->getPercentage();
-	
 	switch (score)
 	{
 	case PERFECT:
-		if (per + 30 > 100)
+		if (per + 40 >= 100)
 		{
 			mouseBar->runAction(ProgressFromTo::create(0.5, per, 100));
 			isCrazy = true;
@@ -126,12 +142,12 @@ void BossLv1::AddPercent(TYPE_SCORE score)
 
 		break;
 	case GREAT:
-		if (per + 20 > 100)
+		if (per + 25 >= 100)
 		{
 			mouseBar->runAction(ProgressFromTo::create(0.5, per, 100));
 			isCrazy = true;
 		}
-		else 	mouseBar->runAction(ProgressFromTo::create(0.5, per, per + 20));
+		else 	mouseBar->runAction(ProgressFromTo::create(0.5, per, per + 25));
 		break;
 	default:
 		break;
@@ -141,6 +157,7 @@ void BossLv1::AddPercent(TYPE_SCORE score)
 void BossLv1::SetState(STATE state)
 {
 	if (isDelete) return;
+	count_to_change_state = 0;
 	switch (state)
 	{
 	case BossLv1::IDLE:
@@ -148,7 +165,7 @@ void BossLv1::SetState(STATE state)
 		break;
 	case BossLv1::RUN:
 	{	
-		GenerateButton();
+		
 
 		drill->chain1->setVisible(false);
 		drill->chain2->setVisible(false);
@@ -158,8 +175,9 @@ void BossLv1::SetState(STATE state)
 
 		if (isCrazy)
 		{
+			GenerateMultiButton();
 
-			drill->runAction(Sequence::create(JumpBy::create(2, Vec2(-500, 500),300,1 ),
+			/*drill->runAction(Sequence::create(JumpBy::create(2, Vec2(-500, 500),300,1 ),
 				JumpBy::create(0.2, Vec2(-100,-500), 0, 1),
 				MoveBy::create(0.1, Vec2(0, -15)),
 				MoveBy::create(0.1, Vec2(0, 15)),
@@ -167,16 +185,22 @@ void BossLv1::SetState(STATE state)
 				MoveBy::create(0.05, Vec2(0, -10)),
 				MoveBy::create(0.05, Vec2(0, 5)),
 				MoveBy::create(0.05, Vec2(0, -5)),
-					nullptr));
+					nullptr));*/
+			plane->ActiveWing(true);
+			auto fire = CallFunc::create([this]()
+			{
+				plane->Fire();
+			});
 			plane->runAction(Sequence::create(JumpBy::create(2, Vec2(-500, 500), 300, 1),
-				JumpBy::create(0.2, Vec2(-100,-500),0, 1),
 				MoveBy::create(0.1, Vec2(0, -15)),
 				MoveBy::create(0.1, Vec2(0, 15)),
 				MoveBy::create(0.05, Vec2(0, 10)),
 				MoveBy::create(0.05, Vec2(0, -10)),
 				MoveBy::create(0.05, Vec2(0, 5)),
 				MoveBy::create(0.05, Vec2(0, -5)),
+				fire,
 				nullptr));
+			
 
 			auto jet1 = Sprite::create();
 			auto jet2 = Sprite::create();
@@ -195,13 +219,7 @@ void BossLv1::SetState(STATE state)
 		}
 		else
 		{
-		
-
-	
-
-
-
-
+			GenerateButton();
 			auto flip = CallFunc::create([this]() {
 				drill->Flip(true);
 				plane->Flip(true);
@@ -219,29 +237,38 @@ void BossLv1::SetState(STATE state)
 	}
 		break;
 	case BossLv1::RUNBACK:
-	{
-	
-		GenerateButton();
-	
-		auto flip2 = CallFunc::create([this]() {
-			drill->Flip(true);
-			plane->Flip(true);
-		});
+	{	
+		if (isCrazy && drill->getPositionX() > _mSonic->getPositionX())
+		{
+		ReturnPlane();
+		isCrazy = false;
+		}
+		else
+		{
+			GenerateButton();
 
-		auto flip = CallFunc::create([this]() {
-			drill->Flip(false);
-			plane->Flip(false);
-		});
+			auto flip2 = CallFunc::create([this]() {
+				drill->Flip(true);
+				plane->Flip(true);
+			});
 
-		drill->runAction(Sequence::create(
-			MoveBy::create(5, Vec2(1800, 0)),
-			flip,
-			MoveBy::create(1, Vec2(-300, 0)),
-			NULL));
-		plane->runAction(Sequence::create(
-			MoveBy::create(5, Vec2(1800, 0)),
-			MoveBy::create(1, Vec2(-300, 0)),
-			NULL));
+			auto flip = CallFunc::create([this]() {
+				drill->Flip(false);
+				plane->Flip(false);
+			});
+
+			drill->runAction(Sequence::create(
+				MoveBy::create(5, Vec2(1800, 0)),
+				flip,
+				MoveBy::create(1, Vec2(-300, 0)),
+				NULL));
+			plane->runAction(Sequence::create(
+				MoveBy::create(5, Vec2(1800, 0)),
+				MoveBy::create(1, Vec2(-300, 0)),
+				NULL));
+		}
+	
+		
 	}
 		break;
 
@@ -251,22 +278,23 @@ void BossLv1::SetState(STATE state)
 		drill->chain3->setVisible(true);
 		drill->chain1->getPhysicsBody()->setCollisionBitmask(1);
 		drill->chain1->getPhysicsBody()->setContactTestBitmask(1);
-		GenerateButton();
+		
 		if (isCrazy)
 		{
 
-			
+			GenerateMultiButton();
+			drill->drill->runAction(RepeatForever::create(drill->drill_crazy_anim->get()));
 			auto func = CallFunc::create([this]()
 			{
 				drill->FireDrillCrazy();
 			});
-			drill->runAction(Sequence::create(DelayTime::create(2), func, nullptr));
+			drill->runAction(Sequence::create(DelayTime::create(1.8), func, nullptr));
 	
 		}else
 		{	
-
-		
-		drill->FireDrill(); 
+			drill->drill->runAction(RepeatForever::create(drill->drill_anim->get()));
+			GenerateButton();
+			drill->FireDrill(); 
 		}
 		break;	
 	case BossLv1::GETBACKDRILL:
@@ -274,7 +302,12 @@ void BossLv1::SetState(STATE state)
 	//	delete currentButton;
 		if(!isSonicAttack)
 		GenerateButton();
+		else {
+			drill->drill->stopAllActions();
+			drill->drill->runAction(RepeatForever::create(drill->drill_anim->get()));
 		}
+	}
+		
 		break;
 	default:
 		break;
@@ -296,9 +329,7 @@ void BossLv1::update(float dt)
 		_mSonic->runAction(Sequence::create(MoveTo::create(0.3, plane->getPosition()),func,nullptr));
 		isSonicAttack = false;
 	}
-	if (isCrazy)
-	{
-		if (current_multiButton != nullptr)
+	if (current_multiButton != nullptr)
 		{
 			float currentDrillPosition = drill->getPositionX() + drill->drill->getPositionX();
 
@@ -330,15 +361,32 @@ void BossLv1::update(float dt)
 			{
 				if (current_multiButton->isTrue)
 				{
-					_mSonic->SetStateByTag(SonicState::ROLL_IN_SKY);
-					/*plane->stopAllActions();
-					drill->stopAllActions();*/
-					_mSonic->getPhysicsBody()->applyForce(Vec2(8000000, 15500000));
+					_mSonic->SetStateByTag(SonicState::RUNSKIP);
+				
+					auto func = CallFunc::create([this]()
+					{
+						_mSonic->_roll_effect->setRotation(-90);
+						_mSonic->_roll_effect->setPosition(_mSonic->_roll_effect->getPosition() + Vec2(-100, 50));
+						_mSonic->SetStateByTag(SonicState::ROLL_CHEST);
+						_mSonic->getPhysicsBody()->applyImpulse(Vec2(0, 500000));
+					});
+					_mSonic->runAction(Sequence::create(MoveBy::create(0.5, Vec2(0, 0)), func, NULL));
 					current_multiButton = nullptr;
 				}
+				else
+				{
+					if (current_multiButton->isDelete)
+					{
+						mouseBar->runAction(ProgressTo::create(1, 0));
+						isCrazy = false;
+						current_multiButton = nullptr;
+					}
+				}
+			
 			}
+
 		}
-	}else
+	
 	if (currentButton != nullptr)
 	{
 		
@@ -356,6 +404,7 @@ void BossLv1::update(float dt)
 				_mSonic->SetStateByTag(SonicState::ROLL_IN_SKY);
 				_mSonic->getPhysicsBody()->applyForce(Vec2(0, 15500000));
 				_mSonic->isLeft = true;
+				AddPercent(currentButton->score);
 				ResetButton();
 
 				//GenerateButton();
@@ -395,8 +444,8 @@ void BossLv1::update(float dt)
 					&& _mSonic->mCurrentState->GetState() != SonicState::ROLL_IN_SKY)
 				{
 						_mSonic->SetStateByTag(SonicState::ROLL_IN_SKY);
-						_mSonic->getPhysicsBody()->applyForce(Vec2(0, 15500000));
-						_mSonic->getPhysicsBody()->applyImpulse(Vec2(0, 100000));
+						_mSonic->getPhysicsBody()->applyForce(Vec2(0, 20500000));
+						//_mSonic->getPhysicsBody()->applyImpulse(Vec2(0, 100000));
 						_mSonic->isLeft = true;
 					
 						AddPercent(currentButton->score);
@@ -423,7 +472,7 @@ void BossLv1::update(float dt)
 				&& _mSonic->mCurrentState->GetState() != SonicState::ROLL_IN_SKY)
 			{
 				_mSonic->SetStateByTag(SonicState::ROLL_IN_SKY);
-				_mSonic->getPhysicsBody()->applyImpulse(Vec2(0, 100000));
+				_mSonic->getPhysicsBody()->applyForce(Vec2(0, 20500000));
 				_mSonic->isLeft = true;
 			
 				AddPercent(currentButton->score);
@@ -443,29 +492,35 @@ void BossLv1::update(float dt)
 		}
 	}
 
-	if (drill->getPositionX() < _mSonic->getPositionX() && _mSonic->mCurrentState->GetState()== SonicState::IDLE)
-		_mSonic->isLeft = true;
-	else _mSonic->isLeft = false;
+	if (_mSonic->mCurrentState->GetState() == SonicState::IDLE || _mSonic->mCurrentState->GetState() == SonicState::CHAOS)
+	{
+		if (drill->getPositionX() < _mSonic->getPositionX())
+			_mSonic->isLeft = true;
+		else _mSonic->isLeft = false;
+	}
 	count_to_change_state++;
 	switch (currentState)
 	{
 	case BossLv1::RUNBACK:
-		if (count_to_change_state == 60 * 6)
-		{
-			count_to_change_state = 0;
-			SetState(FIGHT);
-		}
+			if (count_to_change_state == 60 * 6)
+			{
+
+				SetState(FIGHT);
+			}
+	
+	
+		break;
 	case BossLv1::IDLE:
-		if (count_to_change_state == 60 *6)
+		if (count_to_change_state == 60*5)
 		{
-			count_to_change_state = 0;
+		
 			SetState(RUN);
 		}
 		break;
 	case BossLv1::RUN:
-		if (count_to_change_state == 60 *5)
+		if (count_to_change_state == 60 *6)
 		{
-			count_to_change_state = 0;
+		
 			SetState(RUNBACK);
 		}
 		break;
@@ -474,10 +529,10 @@ void BossLv1::update(float dt)
 		break;
 	case BossLv1::GETBACKDRILL:
 		
-		if (count_to_change_state == 60 *5)
+		if (count_to_change_state == 60 *3)
 		{
 			count_to_change_state = 0;
-			SetState(FIGHT);
+			SetState(RUN);
 		}
 		break;
 	default:
