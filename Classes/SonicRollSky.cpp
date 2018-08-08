@@ -25,17 +25,7 @@ void SonicRollSky::HandleCollision(Sprite * sprite)
 {
 	if (sprite->getTag() == Define::land)
 	{
-		auto boss = (BossLv1*)this->mPlayerData->player->boss;
-		if (boss->isCrazy)
-		{
-			boss->drill->stopAllActions();
-			boss->plane->stopAllActions();
-			this->mPlayerData->player->getPhysicsBody()->applyImpulse(Vec2(0, 800000));
-			this->mPlayerData->player->_roll_effect->setRotation(-90);
-			this->mPlayerData->player->_roll_effect->setPosition(this->mPlayerData->player->_roll_effect->getPosition() +Vec2(-100,50));
-			this->mPlayerData->player->SetStateByTag(SonicState::ROLL_CHEST);
-			return;
-		}
+		
 		this->mPlayerData->player->SetVelocity(0, 0);
 		this->mPlayerData->player->SetStateByTag(StateAction::RUN_FAST);
 

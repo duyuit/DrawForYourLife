@@ -76,7 +76,7 @@ bool BossScene::init()
 		this->addChild(edgeSp); // Add v�o Layer
 	}
 
-	_mSonic->chooseMusic = BOSS_MUSIC;
+	//_mSonic->chooseMusic = BOSS_MUSIC;
 
 	scheduleOnce(CC_SCHEDULE_SELECTOR(BossScene::updateStart), 0);
 	return true;
@@ -111,6 +111,8 @@ void BossScene::update(float)
 			test->setPosition(_mSonic->getPosition());
 		if (blacklayer != nullptr)
 			blacklayer->setPosition(_mSonic->getPosition() + Vec2(-500, 0));
+	
+
 	}
 	else
 	{
@@ -121,7 +123,13 @@ void BossScene::update(float)
 	if (boss->isCrazy)
 	{
 		//test->setVisible(tru);
+		
+		danger->setVisible(true);
 		blacklayer->setVisible(true);
+	}
+	else {
+		if(danger!=nullptr)
+		danger->setVisible(false);
 	}
 	//RollBackground();
 	if (_mSonic->scene_over)
@@ -140,9 +148,19 @@ void BossScene::update(float)
 void BossScene::updateStart(float dt)
 {
 	LevelScene::updateStart(1);
+	//auto scene = (Scene*)this->getParent();
+	//scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+
 	_myui->current_scene = this;
 	_myui->setCurrentLevelMap((SCENE_LEVELMAP)area);
 	_myui->setCurrentLevel((SCENE_NAME)level);
+
+
+	danger = Sprite::create("GameComponents/danger.png");
+	danger->setPosition(_director->getWinSize().width / 2, _director->getWinSize().height - 200);
+	auto se = Sequence::create(FadeOut::create(0.5), FadeIn::create(0.5), nullptr);
+	danger->runAction(RepeatForever::create(se));
+	this->getScene()->addChild(danger);
 
 	auto _progressbar = Sprite::create("GameComponents/progressbar2.png");
 	_progressbar->setAnchorPoint(Vec2(0.5, 0.5));
@@ -159,7 +177,7 @@ void BossScene::updateStart(float dt)
 	mouseBar->setType(ProgressTimerType::RADIAL);
 	mouseBar->setAnchorPoint(Vec2(0.5, 0.5));
 	//	mouseBar->setReverseDirection(true);
-	mouseBar->setPercentage(60);
+	mouseBar->setPercentage(0);
 
 
 	mouseBar->setPosition(_border->getContentSize() / 2);
@@ -187,7 +205,7 @@ cocos2d::Scene * BossScene::createSceneArea(SCENE_AREA next_scene_area, SCENE_NA
 	scene->getPhysicsWorld()->setGravity(Vec2(0, -1000));
 
 	// optional: set debug draw
-	//scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+//	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
 	scene->getPhysicsWorld()->step(1 / 60.0f);
 
 	auto layer = BossScene::create();

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Animations>
+  <Animation name="1" imagePath="Monster/Boss/missle.png" width="555" height="58">
+    <sprite x="6" y="6" w="111" h="40" oX="6" oY="6" oW="75" oH="549" />
+    <sprite x="148" y="7" w="108" h="42" oX="148" oY="7" oW="75" oH="549" />
+    <sprite x="296" y="5" w="110" h="44" oX="296" oY="5" oW="75" oH="549" />
+    <sprite x="443" y="5" w="109" h="45" oX="443" oY="5" oW="75" oH="549" />
+  </Animation>
+</Animations>

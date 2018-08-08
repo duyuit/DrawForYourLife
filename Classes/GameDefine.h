@@ -23,7 +23,8 @@ namespace Define {
 		COCONUT,
 		FINISH,
 		DRILL,
-		BOSS
+		BOSS,
+		MISSLE
 	};
 	enum SCENE_NAME
 	{

@@ -529,7 +529,14 @@ void Sonic::HandleCollision(Sprite * sprite)
 			}
 		}
 	}
-	
+	else if (sprite->getTag() == Define::MISSLE)
+	{
+		if (mCurrentState->GetState() != SonicState::HURT && mCurrentState->GetState() != SonicState::ROLL_CHEST &&mCurrentState->GetState() != SonicState::FALL)
+			SetStateByTag(SonicState::HURT);
+
+		MyParticle::CreateBoom(sprite->getPosition(), sprite->getParent());
+		sprite->runAction(RemoveSelf::create());
+	}
 	mCurrentState->HandleCollision(sprite);
 }
 
@@ -715,11 +722,11 @@ void Sonic::SwapAllAni()
 	
 	this->SetStateByTag(mCurrentState->GetState());
 
-	if (mCurrentState->GetState() == SonicState::JUMP || mCurrentState->GetState() == SonicState::ROLL_IN_SKY)
+	if (mCurrentState->GetState() == SonicState::JUMP)
 		this->getPhysicsBody()->applyForce(Vec2(0, -13500000)); //Fix jump so high when change to Red
 
-	if (mCurrentState->GetState() == SonicState::ROLL_IN_SKY)
-		this->getPhysicsBody()->applyForce(Vec2(0, -15500000));
+	//if (mCurrentState->GetState() == SonicState::ROLL_IN_SKY)
+	//	this->getPhysicsBody()->applyForce(Vec2(0, -15500000));
 }
 
 void Sonic::DisableCurrentButton()

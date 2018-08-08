@@ -102,12 +102,17 @@ void LevelScene::CreateParallaxNode(string path)
 
 void LevelScene::CreateTileLayer(string path)
 {
-	Sprite* layer = Sprite::create(path + "1.png");
+	string path_temp;
+	path_temp.append(path);
+	string path1 = path_temp.append("1.png");
+	string path2 = path.append("2.png");
+
+	Sprite* layer = Sprite::create(path1);
 	layer->setAnchorPoint(Vec2(0, 0));
 	layer->setPosition(0, 0);
 	this->addChild(layer, -1);
 
-	Sprite* layer2 = Sprite::create(path + "2.png");
+	Sprite* layer2 = Sprite::create(path2);
 	layer2->setAnchorPoint(Vec2(0, 0));
 	layer2->setPosition(layer->getContentSize().width, 0);
 	this->addChild(layer2, -1);
@@ -437,7 +442,20 @@ bool LevelScene::onContactBegin(cocos2d::PhysicsContact & contact)
 
 	int tagA = spriteA->getTag();                                      // 3
 	int tagB = spriteB->getTag();
+	if (tagA == Define::MISSLE || tagB == Define::MISSLE)
+	{
+		if (tagA == Define::MISSLE && tagB==Define::land)
+		{
+			MyParticle::CreateBoom(spriteA->getPosition(), spriteA->getParent());
+			spriteA->runAction(RemoveSelf::create());
+		}
+		else if(tagB == Define::MISSLE &&tagA == Define::land)
+		{
+			MyParticle::CreateBoom(spriteB->getPosition(), spriteB->getParent());
+			spriteB->runAction(RemoveSelf::create());
+		}
 
+	}
 	if (tagA == Define::Player || tagB == Define::Player)
 	{
 

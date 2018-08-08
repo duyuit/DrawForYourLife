@@ -159,7 +159,7 @@ void BossDrill::Flip(bool isFlip)
 void BossDrill::ActiveDrill()
 {
 	front_car->runAction(RepeatForever::create(car_anim->get()));
-	drill->runAction(RepeatForever::create(drill_crazy_anim->get()));
+	drill->runAction(RepeatForever::create(drill_anim->get()));
 }
 
 void BossDrill::FireDrill()

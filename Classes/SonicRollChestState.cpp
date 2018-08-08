@@ -1,6 +1,6 @@
 #include "SonicRollChestState.h"
 #include "Sonic.h"
-
+#include "BossLv1.h"
 SonicRollChestState::SonicRollChestState(SonicData * playerData)
 {
 	this->mPlayerData = playerData;
@@ -47,4 +47,33 @@ SonicState::StateAction SonicRollChestState::GetState()
 
 void SonicRollChestState::HandleCollision(Sprite * sprite)
 {
+
+	if (sprite->getTag() == Define::BOSS)
+	{
+		this->mPlayerData->player->_roll_effect->setRotation(0);
+		this->mPlayerData->player->_roll_effect->setPosition(this->mPlayerData->player->_roll_effect->getPosition() + Vec2(100, -50));
+
+
+		auto boss =(BossLv1*) this->mPlayerData->player->boss;
+
+		auto particle = ParticleSystemQuad::create("Particle/explosion.plist");
+		particle->setPosition(this->mPlayerData->player->getPosition());
+		this->mPlayerData->player->getParent()->addChild(particle, 4);
+
+		MyParticle::CreateElectric(boss->plane->getPosition(), this->mPlayerData->player->getParent());
+		MyParticle::CreateElectric(boss->plane->getPosition()+Vec2(100,0), this->mPlayerData->player->getParent());
+
+		auto call = CallFunc::create([=]()
+		{
+			boss->ReturnPlane();
+		});
+		boss->plane->runAction(Sequence::create(
+			MoveBy::create(0.2,Vec2(-80,0)),
+			MoveBy::create(0.2, Vec2(80, 0)),
+			MoveBy::create(0.2, Vec2(-45, 0)),
+			MoveBy::create(0.2, Vec2(45, 0)),
+			call, nullptr));
+			
+		this->mPlayerData->player->SetStateByTag(SonicState::FALL);
+	}
 }

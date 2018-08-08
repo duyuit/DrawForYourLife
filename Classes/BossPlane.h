@@ -26,7 +26,7 @@ public:
 	bool isOn = true;
 	void Angry();
 	void Break();
-	
+	void Fire();
 	void Flip(bool isFlip);
 };
 

@@ -12,7 +12,7 @@ public:
 	BossLv1* boss;
 	Sprite* boss_avatar = nullptr;
 	ProgressTimer *mouseBar;
-
+	Sprite* danger=nullptr;
 
 
 	RefPtr<Animate> * normal_anim;

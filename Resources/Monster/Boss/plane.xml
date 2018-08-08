@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Animations>
   <Animation name="1" imagePath="Monster/Boss/helicopter.png" width="1756" height="224">
-    <sprite x="231" y="33" w="202" h="187" oX="231" oY="33" oW="-616" oH="1439" />
-    <sprite x="1167" y="33" w="207" h="187" oX="1167" oY="33" oW="-616" oH="1439" />
-    <sprite x="543" y="33" w="220" h="187" oX="543" oY="33" oW="-616" oH="1439" />
-    <sprite x="1479" y="33" w="224" h="187" oX="1479" oY="33" oW="-616" oH="1439" />
-    <sprite x="855" y="33" w="225" h="187" oX="855" oY="33" oW="-616" oH="1439" />
+    <sprite x="231" y="33" w="202" h="220" oX="231" oY="33" oW="-616" oH="1439" />
+    <sprite x="1167" y="33" w="207" h="220" oX="1167" oY="33" oW="-616" oH="1439" />
+    <sprite x="543" y="33" w="220" h="220" oX="543" oY="33" oW="-616" oH="1439" />
+    <sprite x="1479" y="33" w="224" h="220" oX="1479" oY="33" oW="-616" oH="1439" />
+    <sprite x="855" y="33" w="225" h="220" oX="855" oY="33" oW="-616" oH="1439" />
   </Animation>
 </Animations>
