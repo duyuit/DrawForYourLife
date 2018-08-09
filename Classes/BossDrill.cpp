@@ -78,17 +78,6 @@ BossDrill::~BossDrill()
 
 void BossDrill::update(float dt)
 {
-	count_to_generate_dust++;
-	if (count_to_generate_dust == 20)
-	{
-		//AlmostBreak();
-		count_to_generate_dust = 0;
-		if (front_car->isFlipX())
-			MyParticle::CreateCarSmoke(this->getPosition() + Vec2(50, 0), this->getParent());
-		else
-			MyParticle::CreateCarSmoke(this->getPosition() + Vec2(front_car->getContentSize().width - 90, 5), this->getParent());
-
-	}
 }
 
 void BossDrill::AlmostBreak()
@@ -112,12 +101,20 @@ void BossDrill::AlmostBreak()
 
 void BossDrill::Break()
 {
-
-	back_car->setPosition(back_car->getPosition() + Vec2(0, -50));
 	back_car->initWithFile("Monster/Boss/broken_car.png");
 	back_car->setAnchorPoint(Vec2(0, 1));
+	if (!isLeft)
+	{
+		back_car->setPosition(back_car->getPosition() + Vec2(0, -50));
+	}
+	else
+	{
+		back_car->setPosition(back_car->getPosition() + Vec2(-200, -50));
+	}
+	
+
 	front_car->setVisible(false);
-	drill->setVisible(false);
+	drill->runAction(RemoveSelf::create());
 }
 
 //void BossDrill::GenerateDust()
@@ -137,6 +134,14 @@ void BossDrill::Break()
 //		dust->setPosition(this->getPosition() +Vec2(front_car->getContentSize().width-90,5));
 //	this->getParent()->addChild(dust);
 //}
+
+void BossDrill::GenerateDust()
+{
+	if (front_car->isFlipX())
+		MyParticle::CreateCarSmoke(this->getPosition() + Vec2(50, 0), this->getParent());
+	else
+		MyParticle::CreateCarSmoke(this->getPosition() + Vec2(front_car->getContentSize().width - 90, 5), this->getParent());
+}
 
 void BossDrill::Flip(bool isFlip)
 {

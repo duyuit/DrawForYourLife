@@ -24,7 +24,7 @@ bool BossScene::init()
 	blacklayer->setScale(3);
 	blacklayer->setOpacity(100);
 
-	_mSonic->setZOrder(5);
+	_mSonic->setZOrder(8);
 	this->addChild(blacklayer,3);
 
 
@@ -122,7 +122,7 @@ void BossScene::update(float)
 	}
 	if (boss->isCrazy != last_crazy)
 	{
-		if (boss->isCrazy)
+		if (boss->isCrazy && !boss->isDelete)
 		{
 
 			sonic_avatar->stopAllActions();
@@ -219,7 +219,7 @@ cocos2d::Scene * BossScene::createSceneArea(SCENE_AREA next_scene_area, SCENE_NA
 	scene->getPhysicsWorld()->setGravity(Vec2(0, -1000));
 
 	// optional: set debug draw
-//	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
 	scene->getPhysicsWorld()->step(1 / 60.0f);
 
 	auto layer = BossScene::create();

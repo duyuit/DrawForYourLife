@@ -85,6 +85,7 @@ void BossLv1::GetDame()
 	if (hp == 0)
 	{
 		Broke();
+		plane->face->getPhysicsBody()->setContactTestBitmask(0);
 		return;
 	}
 	/*auto action = TintTo::create(0.2, Color3B::WHITE);
@@ -315,6 +316,16 @@ void BossLv1::SetState(STATE state)
 
 void BossLv1::update(float dt)
 {
+	count_to_change_state++;
+	if (count_to_change_state % 20 == 0)
+	{
+		if(!isDelete)
+		drill->GenerateDust();
+		if( isAlmostBroke)
+		drill->AlmostBreak();
+		
+	}
+
 	if (isDelete) return;
 	if (_mSonic->mCurrentState->GetState() == SonicState::CHAOS && _mSonic->CheckLastFrame() && isSonicAttack)
 	{
@@ -497,7 +508,7 @@ void BossLv1::update(float dt)
 			_mSonic->isLeft = true;
 		else _mSonic->isLeft = false;
 	}
-	count_to_change_state++;
+	
 	switch (currentState)
 	{
 	case BossLv1::RUNBACK:
@@ -538,8 +549,7 @@ void BossLv1::update(float dt)
 		break;
 	}
 
-	if (count_to_change_state % 20 == 0 && isAlmostBroke)
-		drill->AlmostBreak();
+
 
 
 	//if (count_to_change_state == 60*6)
