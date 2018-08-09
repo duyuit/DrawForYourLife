@@ -300,7 +300,7 @@ void TapButton::update(float dt)
 
 
 	if (isDelete) return;
-	if (this->getPositionX() < mTarget->getPositionX() && !use_for_Hold)
+	if (this->getPositionX() < mTarget->getPositionX()&& !isTrue && !use_for_Hold)
 	{
 		
 		DeleteNow(false);

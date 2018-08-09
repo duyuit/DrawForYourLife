@@ -426,11 +426,13 @@ void LevelScene::SetViewPointCenter(Point position, Vec2 delta)
 {
 	if (_tileMap == nullptr) return;
 	Size winSize = _director->getWinSize();
-
+	
 	int x = MAX(position.x, winSize.width / 2);
-	int y = MAX(position.y, winSize.height / 2);
-	//x = MIN(x, (_tileMap->getMapSize().width * _tileMap->getTileSize().width) - winSize.width / 2);
-//	y = MIN(y, (_tileMap->getMapSize().height * _tileMap->getTileSize().height) - winSize.height / 2);
+	int y = MAX(position.y, winSize.height / 2+55);
+	
+	x = MIN(x, (_tileMap->getMapSize().width * _tileMap->getTileSize().width) - winSize.width / 2);
+	y = MIN(y, (_tileMap->getMapSize().height * _tileMap->getTileSize().height) - winSize.height / 2);
+
 	Vec2 actualPosition = Vec2(x, y);
 
 	Vec2 centerOfView = Vec2(winSize.width / 2, winSize.height / 2);

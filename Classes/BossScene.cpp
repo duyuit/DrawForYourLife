@@ -76,7 +76,7 @@ bool BossScene::init()
 		this->addChild(edgeSp); // Add v�o Layer
 	}
 
-	//_mSonic->chooseMusic = BOSS_MUSIC;
+	_mSonic->chooseMusic = BOSS_MUSIC;
 
 	scheduleOnce(CC_SCHEDULE_SELECTOR(BossScene::updateStart), 0);
 	return true;

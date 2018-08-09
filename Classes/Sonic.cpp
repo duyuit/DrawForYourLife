@@ -59,7 +59,7 @@ Sonic::Sonic()
 	stop_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(true, "stop"), 0.05f)));
 	counter_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(true, "counter"), 0.05f)));
 	end_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(true, "end"), 0.08f)));
-	
+	idle_red_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(sonic_loadAnim(true, "idle"), 0.03f)));;
 	
 	
 
@@ -787,7 +787,7 @@ void Sonic::SwapAllAni()
 	SwapAni(stop_Ani, stop_red_Ani);
 	SwapAni(counter_Ani, counter_red_Ani);
 	SwapAni(end_Ani, end_red_Ani);
-	
+	SwapAni(idle_Ani, idle_red_Ani);
 	this->SetStateByTag(mCurrentState->GetState());
 
 	if (mCurrentState->GetState() == SonicState::JUMP)

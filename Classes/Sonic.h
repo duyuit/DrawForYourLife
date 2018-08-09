@@ -117,6 +117,7 @@ private:
 	RefPtr<Animate>  *counter_red_Ani;
 	RefPtr<Animate>  *end_red_Ani;
 	RefPtr<Animate>  *idle_red_Ani;
+
 	Sprite* dust = nullptr;
 	Sprite* flame = nullptr;
 	MotionStreak* streak = nullptr;
