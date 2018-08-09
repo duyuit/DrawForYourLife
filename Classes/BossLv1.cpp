@@ -1,7 +1,6 @@
 #include "BossLv1.h"
 
 #include "BossScene.h"
-
 void BossLv1::GenerateButton()
 {
 
@@ -283,6 +282,7 @@ void BossLv1::SetState(STATE state)
 		{
 
 			GenerateMultiButton();
+			drill->drill->stopAllActions();
 			drill->drill->runAction(RepeatForever::create(drill->drill_crazy_anim->get()));
 			auto func = CallFunc::create([this]()
 			{
@@ -292,7 +292,7 @@ void BossLv1::SetState(STATE state)
 	
 		}else
 		{	
-			drill->drill->runAction(RepeatForever::create(drill->drill_anim->get()));
+			
 			GenerateButton();
 			drill->FireDrill(); 
 		}
@@ -300,12 +300,10 @@ void BossLv1::SetState(STATE state)
 	case BossLv1::GETBACKDRILL:
 		{
 	//	delete currentButton;
+		drill->drill->stopAllActions();
+		drill->drill->runAction(RepeatForever::create(drill->drill_anim->get()));
 		if(!isSonicAttack)
 		GenerateButton();
-		else {
-			drill->drill->stopAllActions();
-			drill->drill->runAction(RepeatForever::create(drill->drill_anim->get()));
-		}
 	}
 		
 		break;
@@ -317,6 +315,7 @@ void BossLv1::SetState(STATE state)
 
 void BossLv1::update(float dt)
 {
+	if (isDelete) return;
 	if (_mSonic->mCurrentState->GetState() == SonicState::CHAOS && _mSonic->CheckLastFrame() && isSonicAttack)
 	{
 		auto func = CallFunc::create([this]()
@@ -502,7 +501,7 @@ void BossLv1::update(float dt)
 	switch (currentState)
 	{
 	case BossLv1::RUNBACK:
-			if (count_to_change_state == 60 * 6)
+			if (count_to_change_state == 60 *6)
 			{
 
 				SetState(FIGHT);

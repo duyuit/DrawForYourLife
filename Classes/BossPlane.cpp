@@ -151,7 +151,6 @@ void BossPlane::Fire()
 		{
 			auto particle = ParticleSystemQuad::create("Particle/explosion.plist");
 			particle->setPosition(this->getPosition());
-
 			this->getParent()->addChild(particle);
 		});
 		auto node = this->getParent();

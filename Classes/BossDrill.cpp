@@ -165,6 +165,7 @@ void BossDrill::ActiveDrill()
 void BossDrill::FireDrill()
 {
 
+	drill->runAction(RepeatForever::create(drill_anim->get()));
 	int delta_posx = chain1->getContentSize().width;
 	float delta = 0.7666666;
 	drill->runAction(MoveBy::create(2.3, Vec2(-delta_posx * 3, 0)));
@@ -179,8 +180,6 @@ void BossDrill::FireDrillCrazy()
 {
 	int delta_posx = chain1->getContentSize().width;
 	float delta = 0.1666666;
-
-	drill->runAction(RepeatForever::create(drill_crazy_anim->get()));
 
 	drill->runAction(MoveBy::create(0.5, Vec2(-delta_posx * 3, 0)));
 	auto return_drill = CallFunc::create(CC_CALLBACK_0(BossDrill::ReturnDrillCrazy, this));
