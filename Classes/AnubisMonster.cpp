@@ -35,7 +35,7 @@ AnubisMonster::AnubisMonster(Sonic * sonic, Vec2 pos)
 	this->setPosition(pos);
 	this->scheduleUpdate();
 
-	_multiButton = new MultipleButton(pos, sonic, (Layer*)sonic->getParent(), 3, 2);
+	_multiButton = new MultipleButton(pos, sonic, (Layer*)sonic->getParent(), 3, 2, 1);
 	_multiButton->_action = SonicState::RUN_FAST;
 }
 

@@ -9,7 +9,7 @@ class MultipleButton:public Node
 {
 public:
 	MultipleButton();
-	MultipleButton(Vec2 pos,Sonic* sonic,Layer* layer,int button_count, float time);
+	MultipleButton(Vec2 pos,Sonic* sonic,Layer* layer,int button_count, float time, int del_button);
 	int _button_count = 3;
 	float _time = 1.5f;
 	bool isActive = false;
@@ -28,6 +28,8 @@ public:
 	Vector<Sprite*> _list_button_sprite;
 	SonicState::StateAction _action;
 	bool isDelete = false;
+	int del_button_pos_1 = -1;
+	int del_button_pos_2 = -1;
 
 	int current_button = 0;
 	RefPtr<Animate>  *_break_left_Ani;

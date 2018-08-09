@@ -119,16 +119,20 @@ namespace Define {
 	static char* _music_mushroom_effect_path = "Music/Object/mushroom_effect.mp3";
 
 	//Music sonic
-	static int _music_sonic_jump_effect, _music_sonic_roll_effect;
+	static int _music_sonic_jump_effect, _music_sonic_roll_effect, _music_sonic_end_effect, _music_sonic_die_effect;
 	static char* _music_sonic_jump_effect_path = "Music/Sonic/sonic_jump_effect.mp3";
 	static char* _music_sonic_roll_effect_path = "Music/Sonic/sonic_roll_effect.mp3";
+	static char* _music_sonic_end_effect_path = "Music/Sonic/sonic_end_effect.mp3";
+	static char* _music_sonic_die_effect_path = "Music/Sonic/sonic_die_effect.mp3";
 
 	//Music table
-	static int _music_boss_finish_effect, _music_finish_level_effect, _music_game_over_effect_1, _music_game_over_effect_2;
+	static int _music_boss_finish_effect, _music_finish_level_effect, _music_game_over_effect_1, _music_game_over_effect_2,
+		_music_count_number_finish_effect, _music_star_effect;
 	static char* _music_boss_finish_effect_path = "Music/Table/boss_finish_effect.mp3";
 	static char* _music_finish_level_effect_path = "Music/Table/finish_level_effect.mp3";
 	static char* _music_game_over_effect_1_path = "Music/Table/game_over_effect_1.mp3";
 	static char* _music_game_over_effect_2_path = "Music/Table/game_over_effect_2.mp3";
+	static char* _music_star_effect_path = "Music/Table/star_effect.mp3";
 
 	//Music voice
 	static int _music_voice_combo, _music_voice_end_lose, _music_voice_end_win, _music_voice_miss, _music_voice_start_1, _music_voice_start_2;

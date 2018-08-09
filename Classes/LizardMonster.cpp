@@ -13,7 +13,7 @@ LizardMonster::LizardMonster(Sonic * sonic)
 	_fightAni = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fightFL, 0.05f)));
 
 	Monster::Init(sonic);
-	_multiButton = new MultipleButton(Vec2(0, 0), _mSonic, (Layer*)_mSonic->getParent(), 2, 2);
+	_multiButton = new MultipleButton(Vec2(0, 0), _mSonic, (Layer*)_mSonic->getParent(), 2, 2, 1);
 }
 
 void LizardMonster::SetStateByTag(MONSTERSTATE state)

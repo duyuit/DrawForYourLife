@@ -542,12 +542,14 @@ void Sonic::HandleCollision(Sprite * sprite)
 
 		//Play finish music effect
 		experimental::AudioEngine::stopAll();
-		Define::_music_finish_level_effect = experimental::AudioEngine::play2d(Define::_music_finish_level_effect_path, false, 1.0f);		
+		Define::_music_sonic_end_effect = experimental::AudioEngine::play2d(Define::_music_sonic_end_effect_path, false, 1.0f);
+		Define::_music_finish_level_effect = experimental::AudioEngine::play2d(Define::_music_finish_level_effect_path, false, 0.6f);		
 		return;
 	}
 	else if (sprite->getTag() == Define::DIELAND && mCurrentState->GetState() != SonicState::DIE)
 	{
 		this->SetStateByTag(SonicState::DIE);
+		Define::_music_sonic_die_effect = experimental::AudioEngine::play2d(Define::_music_sonic_die_effect_path, false, 1.0f);
 		return;
 	}
 

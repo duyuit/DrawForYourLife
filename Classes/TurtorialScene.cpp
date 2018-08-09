@@ -80,7 +80,8 @@ void TurtorialScene::Pause()
 	_diabox->setVisible(true);
 	_diabox->setPosition(_mSonic->getPositionX(), _director->getWinSize().height*3/4);
 
-	if (blacklayer!= nullptr) blacklayer->setVisible(true);
+	if (blacklayer!= nullptr) 
+		blacklayer->setVisible(true);
 }
 
 void TurtorialScene::Continue()
@@ -94,7 +95,8 @@ void TurtorialScene::Continue()
 	_isPause = false;
 	_mSonic->SetVelocityX(340);
 	_diabox->setVisible(false);
-	if (blacklayer != nullptr) blacklayer->setVisible(false);
+	if (blacklayer != nullptr) 
+		blacklayer->setVisible(false);
 }
 
 
@@ -182,7 +184,7 @@ void TurtorialScene::updateStart(float dt)
 
 
 	blacklayer = LayerColor::create(Color4B::BLACK);
-	blacklayer->setScale(10);
+	blacklayer->setScale(100);
 	blacklayer->setOpacity(100);
 	this->addChild(blacklayer,3);
 

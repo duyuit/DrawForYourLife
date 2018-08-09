@@ -19,7 +19,7 @@ FrogMonster::FrogMonster(Sonic* sonic)
 	Monster::Init(sonic);
 	this->setScale(0.8);
 
-	_multiButton = new MultipleButton(Vec2(0, 0), _mSonic, (Layer*)_mSonic->getParent(), 2, 2);
+	_multiButton = new MultipleButton(Vec2(0, 0), _mSonic, (Layer*)_mSonic->getParent(), 2, 2, 0);
 
 	//this->init();
 	//this->initWithSpriteFrame(idleFL.at(0));

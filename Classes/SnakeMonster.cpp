@@ -10,10 +10,10 @@ SnakeMonster::SnakeMonster(Sonic * sonic)
 	_runAni = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(runFL, 0.07f)));
 	_dieAni = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(dieFL, 0.2f)));
 	_idleAni = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(idleFL, 0.1f)));
-	_fightAni = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fightFL, 0.12f)));
+	_fightAni = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(fightFL, 0.08f)));
 
 	Monster::Init(sonic);
-	_multiButton = new MultipleButton(Vec2(0, 0), _mSonic, (Layer*)_mSonic->getParent(), 3, 2);
+	_multiButton = new MultipleButton(Vec2(0, 0), _mSonic, (Layer*)_mSonic->getParent(), 3, 2, 2);
 }
 
 void SnakeMonster::update(float dt)
@@ -45,7 +45,7 @@ void SnakeMonster::update(float dt)
 		}
 		break;
 	case FIGHT:
-		if (CheckLastFrame())
+		if (_time_action == 30)
 		{
 			SetStateByTag(IDLE);
 		}
@@ -81,8 +81,8 @@ void SnakeMonster::SetStateByTag(MONSTERSTATE state)
 		_currentAction = RepeatForever::create(_currentAnimate->get()->clone());
 		if (this->getPosition().x - _mSonic->getPosition().x < 1500) //Fix when move scene, Monster move wrong position
 		{
-			if (_isLeft) this->getPhysicsBody()->setVelocity(Vec2(-50, 0));
-			else  this->getPhysicsBody()->setVelocity(Vec2(50, 0));
+			if (_isLeft) this->getPhysicsBody()->setVelocity(Vec2(-30, 0));
+			else  this->getPhysicsBody()->setVelocity(Vec2(30, 0));
 		}
 		else
 			this->getPhysicsBody()->setVelocity(Vec2(0, 0));

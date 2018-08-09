@@ -317,7 +317,7 @@ MyUI::MyUI(Sonic * mSonic)
 			sprite->setPosition(touch->getLocation());
 			this->getParent()->addChild(sprite);
 			sprite->runAction(Sequence::create(touch_ani->get()->clone(), RemoveSelf::create(), nullptr));
-				_istouch = true;
+			_istouch = true;
 			
 		};
 
@@ -452,6 +452,7 @@ void MyUI::update(float dt)
 			experimental::AudioEngine::stopAll();
 			Define::_music_game_over_effect_1 = experimental::AudioEngine::play2d(Define::_music_game_over_effect_1_path, false, 1.0f);
 
+			_istouch = false;
 			_combo->removeAllChildren();
 			_combo->unscheduleUpdate();
 			gameover = new GameOverLayer(mySonic, current_scene,currentLevelMap);

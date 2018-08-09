@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-up" width="606" height="50" tilewidth="32" tileheight="32" infinite="0" nextobjectid="242">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-up" width="606" height="50" tilewidth="32" tileheight="32" infinite="0" nextobjectid="247">
  <tileset firstgid="1" name="desert_ground_full" tilewidth="32" tileheight="32" tilecount="784" columns="28">
   <image source="desert_ground_full.png" width="900" height="900"/>
  </tileset>
@@ -252,6 +252,7 @@
   <object id="165" x="12330" y="1076"/>
   <object id="166" x="12744" y="1037"/>
   <object id="208" x="14926" y="1198"/>
+  <object id="245" x="2144" y="1234"/>
  </objectgroup>
  <objectgroup name="Ring">
   <object id="10" x="1524" y="1346"/>

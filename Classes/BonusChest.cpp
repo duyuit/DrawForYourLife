@@ -23,7 +23,7 @@ BonusChest::BonusChest(Sonic * sonic)
 	
 	this->setPhysicsBody(body);
 
-	_multiButton = new MultipleButton(Vec2(0, 0), _mSonic, (Layer*)_mSonic->getParent(), 3, 2);
+	_multiButton = new MultipleButton(Vec2(0, 0), _mSonic, (Layer*)_mSonic->getParent(), 3, 2, 0);
 	this->scheduleUpdate();
 }
 

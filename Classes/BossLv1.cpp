@@ -17,7 +17,7 @@ void BossLv1::GenerateButton()
 void BossLv1::GenerateMultiButton()
 {
 
-	current_multiButton = new MultipleButton(Vec2(_mSonic->getPosition().x + 300, 350), _mSonic, (Layer*)this->getParent(), 3, 2.5);
+	current_multiButton = new MultipleButton(Vec2(_mSonic->getPosition().x + 300, 350), _mSonic, (Layer*)this->getParent(), 3, 2.5, 0);
 	current_multiButton->_action = SonicState::ROLL_IN_SKY;
 	current_multiButton->canActive = true;
 	current_multiButton->setZOrder(5);

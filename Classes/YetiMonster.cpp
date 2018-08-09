@@ -17,7 +17,7 @@ YetiMonster::YetiMonster(Sonic* sonic)
 
 	Monster::Init(sonic);
 	this->setScale(1);
-	_multiButton = new MultipleButton(Vec2(0, 0), _mSonic, (Layer*)_mSonic->getParent(), 2, 2);
+	_multiButton = new MultipleButton(Vec2(0, 0), _mSonic, (Layer*)_mSonic->getParent(), 2, 2, 1);
 }
 
 YetiMonster::~YetiMonster()

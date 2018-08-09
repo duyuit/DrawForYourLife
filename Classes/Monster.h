@@ -26,7 +26,6 @@ public:
 	TapButton *_tapButton=nullptr;
 	Sonic* _mSonic;
 	MultipleButton* _multiButton=nullptr;
-	int _check_area = 0;
 
 	bool CheckLastFrame();
 	bool isDelete = false;

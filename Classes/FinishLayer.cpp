@@ -13,10 +13,7 @@ FinishLayer::FinishLayer(Sonic* mSonic, Layer* cur_scene, SCENE_LEVELMAP current
 	current_scene = cur_scene;
 	levelMap = currentLevelMap;
 	auto visibleSize = Director::getInstance()->getVisibleSize();
-	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-
-
+	Vec2 origin = Director::getInstance()->getVisibleOrigin();	
 
 
 	//Star Count Score
@@ -354,16 +351,23 @@ void FinishLayer::update(float dt)
 				nullptr), 2);
 
 		auto sequence = Sequence::create(spaw, shake, nullptr);
+
+		CallFunc* star_sound = CallFunc::create([&] {
+			experimental::AudioEngine::play2d(Define::_music_star_effect_path, false, 1.0f);
+		});
+
 		if (numStar == 1) {
 			star1->setOpacity(255);
 			star1->runAction(sequence->clone());
 			this->isJumpPoint = true;
+			experimental::AudioEngine::play2d(Define::_music_star_effect_path, false, 1.0f);
 		}
 		if (numStar == 2) {
 			star1->setOpacity(255);
 			star1->runAction(sequence->clone());
 			star2->runAction(Sequence::create(DelayTime::create(0.25), FadeIn::create(1), sequence->clone(), nullptr));
 			this->isJumpPoint = true;
+			this->runAction(Sequence::create(star_sound, DelayTime::create(1.0f), star_sound, nullptr));
 		}
 		if (numStar == 3) {
 			star1->setOpacity(255);
@@ -371,6 +375,7 @@ void FinishLayer::update(float dt)
 			star2->runAction(Sequence::create(DelayTime::create(0.25), FadeIn::create(1), sequence->clone(), nullptr));
 			star3->runAction(Sequence::create(DelayTime::create(1.25), FadeIn::create(1), sequence->clone(), nullptr));
 			this->isJumpPoint = true;
+			this->runAction(Sequence::create(star_sound, DelayTime::create(1.0f), star_sound, DelayTime::create(1.0f), star_sound, nullptr));
 		}
 		if (this->isJumpPoint) {
 			button_board_cancel->setVisible(true);

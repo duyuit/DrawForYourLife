@@ -3,6 +3,7 @@
 class SonicRollState :public SonicState
 {
 public:
+	int roll_sound = 0;
 	SonicRollState(SonicData *playerData);
 	~SonicRollState();
 	void update();

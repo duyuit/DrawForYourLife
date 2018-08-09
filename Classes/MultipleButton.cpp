@@ -6,7 +6,7 @@ MultipleButton::MultipleButton()
 {
 }
 
-MultipleButton::MultipleButton(Vec2 pos, Sonic* sonic, Layer* layer,int button_count, float time)
+MultipleButton::MultipleButton(Vec2 pos, Sonic* sonic, Layer* layer,int button_count, float time, int del_button)
 {
 	this->autorelease();
 	_mSonic = sonic;
@@ -31,8 +31,19 @@ MultipleButton::MultipleButton(Vec2 pos, Sonic* sonic, Layer* layer,int button_c
 	int pos_x= -_border->getContentSize().width/2;
 	int delta_x = _border->getContentSize().width/(_button_count-1);
 
-	//Del button
-	int del_button_pos = RandomHelper::random_int(0, _button_count - 1);
+	//Del button position
+	if (del_button >= 1)
+	{
+		del_button_pos_1 = RandomHelper::random_int(0, _button_count - 1); 
+		del_button_pos_2 = del_button_pos_1;
+		if (del_button == 2)
+		{
+			while (del_button_pos_2 == del_button_pos_1)
+			{
+				del_button_pos_2 = RandomHelper::random_int(0, _button_count - 1);
+			}
+		}
+	}
 
 	for (int i = 0; i < _button_count; i++)
 	{
@@ -40,7 +51,7 @@ MultipleButton::MultipleButton(Vec2 pos, Sonic* sonic, Layer* layer,int button_c
 		a=RandomHelper::random_int(1,2);
 		Sprite* button;
 	
-		if (i != del_button_pos)
+		if (i != del_button_pos_1 && i != del_button_pos_2)
 		{
 			switch (a)
 			{

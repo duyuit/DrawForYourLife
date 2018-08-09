@@ -48,12 +48,15 @@ void LogoScene::LoadSound()
 	//Preload music Sonic
 	experimental::AudioEngine::preload(Define::_music_sonic_jump_effect_path);
 	experimental::AudioEngine::preload(Define::_music_sonic_roll_effect_path);
+	experimental::AudioEngine::preload(Define::_music_sonic_end_effect_path);
+	experimental::AudioEngine::preload(Define::_music_sonic_die_effect_path);
 
 	//Preload music table
 	experimental::AudioEngine::preload(Define::_music_boss_finish_effect_path);
 	experimental::AudioEngine::preload(Define::_music_finish_level_effect_path);
 	experimental::AudioEngine::preload(Define::_music_game_over_effect_1_path);
 	experimental::AudioEngine::preload(Define::_music_game_over_effect_2_path);
+	experimental::AudioEngine::preload(Define::_music_star_effect_path);
 
 	//Preload music voice
 	experimental::AudioEngine::preload(Define::_music_voice_combo_path);

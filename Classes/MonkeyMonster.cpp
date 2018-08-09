@@ -13,7 +13,7 @@ MonkeyMonster::MonkeyMonster(Sonic * sonic, Vec2 pos)
 
 
 	Monster::Init(sonic);
-	_multiButton = new MultipleButton(pos, sonic, (Layer*)sonic->getParent(), 3, 2);
+	_multiButton = new MultipleButton(pos, sonic, (Layer*)sonic->getParent(), 3, 2, 0);
 	_multiButton->_action = SonicState::RUN_FAST;
 	this->setPosition(pos);
 	this->setScale(0.7);
