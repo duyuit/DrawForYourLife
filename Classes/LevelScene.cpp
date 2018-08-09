@@ -120,10 +120,14 @@ void LevelScene::CreateTileLayer(string path)
 
 void LevelScene::RollBackground()
 {
-	_backgroundNode->setPosition(_backgroundNode->getPosition() - Vec2(5 * _speedParallax, 0));
-	_backgroundNode->updatePosition();
-	_backgroundNode2->setPosition(_backgroundNode2->getPosition() - Vec2(5 * _speedParallax, 0));
-	_backgroundNode2->updatePosition();
+	if (_mSonic->mCurrentState->GetState() != SonicState::END)
+	{
+		_backgroundNode->setPosition(_backgroundNode->getPosition() - Vec2(5 * _speedParallax, 0));
+		_backgroundNode->updatePosition();
+		_backgroundNode2->setPosition(_backgroundNode2->getPosition() - Vec2(5 * _speedParallax, 0));
+		_backgroundNode2->updatePosition();
+	}
+
 
 	
 }

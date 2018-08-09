@@ -42,7 +42,6 @@ AnubisMonster::AnubisMonster(Sonic * sonic, Vec2 pos)
 void AnubisMonster::update(float dt)
 {
 	_multiButton->setPosition(this->getPosition() + Vec2(-70, 120));
-	CCLOG(to_string(_currentState).c_str());
 	if (isDelete) return;
 
 	if (this->getPositionX() - _mSonic->getPositionX() < 150 && _multiButton->isTrue)

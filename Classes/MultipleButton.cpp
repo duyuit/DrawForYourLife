@@ -31,16 +31,30 @@ MultipleButton::MultipleButton(Vec2 pos, Sonic* sonic, Layer* layer,int button_c
 	int pos_x= -_border->getContentSize().width/2;
 	int delta_x = _border->getContentSize().width/(_button_count-1);
 
+	//Del button
+	int del_button_pos = RandomHelper::random_int(0, _button_count - 1);
+
 	for (int i = 0; i < _button_count; i++)
 	{
 		int a = 0;
 		a=RandomHelper::random_int(1,2);
 		Sprite* button;
 	
-		switch (a)
+		if (i != del_button_pos)
 		{
-		case 1:button = Sprite::create(Define::button_left_blue_path); break;
-			case 2:button = Sprite::create(Define::button_right_blue_path); break;
+			switch (a)
+			{
+				case 1:button = Sprite::create(Define::button_left_blue_path); break;
+				case 2:button = Sprite::create(Define::button_right_blue_path); break;
+			}
+		}
+		else
+		{
+			switch (a)
+			{
+				case 1:button = Sprite::create(Define::button_right_red_path); break;
+				case 2:button = Sprite::create(Define::button_left_red_path); break;
+			}
 		}
 		_list_button_sprite.pushBack(button);
 		_list_button_tag.push_back(a);

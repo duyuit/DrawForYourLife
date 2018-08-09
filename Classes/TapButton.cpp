@@ -98,6 +98,7 @@ TapButton::TapButton(Vec2 pos, Sonic * sprite, Layer * layer, bool isLeft)
 void TapButton::ActiveButton(BUTTON_TAG dir)
 {
 	if (isDelete || isTrue) return;
+	mouseBar->stopAllActions();
 	if (dir == mTag)
 	{
 		CheckLabel(mouseBar->getPercentage(), true);

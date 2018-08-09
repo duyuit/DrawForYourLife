@@ -5,6 +5,7 @@
 #include "FinishFlag.h"
 #include "Monster.h"
 #include "Coconut_Monkey.h"
+
 Sonic::Sonic()
 {
 	this->autorelease();
@@ -30,6 +31,7 @@ Sonic::Sonic()
 	Vector<SpriteFrame*> hurt_red_FL = sonic_loadAnim(true, "hurt");
 	Vector<SpriteFrame*> skip_red_FL = sonic_loadAnim(true, "run_skip");
 	Vector<SpriteFrame*> roll_chest_red_FL = sonic_loadAnim(true, "roll_chest");
+	
 	//Blue Sonic Ani
 	run_fast_Ani = new RefPtr<Animate>(Animate::create(Animation::createWithSpriteFrames(run_fast_FL, 0.01f)));
 
@@ -103,8 +105,37 @@ Sonic::Sonic()
 
 Sonic::~Sonic()
 {
+	/*isDelete = true;
+	delete run_fast_Ani;
+	delete jump_Ani;
+	delete roll_Ani;
+	delete fall_Ani;
+	delete roll_sky_Ani;
+	delete hurt_Ani;
+	delete run_skip_Ani;
+	delete roll_chest_Ani;
+	delete stop_Ani;
+	delete counter_Ani;
+	delete end_Ani;
+	delete idle_Ani;
+	delete chaos_Ani;*/
+
+
+	//delete run_fast_red_Ani;
+	//delete jump_red_Ani;
+	//delete roll_red_Ani;
+	//delete fall_red_Ani;
+	//delete roll_sky_red_Ani;
+	//delete hurt_red_Ani;
+	//delete run_skip_red_Ani;
+	//delete roll_chest_red_Ani;
+	//delete stop_red_Ani;
+	//delete counter_red_Ani;
+	//delete end_red_Ani;
+	//delete idle_red_Ani;
+//	delete chaos_red_Ani;
 }
-int count_to_reset_just_tap = 0;
+
 void Sonic::update(float dt)
 {
 	

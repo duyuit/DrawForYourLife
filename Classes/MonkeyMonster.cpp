@@ -27,8 +27,6 @@ MonkeyMonster::~MonkeyMonster()
 
 void MonkeyMonster::update(float dt)
 {
-	CCLOG(to_string(_currentState).c_str());
-
 	if (isDelete) return;
 
 	if (this->getPositionX() - _mSonic->getPositionX() < 170 && _multiButton->isTrue)
