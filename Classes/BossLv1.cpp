@@ -362,7 +362,7 @@ void BossLv1::update(float dt)
 				if (current_multiButton->isTrue)
 				{
 					_mSonic->SetStateByTag(SonicState::RUNSKIP);
-				
+					mouseBar->runAction(ProgressTo::create(1, 0));
 					auto func = CallFunc::create([this]()
 					{
 						_mSonic->_roll_effect->setRotation(-90);

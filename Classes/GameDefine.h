@@ -79,6 +79,8 @@ namespace Define {
 	static string button_left_blue_path = "Button/button_left_blue.png";
 	static string button_right_blue_path = "Button/button_right_blue.png";
 	static string button_fail_path = "Button/button_fail.png";
+	static string button_left_red_path = "Button/button_left_red.png";
+	static string button_right_red_path = "Button/button_right_red.png";
 
 	//Music background
 	static int _music_boss_scene_background, _music_menu_scene_background_1, _music_menu_scene_background_2,
