@@ -376,7 +376,7 @@ void MyUI::update(float dt)
 			}
 			if (isStart == true) {
 				count_start++;
-				if (count_start == 90) {
+				if (count_start == 60) {
 					//ComeOn voice
 					if (isTurnOnMusic2 == false) {
 						experimental::AudioEngine::play2d(Define::_music_voice_start_2_path, false, 1.0f);
@@ -384,19 +384,19 @@ void MyUI::update(float dt)
 					}
 					isStart = false;
 					isCount = true;
-					labelStart->setString("3");
+					labelStart->setString("Go!");
 				}
 			}
 			if (isCount == true) {
 				count_number++;
 			}
-			if (count_number == 45) {
-				labelStart->setString("2");
-			}
-			if (count_number == 90) {
-				labelStart->setString("1");
-			}
-			if (count_number == 135) {
+			//if (count_number == 45) {
+			//	labelStart->setString("2");
+			//}
+			//if (count_number == 90) {
+			//	labelStart->setString("1");
+			//}
+			if (count_number == 60) {
 				isCount = false;
 				isDone = true;
 				labelStart->setVisible(false);
@@ -430,7 +430,7 @@ void MyUI::update(float dt)
 		{
 			_combo->removeAllChildren();
 			_combo->unscheduleUpdate();
-			finish = new FinishLayer(mySonic, current_scene);
+			finish = new FinishLayer(mySonic, current_scene, currentLevelMap);
 			finish->current_area = currentArea;
 			finish->current_level = currentLevel;
 			this->addChild(finish, 100);

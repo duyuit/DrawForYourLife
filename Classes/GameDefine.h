@@ -183,9 +183,12 @@ namespace Define {
 			}
 			child = child->NextSiblingElement();
 		}
+	
+		delete doc;
 
 		return list;
 	}
+
 
 }
 

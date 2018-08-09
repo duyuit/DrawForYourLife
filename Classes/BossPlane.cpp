@@ -2,6 +2,7 @@
 
 
 #include "GameParticle.h"
+#include "BossLv1.h"
 BossPlane::BossPlane()
 {
 
@@ -174,56 +175,20 @@ void BossPlane::Fire()
 		}
 		else
 		{
+			auto back = CallFunc::create([this]()
+			{
+				auto boss_temp = (BossLv1*)boss;
+				boss_temp->ReturnPlane();
+			});
 			missle1->setPosition(this->getPosition() + Vec2(150, -20));
 			//particle->setPosition(this->getPosition() + Vec2(150, -20));
-			missle1->runAction(Sequence::create(DelayTime::create(0.5), func, MoveBy::create(0.8, Vec2(-270, -700)), createBoom, RemoveSelf::create(), nullptr));
+			missle1->runAction(Sequence::create(DelayTime::create(0.5), func, MoveBy::create(0.8, Vec2(-270, -700)), createBoom, back, RemoveSelf::create(), nullptr));
 		}
 		this->getParent()->addChild(missle1, 6);
 		
 		
 	}
-	//missle1->setFlipX(true);
-	//missle2->setFlipX(true);
-	//missle3->setFlipX(true);
-
-	//
-
-	//missle2->runAction(RepeatForever::create(missle->clone()));
-	//missle3->runAction(RepeatForever::create(missle->clone()));
-
-
-	//missle2->setTag(Define::MISSLE);
-	//missle3->setTag(Define::MISSLE);
-
-
-	//missle2->setAnchorPoint(Vec2(0.5, 0.5));
-	//missle3->setAnchorPoint(Vec2(0.5, 0.5));
-
-	//
-
-	//auto phy2 = PhysicsBody::createBox(Size(75, 25));
-	//phy2->setDynamic(false);
-	//phy2->setCategoryBitmask(16);
-	//phy2->setContactTestBitmask(3);
-	//phy2->setCollisionBitmask(0);
-
-	//auto phy3 = PhysicsBody::createBox(Size(75, 25));
-
-	//phy3->setCategoryBitmask(16);
-	//phy3->setContactTestBitmask(3);
-	//phy3->setCollisionBitmask(0);
-	//phy3->setDynamic(false);
-
-	//missle1->setPosition(this->getPosition());
-	//missle2->setPosition(this->getPosition()+Vec2(100,20));
-	//missle3->setPosition(this->getPosition() + Vec2(-100, -20));
-
-	//
-	//missle2->setPhysicsBody(phy2);
-	//missle3->setPhysicsBody(phy3);
-
-	//this->getParent()->addChild(missle2, 6);
-	//this->getParent()->addChild(missle3, 6);
+	
 }
 
 void BossPlane::Flip(bool isFlip)

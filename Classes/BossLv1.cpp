@@ -30,7 +30,7 @@ BossLv1::BossLv1(Vec2 pos , Sonic* sonic, Layer* layer)
 	drill->parent = this;
 
 	plane = new BossPlane();
-
+	plane->boss = this;
 	drill->setPosition(pos);
 	_mSonic = sonic;
 

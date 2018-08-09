@@ -40,16 +40,13 @@ bool LoadScene::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	srand(time(NULL));
-	int random = rand() % 3 + 1;
+	int random = rand() % 2 + 1;
 	if ((SCENE_NAME)next_scene != Define::LV2) {
 		if (random == 1) {
 			loading = Sprite::create("Menu/loading_bg_1.png");
 		}
 		if (random == 2) {
 			loading = Sprite::create("Menu/loading_bg_2.png");
-		}
-		if (random == 3) {
-			loading = Sprite::create("Menu/loading_bg_3.png");
 		}
 	}
 

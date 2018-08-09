@@ -42,7 +42,7 @@ AnubisMonster::AnubisMonster(Sonic * sonic, Vec2 pos)
 void AnubisMonster::update(float dt)
 {
 	_multiButton->setPosition(this->getPosition() + Vec2(-70, 120));
-	CCLOG(to_string(_currentState).c_str());
+
 	if (isDelete) return;
 
 	if (this->getPositionX() - _mSonic->getPositionX() < 150 && _multiButton->isTrue)
@@ -105,7 +105,8 @@ void AnubisMonster::SetStateByTag(MONSTERSTATE state)
 
 		_currentAction = _currentAnimate->get()->clone();
 
-		ScaleTo* delay = ScaleTo::create(100 / 60.0f, 1.0f);
+		//ScaleTo* delay = ScaleTo::create(100 / 60.0f, 1.0f);
+		DelayTime* delay = DelayTime::create(1.0f);
 		CallFunc* dieState = CallFunc::create([&] {
 			MyParticle::CreateLandSmoke(this->getPosition(), (Layer*) this->getParent());
 			this->runAction(RemoveSelf::create());

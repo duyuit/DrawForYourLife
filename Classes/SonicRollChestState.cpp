@@ -63,16 +63,16 @@ void SonicRollChestState::HandleCollision(Sprite * sprite)
 		MyParticle::CreateElectric(boss->plane->getPosition(), this->mPlayerData->player->getParent());
 		MyParticle::CreateElectric(boss->plane->getPosition()+Vec2(100,0), this->mPlayerData->player->getParent());
 
-		auto call = CallFunc::create([=]()
-		{
-			boss->ReturnPlane();
-		});
+		//auto call = CallFunc::create([=]()
+		//{
+		//	boss->ReturnPlane();
+		//});
 		boss->plane->runAction(Sequence::create(
 			MoveBy::create(0.2,Vec2(-80,0)),
 			MoveBy::create(0.2, Vec2(80, 0)),
 			MoveBy::create(0.2, Vec2(-45, 0)),
 			MoveBy::create(0.2, Vec2(45, 0)),
-			call, nullptr));
+			 nullptr));
 			
 		this->mPlayerData->player->SetStateByTag(SonicState::FALL);
 	}

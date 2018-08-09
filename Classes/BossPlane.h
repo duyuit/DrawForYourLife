@@ -19,7 +19,7 @@ public:
 	RefPtr<Animate>  *turn_off_wing;
 	RefPtr<Animate>  *turn_on_wing;
 	RefPtr<Animate>  *normal_wing;
-
+	Node* boss;
 	void ActiveWing(bool on_off);
 	void update(float dt);
 	int count_to_roll_wing = 0;

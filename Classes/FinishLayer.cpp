@@ -6,12 +6,12 @@ Button* button_board_round;
 //
 Button* button_board_next;
 //
-FinishLayer::FinishLayer(Sonic* mSonic, Layer* cur_scene)
+FinishLayer::FinishLayer(Sonic* mSonic, Layer* cur_scene, SCENE_LEVELMAP currentLevelMap)
 {
 	this->autorelease();
 	mySonic = mSonic;
 	current_scene = cur_scene;
-
+	levelMap = currentLevelMap;
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
@@ -216,7 +216,18 @@ FinishLayer::FinishLayer(Sonic* mSonic, Layer* cur_scene)
 			experimental::AudioEngine::stopAll();
 			Define::_music_btn_effect_1 = experimental::AudioEngine::play2d(Define::_music_btn_effect_1_path, false, 1.0f);
 			Define::_music_menu_scene_background_2 = experimental::AudioEngine::play2d(Define::_music_menu_scene_background_2_path, true, 1.0f);
-			Director::getInstance()->replaceScene(LevelMap::createScene());
+			if ((SCENE_LEVELMAP)levelMap == Define::MAP_STONE) {
+				auto scene = LevelMapStone::createScene();
+				Director::getInstance()->replaceScene(scene);
+			}
+			if ((SCENE_LEVELMAP)levelMap == Define::SNOW) {
+				auto scene = LevelMap::createScene();
+				Director::getInstance()->replaceScene(scene);
+			}
+			if ((SCENE_LEVELMAP)levelMap == Define::DESERT) {
+				auto scene = LevelMapDesert::createScene();
+				Director::getInstance()->replaceScene(scene);
+			}
 		}
 		break;
 		default:

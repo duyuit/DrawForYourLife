@@ -7,7 +7,7 @@
 class FinishLayer : public cocos2d::Layer
 {
 public:
-	FinishLayer(Sonic* mySonic, Layer* cur_scene);
+	FinishLayer(Sonic* mySonic, Layer* cur_scene, SCENE_LEVELMAP currentLevelMap);
 	~FinishLayer();
 	//Start Count
 	int countPerfect = 0;
@@ -22,7 +22,7 @@ public:
 	Sprite* star1;
 	Sprite* star2;
 	Sprite* star3;
-
+	SCENE_LEVELMAP levelMap;
 	LayerColor *layer = nullptr;
 	Layer *current_scene = nullptr;
 	SCENE_NAME current_level;
