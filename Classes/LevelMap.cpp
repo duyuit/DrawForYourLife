@@ -81,6 +81,26 @@ bool LevelMap::init()
 	myLabel->setPosition(Vec2(delta_x * 3 - delta_x / 2, delta_y * 4 - delta_y / 2));
 	board->addChild(myLabel, 2);
 
+	//Label for del button in Board
+	note = Label::createWithTTF("", font, 36);
+	note->setAnchorPoint(Vec2(0.5f, 0.5f));
+	note->setPosition(Vec2(delta_x * 3 - 0.2 * delta_x, delta_y * 4 - 1.5 * delta_y));
+	board->addChild(note, 2);
+
+	//Del left
+	del_left = Sprite::create("Button/button_left_red.png");
+	del_left->setScale(visibleSize.width / (del_left->getContentSize().width * 30), visibleSize.width / (del_left->getContentSize().height * 30));
+	del_left->setAnchorPoint(Vec2(0.5f, 0.5f));
+	del_left->setPosition(Vec2(delta_x * 3 - 1.5 * delta_x, delta_y * 4 - 1.28 * delta_y));
+	board->addChild(del_left, 2);
+
+	//Del right
+	del_right = Sprite::create("Button/button_right_red.png");
+	del_right->setScale(visibleSize.width / (del_right->getContentSize().width * 30), visibleSize.width / (del_right->getContentSize().height * 30));
+	del_right->setAnchorPoint(Vec2(0.5f, 0.5f));
+	del_right->setPosition(Vec2(delta_x * 3 - 1.5 * delta_x, delta_y * 4 - 1.78 * delta_y));
+	board->addChild(del_right, 2);
+
 	//Button play  in Board Star
 	auto button_board_play = Button::create("Level_map/play2.png");
 	button_board_play->setScale(visibleSize.width / (button_board_play->getContentSize().width * 12), visibleSize.height / (button_board_play->getContentSize().height * 10));
@@ -431,6 +451,7 @@ void LevelMap::setStar(int level, int star) {
 		str = "Level Bonus \n Star " + std::to_string(star);
 	}
 	myLabel->setString(str);
+	note->setString("Tap right\nTap left");
 }
 void LevelMap::update(float dt) {
 	if (isBoard == true) {

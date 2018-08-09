@@ -16,6 +16,9 @@ public:
 	Sprite* board;
 	int _levelState;
 	Label* myLabel;
+	Label* note;
+	Sprite* del_left;
+	Sprite* del_right;
 	Vector<Sprite*> star_list;
 	FinishLayer* finishLayer;
 	int currentLevel = 0;
