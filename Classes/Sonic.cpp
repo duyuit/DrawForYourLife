@@ -478,7 +478,7 @@ void Sonic::HandleCollision(Sprite * sprite)
 		MyParticle::CreateEatItem(sprite->getPosition(), (Layer*) this->getParent());
 		sprite->runAction(RemoveSelf::create());
 		//Play sound when eat rings
-		Define::_music_eat_ring_effect = experimental::AudioEngine::play2d(Define::_music_eat_ring_effect_path, false, 0.8f);
+		Define::_music_eat_ring_effect = experimental::AudioEngine::play2d(Define::_music_eat_ring_effect_path, false, 0.6f);
 	}
 	else if (sprite->getTag() == Define::MUSHROOM /*&& (mCurrentState->GetState()== SonicState::FALL || mCurrentState->GetState() == SonicState::ROLL)*/)
 	{
@@ -587,8 +587,6 @@ void Sonic::HandleCollision(Sprite * sprite)
 		
 		if (ringCollected > 0)
 		{
-			Define::_music_drop_ring_effect = experimental::AudioEngine::play2d(Define::_music_drop_ring_effect_path, false, 0.8f);
-
 			int t = ringCollected; //Temp variable
 			for (int i = 0; i < (t / 2); i++)
 			{
@@ -599,10 +597,10 @@ void Sonic::HandleCollision(Sprite * sprite)
 	}
 	else if (sprite->getTag() == Define::MISSLE)
 	{
+	
 		if (mCurrentState->GetState() != SonicState::HURT && mCurrentState->GetState() != SonicState::ROLL_CHEST &&mCurrentState->GetState() != SonicState::FALL)
 		{
 			SetStateByTag(SonicState::HURT);
-
 			MyParticle::CreateBoom(sprite->getPosition(), sprite->getParent());
 			sprite->runAction(RemoveSelf::create());
 		}

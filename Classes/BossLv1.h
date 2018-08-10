@@ -27,6 +27,7 @@ public:
 	BossPlane* plane;
 	Sonic* _mSonic;
 	int count_to_change_state = 0;
+	int _music_chao_id = 0;
 
 	ProgressTimer *mouseBar;
 	void GetDame();

@@ -28,5 +28,7 @@ public:
 	void Break();
 	void Fire();
 	void Flip(bool isFlip);
+
+	int wing_id = 0;
 };
 

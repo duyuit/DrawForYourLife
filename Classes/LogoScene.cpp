@@ -65,6 +65,19 @@ void LogoScene::LoadSound()
 	experimental::AudioEngine::preload(Define::_music_voice_miss_path);
 	experimental::AudioEngine::preload(Define::_music_voice_start_1_path);
 	experimental::AudioEngine::preload(Define::_music_voice_start_2_path);
+
+	//Preload music boss
+	experimental::AudioEngine::preload(Define::_music_alert_effect_path);
+	experimental::AudioEngine::preload(Define::_boss_hurt_effect_path);
+	experimental::AudioEngine::preload(Define::_music_car_effect_path);
+	experimental::AudioEngine::preload(Define::_music_car_explosion_effect_path);
+	experimental::AudioEngine::preload(Define::_music_drill_attack_effect_path);
+	experimental::AudioEngine::preload(Define::_music_drill_effect_path);
+	experimental::AudioEngine::preload(Define::_music_missile_effect_path);
+	experimental::AudioEngine::preload(Define::_music_missile_explosion_path);
+	experimental::AudioEngine::preload(Define::_music_sonic_chao_attack_effect_path);
+	experimental::AudioEngine::preload(Define::_music_sonic_chao_effect_path);
+	experimental::AudioEngine::preload(Define::_music_wing_effect_path);
 }
 
 

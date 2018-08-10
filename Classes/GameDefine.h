@@ -143,6 +143,22 @@ namespace Define {
 	static char* _music_voice_start_1_path = "Music/Voice/voice_start_21.mp3";
 	static char* _music_voice_start_2_path = "Music/Voice/voice_start_1.mp3";
 
+	//Boss
+	static int _music_alert_effect, _boss_hurt_effect, _music_car_effect, _music_car_explosion_effect,
+		_music_drill_effect, _music_drill_attack_effect, _music_missile_effect, _music_missile_explosion, 
+		_music_sonic_chao_attack_effect, _music_sonic_chao_effect, _music_wing_effect;
+	static char* _music_alert_effect_path = "Music/Boss/alert_effect.mp3";
+	static char* _boss_hurt_effect_path = "Music/Boss/boss_hurt_effect.mp3";
+	static char* _music_car_effect_path = "Music/Boss/car_effect.mp3";
+	static char* _music_car_explosion_effect_path = "Music/Boss/car_explosion_effect.mp3";
+	static char* _music_drill_attack_effect_path = "Music/Boss/drill_attack_effect.mp3";
+	static char* _music_drill_effect_path = "Music/Boss/drill_effect.mp3";
+	static char* _music_missile_effect_path = "Music/Boss/missile_effect.mp3";
+	static char* _music_missile_explosion_path = "Music/Boss/missile_explosion.mp3";
+	static char* _music_sonic_chao_attack_effect_path = "Music/Boss/sonic_chao_attack_effect.mp3";
+	static char* _music_sonic_chao_effect_path = "Music/Boss/sonic_chao_effect.mp3";
+	static char* _music_wing_effect_path = "Music/Boss/wing_effect.mp3";
+
 	static float randomValueBetween(float min, float max)
 	{
 		assert(max > min);

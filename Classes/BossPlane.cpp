@@ -83,6 +83,7 @@ void BossPlane::ActiveWing(bool on)
 		wing->runAction(Sequence::create(turn_off_wing->get(), MoveBy::create(1, Vec2(0, -50)), nullptr));
 		/*wing->runAction(turn_off_wing->get());
 		wing->runAction(MoveBy::create(1, Vec2(0, -50)));*/
+		experimental::AudioEngine::stop(wing_id);
 	}
 }
 
@@ -144,11 +145,11 @@ void BossPlane::Fire()
 
 		missle1->setPhysicsBody(phy1);
 
-		
-
+		experimental::AudioEngine::play2d(Define::_music_missile_explosion_path, false, 1.0f);
+		experimental::AudioEngine::play2d(Define::_music_missile_effect_path, false, 1.0f);
 	
 		auto func = CallFunc::create([this]()
-		{
+		{	
 			auto particle = ParticleSystemQuad::create("Particle/explosion.plist");
 			particle->setPosition(this->getPosition());
 			this->getParent()->addChild(particle);
@@ -157,7 +158,9 @@ void BossPlane::Fire()
 
 		auto createBoom = CallFunc::create([=]()
 		{
+			
 			MyParticle::CreateBoom(missle1->getPosition(), node);
+			
 		});
 
 		if (i == 0)

@@ -63,7 +63,6 @@ BossLv1::BossLv1(Vec2 pos , Sonic* sonic, Layer* layer)
 	
 
 
-
 	
 }
 
@@ -79,6 +78,7 @@ void BossLv1::GetDame()
 	auto particle = ParticleSystemQuad::create("Particle/explosion.plist");
 	particle->setPosition(plane->getPosition());
 	plane->getParent()->addChild(particle, 4);
+	//Define::_boss_hurt_effect = experimental::AudioEngine::play2d(Define::_boss_hurt_effect_path, false, 1.0f);
 
 	if (hp < 5)
 		isAlmostBroke = true;
@@ -134,6 +134,7 @@ void BossLv1::AddPercent(TYPE_SCORE score)
 	case PERFECT:
 		if (per + 40 >= 100)
 		{
+			experimental::AudioEngine::play2d(Define::_music_alert_effect_path, false, 1.0f);
 			mouseBar->runAction(ProgressFromTo::create(0.5, per, 100));
 			isCrazy = true;
 		}
@@ -143,6 +144,7 @@ void BossLv1::AddPercent(TYPE_SCORE score)
 	case GREAT:
 		if (per + 25 >= 100)
 		{
+			experimental::AudioEngine::play2d(Define::_music_alert_effect_path, false, 0.8f);
 			mouseBar->runAction(ProgressFromTo::create(0.5, per, 100));
 			isCrazy = true;
 		}
@@ -287,6 +289,7 @@ void BossLv1::SetState(STATE state)
 			auto func = CallFunc::create([this]()
 			{
 				drill->FireDrillCrazy();
+				Define::_music_drill_attack_effect = experimental::AudioEngine::play2d(Define::_music_drill_attack_effect_path, false, 1.0f);
 			});
 			drill->runAction(Sequence::create(DelayTime::create(1.8), func, nullptr));
 	
@@ -295,6 +298,7 @@ void BossLv1::SetState(STATE state)
 			
 			GenerateButton();
 			drill->FireDrill(); 
+			Define::_music_drill_attack_effect = experimental::AudioEngine::play2d(Define::_music_drill_attack_effect_path, false, 1.0f);
 		}
 		break;	
 	case BossLv1::GETBACKDRILL:
@@ -324,6 +328,8 @@ void BossLv1::update(float dt)
 			MyParticle::CreateBoom(_mSonic->getPosition(), _mSonic->getParent());
 			_mSonic->SetStateByTag(SonicState::FALL);
 			_mSonic->getPhysicsBody()->applyImpulse(Vec2(-300000, 150000));
+			experimental::AudioEngine::stop(_music_chao_id);
+			experimental::AudioEngine::play2d(Define::_music_sonic_chao_attack_effect_path, false, 0.8f);
 		});
 		_mSonic->runAction(Sequence::create(MoveTo::create(0.3, plane->getPosition()),func,nullptr));
 		isSonicAttack = false;
@@ -344,6 +350,8 @@ void BossLv1::update(float dt)
 					isSonicAttack = true;
 					current_multiButton->DeleteNow(true);
 					current_multiButton = nullptr;
+
+					_music_chao_id = experimental::AudioEngine::play2d(Define::_music_sonic_chao_effect_path, false, 1.5f);
 				}
 				else
 				{
