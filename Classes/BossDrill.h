@@ -6,7 +6,7 @@ class BossDrill:public Node
 public:
 	BossDrill();
 	~BossDrill();
-	int count_to_generate_dust = 0;
+	
 
 	bool isLeft = false;
 	Sprite* back_car,*front_car;
@@ -25,6 +25,7 @@ public:
 	void Break();
 
 	//void GenerateDust();
+	void GenerateDust();
 	void Flip(bool isFlip);
 	void ActiveDrill();
 	void FireDrill();

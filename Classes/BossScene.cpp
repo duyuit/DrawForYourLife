@@ -24,7 +24,7 @@ bool BossScene::init()
 	blacklayer->setScale(3);
 	blacklayer->setOpacity(100);
 
-	_mSonic->setZOrder(5);
+	_mSonic->setZOrder(8);
 	this->addChild(blacklayer,3);
 
 
@@ -103,6 +103,7 @@ cocos2d::Scene * BossScene::createScene()
 
 void BossScene::update(float)
 {
+	
 	if (_mSonic->mCurrentState->GetState() == SonicState::CHAOS)
 	{
 		test->setVisible(true);
@@ -143,9 +144,13 @@ void BossScene::update(float)
 		}
 
 	}
+	if (boss->isDelete)
+	{
+		if (danger != nullptr)
+			danger->setVisible(false);
+		blacklayer->setVisible(false);
+	}
 	
-	if (_mSonic->scene_over)
-		return;
 
 	if (_mSonic->getPosition().x < 0) _mSonic->setPosition(0, _mSonic->getPosition().y);
 	if (boss->currentState == BossLv1::RUNBACK && boss->drill->getPositionX()<_mSonic->getPositionX())
@@ -219,8 +224,8 @@ cocos2d::Scene * BossScene::createSceneArea(SCENE_AREA next_scene_area, SCENE_NA
 	scene->getPhysicsWorld()->setGravity(Vec2(0, -1000));
 
 	// optional: set debug draw
-//	scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
-	scene->getPhysicsWorld()->step(1 / 60.0f);
+	/*scene->getPhysicsWorld()->setDebugDrawMask(0xffff);
+	scene->getPhysicsWorld()->step(1 / 60.0f);*/
 
 	auto layer = BossScene::create();
 	scene->addChild(layer);

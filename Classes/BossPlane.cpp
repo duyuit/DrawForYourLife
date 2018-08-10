@@ -70,7 +70,7 @@ void BossPlane::ActiveWing(bool on)
 	if (on)
 	{
 	//	wing->runAction(MoveBy::create(1, Vec2(0, 50)));
-		Flip(false);
+		//Flip(false);
 
 	/*	face->getPhysicsBody()->setContactTestBitmask(0);
 		face->getPhysicsBody()->setCollisionBitmask(0);*/
@@ -115,8 +115,8 @@ void BossPlane::Break()
 {
 	ActiveWing(true);
 
-	
-	auto action = Sequence::create(MoveBy::create(1, Vec2(0, 200)),DelayTime::create(1), MoveBy::create(3, Vec2(-1000, 500)),nullptr);
+	Flip(false);
+	auto action = Sequence::create(MoveBy::create(1, Vec2(0, 200)),DelayTime::create(1), MoveBy::create(3, Vec2(-1500, 500)),nullptr);
 	this->runAction(action);
 
 }
@@ -199,16 +199,19 @@ void BossPlane::Flip(bool isFlip)
 	if (isFlip)
 	{
 		back->setAnchorPoint(Vec2(1, 1));
-		back->setPosition(back->getPosition() + Vec2(back->getContentSize().width,0));
+		back->setPosition(back->getPosition() + Vec2(back->getContentSize().width-15,0));
 	/*	front->setPosition(front->getPosition() + Vec2(front->getContentSize().width+20, 0));
 		wing->setPosition(wing->getPosition() + Vec2(wing->getContentSize().width-30, 0));
 		face->setPosition(face->getPosition() + Vec2(face->getContentSize().width-65, 0));*/
-
+		front->setPosition(-46 + 130, -26);
+		face->setPosition(17 + 20, -14 - face->getContentSize().height);
 	}
 	else
 	{
 		back->setAnchorPoint(Vec2(0, 1));
 		back->setPosition(0,0);
+		front->setPosition(-46, -26);
+		face->setPosition(17, -14 - face->getContentSize().height);
 	}
 
 	face->setFlipX(isFlip);

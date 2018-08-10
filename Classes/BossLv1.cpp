@@ -60,7 +60,6 @@ BossLv1::BossLv1(Vec2 pos , Sonic* sonic, Layer* layer)
 
 
 
-	
 
 
 	
@@ -84,7 +83,11 @@ void BossLv1::GetDame()
 		isAlmostBroke = true;
 	if (hp == 0)
 	{
+		experimental::AudioEngine::stopAll();
+		experimental::AudioEngine::play2d(Define::_music_boss_finish_effect_path, false, 1.0f);
+		_mSonic->isFinish = true;
 		Broke();
+		plane->face->getPhysicsBody()->setContactTestBitmask(0);
 		return;
 	}
 	/*auto action = TintTo::create(0.2, Color3B::WHITE);
@@ -319,6 +322,16 @@ void BossLv1::SetState(STATE state)
 
 void BossLv1::update(float dt)
 {
+	count_to_change_state++;
+	if (count_to_change_state % 20 == 0)
+	{
+		if(!isDelete)
+		drill->GenerateDust();
+		if( isAlmostBroke)
+		drill->AlmostBreak();
+		
+	}
+
 	if (isDelete) return;
 	if (_mSonic->mCurrentState->GetState() == SonicState::CHAOS && _mSonic->CheckLastFrame() && isSonicAttack)
 	{
@@ -505,7 +518,7 @@ void BossLv1::update(float dt)
 			_mSonic->isLeft = true;
 		else _mSonic->isLeft = false;
 	}
-	count_to_change_state++;
+	
 	switch (currentState)
 	{
 	case BossLv1::RUNBACK:
@@ -546,8 +559,7 @@ void BossLv1::update(float dt)
 		break;
 	}
 
-	if (count_to_change_state % 20 == 0 && isAlmostBroke)
-		drill->AlmostBreak();
+
 
 
 	//if (count_to_change_state == 60*6)
