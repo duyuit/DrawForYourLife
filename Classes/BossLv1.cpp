@@ -60,7 +60,6 @@ BossLv1::BossLv1(Vec2 pos , Sonic* sonic, Layer* layer)
 
 
 
-	
 
 
 
@@ -84,6 +83,7 @@ void BossLv1::GetDame()
 		isAlmostBroke = true;
 	if (hp == 0)
 	{
+		_mSonic->isFinish = true;
 		Broke();
 		plane->face->getPhysicsBody()->setContactTestBitmask(0);
 		return;

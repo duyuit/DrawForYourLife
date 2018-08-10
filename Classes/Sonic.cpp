@@ -5,6 +5,8 @@
 #include "FinishFlag.h"
 #include "Monster.h"
 #include "Coconut_Monkey.h"
+#include "BossLv1.h"
+#include "LevelScene.h"
 
 Sonic::Sonic()
 {
@@ -98,7 +100,6 @@ Sonic::Sonic()
 
 	SwapAllAni();//Bug fix:Hao super Lag when Sonic change to red
 
-	
 	//autorelease();
 }
 
@@ -420,7 +421,7 @@ void Sonic::SetState(SonicState * state)
 		break;
 	case SonicState::DIE:
 		
-		this->stopAllActions();
+		//this->stopAllActions();
 		this->getPhysicsBody()->removeFromWorld();
 		
 		/*auto restart_scene = CallFunc::create([this]()
@@ -582,27 +583,32 @@ void Sonic::HandleCollision(Sprite * sprite)
 	else if (sprite->getTag() == Define::DRILL && mCurrentState->GetState()!=SonicState::HURT)
 	{
 		this->SetStateByTag(SonicState::HURT);
-		//this->runAction(Sequence::create(DelayTime::create(1), Blink::create(2, 10), nullptr));
-		this->runAction(Blink::create(1, 4));
-		
-		if (ringCollected > 0)
+		hp--;
+		if (hp <= 0)
 		{
-			Define::_music_drop_ring_effect = experimental::AudioEngine::play2d(Define::_music_drop_ring_effect_path, false, 0.8f);
-
-			int t = ringCollected; //Temp variable
-			for (int i = 0; i < (t / 2); i++)
-			{
-				runAction(CallFuncN::create(CC_CALLBACK_0(Sonic::DropRing, this)));
-				ringCollected--;
-			}
+			isGameOver = true;
+			auto boss_temp = (BossLv1*)boss;
+			boss_temp->isCrazy = false;
+			boss_temp->unscheduleUpdate();
+			this->SetStateByTag(SonicState::DIE);
 		}
+		
+	
 	}
 	else if (sprite->getTag() == Define::MISSLE)
 	{
 		if (mCurrentState->GetState() != SonicState::HURT && mCurrentState->GetState() != SonicState::ROLL_CHEST &&mCurrentState->GetState() != SonicState::FALL)
 		{
 			SetStateByTag(SonicState::HURT);
-
+			hp--;
+			if (hp <= 0)
+			{
+				isGameOver = true;
+				auto boss_temp = (BossLv1*)boss;
+				boss_temp->isCrazy = false;
+				boss_temp->unscheduleUpdate();
+				this->SetStateByTag(SonicState::DIE);
+			}
 			MyParticle::CreateBoom(sprite->getPosition(), sprite->getParent());
 			sprite->runAction(RemoveSelf::create());
 		}

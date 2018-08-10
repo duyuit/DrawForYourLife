@@ -101,6 +101,7 @@ void BossDrill::AlmostBreak()
 
 void BossDrill::Break()
 {
+	
 	back_car->initWithFile("Monster/Boss/broken_car.png");
 	back_car->setAnchorPoint(Vec2(0, 1));
 	if (!isLeft)
@@ -115,6 +116,9 @@ void BossDrill::Break()
 
 	front_car->setVisible(false);
 	drill->runAction(RemoveSelf::create());
+	chain1->runAction(RemoveSelf::create());
+	chain2->runAction(RemoveSelf::create());
+	chain3->runAction(RemoveSelf::create());
 }
 
 //void BossDrill::GenerateDust()

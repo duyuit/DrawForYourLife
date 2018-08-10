@@ -81,6 +81,7 @@ public:
 	void ActiveButton(BUTTON_TAG dir);
 	BUTTON_TAG mJustTap = NONE;
 
+	int hp = 5;
 	int count_to_reset_just_tap = 0;
 	Sprite* _roll_circle = nullptr;
 	Sprite* _roll_effect = nullptr;

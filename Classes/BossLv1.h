@@ -19,7 +19,7 @@ public:
 	void GenerateMultiButton();
 	BossLv1(Vec2 pos,Sonic* sonic, Layer* layer);
 	~BossLv1();
-	int hp =3;
+	int hp =10;
 	bool isAlmostBroke = false;
 	bool isLeft = false;
 	bool isDelete = false;
