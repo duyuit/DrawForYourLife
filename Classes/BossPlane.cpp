@@ -30,7 +30,7 @@ BossPlane::BossPlane()
 
 
 	
-	wing = Sprite::create("Monster/Boss/Wing.png", Rect(0, 0, 408, 36));
+	wing = Sprite::create("Monster/Boss/fan.png", Rect(0, 0, 408, 36));
 	//wing->setAnchorPoint(Vec2(0.91, 0.783));
 	wing->setAnchorPoint(Vec2(0.5,0));
 	wing->setPosition(100, 0);
